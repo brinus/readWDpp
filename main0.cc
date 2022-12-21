@@ -20,7 +20,7 @@ int main(void)
     file >> tag;
     cout << tag << endl; // C001
 
-    float times[SAMPLES_PER_WAVEFORM], scaler;
+    float times[SAMPLES_PER_WAVEFORM];
     file.Read(times);
 
     cout << "times..." << endl << endl;

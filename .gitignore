@@ -34,3 +34,8 @@
 .vscode
 .DS_Store
 readWD
+
+# Tests
+main0
+main1
+main3

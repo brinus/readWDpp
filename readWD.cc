@@ -2,10 +2,15 @@
 
 using namespace std;
 
-template <class T>
-DAQFile &operator>>(DAQFile &file, T &t) // DAQFile >> T
+DAQFile &operator>>(DAQFile &file, TAG &t) // DAQFile >> T
 {
     file.Read(t);
+    return file;
+}
+
+DAQFile &operator>>(DAQFile &file, EventHeader &eh) // DAQFile >> T
+{
+    file.Read(eh);
     return file;
 }
 

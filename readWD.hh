@@ -103,8 +103,8 @@ private:
 
 // FUNCTIONS
 
-template <class T>
-DAQFile &operator>>(DAQFile &, T &);
+DAQFile &operator>>(DAQFile &, TAG &);
+DAQFile &operator>>(DAQFile &, EventHeader &);
 
 std::ostream &operator<<(std::ostream &, const TAG &);
 std::ostream &operator<<(std::ostream &, const EventHeader &);

@@ -34,49 +34,64 @@ struct EventHeader
 
 class DAQEvent
 {
+    using MAP = std::map<std::string, std::map<std::string, std::vector<float>>>;
+
 public:
-    void TimeCalibration();
     DAQEvent GetChannel(const int &);
+
     float GetCharge();
     float GetAmplitude();
     float GetPedestal();
+
+
+    // Dovrebbero essere protetti
     void CreateBoard(const TAG &);
-    void Time(float *);
+    void CreateChannel(const TAG &, const TAG &);
+    void SetTime(const std::vector<float> &);
+    void TimeCalibration();
+
+    MAP GetTimeMap() const { return times_; };
+    MAP GetVoltMap() const { return volts_; };
 
 private:
+
     unsigned int trigger_;
-    float timeCal_[SAMPLES_PER_WAVEFORM];
-    float voltages_[SAMPLES_PER_WAVEFORM];
-    std::map<std::string, std::vector<float *>> times_;
-    std::map<std::string, std::vector<float *>> volts_;
+    MAP times_;
+    MAP volts_;
 };
 
 class DAQFile
 {
 public:
-    DAQFile() { o_ = 'B'; };
+    DAQFile(){};
     DAQFile(const std::string &filename)
     {
+        filename_ = filename;
         in_.open(filename, std::ios::in | std::ios::binary);
-        o_ = 'B';
+        std::cout << "Created DAQFile, opened file " << filename << std::endl;
     }
     ~DAQFile() { in_.close(); }
 
+    template <class T>
+    void Read(T &t) { in_.read((char *)&t, sizeof(t)); }
     void Read(TAG &t)
     {
         in_.read(t.tag, 4);
         n_ = t.tag[0];
     }
-    template <class T>
-    void Read(T &t) { in_.read((char *)&t, sizeof(t)); }
-    void ResetTag() { in_.seekg(-4, in_.cur); }
+    void Read(std::vector<float> &vec);
+
     void Initialise(DAQEvent &);
 
+private:
     operator bool();
 
-private:
-    char o_, n_;
+    void ResetTag() { in_.seekg(-4, in_.cur); }
+
+    std::string filename_;
     std::ifstream in_;
+    char o_, n_;
+    bool initialization_;
 };
 
 class DAQFiles

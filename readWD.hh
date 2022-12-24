@@ -97,23 +97,25 @@ private:
 class DAQFiles
 {
     using strvec_t = std::vector<std::string>;
-    using iterator = strvec_t::iterator;
-    using const_iterator = strvec_t::const_iterator;
+    using DAQvec_t = std::vector<DAQFile *>;
+    using iterator = DAQvec_t::iterator;
+    using const_iterator = DAQvec_t::const_iterator;
 
 public:
     DAQFiles(){};
-    DAQFiles(const strvec_t &filenames) : filenames_(filenames){};
+    DAQFiles(const strvec_t &filenames);
     ~DAQFiles(){};
 
-    iterator begin() { return filenames_.begin(); }
-    iterator end() { return filenames_.end(); }
-    const_iterator begin() const { return filenames_.begin(); }
-    const_iterator end() const { return filenames_.end(); }
-    const_iterator cbegin() const { return filenames_.cbegin(); }
-    const_iterator cend() const { return filenames_.cend(); }
+    iterator begin() { return files_.begin(); }
+    iterator end() { return files_.end(); }
+    const_iterator begin() const { return files_.begin(); }
+    const_iterator end() const { return files_.end(); }
+    const_iterator cbegin() const { return files_.cbegin(); }
+    const_iterator cend() const { return files_.cend(); }
 
 private:
     strvec_t filenames_;
+    DAQvec_t files_;
 };
 
 // FUNCTIONS

@@ -163,3 +163,12 @@ void DAQFile::Read(vector<float> &vec)
     return;
 }
 
+DAQFiles::DAQFiles(const vector<string> &filenames)
+{
+    filenames_ = filenames;
+    for (auto filename : filenames)
+    {
+        DAQFile * file = new DAQFile(filename);
+        files_.push_back(file);
+    }
+}

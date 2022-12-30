@@ -63,7 +63,6 @@ private:
 class DAQFile
 {
 public:
-    DAQFile(){};
     DAQFile(const std::string &filename)
     {
         filename_ = filename;
@@ -82,6 +81,7 @@ public:
     void Read(std::vector<float> &vec);
 
     void Initialise(DAQEvent &);
+    void Close();
 
 private:
     operator bool();

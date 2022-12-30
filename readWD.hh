@@ -23,7 +23,7 @@ struct TAG
 
  @details The event header is written as follows on .dat files deriving from the DRS/WDB 
 
- Inserire tabella...
+ Inserire tabella... aaa
  
  */
 struct EventHeader

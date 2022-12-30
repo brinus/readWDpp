@@ -119,9 +119,15 @@ void DAQEvent::CreateChannel(const TAG &tBoard, const TAG &tag)
 
 void DAQFile::Initialise(DAQEvent &event)
 {
-    if (not in_.is_open())
+    if (!in_.is_open())
     {
         cerr << "!! Error: file not open --> use DAQFile(filename)" << endl;
+        return;
+    }
+
+    if (in_.tellg() != 0 )
+    {
+        cerr << "!! Error: file already initialized --> ???" << endl;
         return;
     }
 
@@ -160,6 +166,12 @@ void DAQFile::Read(vector<float> &vec)
     {
         in_.read((char *)&vec.at(i), sizeof(float));
     }
+    return;
+}
+
+void DAQFile::Close()
+{
+    in_.close();
     return;
 }
 

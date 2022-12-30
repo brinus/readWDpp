@@ -40,6 +40,10 @@ struct EventHeader
     unsigned short rangeCenter;
 };
 
+/*!
+ @brief Another class
+ 
+ */
 class DAQEvent
 {
     using MAP = std::map<std::string, std::map<std::string, std::vector<float>>>;

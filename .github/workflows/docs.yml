@@ -35,7 +35,7 @@ jobs:
         uses: actions/download-artifact@v2 
         with:
           name: doc-files
-          path: docDir
+          path: docs
 
       - name: Commit changes
         uses: EndBug/add-and-commit@v7

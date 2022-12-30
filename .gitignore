@@ -34,6 +34,7 @@
 .vscode
 .DS_Store
 readWD
+html
 
 # Tests
 main0

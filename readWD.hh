@@ -18,6 +18,14 @@ struct TAG
     char tag[5];
 };
 
+/*!
+ @brief Struct to contain the event header informations.
+
+ @details The event header is written as follows on .dat files deriving from the DRS/WDB 
+
+ Inserire tabella...
+ 
+ */
 struct EventHeader
 {
     char tag[4];

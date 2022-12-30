@@ -1,34 +1,32 @@
-# This is a basic workflow to help you get started with Actions
+name: Documentation
 
-name: docs
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
 on:
   push:
-    branches: [ "main" ]
-
-env:
-  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
-  BUILD_TYPE: Release
+    branches: [ main ]
 
 jobs:
-  build:
-    # The CMake configure and build commands are platform agnostic and should work equally well on Windows or Mac.
-    # You can convert this to a matrix build if you need cross-platform coverage.
-    # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
+  build-documentation:
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
-
-    - name: Doxygenize
-      # You may pin to the exact commit or the version.
-      # uses: langroodi/doxygenize@3561c1a509bc53ac3bd032430b89d610dd44f02f
-      uses: DenverCoder1/doxygen-github-pages-action@v1
+    
+    # Build the HTML documentation
+    - name: Doxygen Action
+      uses: mattnotmitt/doxygen-action@v1.1.0
       with:
-        # Doxygen configuration file path
-        doxygenconf: ./Doxyfile
-        # Generated HTML documents output folder
-        htmloutput: ./
-        # GitHub Pages branch name
-        ghpagesbranch: docs
-        # GitHub Pages directory path
-        ghpagesdir: ./
+          doxyfile-path: ./Doxyfile
+          working-directory: .
+    
+    # Deploy the HTML documentation to GitHub Pages
+    - name: GH Pages Deployment
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./doc/html/
+        enable_jekyll: false
+        allow_empty_commit: false
+        force_orphan: true
+        publish_branch: gh-pages

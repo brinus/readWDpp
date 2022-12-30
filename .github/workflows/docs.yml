@@ -20,8 +20,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: doc-files
-        path: docs 
-        retention-days: 1
+        path: ./docs 
   copy:
     runs-on: ubuntu-latest
     needs: build
@@ -35,7 +34,7 @@ jobs:
         uses: actions/download-artifact@v2 
         with:
           name: doc-files
-          path: docs
+          path: ./docs
 
       - name: Commit changes
         uses: EndBug/add-and-commit@v7

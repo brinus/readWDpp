@@ -2,18 +2,6 @@
 
 using namespace std;
 
-DAQFile &operator>>(DAQFile &file, TAG &t) // DAQFile >> T
-{
-    file.Read(t);
-    return file;
-}
-
-DAQFile &operator>>(DAQFile &file, EventHeader &eh) // DAQFile >> T
-{
-    file.Read(eh);
-    return file;
-}
-
 ostream &operator<<(ostream &o, const TAG &tag) // cout << TAG
 {
     if (tag.tag[0] == 'B')
@@ -40,37 +28,9 @@ ostream &operator<<(ostream &o, const EventHeader &eh) // cout << EventHeader
     return o;
 }
 
-DAQFile::operator bool()
+void DAQEvent::SetTrigger(const unsigned short &trig)
 {
-    map<char, char> header{{'E', 'B'},{'B', 'C'},{'C','E'}};
-    if (in_.eof())
-    {
-        return 0;
-    }
-    else if (n_ != 'B' and n_ != 'C' and n_ != 'E')
-    {
-        cerr << "!! Error --> Unexpected tag" << endl;
-        return 0;
-    }
-    else if (n_ == o_) return 1;
-    else if (n_ == header[o_])
-    {
-        if (n_ == 'E' and !initialization_)
-        {
-            cout << "Initialization done --> EHDR next" << endl;
-            initialization_ = 1;
-            o_ = 'B';
-            return 0;
-        }
-        o_ = n_;
-        return 1;
-    }
-    else if (o_ == 'C' and n_ == 'B')
-    {
-        o_ = n_;
-        return 1;
-    }
-    return 0;
+    trigger_ = trig;
 }
 
 void DAQEvent::SetTime(const vector<float> &times)
@@ -80,6 +40,20 @@ void DAQEvent::SetTime(const vector<float> &times)
         if (!times_.rbegin()->second.empty())
         {
             times_.rbegin()->second.rbegin()->second = std::move(times);
+        }
+    }
+    return;
+}
+
+void DAQEvent::SetVolts(const TAG &tBoard, const TAG &tChannel, const vector<float> &volts)
+{
+    if (!volts_.empty())
+    {
+        if (!volts_.rbegin()->second.empty())
+        {
+            string board{"B#" + to_string(*(short *)(tBoard.tag + 2))};
+            string channel{tChannel.tag};
+            volts_[board][channel] = std::move(volts);
         }
     }
     return;
@@ -125,7 +99,7 @@ void DAQFile::Initialise(DAQEvent &event)
         return;
     }
 
-    if (in_.tellg() != 0 )
+    if (in_.tellg() != 0)
     {
         cerr << "!! Error: file already initialized --> ???" << endl;
         return;
@@ -133,14 +107,15 @@ void DAQFile::Initialise(DAQEvent &event)
 
     DAQFile &file = *this;
     TAG bTag, cTag;
-    vector<float> times(SAMPLES_PER_WAVEFORM, -1);
+    vector<float> times(SAMPLES_PER_WAVEFORM);
 
     cout << "Initializing file " << filename_ << endl;
 
-    file >> bTag >> cTag; // DRSx - TIME
+    file >> bTag; // DRSx
+    file >> cTag; // TIME
     cout << bTag << endl
          << cTag << endl;
-    
+
     o_ = 'B';
     initialization_ = 0;
     while (file >> bTag) // B#?
@@ -160,11 +135,26 @@ void DAQFile::Initialise(DAQEvent &event)
     return;
 }
 
+void DAQFile::Read(EventHeader &eh)
+{
+    in_.read((char *)&eh, sizeof(eh));
+    n_ = eh.tag[0];
+}
+
 void DAQFile::Read(vector<float> &vec)
 {
     for (int i = 0; i < vec.size(); ++i)
     {
         in_.read((char *)&vec.at(i), sizeof(float));
+    }
+    return;
+}
+
+void DAQFile::Read(vector<unsigned short> &vec)
+{
+    for (int i = 0; i < vec.size(); ++i)
+    {
+        in_.read((char *)&vec.at(i), sizeof(unsigned short));
     }
     return;
 }
@@ -175,12 +165,138 @@ void DAQFile::Close()
     return;
 }
 
+bool DAQFile::operator>>(TAG &t) // DAQFile >> TAG
+{
+    if (!in_.good())
+    {
+        return 0;
+    }
+    this->Read(t);
+    return *this;
+}
+
+bool DAQFile::operator>>(EventHeader &eh) // DAQFile >> EventHeader
+{
+    if (!in_.good())
+    {
+        return 0;
+    }
+    this->Read(eh);
+    return *this;
+}
+
+bool DAQFile::operator>>(DRSEvent &event) // DAQFile >> DRSEvent
+{
+    if (!in_.good())
+    {
+        return 0;
+    }
+
+    DAQFile &file = *this;
+    TAG bTag, cTag, tag;
+    EventHeader eh;
+    vector<unsigned short> volts(SAMPLES_PER_WAVEFORM);
+    vector<float> volts_corr(SAMPLES_PER_WAVEFORM);
+
+    // Read only one event
+    file >> eh;
+    if (eh.serialNumber % 100 == 0)
+    {
+        cout << "Event serial number: " << eh.serialNumber << endl;
+    }
+    while (file >> bTag)
+    {
+        file >> tag; // Trigger cell
+        event.SetTrigger(*(unsigned short *)(tag.tag + 2));
+        while (file >> cTag)
+        {
+            file >> tag; // Time scaler
+            file.Read(volts);
+            for (int i = 0; i < volts.size(); ++i)
+            {
+                volts_corr[i] = volts[i] / 65536. + eh.rangeCenter / 1000. - 0.5; 
+            }
+            event.SetVolts(bTag, cTag, volts_corr);
+        }
+        file.ResetTag();
+    }
+    file.ResetTag();
+    return 1;
+}
+
+bool DAQFile::operator>>(WDBEvent &event) // DAQFile >> WDBEvent
+{
+    if (!in_.good())
+    {
+        return 0;
+    }
+
+    DAQFile &file = *this;
+    TAG bTag, cTag, tag;
+    EventHeader eh;
+    vector<unsigned short> volts(SAMPLES_PER_WAVEFORM);
+    vector<float> volts_corr(SAMPLES_PER_WAVEFORM);
+
+    // Read only one event
+    file >> eh;
+    if (eh.serialNumber % 100 == 0)
+    {
+        cout << "Event serial number: " << eh.serialNumber << endl;
+    }
+    while (file >> bTag)
+    {
+        while (file >> cTag)
+        {
+            file >> tag; // Time scaler
+            file >> tag; // Trigger cell
+            event.SetTrigger(*(unsigned short *)(tag.tag + 2));
+            file.Read(volts);
+            for (int i = 0; i < volts.size(); ++i)
+            {
+                volts_corr[i] = volts[i] / 65536. + eh.rangeCenter / 1000. - 0.5; 
+            }
+            event.SetVolts(bTag, cTag, volts_corr);
+        }
+        file.ResetTag();
+    }
+    file.ResetTag();
+    return 1;
+}
+
+DAQFile::operator bool()
+{
+    map<char, char> header{{'E', 'B'}, {'B', 'C'}, {'C', 'B'}};
+    if (!in_.good())
+    {
+        cout << "End of file reached" << endl;
+        return 0;
+    }
+    else if (n_ == 'T' or n_ == 'D') // Ignores DRSx and TIME
+    {
+        return 0;
+    }
+    else if (n_ == o_) // C --> C, B --> B
+        return 1;
+    else if (n_ == header[o_]) // E --> B, B --> C, C --> B
+    {
+        o_ = n_;
+        return 1;
+    }
+    else if (n_ == 'E' and initialization_ == 0) // End of initialization, first EHDR
+    {
+        cout << "Initialization done --> EHDR next" << endl;
+        initialization_ = 1;
+        return 0;
+    }
+    return 0;
+}
+
 DAQFiles::DAQFiles(const vector<string> &filenames)
 {
     filenames_ = filenames;
     for (auto filename : filenames)
     {
-        DAQFile * file = new DAQFile(filename);
+        DAQFile *file = new DAQFile(filename);
         files_.push_back(file);
     }
 }

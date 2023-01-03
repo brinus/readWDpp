@@ -21,10 +21,10 @@ struct TAG
 /*!
  @brief Struct to contain the event header informations.
 
- @details The event header is written as follows on .dat files deriving from the DRS/WDB 
+ @details The event header is written as follows on .dat files deriving from the DRS/WDB
 
  Inserire tabella... aaa
- 
+
  */
 struct EventHeader
 {
@@ -42,7 +42,7 @@ struct EventHeader
 
 /*!
  @brief Another class
- 
+
  */
 class DAQEvent
 {
@@ -55,21 +55,29 @@ public:
     float GetAmplitude();
     float GetPedestal();
 
-
     // Dovrebbero essere protetti
     void CreateBoard(const TAG &);
     void CreateChannel(const TAG &, const TAG &);
+    void SetTrigger(const unsigned short &);
     void SetTime(const std::vector<float> &);
+    void SetVolts(const TAG &, const TAG &, const std::vector<float> &);
     void TimeCalibration();
 
     MAP GetTimeMap() const { return times_; };
     MAP GetVoltMap() const { return volts_; };
 
 private:
-
-    unsigned int trigger_;
+    unsigned short trigger_;
     MAP times_;
     MAP volts_;
+};
+
+class DRSEvent : public DAQEvent
+{
+};
+
+class WDBEvent : public DAQEvent
+{
 };
 
 class DAQFile
@@ -90,14 +98,20 @@ public:
         in_.read(t.tag, 4);
         n_ = t.tag[0];
     }
-    void Read(std::vector<float> &vec);
+    void Read(EventHeader &);
+    void Read(std::vector<float> &);
+    void Read(std::vector<unsigned short> &);
 
     void Initialise(DAQEvent &);
     void Close();
 
-private:
     operator bool();
+    bool operator>>(DRSEvent &);
+    bool operator>>(WDBEvent &);
+    bool operator>>(TAG &);
+    bool operator>>(EventHeader &);
 
+private:
     void ResetTag() { in_.seekg(-4, in_.cur); }
 
     std::string filename_;
@@ -131,9 +145,6 @@ private:
 };
 
 // FUNCTIONS
-
-DAQFile &operator>>(DAQFile &, TAG &);
-DAQFile &operator>>(DAQFile &, EventHeader &);
 
 std::ostream &operator<<(std::ostream &, const TAG &);
 std::ostream &operator<<(std::ostream &, const EventHeader &);

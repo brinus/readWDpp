@@ -7,6 +7,7 @@
 #include <vector>
 #include <iterator>
 #include <map>
+#include <numeric>
 
 #define SAMPLES_PER_WAVEFORM 1024
 
@@ -49,27 +50,29 @@ class DAQEvent
     using MAP = std::map<std::string, std::map<std::string, std::vector<float>>>;
 
 public:
-    DAQEvent GetChannel(const int &);
+    std::vector<float> GetChannel(const int &);
 
     float GetCharge();
     float GetAmplitude();
     float GetPedestal();
 
-    // Dovrebbero essere protetti
+    MAP GetTimeMap() const { return times_; };
+    MAP GetCorrTimeMap() const { return times_corr_; }
+    MAP GetVoltMap() const { return volts_; };
+
+private:
+    void TimeCalibration(const unsigned short &);
     void CreateBoard(const TAG &);
     void CreateChannel(const TAG &, const TAG &);
     void SetTrigger(const unsigned short &);
     void SetTime(const std::vector<float> &);
     void SetVolts(const TAG &, const TAG &, const std::vector<float> &);
-    void TimeCalibration();
 
-    MAP GetTimeMap() const { return times_; };
-    MAP GetVoltMap() const { return volts_; };
-
-private:
     unsigned short trigger_;
-    MAP times_;
+    MAP times_, times_corr_;
     MAP volts_;
+
+    friend class DAQFile;
 };
 
 class DRSEvent : public DAQEvent
@@ -91,6 +94,17 @@ public:
     }
     ~DAQFile() { in_.close(); }
 
+    void Initialise(DAQEvent &);
+    void Close();
+
+    bool operator>>(DRSEvent &);
+    bool operator>>(WDBEvent &);
+    bool operator>>(TAG &);
+    bool operator>>(EventHeader &);
+
+private:
+    operator bool();
+
     template <class T>
     void Read(T &t) { in_.read((char *)&t, sizeof(t)); }
     void Read(TAG &t)
@@ -101,47 +115,12 @@ public:
     void Read(EventHeader &);
     void Read(std::vector<float> &);
     void Read(std::vector<unsigned short> &);
-
-    void Initialise(DAQEvent &);
-    void Close();
-
-    operator bool();
-    bool operator>>(DRSEvent &);
-    bool operator>>(WDBEvent &);
-    bool operator>>(TAG &);
-    bool operator>>(EventHeader &);
-
-private:
     void ResetTag() { in_.seekg(-4, in_.cur); }
 
     std::string filename_;
     std::ifstream in_;
     char o_, n_;
     bool initialization_;
-};
-
-class DAQFiles
-{
-    using strvec_t = std::vector<std::string>;
-    using DAQvec_t = std::vector<DAQFile *>;
-    using iterator = DAQvec_t::iterator;
-    using const_iterator = DAQvec_t::const_iterator;
-
-public:
-    DAQFiles(){};
-    DAQFiles(const strvec_t &filenames);
-    ~DAQFiles(){};
-
-    iterator begin() { return files_.begin(); }
-    iterator end() { return files_.end(); }
-    const_iterator begin() const { return files_.begin(); }
-    const_iterator end() const { return files_.end(); }
-    const_iterator cbegin() const { return files_.cbegin(); }
-    const_iterator cend() const { return files_.cend(); }
-
-private:
-    strvec_t filenames_;
-    DAQvec_t files_;
 };
 
 // FUNCTIONS

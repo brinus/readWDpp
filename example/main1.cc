@@ -6,7 +6,7 @@ using MAP = map<string, map<string, vector<float>>>;
 int main(void)
 {
     DAQFile file("test/testWDB.dat");
-    DAQEvent event;
+    WDBEvent event;
     file.Initialise(event);
 
     // Let's see what's in TIME
@@ -17,16 +17,21 @@ int main(void)
     MAP times = event.GetTimeMap();
 
     cout << "times.size() = " << times.size() << endl;
-    for (auto it1 : times)
+    for (auto& [board_key, board] : times)
     {
-        cout << it1.first << ":" << endl;
-        cout << "times[" << it1.first << "].size() = " << it1.second.size() << endl;
-        for (auto it2 : it1.second)
+        cout << board_key << endl;
+        for (auto& [channel_key, channel] : board)
         {
-            cout << " --> " << it2.first << " : " << it2.second.size() << endl;
-            for (int i = 0; i < it2.second.size(); i += 100)
+            cout << channel_key << endl;
+            int i = 0;
+            for (auto& val : channel)
             {
-                cout << i << ": " << it2.second.at(i) << endl;
+                if ( i < 5 )
+                {
+                    cout << val << endl;
+                }
+                ++i;
+
             }
         }
     }

@@ -1,7 +1,6 @@
 #include "../readWD.hh"
 
 using namespace std;
-using MAPv = std::map<std::string, std::map<std::string, std::vector<float>>>;
 
 int main(void)
 {

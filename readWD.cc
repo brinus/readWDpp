@@ -30,6 +30,7 @@ ostream &operator<<(ostream &o, const EventHeader &eh) // cout << EventHeader
 
 void DAQEvent::SetTrigger(const unsigned short &trig)
 {
+    this->TimeCalibration(trig);
     trigger_ = trig;
 }
 
@@ -59,12 +60,47 @@ void DAQEvent::SetVolts(const TAG &tBoard, const TAG &tChannel, const vector<flo
     return;
 }
 
+void DAQEvent::TimeCalibration(const unsigned short &tCell)
+{
+    float t1, t2, dt;
+
+    // Time sum
+    for (auto &[board_tag, board] : times_)
+    {
+        for (auto &[channel_tag, times] : board)
+        {
+            rotate(times.begin(), times.begin() + tCell, times.end());
+            partial_sum(times.begin(), times.end(), times.begin());
+        }
+    }
+
+    // Time alignement
+    for (auto &[board_tag, board] : times_)
+    {
+        t1 = -1.;
+        for (auto &[channel_tag, channel] : board)
+        {
+            if (t1 == -1.)
+            {
+                t1 = channel[(1024 - tCell) % 1024];
+            }
+            else
+            {
+                t2 = channel[(1024 - tCell) % 1024];
+                dt = t1 - t2;
+                for_each(channel.begin(), channel.end(), [&](float& val){val += dt;});
+            }
+        }
+    }
+}
+
 void DAQEvent::CreateBoard(const TAG &tag)
 {
     if (tag.tag[0] == 'B' and tag.tag[1] == '#')
     {
         string board{"B#" + to_string(*(short *)(tag.tag + 2))};
         times_[board] = {};
+        times_corr_[board] = {};
         volts_[board] = {};
         return;
     }
@@ -84,6 +120,7 @@ void DAQEvent::CreateChannel(const TAG &tBoard, const TAG &tag)
     {
         string channel{tag.tag};
         times_[board][channel] = {};
+        times_corr_[board][channel] = {};
         volts_[board][channel] = {};
         return;
     }
@@ -214,7 +251,7 @@ bool DAQFile::operator>>(DRSEvent &event) // DAQFile >> DRSEvent
             file.Read(volts);
             for (int i = 0; i < volts.size(); ++i)
             {
-                volts_corr[i] = volts[i] / 65536. + eh.rangeCenter / 1000. - 0.5; 
+                volts_corr[i] = volts[i] / 65536. + eh.rangeCenter / 1000. - 0.5;
             }
             event.SetVolts(bTag, cTag, volts_corr);
         }
@@ -253,7 +290,7 @@ bool DAQFile::operator>>(WDBEvent &event) // DAQFile >> WDBEvent
             file.Read(volts);
             for (int i = 0; i < volts.size(); ++i)
             {
-                volts_corr[i] = volts[i] / 65536. + eh.rangeCenter / 1000. - 0.5; 
+                volts_corr[i] = volts[i] / 65536. + eh.rangeCenter / 1000. - 0.5;
             }
             event.SetVolts(bTag, cTag, volts_corr);
         }
@@ -289,14 +326,4 @@ DAQFile::operator bool()
         return 0;
     }
     return 0;
-}
-
-DAQFiles::DAQFiles(const vector<string> &filenames)
-{
-    filenames_ = filenames;
-    for (auto filename : filenames)
-    {
-        DAQFile *file = new DAQFile(filename);
-        files_.push_back(file);
-    }
 }

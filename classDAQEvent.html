@@ -94,15 +94,13 @@ Inheritance diagram for DAQEvent:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a0b1142e42e5532ca40b7ce10aa0c6943"><td class="memItemLeft" align="right" valign="top"><a id="a0b1142e42e5532ca40b7ce10aa0c6943" name="a0b1142e42e5532ca40b7ce10aa0c6943"></a>
-std::vector&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetChannel</b> (const int &amp;)</td></tr>
-<tr class="separator:a0b1142e42e5532ca40b7ce10aa0c6943"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6e6fe78352fe8e0530a60fa8f28018a0"><td class="memItemLeft" align="right" valign="top"><a id="a6e6fe78352fe8e0530a60fa8f28018a0" name="a6e6fe78352fe8e0530a60fa8f28018a0"></a>
-std::vector&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetChannel</b> (const int &amp;, const int &amp;)</td></tr>
-<tr class="separator:a6e6fe78352fe8e0530a60fa8f28018a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a30b87d3aff834813a17f6cab39bd45b9"><td class="memItemLeft" align="right" valign="top"><a id="a30b87d3aff834813a17f6cab39bd45b9" name="a30b87d3aff834813a17f6cab39bd45b9"></a>
-std::vector&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetChannel</b> (const std::string &amp;, const std::string &amp;)</td></tr>
-<tr class="separator:a30b87d3aff834813a17f6cab39bd45b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a35647be07f4be4a97bbfb63c766d45b4"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; float &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQEvent.html#a35647be07f4be4a97bbfb63c766d45b4">GetChannel</a> (const int &amp;)</td></tr>
+<tr class="separator:a35647be07f4be4a97bbfb63c766d45b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3bcb7f393584a65e55806691d5c82423"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; float &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQEvent.html#a3bcb7f393584a65e55806691d5c82423">GetChannel</a> (const int &amp;, const int &amp;)</td></tr>
+<tr class="separator:a3bcb7f393584a65e55806691d5c82423"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad82a28dad38f3fdbd11a52f08ac8e304"><td class="memItemLeft" align="right" valign="top"><a id="ad82a28dad38f3fdbd11a52f08ac8e304" name="ad82a28dad38f3fdbd11a52f08ac8e304"></a>
+const std::vector&lt; float &gt; *&#160;</td><td class="memItemRight" valign="bottom"><b>GetChannel</b> (const std::string &amp;, const std::string &amp;)</td></tr>
+<tr class="separator:ad82a28dad38f3fdbd11a52f08ac8e304"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8d5626128e1c0aaa4844c9f2db941bc5"><td class="memItemLeft" align="right" valign="top"><a id="a8d5626128e1c0aaa4844c9f2db941bc5" name="a8d5626128e1c0aaa4844c9f2db941bc5"></a>
 float&#160;</td><td class="memItemRight" valign="bottom"><b>GetCharge</b> ()</td></tr>
 <tr class="separator:a8d5626128e1c0aaa4844c9f2db941bc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -125,8 +123,146 @@ Friends</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Another class. </p>
 
-<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00048">48</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00049">49</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a35647be07f4be4a97bbfb63c766d45b4" name="a35647be07f4be4a97bbfb63c766d45b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a35647be07f4be4a97bbfb63c766d45b4">&#9670;&#160;</a></span>GetChannel() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const vector&lt; float &gt; * DAQEvent::GetChannel </td>
+          <td>(</td>
+          <td class="paramtype">const int &amp;&#160;</td>
+          <td class="paramname"><em>channel</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00031">31</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   32</span>{</div>
+<div class="line"><span class="lineno">   33</span>    <span class="keywordflow">if</span> (volts_.size() &gt; 1)</div>
+<div class="line"><span class="lineno">   34</span>    {</div>
+<div class="line"><span class="lineno">   35</span>        <span class="keywordflow">if</span> (set_getchannelI_.find(channel) == set_getchannelI_.end())</div>
+<div class="line"><span class="lineno">   36</span>        {</div>
+<div class="line"><span class="lineno">   37</span>            cerr &lt;&lt; <span class="stringliteral">&quot;!! Error: more than a board found --&gt; Use GetChannel(int board, int channel)&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><span class="lineno">   38</span>            set_getchannelI_.insert(channel);</div>
+<div class="line"><span class="lineno">   39</span>        }</div>
+<div class="line"><span class="lineno">   40</span>        <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><span class="lineno">   41</span>    }</div>
+<div class="line"><span class="lineno">   42</span> </div>
+<div class="line"><span class="lineno">   43</span>    <span class="keywordtype">int</span> i = 0;</div>
+<div class="line"><span class="lineno">   44</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;[bKey, bVal] : volts_)</div>
+<div class="line"><span class="lineno">   45</span>    {</div>
+<div class="line"><span class="lineno">   46</span>        <span class="keywordflow">if</span> (bVal.size() - 1 &lt; channel)</div>
+<div class="line"><span class="lineno">   47</span>        {</div>
+<div class="line"><span class="lineno">   48</span>            <span class="keywordflow">if</span> (set_getchannelI_.find(channel) == set_getchannelI_.end())</div>
+<div class="line"><span class="lineno">   49</span>            {</div>
+<div class="line"><span class="lineno">   50</span>                cerr &lt;&lt; <span class="stringliteral">&quot;!! Error: channel number provided not found --&gt; Exceded maximum channel number&quot;</span> &lt;&lt; endl</div>
+<div class="line"><span class="lineno">   51</span>                     &lt;&lt; <span class="stringliteral">&quot;       passed channel number: &quot;</span> &lt;&lt; channel &lt;&lt; endl</div>
+<div class="line"><span class="lineno">   52</span>                     &lt;&lt; <span class="stringliteral">&quot;       volts[&quot;</span> &lt;&lt; bKey &lt;&lt; <span class="stringliteral">&quot;].size() = &quot;</span> &lt;&lt; bVal.size() &lt;&lt; endl;</div>
+<div class="line"><span class="lineno">   53</span>                set_getchannelI_.insert(channel);</div>
+<div class="line"><span class="lineno">   54</span>            }</div>
+<div class="line"><span class="lineno">   55</span>            <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><span class="lineno">   56</span>        }</div>
+<div class="line"><span class="lineno">   57</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;[cKey, cVal] : bVal)</div>
+<div class="line"><span class="lineno">   58</span>        {</div>
+<div class="line"><span class="lineno">   59</span>            <span class="keywordflow">if</span> (i == channel)</div>
+<div class="line"><span class="lineno">   60</span>            {</div>
+<div class="line"><span class="lineno">   61</span>                <span class="keywordflow">if</span> (set_getchannelS_.find(bKey + cKey) == set_getchannelS_.end())</div>
+<div class="line"><span class="lineno">   62</span>                {</div>
+<div class="line"><span class="lineno">   63</span>                    cout &lt;&lt; <span class="stringliteral">&quot;Obtaining data for board: &quot;</span> &lt;&lt; bKey &lt;&lt; <span class="stringliteral">&quot; channel: &quot;</span> &lt;&lt; cKey &lt;&lt; endl;</div>
+<div class="line"><span class="lineno">   64</span>                    set_getchannelS_.insert(bKey + cKey);</div>
+<div class="line"><span class="lineno">   65</span>                }</div>
+<div class="line"><span class="lineno">   66</span>                <span class="keywordflow">return</span> &amp;cVal;</div>
+<div class="line"><span class="lineno">   67</span>            }</div>
+<div class="line"><span class="lineno">   68</span>            ++i;</div>
+<div class="line"><span class="lineno">   69</span>        }</div>
+<div class="line"><span class="lineno">   70</span>    }</div>
+<div class="line"><span class="lineno">   71</span>    <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><span class="lineno">   72</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a3bcb7f393584a65e55806691d5c82423" name="a3bcb7f393584a65e55806691d5c82423"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3bcb7f393584a65e55806691d5c82423">&#9670;&#160;</a></span>GetChannel() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const vector&lt; float &gt; * DAQEvent::GetChannel </td>
+          <td>(</td>
+          <td class="paramtype">const int &amp;&#160;</td>
+          <td class="paramname"><em>board</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int &amp;&#160;</td>
+          <td class="paramname"><em>channel</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00074">74</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   75</span>{</div>
+<div class="line"><span class="lineno">   76</span>    <span class="keywordflow">if</span> (board &gt; volts_.size() - 1)</div>
+<div class="line"><span class="lineno">   77</span>    {</div>
+<div class="line"><span class="lineno">   78</span>        <span class="keywordflow">if</span> (set_getChannelII_.find(to_string(board) + <span class="stringliteral">&quot;-&quot;</span> + to_string(channel)) == set_getChannelII_.end())</div>
+<div class="line"><span class="lineno">   79</span>        {</div>
+<div class="line"><span class="lineno">   80</span>            cerr &lt;&lt; <span class="stringliteral">&quot;!! Error: board number provided not found --&gt; Exceded maximum board number&quot;</span> &lt;&lt; endl</div>
+<div class="line"><span class="lineno">   81</span>                 &lt;&lt; <span class="stringliteral">&quot;       passed board number: &quot;</span> &lt;&lt; board &lt;&lt; endl</div>
+<div class="line"><span class="lineno">   82</span>                 &lt;&lt; <span class="stringliteral">&quot;       volts.size() = &quot;</span> &lt;&lt; volts_.size() &lt;&lt; endl;</div>
+<div class="line"><span class="lineno">   83</span>            set_getChannelII_.insert(to_string(board) + <span class="stringliteral">&quot;-&quot;</span> + to_string(channel));</div>
+<div class="line"><span class="lineno">   84</span>        }</div>
+<div class="line"><span class="lineno">   85</span>        <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><span class="lineno">   86</span>    }</div>
+<div class="line"><span class="lineno">   87</span> </div>
+<div class="line"><span class="lineno">   88</span>    <span class="keywordtype">int</span> i = 0, j = 0;</div>
+<div class="line"><span class="lineno">   89</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;[bKey, bVal] : volts_)</div>
+<div class="line"><span class="lineno">   90</span>    {</div>
+<div class="line"><span class="lineno">   91</span>        <span class="keywordflow">if</span> (i == board)</div>
+<div class="line"><span class="lineno">   92</span>        {</div>
+<div class="line"><span class="lineno">   93</span>            <span class="keywordflow">if</span> (bVal.size() - 1 &lt; channel)</div>
+<div class="line"><span class="lineno">   94</span>            {</div>
+<div class="line"><span class="lineno">   95</span>                <span class="keywordflow">if</span> (set_getChannelII_.find(to_string(board) + <span class="stringliteral">&quot;-&quot;</span> + to_string(channel)) == set_getChannelII_.end())</div>
+<div class="line"><span class="lineno">   96</span>                {</div>
+<div class="line"><span class="lineno">   97</span>                    cerr &lt;&lt; <span class="stringliteral">&quot;!! Error: channel number provided not found --&gt; Exceded maximum channel number&quot;</span> &lt;&lt; endl</div>
+<div class="line"><span class="lineno">   98</span>                         &lt;&lt; <span class="stringliteral">&quot;       passed channel number: &quot;</span> &lt;&lt; channel &lt;&lt; endl</div>
+<div class="line"><span class="lineno">   99</span>                         &lt;&lt; <span class="stringliteral">&quot;       volts[&quot;</span> &lt;&lt; bKey &lt;&lt; <span class="stringliteral">&quot;].size() = &quot;</span> &lt;&lt; bVal.size() &lt;&lt; endl;</div>
+<div class="line"><span class="lineno">  100</span>                    set_getChannelII_.insert(to_string(board) + <span class="stringliteral">&quot;-&quot;</span> + to_string(channel));</div>
+<div class="line"><span class="lineno">  101</span>                }</div>
+<div class="line"><span class="lineno">  102</span>                <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><span class="lineno">  103</span>            }</div>
+<div class="line"><span class="lineno">  104</span>            <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;[cKey, cVal] : bVal)</div>
+<div class="line"><span class="lineno">  105</span>            {</div>
+<div class="line"><span class="lineno">  106</span>                <span class="keywordflow">if</span> (j == channel)</div>
+<div class="line"><span class="lineno">  107</span>                {</div>
+<div class="line"><span class="lineno">  108</span>                    <span class="keywordflow">if</span> (set_getchannelS_.find(bKey + cKey) == set_getchannelS_.end())</div>
+<div class="line"><span class="lineno">  109</span>                    {</div>
+<div class="line"><span class="lineno">  110</span>                        cout &lt;&lt; <span class="stringliteral">&quot;Obtaining data for board: &quot;</span> &lt;&lt; bKey &lt;&lt; <span class="stringliteral">&quot; channel: &quot;</span> &lt;&lt; cKey &lt;&lt; endl;</div>
+<div class="line"><span class="lineno">  111</span>                        set_getchannelS_.insert(bKey + cKey);</div>
+<div class="line"><span class="lineno">  112</span>                    }</div>
+<div class="line"><span class="lineno">  113</span>                    <span class="keywordflow">return</span> &amp;cVal;</div>
+<div class="line"><span class="lineno">  114</span>                }</div>
+<div class="line"><span class="lineno">  115</span>                ++j;</div>
+<div class="line"><span class="lineno">  116</span>            }</div>
+<div class="line"><span class="lineno">  117</span>        }</div>
+<div class="line"><span class="lineno">  118</span>        ++i;</div>
+<div class="line"><span class="lineno">  119</span>    }</div>
+<div class="line"><span class="lineno">  120</span>    <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><span class="lineno">  121</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
 <a id="a6eae06ac7039f8e0b234b44c164ff9b8" name="a6eae06ac7039f8e0b234b44c164ff9b8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6eae06ac7039f8e0b234b44c164ff9b8">&#9670;&#160;</a></span>GetTimeMap()</h2>
 
@@ -150,8 +286,8 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00061">61</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   61</span>{ <span class="keywordflow">return</span> times_; };</div>
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00062">62</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   62</span>{ <span class="keywordflow">return</span> times_; };</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -178,8 +314,8 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00062">62</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   62</span>{ <span class="keywordflow">return</span> volts_; };</div>
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00063">63</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   63</span>{ <span class="keywordflow">return</span> volts_; };</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -204,7 +340,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00076">76</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00080">80</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
 
 </div>
 </div>

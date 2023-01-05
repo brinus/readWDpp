@@ -6,6 +6,7 @@
 #include <string>
 #include <vector>
 #include <iterator>
+#include <set>
 #include <map>
 #include <numeric>
 
@@ -50,9 +51,9 @@ class DAQEvent
     using MAP = std::map<std::string, std::map<std::string, std::vector<float>>>;
 
 public:
-    std::vector<float> GetChannel(const int &);
-    std::vector<float> GetChannel(const int &, const int &);
-    std::vector<float> GetChannel(const std::string &, const std::string &);
+    const std::vector<float> * GetChannel(const int &);
+    const std::vector<float> * GetChannel(const int &, const int &);
+    const std::vector<float> * GetChannel(const std::string &, const std::string &);
 
     float GetCharge();
     float GetAmplitude();
@@ -72,6 +73,9 @@ private:
     unsigned short trigger_;
     MAP times_;
     MAP volts_;
+    std::set<std::string> set_getchannelS_;
+    std::set<int> set_getchannelI_;
+    std::set<std::string> set_getChannelII_;
 
     friend class DAQFile;
 };
@@ -87,17 +91,31 @@ class WDBEvent : public DAQEvent
 class DAQFile
 {
 public:
-    DAQFile(const std::string &filename)
+    DAQFile(const std::string &fname)
     {
-        filename_ = filename;
-        in_.open(filename, std::ios::in | std::ios::binary);
-        std::cout << "Created DAQFile, opened file " << filename << std::endl;
+        filename_ = fname;
+        in_.open(fname, std::ios::in | std::ios::binary);
+        std::cout << "Created DAQFile, opened file " << fname << std::endl;
     }
     ~DAQFile() { in_.close(); }
 
     void Initialise(DAQEvent &);
     void Close();
-
+    void Open(const std::string &fname)
+    {
+        if (!in_.is_open())
+        {
+            filename_ = fname;
+            in_.open(fname, std::ios::in | std::ios::binary);
+            std::cout << std::endl << "Created DAQFile, opened file " << fname << std::endl;
+            return;
+        }
+        else 
+        {
+            std::cerr << "!! Error: File is already opened --> " << filename_ << std::endl;
+            return;
+        }
+    }
     bool operator>>(DRSEvent &);
     bool operator>>(WDBEvent &);
     bool operator>>(TAG &);

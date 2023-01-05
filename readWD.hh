@@ -11,7 +11,7 @@
 
 #define SAMPLES_PER_WAVEFORM 1024
 
-// CLASSES
+// ----- CLASSES -----
 
 struct TAG
 {
@@ -51,13 +51,14 @@ class DAQEvent
 
 public:
     std::vector<float> GetChannel(const int &);
+    std::vector<float> GetChannel(const int &, const int &);
+    std::vector<float> GetChannel(const std::string &, const std::string &);
 
     float GetCharge();
     float GetAmplitude();
     float GetPedestal();
 
     MAP GetTimeMap() const { return times_; };
-    MAP GetCorrTimeMap() const { return times_corr_; }
     MAP GetVoltMap() const { return volts_; };
 
 private:
@@ -69,7 +70,7 @@ private:
     void SetVolts(const TAG &, const TAG &, const std::vector<float> &);
 
     unsigned short trigger_;
-    MAP times_, times_corr_;
+    MAP times_;
     MAP volts_;
 
     friend class DAQFile;
@@ -104,7 +105,6 @@ public:
 
 private:
     operator bool();
-
     template <class T>
     void Read(T &t) { in_.read((char *)&t, sizeof(t)); }
     void Read(TAG &t)
@@ -123,7 +123,7 @@ private:
     bool initialization_;
 };
 
-// FUNCTIONS
+// ----- FUNCTIONS -----
 
 std::ostream &operator<<(std::ostream &, const TAG &);
 std::ostream &operator<<(std::ostream &, const EventHeader &);

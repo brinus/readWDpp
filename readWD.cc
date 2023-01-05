@@ -28,6 +28,98 @@ ostream &operator<<(ostream &o, const EventHeader &eh) // cout << EventHeader
     return o;
 }
 
+const vector<float> *DAQEvent::GetChannel(const int &channel) // this assumes only a board is present
+{
+    if (volts_.size() > 1)
+    {
+        if (set_getchannelI_.find(channel) == set_getchannelI_.end())
+        {
+            cerr << "!! Error: more than a board found --> Use GetChannel(int board, int channel)" << endl;
+            set_getchannelI_.insert(channel);
+        }
+        return NULL;
+    }
+
+    int i = 0;
+    for (auto &[bKey, bVal] : volts_)
+    {
+        if (bVal.size() - 1 < channel)
+        {
+            if (set_getchannelI_.find(channel) == set_getchannelI_.end())
+            {
+                cerr << "!! Error: channel number provided not found --> Exceded maximum channel number" << endl
+                     << "       passed channel number: " << channel << endl
+                     << "       volts[" << bKey << "].size() = " << bVal.size() << endl;
+                set_getchannelI_.insert(channel);
+            }
+            return NULL;
+        }
+        for (auto &[cKey, cVal] : bVal)
+        {
+            if (i == channel)
+            {
+                if (set_getchannelS_.find(bKey + cKey) == set_getchannelS_.end())
+                {
+                    cout << "Obtaining data for board: " << bKey << " channel: " << cKey << endl;
+                    set_getchannelS_.insert(bKey + cKey);
+                }
+                return &cVal;
+            }
+            ++i;
+        }
+    }
+    return NULL;
+}
+
+const vector<float> *DAQEvent::GetChannel(const int &board, const int &channel)
+{
+    if (board > volts_.size() - 1)
+    {
+        if (set_getChannelII_.find(to_string(board) + "-" + to_string(channel)) == set_getChannelII_.end())
+        {
+            cerr << "!! Error: board number provided not found --> Exceded maximum board number" << endl
+                 << "       passed board number: " << board << endl
+                 << "       volts.size() = " << volts_.size() << endl;
+            set_getChannelII_.insert(to_string(board) + "-" + to_string(channel));
+        }
+        return NULL;
+    }
+
+    int i = 0, j = 0;
+    for (auto &[bKey, bVal] : volts_)
+    {
+        if (i == board)
+        {
+            if (bVal.size() - 1 < channel)
+            {
+                if (set_getChannelII_.find(to_string(board) + "-" + to_string(channel)) == set_getChannelII_.end())
+                {
+                    cerr << "!! Error: channel number provided not found --> Exceded maximum channel number" << endl
+                         << "       passed channel number: " << channel << endl
+                         << "       volts[" << bKey << "].size() = " << bVal.size() << endl;
+                    set_getChannelII_.insert(to_string(board) + "-" + to_string(channel));
+                }
+                return NULL;
+            }
+            for (auto &[cKey, cVal] : bVal)
+            {
+                if (j == channel)
+                {
+                    if (set_getchannelS_.find(bKey + cKey) == set_getchannelS_.end())
+                    {
+                        cout << "Obtaining data for board: " << bKey << " channel: " << cKey << endl;
+                        set_getchannelS_.insert(bKey + cKey);
+                    }
+                    return &cVal;
+                }
+                ++j;
+            }
+        }
+        ++i;
+    }
+    return NULL;
+}
+
 void DAQEvent::SetTrigger(const unsigned short &trig)
 {
     this->TimeCalibration(trig);
@@ -88,7 +180,8 @@ void DAQEvent::TimeCalibration(const unsigned short &tCell)
             {
                 t2 = channel[(1024 - tCell) % 1024];
                 dt = t1 - t2;
-                for_each(channel.begin(), channel.end(), [&](float& val){val += dt;});
+                for_each(channel.begin(), channel.end(), [&](float &val)
+                         { val += dt; });
             }
         }
     }
@@ -148,8 +241,15 @@ void DAQFile::Initialise(DAQEvent &event)
 
     file >> bTag; // DRSx
     file >> cTag; // TIME
-    cout << bTag << endl
-         << cTag << endl;
+    cout << bTag;
+    if (bTag.tag[3] == '8')
+    {
+        cout << " --> WaveDREAM Board" << endl;
+    }
+    else
+    {
+        cout << " --> DRS Evaluation Board" << endl;
+    }
 
     o_ = 'B';
     initialization_ = 0;
@@ -196,6 +296,7 @@ void DAQFile::Read(vector<unsigned short> &vec)
 
 void DAQFile::Close()
 {
+    cout << "Closing file " << filename_ << "..." << endl;
     in_.close();
     return;
 }
@@ -235,6 +336,10 @@ bool DAQFile::operator>>(DRSEvent &event) // DAQFile >> DRSEvent
 
     // Read only one event
     file >> eh;
+    if (eh.serialNumber == 1)
+    {
+        cout << "Event serial number: " << eh.serialNumber << endl;
+    }
     if (eh.serialNumber % 100 == 0)
     {
         cout << "Event serial number: " << eh.serialNumber << endl;

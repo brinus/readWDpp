@@ -100,7 +100,6 @@ void DAQEvent::CreateBoard(const TAG &tag)
     {
         string board{"B#" + to_string(*(short *)(tag.tag + 2))};
         times_[board] = {};
-        times_corr_[board] = {};
         volts_[board] = {};
         return;
     }
@@ -120,7 +119,6 @@ void DAQEvent::CreateChannel(const TAG &tBoard, const TAG &tag)
     {
         string channel{tag.tag};
         times_[board][channel] = {};
-        times_corr_[board][channel] = {};
         volts_[board][channel] = {};
         return;
     }

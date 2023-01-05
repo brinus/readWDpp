@@ -95,7 +95,7 @@ Public Member Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00086">86</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00087">87</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a6f7d8d85460a8914ef519e34af7e0440" name="a6f7d8d85460a8914ef519e34af7e0440"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6f7d8d85460a8914ef519e34af7e0440">&#9670;&#160;</a></span>DAQFile()</h2>
@@ -121,12 +121,12 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00089">89</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   90</span>    {</div>
-<div class="line"><span class="lineno">   91</span>        filename_ = filename;</div>
-<div class="line"><span class="lineno">   92</span>        in_.open(filename, std::ios::in | std::ios::binary);</div>
-<div class="line"><span class="lineno">   93</span>        std::cout &lt;&lt; <span class="stringliteral">&quot;Created DAQFile, opened file &quot;</span> &lt;&lt; filename &lt;&lt; std::endl;</div>
-<div class="line"><span class="lineno">   94</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00090">90</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   91</span>    {</div>
+<div class="line"><span class="lineno">   92</span>        filename_ = filename;</div>
+<div class="line"><span class="lineno">   93</span>        in_.open(filename, std::ios::in | std::ios::binary);</div>
+<div class="line"><span class="lineno">   94</span>        std::cout &lt;&lt; <span class="stringliteral">&quot;Created DAQFile, opened file &quot;</span> &lt;&lt; filename &lt;&lt; std::endl;</div>
+<div class="line"><span class="lineno">   95</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -153,8 +153,8 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00095">95</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   95</span>{ in_.close(); }</div>
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00096">96</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   96</span>{ in_.close(); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -174,11 +174,11 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00199">199</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  200</span>{</div>
-<div class="line"><span class="lineno">  201</span>    in_.close();</div>
-<div class="line"><span class="lineno">  202</span>    <span class="keywordflow">return</span>;</div>
-<div class="line"><span class="lineno">  203</span>}</div>
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00197">197</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  198</span>{</div>
+<div class="line"><span class="lineno">  199</span>    in_.close();</div>
+<div class="line"><span class="lineno">  200</span>    <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  201</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -198,50 +198,50 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00131">131</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  132</span>{</div>
-<div class="line"><span class="lineno">  133</span>    <span class="keywordflow">if</span> (!in_.is_open())</div>
-<div class="line"><span class="lineno">  134</span>    {</div>
-<div class="line"><span class="lineno">  135</span>        cerr &lt;&lt; <span class="stringliteral">&quot;!! Error: file not open --&gt; use DAQFile(filename)&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><span class="lineno">  136</span>        <span class="keywordflow">return</span>;</div>
-<div class="line"><span class="lineno">  137</span>    }</div>
-<div class="line"><span class="lineno">  138</span> </div>
-<div class="line"><span class="lineno">  139</span>    <span class="keywordflow">if</span> (in_.tellg() != 0)</div>
-<div class="line"><span class="lineno">  140</span>    {</div>
-<div class="line"><span class="lineno">  141</span>        cerr &lt;&lt; <span class="stringliteral">&quot;!! Error: file already initialized --&gt; ???&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><span class="lineno">  142</span>        <span class="keywordflow">return</span>;</div>
-<div class="line"><span class="lineno">  143</span>    }</div>
-<div class="line"><span class="lineno">  144</span> </div>
-<div class="line"><span class="lineno">  145</span>    <a class="code hl_class" href="classDAQFile.html">DAQFile</a> &amp;file = *<span class="keyword">this</span>;</div>
-<div class="line"><span class="lineno">  146</span>    <a class="code hl_struct" href="structTAG.html">TAG</a> bTag, cTag;</div>
-<div class="line"><span class="lineno">  147</span>    vector&lt;float&gt; times(SAMPLES_PER_WAVEFORM);</div>
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00129">129</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  130</span>{</div>
+<div class="line"><span class="lineno">  131</span>    <span class="keywordflow">if</span> (!in_.is_open())</div>
+<div class="line"><span class="lineno">  132</span>    {</div>
+<div class="line"><span class="lineno">  133</span>        cerr &lt;&lt; <span class="stringliteral">&quot;!! Error: file not open --&gt; use DAQFile(filename)&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><span class="lineno">  134</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  135</span>    }</div>
+<div class="line"><span class="lineno">  136</span> </div>
+<div class="line"><span class="lineno">  137</span>    <span class="keywordflow">if</span> (in_.tellg() != 0)</div>
+<div class="line"><span class="lineno">  138</span>    {</div>
+<div class="line"><span class="lineno">  139</span>        cerr &lt;&lt; <span class="stringliteral">&quot;!! Error: file already initialized --&gt; ???&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><span class="lineno">  140</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  141</span>    }</div>
+<div class="line"><span class="lineno">  142</span> </div>
+<div class="line"><span class="lineno">  143</span>    <a class="code hl_class" href="classDAQFile.html">DAQFile</a> &amp;file = *<span class="keyword">this</span>;</div>
+<div class="line"><span class="lineno">  144</span>    <a class="code hl_struct" href="structTAG.html">TAG</a> bTag, cTag;</div>
+<div class="line"><span class="lineno">  145</span>    vector&lt;float&gt; times(SAMPLES_PER_WAVEFORM);</div>
+<div class="line"><span class="lineno">  146</span> </div>
+<div class="line"><span class="lineno">  147</span>    cout &lt;&lt; <span class="stringliteral">&quot;Initializing file &quot;</span> &lt;&lt; filename_ &lt;&lt; endl;</div>
 <div class="line"><span class="lineno">  148</span> </div>
-<div class="line"><span class="lineno">  149</span>    cout &lt;&lt; <span class="stringliteral">&quot;Initializing file &quot;</span> &lt;&lt; filename_ &lt;&lt; endl;</div>
-<div class="line"><span class="lineno">  150</span> </div>
-<div class="line"><span class="lineno">  151</span>    file &gt;&gt; bTag; <span class="comment">// DRSx</span></div>
-<div class="line"><span class="lineno">  152</span>    file &gt;&gt; cTag; <span class="comment">// TIME</span></div>
-<div class="line"><span class="lineno">  153</span>    cout &lt;&lt; bTag &lt;&lt; endl</div>
-<div class="line"><span class="lineno">  154</span>         &lt;&lt; cTag &lt;&lt; endl;</div>
-<div class="line"><span class="lineno">  155</span> </div>
-<div class="line"><span class="lineno">  156</span>    o_ = <span class="charliteral">&#39;B&#39;</span>;</div>
-<div class="line"><span class="lineno">  157</span>    initialization_ = 0;</div>
-<div class="line"><span class="lineno">  158</span>    <span class="keywordflow">while</span> (file &gt;&gt; bTag) <span class="comment">// B#?</span></div>
-<div class="line"><span class="lineno">  159</span>    {</div>
-<div class="line"><span class="lineno">  160</span>        cout &lt;&lt; bTag &lt;&lt; <span class="stringliteral">&quot;:&quot;</span> &lt;&lt; endl; <span class="comment">// print --&gt; B#?</span></div>
-<div class="line"><span class="lineno">  161</span>        <span class="keyword">event</span>.CreateBoard(bTag);</div>
-<div class="line"><span class="lineno">  162</span>        <span class="keywordflow">while</span> (file &gt;&gt; cTag) <span class="comment">// C001</span></div>
-<div class="line"><span class="lineno">  163</span>        {</div>
-<div class="line"><span class="lineno">  164</span>            cout &lt;&lt; <span class="stringliteral">&quot; --&gt; &quot;</span> &lt;&lt; cTag &lt;&lt; endl; <span class="comment">// print --&gt; C001</span></div>
-<div class="line"><span class="lineno">  165</span>            <span class="keyword">event</span>.CreateChannel(bTag, cTag);</div>
-<div class="line"><span class="lineno">  166</span>            file.Read(times);</div>
-<div class="line"><span class="lineno">  167</span>            <span class="keyword">event</span>.SetTime(times);</div>
-<div class="line"><span class="lineno">  168</span>        }</div>
-<div class="line"><span class="lineno">  169</span>        file.ResetTag();</div>
-<div class="line"><span class="lineno">  170</span>    }</div>
-<div class="line"><span class="lineno">  171</span>    file.ResetTag();</div>
-<div class="line"><span class="lineno">  172</span>    <span class="keywordflow">return</span>;</div>
-<div class="line"><span class="lineno">  173</span>}</div>
-<div class="ttc" id="aclassDAQFile_html"><div class="ttname"><a href="classDAQFile.html">DAQFile</a></div><div class="ttdef"><b>Definition:</b> <a href="readWD_8hh_source.html#l00086">readWD.hh:87</a></div></div>
+<div class="line"><span class="lineno">  149</span>    file &gt;&gt; bTag; <span class="comment">// DRSx</span></div>
+<div class="line"><span class="lineno">  150</span>    file &gt;&gt; cTag; <span class="comment">// TIME</span></div>
+<div class="line"><span class="lineno">  151</span>    cout &lt;&lt; bTag &lt;&lt; endl</div>
+<div class="line"><span class="lineno">  152</span>         &lt;&lt; cTag &lt;&lt; endl;</div>
+<div class="line"><span class="lineno">  153</span> </div>
+<div class="line"><span class="lineno">  154</span>    o_ = <span class="charliteral">&#39;B&#39;</span>;</div>
+<div class="line"><span class="lineno">  155</span>    initialization_ = 0;</div>
+<div class="line"><span class="lineno">  156</span>    <span class="keywordflow">while</span> (file &gt;&gt; bTag) <span class="comment">// B#?</span></div>
+<div class="line"><span class="lineno">  157</span>    {</div>
+<div class="line"><span class="lineno">  158</span>        cout &lt;&lt; bTag &lt;&lt; <span class="stringliteral">&quot;:&quot;</span> &lt;&lt; endl; <span class="comment">// print --&gt; B#?</span></div>
+<div class="line"><span class="lineno">  159</span>        <span class="keyword">event</span>.CreateBoard(bTag);</div>
+<div class="line"><span class="lineno">  160</span>        <span class="keywordflow">while</span> (file &gt;&gt; cTag) <span class="comment">// C001</span></div>
+<div class="line"><span class="lineno">  161</span>        {</div>
+<div class="line"><span class="lineno">  162</span>            cout &lt;&lt; <span class="stringliteral">&quot; --&gt; &quot;</span> &lt;&lt; cTag &lt;&lt; endl; <span class="comment">// print --&gt; C001</span></div>
+<div class="line"><span class="lineno">  163</span>            <span class="keyword">event</span>.CreateChannel(bTag, cTag);</div>
+<div class="line"><span class="lineno">  164</span>            file.Read(times);</div>
+<div class="line"><span class="lineno">  165</span>            <span class="keyword">event</span>.SetTime(times);</div>
+<div class="line"><span class="lineno">  166</span>        }</div>
+<div class="line"><span class="lineno">  167</span>        file.ResetTag();</div>
+<div class="line"><span class="lineno">  168</span>    }</div>
+<div class="line"><span class="lineno">  169</span>    file.ResetTag();</div>
+<div class="line"><span class="lineno">  170</span>    <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  171</span>}</div>
+<div class="ttc" id="aclassDAQFile_html"><div class="ttname"><a href="classDAQFile.html">DAQFile</a></div><div class="ttdef"><b>Definition:</b> <a href="readWD_8hh_source.html#l00087">readWD.hh:88</a></div></div>
 <div class="ttc" id="astructTAG_html"><div class="ttname"><a href="structTAG.html">TAG</a></div><div class="ttdef"><b>Definition:</b> <a href="readWD_8hh_source.html#l00016">readWD.hh:17</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -262,44 +262,44 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00225">225</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  226</span>{</div>
-<div class="line"><span class="lineno">  227</span>    <span class="keywordflow">if</span> (!in_.good())</div>
-<div class="line"><span class="lineno">  228</span>    {</div>
-<div class="line"><span class="lineno">  229</span>        <span class="keywordflow">return</span> 0;</div>
-<div class="line"><span class="lineno">  230</span>    }</div>
-<div class="line"><span class="lineno">  231</span> </div>
-<div class="line"><span class="lineno">  232</span>    <a class="code hl_class" href="classDAQFile.html">DAQFile</a> &amp;file = *<span class="keyword">this</span>;</div>
-<div class="line"><span class="lineno">  233</span>    <a class="code hl_struct" href="structTAG.html">TAG</a> bTag, cTag, tag;</div>
-<div class="line"><span class="lineno">  234</span>    <a class="code hl_struct" href="structEventHeader.html">EventHeader</a> eh;</div>
-<div class="line"><span class="lineno">  235</span>    vector&lt;unsigned short&gt; volts(SAMPLES_PER_WAVEFORM);</div>
-<div class="line"><span class="lineno">  236</span>    vector&lt;float&gt; volts_corr(SAMPLES_PER_WAVEFORM);</div>
-<div class="line"><span class="lineno">  237</span> </div>
-<div class="line"><span class="lineno">  238</span>    <span class="comment">// Read only one event</span></div>
-<div class="line"><span class="lineno">  239</span>    file &gt;&gt; eh;</div>
-<div class="line"><span class="lineno">  240</span>    <span class="keywordflow">if</span> (eh.serialNumber % 100 == 0)</div>
-<div class="line"><span class="lineno">  241</span>    {</div>
-<div class="line"><span class="lineno">  242</span>        cout &lt;&lt; <span class="stringliteral">&quot;Event serial number: &quot;</span> &lt;&lt; eh.serialNumber &lt;&lt; endl;</div>
-<div class="line"><span class="lineno">  243</span>    }</div>
-<div class="line"><span class="lineno">  244</span>    <span class="keywordflow">while</span> (file &gt;&gt; bTag)</div>
-<div class="line"><span class="lineno">  245</span>    {</div>
-<div class="line"><span class="lineno">  246</span>        file &gt;&gt; tag; <span class="comment">// Trigger cell</span></div>
-<div class="line"><span class="lineno">  247</span>        <span class="keyword">event</span>.SetTrigger(*(<span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> *)(tag.tag + 2));</div>
-<div class="line"><span class="lineno">  248</span>        <span class="keywordflow">while</span> (file &gt;&gt; cTag)</div>
-<div class="line"><span class="lineno">  249</span>        {</div>
-<div class="line"><span class="lineno">  250</span>            file &gt;&gt; tag; <span class="comment">// Time scaler</span></div>
-<div class="line"><span class="lineno">  251</span>            file.Read(volts);</div>
-<div class="line"><span class="lineno">  252</span>            <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; volts.size(); ++i)</div>
-<div class="line"><span class="lineno">  253</span>            {</div>
-<div class="line"><span class="lineno">  254</span>                volts_corr[i] = volts[i] / 65536. + eh.rangeCenter / 1000. - 0.5;</div>
-<div class="line"><span class="lineno">  255</span>            }</div>
-<div class="line"><span class="lineno">  256</span>            <span class="keyword">event</span>.SetVolts(bTag, cTag, volts_corr);</div>
-<div class="line"><span class="lineno">  257</span>        }</div>
-<div class="line"><span class="lineno">  258</span>        file.ResetTag();</div>
-<div class="line"><span class="lineno">  259</span>    }</div>
-<div class="line"><span class="lineno">  260</span>    file.ResetTag();</div>
-<div class="line"><span class="lineno">  261</span>    <span class="keywordflow">return</span> 1;</div>
-<div class="line"><span class="lineno">  262</span>}</div>
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00223">223</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  224</span>{</div>
+<div class="line"><span class="lineno">  225</span>    <span class="keywordflow">if</span> (!in_.good())</div>
+<div class="line"><span class="lineno">  226</span>    {</div>
+<div class="line"><span class="lineno">  227</span>        <span class="keywordflow">return</span> 0;</div>
+<div class="line"><span class="lineno">  228</span>    }</div>
+<div class="line"><span class="lineno">  229</span> </div>
+<div class="line"><span class="lineno">  230</span>    <a class="code hl_class" href="classDAQFile.html">DAQFile</a> &amp;file = *<span class="keyword">this</span>;</div>
+<div class="line"><span class="lineno">  231</span>    <a class="code hl_struct" href="structTAG.html">TAG</a> bTag, cTag, tag;</div>
+<div class="line"><span class="lineno">  232</span>    <a class="code hl_struct" href="structEventHeader.html">EventHeader</a> eh;</div>
+<div class="line"><span class="lineno">  233</span>    vector&lt;unsigned short&gt; volts(SAMPLES_PER_WAVEFORM);</div>
+<div class="line"><span class="lineno">  234</span>    vector&lt;float&gt; volts_corr(SAMPLES_PER_WAVEFORM);</div>
+<div class="line"><span class="lineno">  235</span> </div>
+<div class="line"><span class="lineno">  236</span>    <span class="comment">// Read only one event</span></div>
+<div class="line"><span class="lineno">  237</span>    file &gt;&gt; eh;</div>
+<div class="line"><span class="lineno">  238</span>    <span class="keywordflow">if</span> (eh.serialNumber % 100 == 0)</div>
+<div class="line"><span class="lineno">  239</span>    {</div>
+<div class="line"><span class="lineno">  240</span>        cout &lt;&lt; <span class="stringliteral">&quot;Event serial number: &quot;</span> &lt;&lt; eh.serialNumber &lt;&lt; endl;</div>
+<div class="line"><span class="lineno">  241</span>    }</div>
+<div class="line"><span class="lineno">  242</span>    <span class="keywordflow">while</span> (file &gt;&gt; bTag)</div>
+<div class="line"><span class="lineno">  243</span>    {</div>
+<div class="line"><span class="lineno">  244</span>        file &gt;&gt; tag; <span class="comment">// Trigger cell</span></div>
+<div class="line"><span class="lineno">  245</span>        <span class="keyword">event</span>.SetTrigger(*(<span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> *)(tag.tag + 2));</div>
+<div class="line"><span class="lineno">  246</span>        <span class="keywordflow">while</span> (file &gt;&gt; cTag)</div>
+<div class="line"><span class="lineno">  247</span>        {</div>
+<div class="line"><span class="lineno">  248</span>            file &gt;&gt; tag; <span class="comment">// Time scaler</span></div>
+<div class="line"><span class="lineno">  249</span>            file.Read(volts);</div>
+<div class="line"><span class="lineno">  250</span>            <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; volts.size(); ++i)</div>
+<div class="line"><span class="lineno">  251</span>            {</div>
+<div class="line"><span class="lineno">  252</span>                volts_corr[i] = volts[i] / 65536. + eh.rangeCenter / 1000. - 0.5;</div>
+<div class="line"><span class="lineno">  253</span>            }</div>
+<div class="line"><span class="lineno">  254</span>            <span class="keyword">event</span>.SetVolts(bTag, cTag, volts_corr);</div>
+<div class="line"><span class="lineno">  255</span>        }</div>
+<div class="line"><span class="lineno">  256</span>        file.ResetTag();</div>
+<div class="line"><span class="lineno">  257</span>    }</div>
+<div class="line"><span class="lineno">  258</span>    file.ResetTag();</div>
+<div class="line"><span class="lineno">  259</span>    <span class="keywordflow">return</span> 1;</div>
+<div class="line"><span class="lineno">  260</span>}</div>
 <div class="ttc" id="astructEventHeader_html"><div class="ttname"><a href="structEventHeader.html">EventHeader</a></div><div class="ttdoc">Struct to contain the event header informations.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8hh_source.html#l00030">readWD.hh:31</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -320,15 +320,15 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00215">215</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  216</span>{</div>
-<div class="line"><span class="lineno">  217</span>    <span class="keywordflow">if</span> (!in_.good())</div>
-<div class="line"><span class="lineno">  218</span>    {</div>
-<div class="line"><span class="lineno">  219</span>        <span class="keywordflow">return</span> 0;</div>
-<div class="line"><span class="lineno">  220</span>    }</div>
-<div class="line"><span class="lineno">  221</span>    this-&gt;Read(eh);</div>
-<div class="line"><span class="lineno">  222</span>    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><span class="lineno">  223</span>}</div>
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00213">213</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  214</span>{</div>
+<div class="line"><span class="lineno">  215</span>    <span class="keywordflow">if</span> (!in_.good())</div>
+<div class="line"><span class="lineno">  216</span>    {</div>
+<div class="line"><span class="lineno">  217</span>        <span class="keywordflow">return</span> 0;</div>
+<div class="line"><span class="lineno">  218</span>    }</div>
+<div class="line"><span class="lineno">  219</span>    this-&gt;Read(eh);</div>
+<div class="line"><span class="lineno">  220</span>    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><span class="lineno">  221</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -348,15 +348,15 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00205">205</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  206</span>{</div>
-<div class="line"><span class="lineno">  207</span>    <span class="keywordflow">if</span> (!in_.good())</div>
-<div class="line"><span class="lineno">  208</span>    {</div>
-<div class="line"><span class="lineno">  209</span>        <span class="keywordflow">return</span> 0;</div>
-<div class="line"><span class="lineno">  210</span>    }</div>
-<div class="line"><span class="lineno">  211</span>    this-&gt;Read(t);</div>
-<div class="line"><span class="lineno">  212</span>    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><span class="lineno">  213</span>}</div>
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00203">203</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  204</span>{</div>
+<div class="line"><span class="lineno">  205</span>    <span class="keywordflow">if</span> (!in_.good())</div>
+<div class="line"><span class="lineno">  206</span>    {</div>
+<div class="line"><span class="lineno">  207</span>        <span class="keywordflow">return</span> 0;</div>
+<div class="line"><span class="lineno">  208</span>    }</div>
+<div class="line"><span class="lineno">  209</span>    this-&gt;Read(t);</div>
+<div class="line"><span class="lineno">  210</span>    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><span class="lineno">  211</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -376,44 +376,44 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00264">264</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  265</span>{</div>
-<div class="line"><span class="lineno">  266</span>    <span class="keywordflow">if</span> (!in_.good())</div>
-<div class="line"><span class="lineno">  267</span>    {</div>
-<div class="line"><span class="lineno">  268</span>        <span class="keywordflow">return</span> 0;</div>
-<div class="line"><span class="lineno">  269</span>    }</div>
-<div class="line"><span class="lineno">  270</span> </div>
-<div class="line"><span class="lineno">  271</span>    <a class="code hl_class" href="classDAQFile.html">DAQFile</a> &amp;file = *<span class="keyword">this</span>;</div>
-<div class="line"><span class="lineno">  272</span>    <a class="code hl_struct" href="structTAG.html">TAG</a> bTag, cTag, tag;</div>
-<div class="line"><span class="lineno">  273</span>    <a class="code hl_struct" href="structEventHeader.html">EventHeader</a> eh;</div>
-<div class="line"><span class="lineno">  274</span>    vector&lt;unsigned short&gt; volts(SAMPLES_PER_WAVEFORM);</div>
-<div class="line"><span class="lineno">  275</span>    vector&lt;float&gt; volts_corr(SAMPLES_PER_WAVEFORM);</div>
-<div class="line"><span class="lineno">  276</span> </div>
-<div class="line"><span class="lineno">  277</span>    <span class="comment">// Read only one event</span></div>
-<div class="line"><span class="lineno">  278</span>    file &gt;&gt; eh;</div>
-<div class="line"><span class="lineno">  279</span>    <span class="keywordflow">if</span> (eh.serialNumber % 100 == 0)</div>
-<div class="line"><span class="lineno">  280</span>    {</div>
-<div class="line"><span class="lineno">  281</span>        cout &lt;&lt; <span class="stringliteral">&quot;Event serial number: &quot;</span> &lt;&lt; eh.serialNumber &lt;&lt; endl;</div>
-<div class="line"><span class="lineno">  282</span>    }</div>
-<div class="line"><span class="lineno">  283</span>    <span class="keywordflow">while</span> (file &gt;&gt; bTag)</div>
-<div class="line"><span class="lineno">  284</span>    {</div>
-<div class="line"><span class="lineno">  285</span>        <span class="keywordflow">while</span> (file &gt;&gt; cTag)</div>
-<div class="line"><span class="lineno">  286</span>        {</div>
-<div class="line"><span class="lineno">  287</span>            file &gt;&gt; tag; <span class="comment">// Time scaler</span></div>
-<div class="line"><span class="lineno">  288</span>            file &gt;&gt; tag; <span class="comment">// Trigger cell</span></div>
-<div class="line"><span class="lineno">  289</span>            <span class="keyword">event</span>.SetTrigger(*(<span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> *)(tag.tag + 2));</div>
-<div class="line"><span class="lineno">  290</span>            file.Read(volts);</div>
-<div class="line"><span class="lineno">  291</span>            <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; volts.size(); ++i)</div>
-<div class="line"><span class="lineno">  292</span>            {</div>
-<div class="line"><span class="lineno">  293</span>                volts_corr[i] = volts[i] / 65536. + eh.rangeCenter / 1000. - 0.5;</div>
-<div class="line"><span class="lineno">  294</span>            }</div>
-<div class="line"><span class="lineno">  295</span>            <span class="keyword">event</span>.SetVolts(bTag, cTag, volts_corr);</div>
-<div class="line"><span class="lineno">  296</span>        }</div>
-<div class="line"><span class="lineno">  297</span>        file.ResetTag();</div>
-<div class="line"><span class="lineno">  298</span>    }</div>
-<div class="line"><span class="lineno">  299</span>    file.ResetTag();</div>
-<div class="line"><span class="lineno">  300</span>    <span class="keywordflow">return</span> 1;</div>
-<div class="line"><span class="lineno">  301</span>}</div>
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00262">262</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  263</span>{</div>
+<div class="line"><span class="lineno">  264</span>    <span class="keywordflow">if</span> (!in_.good())</div>
+<div class="line"><span class="lineno">  265</span>    {</div>
+<div class="line"><span class="lineno">  266</span>        <span class="keywordflow">return</span> 0;</div>
+<div class="line"><span class="lineno">  267</span>    }</div>
+<div class="line"><span class="lineno">  268</span> </div>
+<div class="line"><span class="lineno">  269</span>    <a class="code hl_class" href="classDAQFile.html">DAQFile</a> &amp;file = *<span class="keyword">this</span>;</div>
+<div class="line"><span class="lineno">  270</span>    <a class="code hl_struct" href="structTAG.html">TAG</a> bTag, cTag, tag;</div>
+<div class="line"><span class="lineno">  271</span>    <a class="code hl_struct" href="structEventHeader.html">EventHeader</a> eh;</div>
+<div class="line"><span class="lineno">  272</span>    vector&lt;unsigned short&gt; volts(SAMPLES_PER_WAVEFORM);</div>
+<div class="line"><span class="lineno">  273</span>    vector&lt;float&gt; volts_corr(SAMPLES_PER_WAVEFORM);</div>
+<div class="line"><span class="lineno">  274</span> </div>
+<div class="line"><span class="lineno">  275</span>    <span class="comment">// Read only one event</span></div>
+<div class="line"><span class="lineno">  276</span>    file &gt;&gt; eh;</div>
+<div class="line"><span class="lineno">  277</span>    <span class="keywordflow">if</span> (eh.serialNumber % 100 == 0)</div>
+<div class="line"><span class="lineno">  278</span>    {</div>
+<div class="line"><span class="lineno">  279</span>        cout &lt;&lt; <span class="stringliteral">&quot;Event serial number: &quot;</span> &lt;&lt; eh.serialNumber &lt;&lt; endl;</div>
+<div class="line"><span class="lineno">  280</span>    }</div>
+<div class="line"><span class="lineno">  281</span>    <span class="keywordflow">while</span> (file &gt;&gt; bTag)</div>
+<div class="line"><span class="lineno">  282</span>    {</div>
+<div class="line"><span class="lineno">  283</span>        <span class="keywordflow">while</span> (file &gt;&gt; cTag)</div>
+<div class="line"><span class="lineno">  284</span>        {</div>
+<div class="line"><span class="lineno">  285</span>            file &gt;&gt; tag; <span class="comment">// Time scaler</span></div>
+<div class="line"><span class="lineno">  286</span>            file &gt;&gt; tag; <span class="comment">// Trigger cell</span></div>
+<div class="line"><span class="lineno">  287</span>            <span class="keyword">event</span>.SetTrigger(*(<span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> *)(tag.tag + 2));</div>
+<div class="line"><span class="lineno">  288</span>            file.Read(volts);</div>
+<div class="line"><span class="lineno">  289</span>            <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; volts.size(); ++i)</div>
+<div class="line"><span class="lineno">  290</span>            {</div>
+<div class="line"><span class="lineno">  291</span>                volts_corr[i] = volts[i] / 65536. + eh.rangeCenter / 1000. - 0.5;</div>
+<div class="line"><span class="lineno">  292</span>            }</div>
+<div class="line"><span class="lineno">  293</span>            <span class="keyword">event</span>.SetVolts(bTag, cTag, volts_corr);</div>
+<div class="line"><span class="lineno">  294</span>        }</div>
+<div class="line"><span class="lineno">  295</span>        file.ResetTag();</div>
+<div class="line"><span class="lineno">  296</span>    }</div>
+<div class="line"><span class="lineno">  297</span>    file.ResetTag();</div>
+<div class="line"><span class="lineno">  298</span>    <span class="keywordflow">return</span> 1;</div>
+<div class="line"><span class="lineno">  299</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>

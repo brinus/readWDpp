@@ -6,28 +6,27 @@ using namespace std;
 int main(void)
 {
     DAQFile file("test/testWDB.dat");
-    WDBEvent event;
+    WDBEvent Wevent;
     int i = 0;
 
-    file.Initialise(event);
-    while (file >> event and i < 10)
+    file.Initialise(Wevent);
+    while (file >> Wevent)
     {
-        if (i == 9)
-        {
-        auto times = event.GetTimeMap();
-        auto volts = event.GetVoltMap();
-
-        vector<float> tt = times["B#39"]["C000"];
-        vector<float> vv = volts["B#39"]["C000"];
-
-        cout << tt.size() << " " << vv.size();
-
-        TGraph * g1 = new TGraph(tt.size(), tt.data(), vv.data());
-        g1->SetMarkerStyle(7);
-        g1->Draw("AP");
-
-        }
+        auto vec0 = Wevent.GetChannel(0);
         ++i;
+    }
+
+    DRSEvent Devent;
+    i = 0;
+    file.Close();
+    file.Open("test/testDRS.dat");
+    file.Initialise(Devent);
+    while (file >> Devent)
+    {
+        ++i;
+        auto vec1 = Devent.GetChannel(0);
+        auto vec2 = Devent.GetChannel(0, 0); // Shouldn't print anything
+        auto vec3 = Devent.GetChannel(1);    // Should give error
     }
 }
 

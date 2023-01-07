@@ -27,6 +27,7 @@ int main(void)
         auto vec1 = Devent.GetChannel(0);
         auto vec2 = Devent.GetChannel(0, 0); // Shouldn't print anything
         auto vec3 = Devent.GetChannel(1);    // Should give error
+        auto f = Devent.GetChannel(0).GetCharge();
     }
 }
 

@@ -23,6 +23,7 @@
   <td id="projectalign">
    <div id="projectname">readWDpp
    </div>
+   <div id="projectbrief">Read binary files from DRS and WDB</div>
   </td>
  </tr>
  </tbody>
@@ -71,13 +72,16 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-types">Private Types</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="classDAQEvent-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">DAQEvent Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Another class.  
+<p>Class to store time and voltage data.  
  <a href="classDAQEvent.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="readWD_8hh_source.html">readWD.hh</a>&gt;</code></p>
@@ -115,16 +119,144 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>GetPedestal</b> ()</
 <tr class="memitem:aff03237e83ae4b5eadf8177213398d7a"><td class="memItemLeft" align="right" valign="top">MAP&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQEvent.html#aff03237e83ae4b5eadf8177213398d7a">GetVoltMap</a> () const</td></tr>
 <tr class="separator:aff03237e83ae4b5eadf8177213398d7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-types" name="pri-types"></a>
+Private Types</h2></td></tr>
+<tr class="memitem:ad7750050e72b878c6981a2bc285e79f1"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQEvent.html#ad7750050e72b878c6981a2bc285e79f1">MAP</a> = std::map&lt; std::string, std::map&lt; std::string, std::vector&lt; float &gt; &gt; &gt;</td></tr>
+<tr class="separator:ad7750050e72b878c6981a2bc285e79f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:aa2fb65b7fc84f8e2632ed5d799554f2b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQEvent.html#aa2fb65b7fc84f8e2632ed5d799554f2b">TimeCalibration</a> (const unsigned short &amp;)</td></tr>
+<tr class="memdesc:aa2fb65b7fc84f8e2632ed5d799554f2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to perform the time calibration.  <br /></td></tr>
+<tr class="separator:aa2fb65b7fc84f8e2632ed5d799554f2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad52a5631aab1540e693f0f64e9edbffb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQEvent.html#ad52a5631aab1540e693f0f64e9edbffb">CreateBoard</a> (const <a class="el" href="structTAG.html">TAG</a> &amp;)</td></tr>
+<tr class="separator:ad52a5631aab1540e693f0f64e9edbffb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2b1d347a8bea22a791bebda2c77ea4d4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQEvent.html#a2b1d347a8bea22a791bebda2c77ea4d4">CreateChannel</a> (const <a class="el" href="structTAG.html">TAG</a> &amp;, const <a class="el" href="structTAG.html">TAG</a> &amp;)</td></tr>
+<tr class="separator:a2b1d347a8bea22a791bebda2c77ea4d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a790cf06ff40b3d0fc47787b29e14f3e0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQEvent.html#a790cf06ff40b3d0fc47787b29e14f3e0">SetTrigger</a> (const unsigned short &amp;)</td></tr>
+<tr class="separator:a790cf06ff40b3d0fc47787b29e14f3e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acdb8cb41461fdd6673996185cac22652"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQEvent.html#acdb8cb41461fdd6673996185cac22652">SetTime</a> (const std::vector&lt; float &gt; &amp;)</td></tr>
+<tr class="separator:acdb8cb41461fdd6673996185cac22652"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03ee85fe1877c2296d97bc9aa5fef616"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQEvent.html#a03ee85fe1877c2296d97bc9aa5fef616">SetVolts</a> (const <a class="el" href="structTAG.html">TAG</a> &amp;, const <a class="el" href="structTAG.html">TAG</a> &amp;, const std::vector&lt; float &gt; &amp;)</td></tr>
+<tr class="separator:a03ee85fe1877c2296d97bc9aa5fef616"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a85968b2e27354813efe010ffc3465016"><td class="memItemLeft" align="right" valign="top">unsigned short&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQEvent.html#a85968b2e27354813efe010ffc3465016">trigger_</a></td></tr>
+<tr class="separator:a85968b2e27354813efe010ffc3465016"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed4f7042be0939c874ea26377eb95e4e"><td class="memItemLeft" align="right" valign="top">MAP&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQEvent.html#aed4f7042be0939c874ea26377eb95e4e">times_</a></td></tr>
+<tr class="memdesc:aed4f7042be0939c874ea26377eb95e4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data structure to hold times' information.  <br /></td></tr>
+<tr class="separator:aed4f7042be0939c874ea26377eb95e4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0b981b2e313c1337c8e4e69feaa84724"><td class="memItemLeft" align="right" valign="top">MAP&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQEvent.html#a0b981b2e313c1337c8e4e69feaa84724">volts_</a></td></tr>
+<tr class="separator:a0b981b2e313c1337c8e4e69feaa84724"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36c99f6c6a8c5f7d8b33b9afd71ced99"><td class="memItemLeft" align="right" valign="top">std::set&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQEvent.html#a36c99f6c6a8c5f7d8b33b9afd71ced99">set_getchannelS_</a></td></tr>
+<tr class="separator:a36c99f6c6a8c5f7d8b33b9afd71ced99"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49328000d66143a364d40eb4dc4e9457"><td class="memItemLeft" align="right" valign="top">std::set&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQEvent.html#a49328000d66143a364d40eb4dc4e9457">set_getchannelI_</a></td></tr>
+<tr class="separator:a49328000d66143a364d40eb4dc4e9457"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b622b96d3e03a712154072642a15115"><td class="memItemLeft" align="right" valign="top">std::set&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQEvent.html#a7b622b96d3e03a712154072642a15115">set_getChannelII_</a></td></tr>
+<tr class="separator:a7b622b96d3e03a712154072642a15115"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
 Friends</h2></td></tr>
 <tr class="memitem:aa932035d64c6c6249a19ad56318cdec6"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQEvent.html#aa932035d64c6c6249a19ad56318cdec6">DAQFile</a></td></tr>
 <tr class="separator:aa932035d64c6c6249a19ad56318cdec6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Another class. </p>
+<div class="textblock"><p>Class to store time and voltage data. </p>
 
-<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00049">49</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00063">63</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="ad7750050e72b878c6981a2bc285e79f1" name="ad7750050e72b878c6981a2bc285e79f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad7750050e72b878c6981a2bc285e79f1">&#9670;&#160;</a></span>MAP</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">using DAQEvent::MAP =  std::map&lt;std::string, std::map&lt;std::string, std::vector&lt;float&gt; &gt;&gt;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00065">65</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="ad52a5631aab1540e693f0f64e9edbffb" name="ad52a5631aab1540e693f0f64e9edbffb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad52a5631aab1540e693f0f64e9edbffb">&#9670;&#160;</a></span>CreateBoard()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DAQEvent::CreateBoard </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structTAG.html">TAG</a> &amp;&#160;</td>
+          <td class="paramname"><em>tag</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00207">207</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+
+</div>
+</div>
+<a id="a2b1d347a8bea22a791bebda2c77ea4d4" name="a2b1d347a8bea22a791bebda2c77ea4d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2b1d347a8bea22a791bebda2c77ea4d4">&#9670;&#160;</a></span>CreateChannel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DAQEvent::CreateChannel </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structTAG.html">TAG</a> &amp;&#160;</td>
+          <td class="paramname"><em>tBoard</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structTAG.html">TAG</a> &amp;&#160;</td>
+          <td class="paramname"><em>tag</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00220">220</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+
+</div>
+</div>
 <a id="a35647be07f4be4a97bbfb63c766d45b4" name="a35647be07f4be4a97bbfb63c766d45b4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a35647be07f4be4a97bbfb63c766d45b4">&#9670;&#160;</a></span>GetChannel() <span class="overload">[1/2]</span></h2>
 
@@ -141,49 +273,8 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00031">31</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   32</span>{</div>
-<div class="line"><span class="lineno">   33</span>    <span class="keywordflow">if</span> (volts_.size() &gt; 1)</div>
-<div class="line"><span class="lineno">   34</span>    {</div>
-<div class="line"><span class="lineno">   35</span>        <span class="keywordflow">if</span> (set_getchannelI_.find(channel) == set_getchannelI_.end())</div>
-<div class="line"><span class="lineno">   36</span>        {</div>
-<div class="line"><span class="lineno">   37</span>            cerr &lt;&lt; <span class="stringliteral">&quot;!! Error: more than a board found --&gt; Use GetChannel(int board, int channel)&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><span class="lineno">   38</span>            set_getchannelI_.insert(channel);</div>
-<div class="line"><span class="lineno">   39</span>        }</div>
-<div class="line"><span class="lineno">   40</span>        <span class="keywordflow">return</span> NULL;</div>
-<div class="line"><span class="lineno">   41</span>    }</div>
-<div class="line"><span class="lineno">   42</span> </div>
-<div class="line"><span class="lineno">   43</span>    <span class="keywordtype">int</span> i = 0;</div>
-<div class="line"><span class="lineno">   44</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;[bKey, bVal] : volts_)</div>
-<div class="line"><span class="lineno">   45</span>    {</div>
-<div class="line"><span class="lineno">   46</span>        <span class="keywordflow">if</span> (bVal.size() - 1 &lt; channel)</div>
-<div class="line"><span class="lineno">   47</span>        {</div>
-<div class="line"><span class="lineno">   48</span>            <span class="keywordflow">if</span> (set_getchannelI_.find(channel) == set_getchannelI_.end())</div>
-<div class="line"><span class="lineno">   49</span>            {</div>
-<div class="line"><span class="lineno">   50</span>                cerr &lt;&lt; <span class="stringliteral">&quot;!! Error: channel number provided not found --&gt; Exceded maximum channel number&quot;</span> &lt;&lt; endl</div>
-<div class="line"><span class="lineno">   51</span>                     &lt;&lt; <span class="stringliteral">&quot;       passed channel number: &quot;</span> &lt;&lt; channel &lt;&lt; endl</div>
-<div class="line"><span class="lineno">   52</span>                     &lt;&lt; <span class="stringliteral">&quot;       volts[&quot;</span> &lt;&lt; bKey &lt;&lt; <span class="stringliteral">&quot;].size() = &quot;</span> &lt;&lt; bVal.size() &lt;&lt; endl;</div>
-<div class="line"><span class="lineno">   53</span>                set_getchannelI_.insert(channel);</div>
-<div class="line"><span class="lineno">   54</span>            }</div>
-<div class="line"><span class="lineno">   55</span>            <span class="keywordflow">return</span> NULL;</div>
-<div class="line"><span class="lineno">   56</span>        }</div>
-<div class="line"><span class="lineno">   57</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;[cKey, cVal] : bVal)</div>
-<div class="line"><span class="lineno">   58</span>        {</div>
-<div class="line"><span class="lineno">   59</span>            <span class="keywordflow">if</span> (i == channel)</div>
-<div class="line"><span class="lineno">   60</span>            {</div>
-<div class="line"><span class="lineno">   61</span>                <span class="keywordflow">if</span> (set_getchannelS_.find(bKey + cKey) == set_getchannelS_.end())</div>
-<div class="line"><span class="lineno">   62</span>                {</div>
-<div class="line"><span class="lineno">   63</span>                    cout &lt;&lt; <span class="stringliteral">&quot;Obtaining data for board: &quot;</span> &lt;&lt; bKey &lt;&lt; <span class="stringliteral">&quot; channel: &quot;</span> &lt;&lt; cKey &lt;&lt; endl;</div>
-<div class="line"><span class="lineno">   64</span>                    set_getchannelS_.insert(bKey + cKey);</div>
-<div class="line"><span class="lineno">   65</span>                }</div>
-<div class="line"><span class="lineno">   66</span>                <span class="keywordflow">return</span> &amp;cVal;</div>
-<div class="line"><span class="lineno">   67</span>            }</div>
-<div class="line"><span class="lineno">   68</span>            ++i;</div>
-<div class="line"><span class="lineno">   69</span>        }</div>
-<div class="line"><span class="lineno">   70</span>    }</div>
-<div class="line"><span class="lineno">   71</span>    <span class="keywordflow">return</span> NULL;</div>
-<div class="line"><span class="lineno">   72</span>}</div>
-</div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00041">41</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+
 </div>
 </div>
 <a id="a3bcb7f393584a65e55806691d5c82423" name="a3bcb7f393584a65e55806691d5c82423"></a>
@@ -212,55 +303,8 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00074">74</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   75</span>{</div>
-<div class="line"><span class="lineno">   76</span>    <span class="keywordflow">if</span> (board &gt; volts_.size() - 1)</div>
-<div class="line"><span class="lineno">   77</span>    {</div>
-<div class="line"><span class="lineno">   78</span>        <span class="keywordflow">if</span> (set_getChannelII_.find(to_string(board) + <span class="stringliteral">&quot;-&quot;</span> + to_string(channel)) == set_getChannelII_.end())</div>
-<div class="line"><span class="lineno">   79</span>        {</div>
-<div class="line"><span class="lineno">   80</span>            cerr &lt;&lt; <span class="stringliteral">&quot;!! Error: board number provided not found --&gt; Exceded maximum board number&quot;</span> &lt;&lt; endl</div>
-<div class="line"><span class="lineno">   81</span>                 &lt;&lt; <span class="stringliteral">&quot;       passed board number: &quot;</span> &lt;&lt; board &lt;&lt; endl</div>
-<div class="line"><span class="lineno">   82</span>                 &lt;&lt; <span class="stringliteral">&quot;       volts.size() = &quot;</span> &lt;&lt; volts_.size() &lt;&lt; endl;</div>
-<div class="line"><span class="lineno">   83</span>            set_getChannelII_.insert(to_string(board) + <span class="stringliteral">&quot;-&quot;</span> + to_string(channel));</div>
-<div class="line"><span class="lineno">   84</span>        }</div>
-<div class="line"><span class="lineno">   85</span>        <span class="keywordflow">return</span> NULL;</div>
-<div class="line"><span class="lineno">   86</span>    }</div>
-<div class="line"><span class="lineno">   87</span> </div>
-<div class="line"><span class="lineno">   88</span>    <span class="keywordtype">int</span> i = 0, j = 0;</div>
-<div class="line"><span class="lineno">   89</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;[bKey, bVal] : volts_)</div>
-<div class="line"><span class="lineno">   90</span>    {</div>
-<div class="line"><span class="lineno">   91</span>        <span class="keywordflow">if</span> (i == board)</div>
-<div class="line"><span class="lineno">   92</span>        {</div>
-<div class="line"><span class="lineno">   93</span>            <span class="keywordflow">if</span> (bVal.size() - 1 &lt; channel)</div>
-<div class="line"><span class="lineno">   94</span>            {</div>
-<div class="line"><span class="lineno">   95</span>                <span class="keywordflow">if</span> (set_getChannelII_.find(to_string(board) + <span class="stringliteral">&quot;-&quot;</span> + to_string(channel)) == set_getChannelII_.end())</div>
-<div class="line"><span class="lineno">   96</span>                {</div>
-<div class="line"><span class="lineno">   97</span>                    cerr &lt;&lt; <span class="stringliteral">&quot;!! Error: channel number provided not found --&gt; Exceded maximum channel number&quot;</span> &lt;&lt; endl</div>
-<div class="line"><span class="lineno">   98</span>                         &lt;&lt; <span class="stringliteral">&quot;       passed channel number: &quot;</span> &lt;&lt; channel &lt;&lt; endl</div>
-<div class="line"><span class="lineno">   99</span>                         &lt;&lt; <span class="stringliteral">&quot;       volts[&quot;</span> &lt;&lt; bKey &lt;&lt; <span class="stringliteral">&quot;].size() = &quot;</span> &lt;&lt; bVal.size() &lt;&lt; endl;</div>
-<div class="line"><span class="lineno">  100</span>                    set_getChannelII_.insert(to_string(board) + <span class="stringliteral">&quot;-&quot;</span> + to_string(channel));</div>
-<div class="line"><span class="lineno">  101</span>                }</div>
-<div class="line"><span class="lineno">  102</span>                <span class="keywordflow">return</span> NULL;</div>
-<div class="line"><span class="lineno">  103</span>            }</div>
-<div class="line"><span class="lineno">  104</span>            <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;[cKey, cVal] : bVal)</div>
-<div class="line"><span class="lineno">  105</span>            {</div>
-<div class="line"><span class="lineno">  106</span>                <span class="keywordflow">if</span> (j == channel)</div>
-<div class="line"><span class="lineno">  107</span>                {</div>
-<div class="line"><span class="lineno">  108</span>                    <span class="keywordflow">if</span> (set_getchannelS_.find(bKey + cKey) == set_getchannelS_.end())</div>
-<div class="line"><span class="lineno">  109</span>                    {</div>
-<div class="line"><span class="lineno">  110</span>                        cout &lt;&lt; <span class="stringliteral">&quot;Obtaining data for board: &quot;</span> &lt;&lt; bKey &lt;&lt; <span class="stringliteral">&quot; channel: &quot;</span> &lt;&lt; cKey &lt;&lt; endl;</div>
-<div class="line"><span class="lineno">  111</span>                        set_getchannelS_.insert(bKey + cKey);</div>
-<div class="line"><span class="lineno">  112</span>                    }</div>
-<div class="line"><span class="lineno">  113</span>                    <span class="keywordflow">return</span> &amp;cVal;</div>
-<div class="line"><span class="lineno">  114</span>                }</div>
-<div class="line"><span class="lineno">  115</span>                ++j;</div>
-<div class="line"><span class="lineno">  116</span>            }</div>
-<div class="line"><span class="lineno">  117</span>        }</div>
-<div class="line"><span class="lineno">  118</span>        ++i;</div>
-<div class="line"><span class="lineno">  119</span>    }</div>
-<div class="line"><span class="lineno">  120</span>    <span class="keywordflow">return</span> NULL;</div>
-<div class="line"><span class="lineno">  121</span>}</div>
-</div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00084">84</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+
 </div>
 </div>
 <a id="a6eae06ac7039f8e0b234b44c164ff9b8" name="a6eae06ac7039f8e0b234b44c164ff9b8"></a>
@@ -286,9 +330,8 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00062">62</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   62</span>{ <span class="keywordflow">return</span> times_; };</div>
-</div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00076">76</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+
 </div>
 </div>
 <a id="aff03237e83ae4b5eadf8177213398d7a" name="aff03237e83ae4b5eadf8177213398d7a"></a>
@@ -314,9 +357,145 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00063">63</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   63</span>{ <span class="keywordflow">return</span> volts_; };</div>
-</div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00077">77</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+
+</div>
+</div>
+<a id="acdb8cb41461fdd6673996185cac22652" name="acdb8cb41461fdd6673996185cac22652"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acdb8cb41461fdd6673996185cac22652">&#9670;&#160;</a></span>SetTime()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DAQEvent::SetTime </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; float &gt; &amp;&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00139">139</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+
+</div>
+</div>
+<a id="a790cf06ff40b3d0fc47787b29e14f3e0" name="a790cf06ff40b3d0fc47787b29e14f3e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a790cf06ff40b3d0fc47787b29e14f3e0">&#9670;&#160;</a></span>SetTrigger()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DAQEvent::SetTrigger </td>
+          <td>(</td>
+          <td class="paramtype">const unsigned short &amp;&#160;</td>
+          <td class="paramname"><em>trig</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00133">133</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+
+</div>
+</div>
+<a id="a03ee85fe1877c2296d97bc9aa5fef616" name="a03ee85fe1877c2296d97bc9aa5fef616"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a03ee85fe1877c2296d97bc9aa5fef616">&#9670;&#160;</a></span>SetVolts()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DAQEvent::SetVolts </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structTAG.html">TAG</a> &amp;&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structTAG.html">TAG</a> &amp;&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; float &gt; &amp;&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00151">151</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+
+</div>
+</div>
+<a id="aa2fb65b7fc84f8e2632ed5d799554f2b" name="aa2fb65b7fc84f8e2632ed5d799554f2b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa2fb65b7fc84f8e2632ed5d799554f2b">&#9670;&#160;</a></span>TimeCalibration()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DAQEvent::TimeCalibration </td>
+          <td>(</td>
+          <td class="paramtype">const unsigned short &amp;&#160;</td>
+          <td class="paramname"><em>tCell</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Function to perform the time calibration. </p>
+<p>The time calibration is performed as specified in the DRS manual.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tCell</td><td>Cell number at which the signal triggered the board. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00172">172</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+
 </div>
 </div>
 <h2 class="groupheader">Friends And Related Function Documentation</h2>
@@ -340,7 +519,154 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00080">80</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00094">94</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a49328000d66143a364d40eb4dc4e9457" name="a49328000d66143a364d40eb4dc4e9457"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a49328000d66143a364d40eb4dc4e9457">&#9670;&#160;</a></span>set_getchannelI_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::set&lt;int&gt; DAQEvent::set_getchannelI_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00091">91</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+
+</div>
+</div>
+<a id="a7b622b96d3e03a712154072642a15115" name="a7b622b96d3e03a712154072642a15115"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b622b96d3e03a712154072642a15115">&#9670;&#160;</a></span>set_getChannelII_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::set&lt;std::string&gt; DAQEvent::set_getChannelII_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00092">92</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+
+</div>
+</div>
+<a id="a36c99f6c6a8c5f7d8b33b9afd71ced99" name="a36c99f6c6a8c5f7d8b33b9afd71ced99"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36c99f6c6a8c5f7d8b33b9afd71ced99">&#9670;&#160;</a></span>set_getchannelS_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::set&lt;std::string&gt; DAQEvent::set_getchannelS_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00090">90</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+
+</div>
+</div>
+<a id="aed4f7042be0939c874ea26377eb95e4e" name="aed4f7042be0939c874ea26377eb95e4e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed4f7042be0939c874ea26377eb95e4e">&#9670;&#160;</a></span>times_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">MAP DAQEvent::times_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Data structure to hold times' information. </p>
+
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00088">88</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+
+</div>
+</div>
+<a id="a85968b2e27354813efe010ffc3465016" name="a85968b2e27354813efe010ffc3465016"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a85968b2e27354813efe010ffc3465016">&#9670;&#160;</a></span>trigger_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned short DAQEvent::trigger_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00087">87</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+
+</div>
+</div>
+<a id="a0b981b2e313c1337c8e4e69feaa84724" name="a0b981b2e313c1337c8e4e69feaa84724"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b981b2e313c1337c8e4e69feaa84724">&#9670;&#160;</a></span>volts_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">MAP DAQEvent::volts_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00089">89</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
 
 </div>
 </div>

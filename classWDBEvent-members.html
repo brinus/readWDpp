@@ -23,6 +23,7 @@
   <td id="projectalign">
    <div id="projectname">readWDpp
    </div>
+   <div id="projectbrief">Read binary files from DRS and WDB</div>
   </td>
  </tr>
  </tbody>
@@ -75,6 +76,8 @@ $(function() {
 
 <p>This is the complete list of members for <a class="el" href="classWDBEvent.html">WDBEvent</a>, including all inherited members.</p>
 <table class="directory">
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>CreateBoard</b>(const TAG &amp;) (defined in <a class="el" href="classDAQEvent.html">DAQEvent</a>)</td><td class="entry"><a class="el" href="classDAQEvent.html">DAQEvent</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>CreateChannel</b>(const TAG &amp;, const TAG &amp;) (defined in <a class="el" href="classDAQEvent.html">DAQEvent</a>)</td><td class="entry"><a class="el" href="classDAQEvent.html">DAQEvent</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
   <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>GetAmplitude</b>() (defined in <a class="el" href="classDAQEvent.html">DAQEvent</a>)</td><td class="entry"><a class="el" href="classDAQEvent.html">DAQEvent</a></td><td class="entry"></td></tr>
   <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>GetChannel</b>(const int &amp;) (defined in <a class="el" href="classDAQEvent.html">DAQEvent</a>)</td><td class="entry"><a class="el" href="classDAQEvent.html">DAQEvent</a></td><td class="entry"></td></tr>
   <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>GetChannel</b>(const int &amp;, const int &amp;) (defined in <a class="el" href="classDAQEvent.html">DAQEvent</a>)</td><td class="entry"><a class="el" href="classDAQEvent.html">DAQEvent</a></td><td class="entry"></td></tr>
@@ -83,6 +86,17 @@ $(function() {
   <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>GetPedestal</b>() (defined in <a class="el" href="classDAQEvent.html">DAQEvent</a>)</td><td class="entry"><a class="el" href="classDAQEvent.html">DAQEvent</a></td><td class="entry"></td></tr>
   <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>GetTimeMap</b>() const (defined in <a class="el" href="classDAQEvent.html">DAQEvent</a>)</td><td class="entry"><a class="el" href="classDAQEvent.html">DAQEvent</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
   <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>GetVoltMap</b>() const (defined in <a class="el" href="classDAQEvent.html">DAQEvent</a>)</td><td class="entry"><a class="el" href="classDAQEvent.html">DAQEvent</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>MAP</b> typedef (defined in <a class="el" href="classDAQEvent.html">DAQEvent</a>)</td><td class="entry"><a class="el" href="classDAQEvent.html">DAQEvent</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>set_getchannelI_</b> (defined in <a class="el" href="classDAQEvent.html">DAQEvent</a>)</td><td class="entry"><a class="el" href="classDAQEvent.html">DAQEvent</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>set_getChannelII_</b> (defined in <a class="el" href="classDAQEvent.html">DAQEvent</a>)</td><td class="entry"><a class="el" href="classDAQEvent.html">DAQEvent</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>set_getchannelS_</b> (defined in <a class="el" href="classDAQEvent.html">DAQEvent</a>)</td><td class="entry"><a class="el" href="classDAQEvent.html">DAQEvent</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>SetTime</b>(const std::vector&lt; float &gt; &amp;) (defined in <a class="el" href="classDAQEvent.html">DAQEvent</a>)</td><td class="entry"><a class="el" href="classDAQEvent.html">DAQEvent</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>SetTrigger</b>(const unsigned short &amp;) (defined in <a class="el" href="classDAQEvent.html">DAQEvent</a>)</td><td class="entry"><a class="el" href="classDAQEvent.html">DAQEvent</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>SetVolts</b>(const TAG &amp;, const TAG &amp;, const std::vector&lt; float &gt; &amp;) (defined in <a class="el" href="classDAQEvent.html">DAQEvent</a>)</td><td class="entry"><a class="el" href="classDAQEvent.html">DAQEvent</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classDAQEvent.html#aa2fb65b7fc84f8e2632ed5d799554f2b">TimeCalibration</a>(const unsigned short &amp;)</td><td class="entry"><a class="el" href="classDAQEvent.html">DAQEvent</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classDAQEvent.html#aed4f7042be0939c874ea26377eb95e4e">times_</a></td><td class="entry"><a class="el" href="classDAQEvent.html">DAQEvent</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>trigger_</b> (defined in <a class="el" href="classDAQEvent.html">DAQEvent</a>)</td><td class="entry"><a class="el" href="classDAQEvent.html">DAQEvent</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>volts_</b> (defined in <a class="el" href="classDAQEvent.html">DAQEvent</a>)</td><td class="entry"><a class="el" href="classDAQEvent.html">DAQEvent</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
 </table></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

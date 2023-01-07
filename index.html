@@ -23,6 +23,7 @@
   <td id="projectalign">
    <div id="projectname">readWDpp
    </div>
+   <div id="projectbrief">Read binary files from DRS and WDB</div>
   </td>
  </tr>
  </tbody>
@@ -72,19 +73,38 @@ $(function() {
   <div class="headertitle"><div class="title">readWDpp </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="autotoc_md0"></a>
-Main page</h1>
-<p>The</p>
-<h2><a class="anchor" id="autotoc_md1"></a>
-Prova</h2>
-<p>Prova $sin(\theta)$:</p>
-<p>$$ a = b $$</p>
-<table class="markdownTable">
-<tr class="markdownTableHead">
-<th class="markdownTableHeadLeft">a   </th><th class="markdownTableHeadRight">b    </th></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyLeft">1   </td><td class="markdownTableBodyRight">2   </td></tr>
-</table>
+<div class="textblock"><h2><a class="anchor" id="autotoc_md4"></a>
+Introduction</h2>
+<p>The <em>readWDpp</em> project is a library which aims to read binary files from a DRS Evaluation Board or WaveDREAM Board. To do this, the library implements many usefull classes that can be used with their methods to read the output files from the boards.</p>
+<h2><a class="anchor" id="autotoc_md5"></a>
+Usage</h2>
+<p>The main usage is to initialize a <a class="el" href="classDAQFile.html">DAQFile</a> and <a class="el" href="classDAQEvent.html">DAQEvent</a>, read all the file and at each event extract the value we are interested in.</p>
+<div class="fragment"><div class="line"><span class="comment">// mainExample0.cc</span></div>
+<div class="line"> </div>
+<div class="line"><span class="preprocessor">#include &quot;<a class="code" href="readWD_8hh.html">readWD.hh</a>&quot;</span></div>
+<div class="line"><span class="preprocessor">#include &quot;TH1F.h&quot;</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keywordtype">void</span> mainExample0()</div>
+<div class="line">{</div>
+<div class="line">    <a class="code hl_class" href="classDAQFile.html">DAQFile</a> file(<span class="stringliteral">&quot;path/to/file.dat&quot;</span>);</div>
+<div class="line">    <a class="code hl_class" href="classDRSEvent.html">DRSEvent</a> event;</div>
+<div class="line">    file.Initialise(event);</div>
+<div class="line">    TH1F * h1 = <span class="keyword">new</span> TH1F(<span class="stringliteral">&quot;h1&quot;</span>, <span class="stringliteral">&quot;Charge histogram&quot;</span>, 100, 0, 10);</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">while</span> (file &gt;&gt; event)</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keywordtype">float</span> charge = <span class="keyword">event</span>.GetChannel(<span class="stringliteral">&quot;B#01&quot;</span>, <span class="stringliteral">&quot;C001&quot;</span>).GetCharge();</div>
+<div class="line">        h1-&gt;Fill(charge);</div>
+<div class="line">    }</div>
+<div class="line">    h1-&gt;Draw();</div>
+<div class="line">}</div>
+<div class="ttc" id="aclassDAQFile_html"><div class="ttname"><a href="classDAQFile.html">DAQFile</a></div><div class="ttdoc">Class to manage the file and the outputing of data in a DAQEvent instance.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8hh_source.html#l00109">readWD.hh:110</a></div></div>
+<div class="ttc" id="aclassDRSEvent_html"><div class="ttname"><a href="classDRSEvent.html">DRSEvent</a></div><div class="ttdef"><b>Definition:</b> <a href="readWD_8hh_source.html#l00097">readWD.hh:98</a></div></div>
+<div class="ttc" id="areadWD_8hh_html"><div class="ttname"><a href="readWD_8hh.html">readWD.hh</a></div><div class="ttdoc">Declaration of classes and methods.</div></div>
+</div><!-- fragment --><p>The user must know prevently if the file he is reading comes from a DRS or a WDB. The output will be:</p>
+<div class="fragment"><div class="line">$ root -l mainExample0.cc</div>
+<div class="line">root [0] </div>
+</div><!-- fragment --><p>To understand more deeply the usage of the library, the user can read the <a class="el" href="examples.html">Examples</a> page. </p>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
 <!-- start footer part -->

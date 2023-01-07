@@ -23,6 +23,7 @@
   <td id="projectalign">
    <div id="projectname">readWDpp
    </div>
+   <div id="projectbrief">Read binary files from DRS and WDB</div>
   </td>
  </tr>
  </tbody>
@@ -71,10 +72,17 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classDAQFile-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">DAQFile Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Class to manage the file and the outputing of data in a <a class="el" href="classDAQEvent.html">DAQEvent</a> instance.  
+ <a href="classDAQFile.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="readWD_8hh_source.html">readWD.hh</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -87,17 +95,55 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a5b8aee2d53266d894bc6e01a6df04c6d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQFile.html#a5b8aee2d53266d894bc6e01a6df04c6d">Open</a> (const std::string &amp;fname)</td></tr>
 <tr class="separator:a5b8aee2d53266d894bc6e01a6df04c6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac2fdea8b72f71226b07cd1060aaa7586"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQFile.html#ac2fdea8b72f71226b07cd1060aaa7586">operator&gt;&gt;</a> (<a class="el" href="classDRSEvent.html">DRSEvent</a> &amp;)</td></tr>
+<tr class="memdesc:ac2fdea8b72f71226b07cd1060aaa7586"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read into a <a class="el" href="classDRSEvent.html">DRSEvent</a>.  <br /></td></tr>
 <tr class="separator:ac2fdea8b72f71226b07cd1060aaa7586"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a553de18754148649638f5ebd2fd2ff8f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQFile.html#a553de18754148649638f5ebd2fd2ff8f">operator&gt;&gt;</a> (<a class="el" href="classWDBEvent.html">WDBEvent</a> &amp;)</td></tr>
+<tr class="memdesc:a553de18754148649638f5ebd2fd2ff8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read into a <a class="el" href="classWDBEvent.html">WDBEvent</a>.  <br /></td></tr>
 <tr class="separator:a553de18754148649638f5ebd2fd2ff8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a402fdd50afd00045414f77539a1fba8a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQFile.html#a402fdd50afd00045414f77539a1fba8a">operator&gt;&gt;</a> (<a class="el" href="structTAG.html">TAG</a> &amp;)</td></tr>
+<tr class="memdesc:a402fdd50afd00045414f77539a1fba8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read into a <a class="el" href="structTAG.html">TAG</a>.  <br /></td></tr>
 <tr class="separator:a402fdd50afd00045414f77539a1fba8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a32b8493c4a26cbd0de71559be66a6ec1"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQFile.html#a32b8493c4a26cbd0de71559be66a6ec1">operator&gt;&gt;</a> (<a class="el" href="structEventHeader.html">EventHeader</a> &amp;)</td></tr>
+<tr class="memdesc:a32b8493c4a26cbd0de71559be66a6ec1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read into a <a class="el" href="structEventHeader.html">EventHeader</a>.  <br /></td></tr>
 <tr class="separator:a32b8493c4a26cbd0de71559be66a6ec1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a987c87299b6732a67a7c80bbbef59f93"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQFile.html#a987c87299b6732a67a7c80bbbef59f93">operator bool</a> ()</td></tr>
+<tr class="separator:a987c87299b6732a67a7c80bbbef59f93"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8f358ff1697f54da92ab93767040f1d"><td class="memTemplParams" colspan="2">template&lt;class T &gt; </td></tr>
+<tr class="memitem:af8f358ff1697f54da92ab93767040f1d"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classDAQFile.html#af8f358ff1697f54da92ab93767040f1d">Read</a> (T &amp;t)</td></tr>
+<tr class="separator:af8f358ff1697f54da92ab93767040f1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9dc149c2558bec76bea996de3bc1762f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQFile.html#a9dc149c2558bec76bea996de3bc1762f">Read</a> (<a class="el" href="structTAG.html">TAG</a> &amp;t)</td></tr>
+<tr class="separator:a9dc149c2558bec76bea996de3bc1762f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa5669987d02fd94eb1d767c8fb2d3420"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQFile.html#aa5669987d02fd94eb1d767c8fb2d3420">Read</a> (<a class="el" href="structEventHeader.html">EventHeader</a> &amp;)</td></tr>
+<tr class="separator:aa5669987d02fd94eb1d767c8fb2d3420"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a628a2a723d111991f884e308c5085247"><td class="memItemLeft" align="right" valign="top"><a id="a628a2a723d111991f884e308c5085247" name="a628a2a723d111991f884e308c5085247"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Read</b> (std::vector&lt; float &gt; &amp;)</td></tr>
+<tr class="separator:a628a2a723d111991f884e308c5085247"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a89319668b98fcef2c31fb3521834241a"><td class="memItemLeft" align="right" valign="top"><a id="a89319668b98fcef2c31fb3521834241a" name="a89319668b98fcef2c31fb3521834241a"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Read</b> (std::vector&lt; unsigned short &gt; &amp;)</td></tr>
+<tr class="separator:a89319668b98fcef2c31fb3521834241a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a78c34709a9457b584ed7f39d3fd2d117"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQFile.html#a78c34709a9457b584ed7f39d3fd2d117">ResetTag</a> ()</td></tr>
+<tr class="separator:a78c34709a9457b584ed7f39d3fd2d117"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a4cefba4b531c248296f3ddca708dc7ec"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQFile.html#a4cefba4b531c248296f3ddca708dc7ec">filename_</a></td></tr>
+<tr class="separator:a4cefba4b531c248296f3ddca708dc7ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff483320738d5cab388617671013e7e9"><td class="memItemLeft" align="right" valign="top">std::ifstream&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQFile.html#aff483320738d5cab388617671013e7e9">in_</a></td></tr>
+<tr class="separator:aff483320738d5cab388617671013e7e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2fca141b6ff949db0e97bbd08acf9180"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQFile.html#a2fca141b6ff949db0e97bbd08acf9180">o_</a></td></tr>
+<tr class="separator:a2fca141b6ff949db0e97bbd08acf9180"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5918866b9bef2db8dad574bd3a8e2db8"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQFile.html#a5918866b9bef2db8dad574bd3a8e2db8">n_</a></td></tr>
+<tr class="separator:a5918866b9bef2db8dad574bd3a8e2db8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0d214224c33d99d5747eca09a8d14e64"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQFile.html#a0d214224c33d99d5747eca09a8d14e64">initialization_</a></td></tr>
+<tr class="separator:a0d214224c33d99d5747eca09a8d14e64"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00091">91</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+<div class="textblock"><p>Class to manage the file and the outputing of data in a <a class="el" href="classDAQEvent.html">DAQEvent</a> instance. </p>
+
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00109">109</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a73d096ffebcd04a3707ba512cf6b17ba" name="a73d096ffebcd04a3707ba512cf6b17ba"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a73d096ffebcd04a3707ba512cf6b17ba">&#9670;&#160;</a></span>DAQFile()</h2>
@@ -123,13 +169,8 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00094">94</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   95</span>    {</div>
-<div class="line"><span class="lineno">   96</span>        filename_ = fname;</div>
-<div class="line"><span class="lineno">   97</span>        in_.open(fname, std::ios::in | std::ios::binary);</div>
-<div class="line"><span class="lineno">   98</span>        std::cout &lt;&lt; <span class="stringliteral">&quot;Created DAQFile, opened file &quot;</span> &lt;&lt; fname &lt;&lt; std::endl;</div>
-<div class="line"><span class="lineno">   99</span>    }</div>
-</div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00112">112</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+
 </div>
 </div>
 <a id="a2121a3a2cb3df7a94abf96ba7b20a5dc" name="a2121a3a2cb3df7a94abf96ba7b20a5dc"></a>
@@ -155,9 +196,8 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00100">100</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  100</span>{ in_.close(); }</div>
-</div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00118">118</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
@@ -176,13 +216,8 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00297">297</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  298</span>{</div>
-<div class="line"><span class="lineno">  299</span>    cout &lt;&lt; <span class="stringliteral">&quot;Closing file &quot;</span> &lt;&lt; filename_ &lt;&lt; <span class="stringliteral">&quot;...&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><span class="lineno">  300</span>    in_.close();</div>
-<div class="line"><span class="lineno">  301</span>    <span class="keywordflow">return</span>;</div>
-<div class="line"><span class="lineno">  302</span>}</div>
-</div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00314">314</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+
 </div>
 </div>
 <a id="a83855bb3ddee78c6b24481fd24b09083" name="a83855bb3ddee78c6b24481fd24b09083"></a>
@@ -201,59 +236,8 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00222">222</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  223</span>{</div>
-<div class="line"><span class="lineno">  224</span>    <span class="keywordflow">if</span> (!in_.is_open())</div>
-<div class="line"><span class="lineno">  225</span>    {</div>
-<div class="line"><span class="lineno">  226</span>        cerr &lt;&lt; <span class="stringliteral">&quot;!! Error: file not open --&gt; use DAQFile(filename)&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><span class="lineno">  227</span>        <span class="keywordflow">return</span>;</div>
-<div class="line"><span class="lineno">  228</span>    }</div>
-<div class="line"><span class="lineno">  229</span> </div>
-<div class="line"><span class="lineno">  230</span>    <span class="keywordflow">if</span> (in_.tellg() != 0)</div>
-<div class="line"><span class="lineno">  231</span>    {</div>
-<div class="line"><span class="lineno">  232</span>        cerr &lt;&lt; <span class="stringliteral">&quot;!! Error: file already initialized --&gt; ???&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><span class="lineno">  233</span>        <span class="keywordflow">return</span>;</div>
-<div class="line"><span class="lineno">  234</span>    }</div>
-<div class="line"><span class="lineno">  235</span> </div>
-<div class="line"><span class="lineno">  236</span>    <a class="code hl_class" href="classDAQFile.html">DAQFile</a> &amp;file = *<span class="keyword">this</span>;</div>
-<div class="line"><span class="lineno">  237</span>    <a class="code hl_struct" href="structTAG.html">TAG</a> bTag, cTag;</div>
-<div class="line"><span class="lineno">  238</span>    vector&lt;float&gt; times(SAMPLES_PER_WAVEFORM);</div>
-<div class="line"><span class="lineno">  239</span> </div>
-<div class="line"><span class="lineno">  240</span>    cout &lt;&lt; <span class="stringliteral">&quot;Initializing file &quot;</span> &lt;&lt; filename_ &lt;&lt; endl;</div>
-<div class="line"><span class="lineno">  241</span> </div>
-<div class="line"><span class="lineno">  242</span>    file &gt;&gt; bTag; <span class="comment">// DRSx</span></div>
-<div class="line"><span class="lineno">  243</span>    file &gt;&gt; cTag; <span class="comment">// TIME</span></div>
-<div class="line"><span class="lineno">  244</span>    cout &lt;&lt; bTag;</div>
-<div class="line"><span class="lineno">  245</span>    <span class="keywordflow">if</span> (bTag.tag[3] == <span class="charliteral">&#39;8&#39;</span>)</div>
-<div class="line"><span class="lineno">  246</span>    {</div>
-<div class="line"><span class="lineno">  247</span>        cout &lt;&lt; <span class="stringliteral">&quot; --&gt; WaveDREAM Board&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><span class="lineno">  248</span>    }</div>
-<div class="line"><span class="lineno">  249</span>    <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">  250</span>    {</div>
-<div class="line"><span class="lineno">  251</span>        cout &lt;&lt; <span class="stringliteral">&quot; --&gt; DRS Evaluation Board&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><span class="lineno">  252</span>    }</div>
-<div class="line"><span class="lineno">  253</span> </div>
-<div class="line"><span class="lineno">  254</span>    o_ = <span class="charliteral">&#39;B&#39;</span>;</div>
-<div class="line"><span class="lineno">  255</span>    initialization_ = 0;</div>
-<div class="line"><span class="lineno">  256</span>    <span class="keywordflow">while</span> (file &gt;&gt; bTag) <span class="comment">// B#?</span></div>
-<div class="line"><span class="lineno">  257</span>    {</div>
-<div class="line"><span class="lineno">  258</span>        cout &lt;&lt; bTag &lt;&lt; <span class="stringliteral">&quot;:&quot;</span> &lt;&lt; endl; <span class="comment">// print --&gt; B#?</span></div>
-<div class="line"><span class="lineno">  259</span>        <span class="keyword">event</span>.CreateBoard(bTag);</div>
-<div class="line"><span class="lineno">  260</span>        <span class="keywordflow">while</span> (file &gt;&gt; cTag) <span class="comment">// C001</span></div>
-<div class="line"><span class="lineno">  261</span>        {</div>
-<div class="line"><span class="lineno">  262</span>            cout &lt;&lt; <span class="stringliteral">&quot; --&gt; &quot;</span> &lt;&lt; cTag &lt;&lt; endl; <span class="comment">// print --&gt; C001</span></div>
-<div class="line"><span class="lineno">  263</span>            <span class="keyword">event</span>.CreateChannel(bTag, cTag);</div>
-<div class="line"><span class="lineno">  264</span>            file.Read(times);</div>
-<div class="line"><span class="lineno">  265</span>            <span class="keyword">event</span>.SetTime(times);</div>
-<div class="line"><span class="lineno">  266</span>        }</div>
-<div class="line"><span class="lineno">  267</span>        file.ResetTag();</div>
-<div class="line"><span class="lineno">  268</span>    }</div>
-<div class="line"><span class="lineno">  269</span>    file.ResetTag();</div>
-<div class="line"><span class="lineno">  270</span>    <span class="keywordflow">return</span>;</div>
-<div class="line"><span class="lineno">  271</span>}</div>
-<div class="ttc" id="aclassDAQFile_html"><div class="ttname"><a href="classDAQFile.html">DAQFile</a></div><div class="ttdef"><b>Definition:</b> <a href="readWD_8hh_source.html#l00091">readWD.hh:92</a></div></div>
-<div class="ttc" id="astructTAG_html"><div class="ttname"><a href="structTAG.html">TAG</a></div><div class="ttdef"><b>Definition:</b> <a href="readWD_8hh_source.html#l00017">readWD.hh:18</a></div></div>
-</div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00239">239</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+
 </div>
 </div>
 <a id="a5b8aee2d53266d894bc6e01a6df04c6d" name="a5b8aee2d53266d894bc6e01a6df04c6d"></a>
@@ -280,22 +264,35 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00104">104</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  105</span>    {</div>
-<div class="line"><span class="lineno">  106</span>        <span class="keywordflow">if</span> (!in_.is_open())</div>
-<div class="line"><span class="lineno">  107</span>        {</div>
-<div class="line"><span class="lineno">  108</span>            filename_ = fname;</div>
-<div class="line"><span class="lineno">  109</span>            in_.open(fname, std::ios::in | std::ios::binary);</div>
-<div class="line"><span class="lineno">  110</span>            std::cout &lt;&lt; std::endl &lt;&lt; <span class="stringliteral">&quot;Created DAQFile, opened file &quot;</span> &lt;&lt; fname &lt;&lt; std::endl;</div>
-<div class="line"><span class="lineno">  111</span>            <span class="keywordflow">return</span>;</div>
-<div class="line"><span class="lineno">  112</span>        }</div>
-<div class="line"><span class="lineno">  113</span>        <span class="keywordflow">else</span> </div>
-<div class="line"><span class="lineno">  114</span>        {</div>
-<div class="line"><span class="lineno">  115</span>            std::cerr &lt;&lt; <span class="stringliteral">&quot;!! Error: File is already opened --&gt; &quot;</span> &lt;&lt; filename_ &lt;&lt; std::endl;</div>
-<div class="line"><span class="lineno">  116</span>            <span class="keywordflow">return</span>;</div>
-<div class="line"><span class="lineno">  117</span>        }</div>
-<div class="line"><span class="lineno">  118</span>    }</div>
-</div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00122">122</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+
+</div>
+</div>
+<a id="a987c87299b6732a67a7c80bbbef59f93" name="a987c87299b6732a67a7c80bbbef59f93"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a987c87299b6732a67a7c80bbbef59f93">&#9670;&#160;</a></span>operator bool()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">DAQFile::operator bool </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00451">451</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+
 </div>
 </div>
 <a id="ac2fdea8b72f71226b07cd1060aaa7586" name="ac2fdea8b72f71226b07cd1060aaa7586"></a>
@@ -314,50 +311,19 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00324">324</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  325</span>{</div>
-<div class="line"><span class="lineno">  326</span>    <span class="keywordflow">if</span> (!in_.good())</div>
-<div class="line"><span class="lineno">  327</span>    {</div>
-<div class="line"><span class="lineno">  328</span>        <span class="keywordflow">return</span> 0;</div>
-<div class="line"><span class="lineno">  329</span>    }</div>
-<div class="line"><span class="lineno">  330</span> </div>
-<div class="line"><span class="lineno">  331</span>    <a class="code hl_class" href="classDAQFile.html">DAQFile</a> &amp;file = *<span class="keyword">this</span>;</div>
-<div class="line"><span class="lineno">  332</span>    <a class="code hl_struct" href="structTAG.html">TAG</a> bTag, cTag, tag;</div>
-<div class="line"><span class="lineno">  333</span>    <a class="code hl_struct" href="structEventHeader.html">EventHeader</a> eh;</div>
-<div class="line"><span class="lineno">  334</span>    vector&lt;unsigned short&gt; volts(SAMPLES_PER_WAVEFORM);</div>
-<div class="line"><span class="lineno">  335</span>    vector&lt;float&gt; volts_corr(SAMPLES_PER_WAVEFORM);</div>
-<div class="line"><span class="lineno">  336</span> </div>
-<div class="line"><span class="lineno">  337</span>    <span class="comment">// Read only one event</span></div>
-<div class="line"><span class="lineno">  338</span>    file &gt;&gt; eh;</div>
-<div class="line"><span class="lineno">  339</span>    <span class="keywordflow">if</span> (eh.serialNumber == 1)</div>
-<div class="line"><span class="lineno">  340</span>    {</div>
-<div class="line"><span class="lineno">  341</span>        cout &lt;&lt; <span class="stringliteral">&quot;Event serial number: &quot;</span> &lt;&lt; eh.serialNumber &lt;&lt; endl;</div>
-<div class="line"><span class="lineno">  342</span>    }</div>
-<div class="line"><span class="lineno">  343</span>    <span class="keywordflow">if</span> (eh.serialNumber % 100 == 0)</div>
-<div class="line"><span class="lineno">  344</span>    {</div>
-<div class="line"><span class="lineno">  345</span>        cout &lt;&lt; <span class="stringliteral">&quot;Event serial number: &quot;</span> &lt;&lt; eh.serialNumber &lt;&lt; endl;</div>
-<div class="line"><span class="lineno">  346</span>    }</div>
-<div class="line"><span class="lineno">  347</span>    <span class="keywordflow">while</span> (file &gt;&gt; bTag)</div>
-<div class="line"><span class="lineno">  348</span>    {</div>
-<div class="line"><span class="lineno">  349</span>        file &gt;&gt; tag; <span class="comment">// Trigger cell</span></div>
-<div class="line"><span class="lineno">  350</span>        <span class="keyword">event</span>.SetTrigger(*(<span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> *)(tag.tag + 2));</div>
-<div class="line"><span class="lineno">  351</span>        <span class="keywordflow">while</span> (file &gt;&gt; cTag)</div>
-<div class="line"><span class="lineno">  352</span>        {</div>
-<div class="line"><span class="lineno">  353</span>            file &gt;&gt; tag; <span class="comment">// Time scaler</span></div>
-<div class="line"><span class="lineno">  354</span>            file.Read(volts);</div>
-<div class="line"><span class="lineno">  355</span>            <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; volts.size(); ++i)</div>
-<div class="line"><span class="lineno">  356</span>            {</div>
-<div class="line"><span class="lineno">  357</span>                volts_corr[i] = volts[i] / 65536. + eh.rangeCenter / 1000. - 0.5;</div>
-<div class="line"><span class="lineno">  358</span>            }</div>
-<div class="line"><span class="lineno">  359</span>            <span class="keyword">event</span>.SetVolts(bTag, cTag, volts_corr);</div>
-<div class="line"><span class="lineno">  360</span>        }</div>
-<div class="line"><span class="lineno">  361</span>        file.ResetTag();</div>
-<div class="line"><span class="lineno">  362</span>    }</div>
-<div class="line"><span class="lineno">  363</span>    file.ResetTag();</div>
-<div class="line"><span class="lineno">  364</span>    <span class="keywordflow">return</span> 1;</div>
-<div class="line"><span class="lineno">  365</span>}</div>
-<div class="ttc" id="astructEventHeader_html"><div class="ttname"><a href="structEventHeader.html">EventHeader</a></div><div class="ttdoc">Struct to contain the event header informations.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8hh_source.html#l00031">readWD.hh:32</a></div></div>
-</div><!-- fragment -->
+<p>Read into a <a class="el" href="classDRSEvent.html">DRSEvent</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">event</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true </dd>
+<dd>
+false </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00362">362</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+
 </div>
 </div>
 <a id="a32b8493c4a26cbd0de71559be66a6ec1" name="a32b8493c4a26cbd0de71559be66a6ec1"></a>
@@ -376,16 +342,19 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00314">314</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  315</span>{</div>
-<div class="line"><span class="lineno">  316</span>    <span class="keywordflow">if</span> (!in_.good())</div>
-<div class="line"><span class="lineno">  317</span>    {</div>
-<div class="line"><span class="lineno">  318</span>        <span class="keywordflow">return</span> 0;</div>
-<div class="line"><span class="lineno">  319</span>    }</div>
-<div class="line"><span class="lineno">  320</span>    this-&gt;Read(eh);</div>
-<div class="line"><span class="lineno">  321</span>    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><span class="lineno">  322</span>}</div>
-</div><!-- fragment -->
+<p>Read into a <a class="el" href="structEventHeader.html">EventHeader</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">eh</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true </dd>
+<dd>
+false </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00345">345</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+
 </div>
 </div>
 <a id="a402fdd50afd00045414f77539a1fba8a" name="a402fdd50afd00045414f77539a1fba8a"></a>
@@ -404,16 +373,19 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00304">304</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  305</span>{</div>
-<div class="line"><span class="lineno">  306</span>    <span class="keywordflow">if</span> (!in_.good())</div>
-<div class="line"><span class="lineno">  307</span>    {</div>
-<div class="line"><span class="lineno">  308</span>        <span class="keywordflow">return</span> 0;</div>
-<div class="line"><span class="lineno">  309</span>    }</div>
-<div class="line"><span class="lineno">  310</span>    this-&gt;Read(t);</div>
-<div class="line"><span class="lineno">  311</span>    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><span class="lineno">  312</span>}</div>
-</div><!-- fragment -->
+<p>Read into a <a class="el" href="structTAG.html">TAG</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">t</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true </dd>
+<dd>
+false </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00328">328</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+
 </div>
 </div>
 <a id="a553de18754148649638f5ebd2fd2ff8f" name="a553de18754148649638f5ebd2fd2ff8f"></a>
@@ -432,45 +404,253 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00367">367</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  368</span>{</div>
-<div class="line"><span class="lineno">  369</span>    <span class="keywordflow">if</span> (!in_.good())</div>
-<div class="line"><span class="lineno">  370</span>    {</div>
-<div class="line"><span class="lineno">  371</span>        <span class="keywordflow">return</span> 0;</div>
-<div class="line"><span class="lineno">  372</span>    }</div>
-<div class="line"><span class="lineno">  373</span> </div>
-<div class="line"><span class="lineno">  374</span>    <a class="code hl_class" href="classDAQFile.html">DAQFile</a> &amp;file = *<span class="keyword">this</span>;</div>
-<div class="line"><span class="lineno">  375</span>    <a class="code hl_struct" href="structTAG.html">TAG</a> bTag, cTag, tag;</div>
-<div class="line"><span class="lineno">  376</span>    <a class="code hl_struct" href="structEventHeader.html">EventHeader</a> eh;</div>
-<div class="line"><span class="lineno">  377</span>    vector&lt;unsigned short&gt; volts(SAMPLES_PER_WAVEFORM);</div>
-<div class="line"><span class="lineno">  378</span>    vector&lt;float&gt; volts_corr(SAMPLES_PER_WAVEFORM);</div>
-<div class="line"><span class="lineno">  379</span> </div>
-<div class="line"><span class="lineno">  380</span>    <span class="comment">// Read only one event</span></div>
-<div class="line"><span class="lineno">  381</span>    file &gt;&gt; eh;</div>
-<div class="line"><span class="lineno">  382</span>    <span class="keywordflow">if</span> (eh.serialNumber % 100 == 0)</div>
-<div class="line"><span class="lineno">  383</span>    {</div>
-<div class="line"><span class="lineno">  384</span>        cout &lt;&lt; <span class="stringliteral">&quot;Event serial number: &quot;</span> &lt;&lt; eh.serialNumber &lt;&lt; endl;</div>
-<div class="line"><span class="lineno">  385</span>    }</div>
-<div class="line"><span class="lineno">  386</span>    <span class="keywordflow">while</span> (file &gt;&gt; bTag)</div>
-<div class="line"><span class="lineno">  387</span>    {</div>
-<div class="line"><span class="lineno">  388</span>        <span class="keywordflow">while</span> (file &gt;&gt; cTag)</div>
-<div class="line"><span class="lineno">  389</span>        {</div>
-<div class="line"><span class="lineno">  390</span>            file &gt;&gt; tag; <span class="comment">// Time scaler</span></div>
-<div class="line"><span class="lineno">  391</span>            file &gt;&gt; tag; <span class="comment">// Trigger cell</span></div>
-<div class="line"><span class="lineno">  392</span>            <span class="keyword">event</span>.SetTrigger(*(<span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> *)(tag.tag + 2));</div>
-<div class="line"><span class="lineno">  393</span>            file.Read(volts);</div>
-<div class="line"><span class="lineno">  394</span>            <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; volts.size(); ++i)</div>
-<div class="line"><span class="lineno">  395</span>            {</div>
-<div class="line"><span class="lineno">  396</span>                volts_corr[i] = volts[i] / 65536. + eh.rangeCenter / 1000. - 0.5;</div>
-<div class="line"><span class="lineno">  397</span>            }</div>
-<div class="line"><span class="lineno">  398</span>            <span class="keyword">event</span>.SetVolts(bTag, cTag, volts_corr);</div>
-<div class="line"><span class="lineno">  399</span>        }</div>
-<div class="line"><span class="lineno">  400</span>        file.ResetTag();</div>
-<div class="line"><span class="lineno">  401</span>    }</div>
-<div class="line"><span class="lineno">  402</span>    file.ResetTag();</div>
-<div class="line"><span class="lineno">  403</span>    <span class="keywordflow">return</span> 1;</div>
-<div class="line"><span class="lineno">  404</span>}</div>
-</div><!-- fragment -->
+<p>Read into a <a class="el" href="classWDBEvent.html">WDBEvent</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">event</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true </dd>
+<dd>
+false </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00412">412</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+
+</div>
+</div>
+<a id="aa5669987d02fd94eb1d767c8fb2d3420" name="aa5669987d02fd94eb1d767c8fb2d3420"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa5669987d02fd94eb1d767c8fb2d3420">&#9670;&#160;</a></span>Read() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DAQFile::Read </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structEventHeader.html">EventHeader</a> &amp;&#160;</td>
+          <td class="paramname"><em>eh</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00290">290</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+
+</div>
+</div>
+<a id="af8f358ff1697f54da92ab93767040f1d" name="af8f358ff1697f54da92ab93767040f1d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8f358ff1697f54da92ab93767040f1d">&#9670;&#160;</a></span>Read() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DAQFile::Read </td>
+          <td>(</td>
+          <td class="paramtype">T &amp;&#160;</td>
+          <td class="paramname"><em>t</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00146">146</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+
+</div>
+</div>
+<a id="a9dc149c2558bec76bea996de3bc1762f" name="a9dc149c2558bec76bea996de3bc1762f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9dc149c2558bec76bea996de3bc1762f">&#9670;&#160;</a></span>Read() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DAQFile::Read </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structTAG.html">TAG</a> &amp;&#160;</td>
+          <td class="paramname"><em>t</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00147">147</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+
+</div>
+</div>
+<a id="a78c34709a9457b584ed7f39d3fd2d117" name="a78c34709a9457b584ed7f39d3fd2d117"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a78c34709a9457b584ed7f39d3fd2d117">&#9670;&#160;</a></span>ResetTag()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DAQFile::ResetTag </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00155">155</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a4cefba4b531c248296f3ddca708dc7ec" name="a4cefba4b531c248296f3ddca708dc7ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4cefba4b531c248296f3ddca708dc7ec">&#9670;&#160;</a></span>filename_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string DAQFile::filename_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00157">157</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+
+</div>
+</div>
+<a id="aff483320738d5cab388617671013e7e9" name="aff483320738d5cab388617671013e7e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aff483320738d5cab388617671013e7e9">&#9670;&#160;</a></span>in_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::ifstream DAQFile::in_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00158">158</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+
+</div>
+</div>
+<a id="a0d214224c33d99d5747eca09a8d14e64" name="a0d214224c33d99d5747eca09a8d14e64"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d214224c33d99d5747eca09a8d14e64">&#9670;&#160;</a></span>initialization_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool DAQFile::initialization_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00160">160</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+
+</div>
+</div>
+<a id="a5918866b9bef2db8dad574bd3a8e2db8" name="a5918866b9bef2db8dad574bd3a8e2db8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5918866b9bef2db8dad574bd3a8e2db8">&#9670;&#160;</a></span>n_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">char DAQFile::n_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00159">159</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+
+</div>
+</div>
+<a id="a2fca141b6ff949db0e97bbd08acf9180" name="a2fca141b6ff949db0e97bbd08acf9180"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2fca141b6ff949db0e97bbd08acf9180">&#9670;&#160;</a></span>o_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">char DAQFile::o_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00159">159</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>

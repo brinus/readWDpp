@@ -1,20 +1,47 @@
 /*! 
 @mainpage
 
-# Main page
+## Introduction
 
-The 
+The *readWDpp* project is a library which aims to read binary files from a DRS Evaluation Board or WaveDREAM Board.
+To do this, the library implements many usefull classes that can be used with their methods to read the output files
+from the boards.
 
-## Prova
 
-Prova $sin(\theta)$:
+## Usage
 
-$$
-a = b
-$$
+The main usage is to initialize a @ref DAQFile and @ref DAQEvent, read all the file and at each event extract the value
+we are interested in. 
 
-| a | b |
-| :- | -: |
-| 1 | 2 |
+@code{.cpp}
+// mainExample0.cc
+
+#include "readWD.hh"
+#include "TH1F.h"
+
+void mainExample0()
+{
+    DAQFile file("path/to/file.dat");
+    DRSEvent event;
+    file.Initialise(event);
+    TH1F * h1 = new TH1F("h1", "Charge histogram", 100, 0, 10);
+
+    while (file >> event)
+    {
+        float charge = event.GetChannel("B#01", "C001").GetCharge();
+        h1->Fill(charge);
+    }
+    h1->Draw();
+}
+@endcode
+
+The user must know prevently if the file he is reading comes from a DRS or a WDB. The output will be:
+
+@code
+$ root -l mainExample0.cc
+root [0] 
+@endcode
+
+To understand more deeply the usage of the library, the user can read the @ref examples page.
 
 */

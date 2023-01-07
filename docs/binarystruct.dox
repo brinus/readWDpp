@@ -1,0 +1,93 @@
+/*!
+@page binary The Binary Output
+@brief Documentation about the binary file.
+
+## Introduction 
+
+In this page the user can understand how the binary files are written, and so how the @ref DAQFile::operator>> works. 
+The main difference between the two types of file is given in the event header: the former binary has a single trigger cell per board,
+the latter has a trigger cell for each channel. This is due to the fact that the WDB has inside two DRS chip, so to distinguish between 
+the two chip, in the binary the trigger cell is saved for each channel.
+
+### DRS Evaluation Board
+
+| Word |        Byte 0         | Byte 1 |      Byte 2       |            Byte 3            | Contents                                                                             |
+| :--: | :-------------------: | :----: | :---------------: | :--------------------------: | :----------------------------------------------------------------------------------- |
+|  0   |          'D'          |  'R'   |        'S'        |             '2'              | File header, Byte 3 = version                                                        |
+|  1   |          'T'          |  'I'   |        'M'        |             'E'              | Time header                                                                          |
+|  2   |          'B'          |  '#'   |   Board number                                  || Board serial number                                                                  |
+|  3   |          'C'          |  '0'   |        '0'        |             '1'              | Channel 1 header                                                                     |
+|  4   |  Time bin width # 0                                                            |||| Effective time bin width in ns for channel 1 encoded in 4-Btye floating point format |
+|  5   |  Time bin width # 1                                                            |||| ...                                                                                  |
+| ...  |          ...                                                                   |||| ...                                                                                  |
+| 1027 | Time bin width # 1023                                                          |||| ...                                                                                  |
+| 1028 |          'C'          |  '0'   |        '0'        |             '2'              | Channel 2 header                                                                     |
+| 1029 |  Time bin width # 0                                                            |||| Effective time bin width in ns for channel 2 encoded in 4-Btye floating point format |
+| 1030 |  Time bin width # 1                                                            |||| ...                                                                                  |
+| ...  |          ...                                                                   |||| ...                                                                                  |
+| 2052 | Time bin width # 1023                                                          |||| ...                                                                                  |
+| 2053 |          'E'          |  'H'   |        'D'        |             'R'              | Event header                                                                         |
+| 2054 |     Serial number                                                              |||| Event serial number starting with 1                                                  |
+| 2055 |         Year                  ||       Month                                     || Event date-time 16 bit values                                                        |
+| 2056 |          Day                  ||       Hour                                      ||                                                                                      |
+| 2057 |        Minute                 ||      Second                                     ||                                                                                      |
+| 2058 |      millisecond              ||       range                                     || Range center (RC) in mV                                                              |
+| 2059 |          'B'          |  '#'   |   Board number                                  || Board serial number                                                                  |                                                                                      
+| 2060 |          'T'          |  '#'   |   Trigger cell                                  || Number of first readout cell                                                         |                                                                                      
+| 2061 |          'C'          |  '0'   |        '0'        |             '1'              | Channel 1 header                                                                     |
+| 2062 |       Scaler #1                                                                |||| Scaler for channel 1 in Hz                                                           |
+| 2063 |    Voltage Bin #0             ||  Voltage Bin #1                                 || Channel 1 waveform data encoded in 2-Byte integers.                                  |
+| 2064 |    Voltage Bin #2             ||  Voltage Bin #3                                 || 0 = RC - 0.5V and 65536 = RC + 0.5V                                                  |
+| ...  |          ...                  ||        ...                                      ||                                                                                      |
+| 2574 |   Voltage Bin #1022           || Voltage Bin #1023                               ||                                                                                      |
+| 2575 |          'C'          |  '0'   |        '0'        |             '2'              | Channel 2 header                                                                     |
+| 2576 |       Scaler #1                                                                |||| Scaler for channel 2 in Hz                                                           |
+| 2577 |    Voltage Bin #0             ||  Voltage Bin #1                                 || Channel 2 waveform data encoded in 2-Byte integers.                                  |
+| 2578 |    Voltage Bin #2             ||  Voltage Bin #3                                 || 0 = RC - 0.5V and 65536 = RC + 0.5V                                                  |
+| ...  |          ...                  ||        ...                                      ||                                                                                      |
+| 3088 |   Voltage Bin #1022           || Voltage Bin #1023                               ||                                                                                      |
+| 3089 |          'E'          |  'H'   |        'D'        |             'R'              | Next event header                                                                    |
+| ...  ||||||
+
+## WaveDREAM Board
+
+| Word |        Byte 0         | Byte 1 |      Byte 2       |            Byte 3            | Contents                                                                             |
+| :--: | :-------------------: | :----: | :---------------: | :--------------------------: | :----------------------------------------------------------------------------------- |
+|  0   |          'D'          |  'R'   |        'S'        |             '8'              | File header, Byte 3 = version                                                        |
+|  1   |          'T'          |  'I'   |        'M'        |             'E'              | Time header                                                                          |
+|  2   |          'B'          |  '#'   |   Board number                                  || Board serial number                                                                  |
+|  3   |          'C'          |  '0'   |        '0'        |             '0'              | Channel 0 header                                                                     |
+|  4   |  Time bin width # 0                                                            |||| Effective time bin width in ns for channel 0 encoded in 4-Btye floating point format |
+|  5   |  Time bin width # 1                                                            |||| ...                                                                                  |
+| ...  |          ...                                                                   |||| ...                                                                                  |
+| 1027 | Time bin width # 1023                                                          |||| ...                                                                                  |
+| 1028 |          'C'          |  '0'   |        '0'        |             '1'              | Channel 1 header                                                                     |
+| 1029 |  Time bin width # 0                                                            |||| Effective time bin width in ns for channel 1 encoded in 4-Btye floating point format |
+| 1030 |  Time bin width # 1                                                            |||| ...                                                                                  |
+| ...  |          ...                                                                   |||| ...                                                                                  |
+| 2052 | Time bin width # 1023                                                          |||| ...                                                                                  |
+| 2053 |          'E'          |  'H'   |        'D'        |             'R'              | Event header                                                                         |
+| 2054 |     Serial number                                                              |||| Event serial number starting with 0                                                  |
+| 2055 |         Year                  ||       Month                                     || Event date-time 16 bit values                                                        |
+| 2056 |          Day                  ||       Hour                                      ||                                                                                      |
+| 2057 |        Minute                 ||      Second                                     ||                                                                                      |
+| 2058 |      millisecond              ||       range                                     || Range center (RC) in mV                                                              |
+| 2059 |          'B'          |  '#'   |   Board number                                  || Board serial number                                                                  |                                                                                      
+| 2061 |          'C'          |  '0'   |        '0'        |             '0'              | Channel 0 header                                                                     |
+| 2062 |       Scaler #0                                                                |||| Scaler for channel 0 in Hz                                                           |
+| 2060 |          'T'          |  '#'   |   Trigger cell                                  || Number of first readout cell for channel 0                                           |
+| 2063 |    Voltage Bin #0             ||  Voltage Bin #1                                 || Channel 0 waveform data encoded in 2-Byte integers.                                  |
+| 2064 |    Voltage Bin #2             ||  Voltage Bin #3                                 || 0 = RC - 0.5V and 65536 = RC + 0.5V                                                  |
+| ...  |          ...                  ||        ...                                      ||                                                                                      |
+| 2574 |   Voltage Bin #1022           || Voltage Bin #1023                               ||                                                                                      |
+| 2575 |          'C'          |  '0'   |        '0'        |             '1'              | Channel 1 header                                                                     |
+| 2576 |       Scaler #1                                                                |||| Scaler for channel 1 in Hz                                                           |
+| 2060 |          'T'          |  '#'   |   Trigger cell                                  || Number of first readout cell for channel 1                                           |
+| 2577 |    Voltage Bin #0             ||  Voltage Bin #1                                 || Channel 1 waveform data encoded in 2-Byte integers.                                  |
+| 2578 |    Voltage Bin #2             ||  Voltage Bin #3                                 || 0 = RC - 0.5V and 65536 = RC + 0.5V                                                  |
+| ...  |          ...                  ||        ...                                      ||                                                                                      |
+| 3088 |   Voltage Bin #1022           || Voltage Bin #1023                               ||                                                                                      |
+| 3089 |          'E'          |  'H'   |        'D'        |             'R'              | Next event header                                                                    |
+| ...  ||||||
+
+*/

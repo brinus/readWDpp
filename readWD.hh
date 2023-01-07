@@ -1,3 +1,14 @@
+/*!
+ @file readWD.hh
+ @author Matteo Brini (brinimatteo@gmail.com)
+ @brief Declaration of classes and methods.
+ @version 0.1
+ @date 2023-01-05
+ 
+ @copyright Copyright (c) 2023
+ 
+ */
+
 #ifndef READWD_H
 #define READWD_H
 
@@ -10,10 +21,15 @@
 #include <map>
 #include <numeric>
 
-#define SAMPLES_PER_WAVEFORM 1024
+#define SAMPLES_PER_WAVEFORM 1024 ///< The number of samples made by the waveforms, both DRS and WDB.
 
 // ----- CLASSES -----
 
+/*!
+ @brief 5 char long word ended with '\0' for simple printing.
+
+ @details This struct is used to read the various headers in the file.
+ */
 struct TAG
 {
     TAG() { tag[4] = '\0'; }
@@ -21,29 +37,27 @@ struct TAG
 };
 
 /*!
- @brief Struct to contain the event header informations.
+ @brief Informations about the event contained in the file.
 
- @details The event header is written as follows on .dat files deriving from the DRS/WDB
-
- Inserire tabella... aaa
-
+ @details Everytime an @ref EventHeader is read, the infos about the event are read in order just as specified in the
+          DRS Evaluation Board manual.
  */
 struct EventHeader
 {
-    char tag[4];
-    unsigned int serialNumber;
-    unsigned short year;
-    unsigned short month;
-    unsigned short day;
-    unsigned short hour;
-    unsigned short min;
-    unsigned short sec;
-    unsigned short ms;
-    unsigned short rangeCenter;
+    char tag[4]; ///< The tag of the event header.
+    unsigned int serialNumber; ///< The serial number of the event: starting from 1 for DRS and 0 for WDB.
+    unsigned short year; ///< The year.
+    unsigned short month; ///< The month.
+    unsigned short day; ///< The day.
+    unsigned short hour; ///< The hour.
+    unsigned short min; ///< The minute.
+    unsigned short sec; ///< The second.
+    unsigned short ms; ///< The millisecond.
+    unsigned short rangeCenter; /// The rangeCenter (in Volts).
 };
 
 /*!
- @brief Another class
+ @brief Class to store time and voltage data.
 
  */
 class DAQEvent
@@ -51,9 +65,9 @@ class DAQEvent
     using MAP = std::map<std::string, std::map<std::string, std::vector<float>>>;
 
 public:
-    const std::vector<float> * GetChannel(const int &);
-    const std::vector<float> * GetChannel(const int &, const int &);
-    const std::vector<float> * GetChannel(const std::string &, const std::string &);
+    const std::vector<float> *GetChannel(const int &);
+    const std::vector<float> *GetChannel(const int &, const int &);
+    const std::vector<float> *GetChannel(const std::string &, const std::string &);
 
     float GetCharge();
     float GetAmplitude();
@@ -71,7 +85,7 @@ private:
     void SetVolts(const TAG &, const TAG &, const std::vector<float> &);
 
     unsigned short trigger_;
-    MAP times_;
+    MAP times_; ///< Data structure to hold times' information.
     MAP volts_;
     std::set<std::string> set_getchannelS_;
     std::set<int> set_getchannelI_;
@@ -88,6 +102,10 @@ class WDBEvent : public DAQEvent
 {
 };
 
+/*!
+ @brief Class to manage the file and the outputing of data in a @ref DAQEvent instance.
+ 
+ */
 class DAQFile
 {
 public:
@@ -107,10 +125,11 @@ public:
         {
             filename_ = fname;
             in_.open(fname, std::ios::in | std::ios::binary);
-            std::cout << std::endl << "Created DAQFile, opened file " << fname << std::endl;
+            std::cout << std::endl
+                      << "Created DAQFile, opened file " << fname << std::endl;
             return;
         }
-        else 
+        else
         {
             std::cerr << "!! Error: File is already opened --> " << filename_ << std::endl;
             return;

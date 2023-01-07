@@ -1,3 +1,13 @@
+/*!
+ @file readWD.cc
+ @author Matteo Brini (brinimatteo@gmail.com)
+ @brief Definition of methods.
+ @version 0.1
+ @date 2023-01-05
+ 
+ @copyright Copyright (c) 2023
+ 
+ */
 #include "readWD.hh"
 
 using namespace std;
@@ -152,6 +162,13 @@ void DAQEvent::SetVolts(const TAG &tBoard, const TAG &tChannel, const vector<flo
     return;
 }
 
+/*!
+     @brief Function to perform the time calibration.
+     
+     @details The time calibration is performed as specified in the DRS manual.
+ 
+     @param tCell Cell number at which the signal triggered the board.
+ */
 void DAQEvent::TimeCalibration(const unsigned short &tCell)
 {
     float t1, t2, dt;
@@ -301,6 +318,13 @@ void DAQFile::Close()
     return;
 }
 
+/*!
+ @brief Read into a @ref TAG.
+ 
+ @param t 
+ @return true 
+ @return false 
+ */
 bool DAQFile::operator>>(TAG &t) // DAQFile >> TAG
 {
     if (!in_.good())
@@ -311,6 +335,13 @@ bool DAQFile::operator>>(TAG &t) // DAQFile >> TAG
     return *this;
 }
 
+/*!
+ @brief Read into a @ref EventHeader.
+ 
+ @param eh 
+ @return true 
+ @return false 
+ */
 bool DAQFile::operator>>(EventHeader &eh) // DAQFile >> EventHeader
 {
     if (!in_.good())
@@ -321,6 +352,13 @@ bool DAQFile::operator>>(EventHeader &eh) // DAQFile >> EventHeader
     return *this;
 }
 
+/*!
+ @brief Read into a @ref DRSEvent.
+ 
+ @param event 
+ @return true 
+ @return false 
+ */
 bool DAQFile::operator>>(DRSEvent &event) // DAQFile >> DRSEvent
 {
     if (!in_.good())
@@ -364,6 +402,13 @@ bool DAQFile::operator>>(DRSEvent &event) // DAQFile >> DRSEvent
     return 1;
 }
 
+/*!
+ @brief Read into a @ref WDBEvent.
+ 
+ @param event 
+ @return true 
+ @return false 
+ */
 bool DAQFile::operator>>(WDBEvent &event) // DAQFile >> WDBEvent
 {
     if (!in_.good())

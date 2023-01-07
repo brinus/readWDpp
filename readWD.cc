@@ -4,9 +4,9 @@
  @brief Definition of methods.
  @version 0.1
  @date 2023-01-05
- 
+
  @copyright Copyright (c) 2023
- 
+
  */
 #include "readWD.hh"
 
@@ -164,9 +164,9 @@ void DAQEvent::SetVolts(const TAG &tBoard, const TAG &tChannel, const vector<flo
 
 /*!
      @brief Function to perform the time calibration.
-     
+
      @details The time calibration is performed as specified in the DRS manual.
- 
+
      @param tCell Cell number at which the signal triggered the board.
  */
 void DAQEvent::TimeCalibration(const unsigned short &tCell)
@@ -236,21 +236,22 @@ void DAQEvent::CreateChannel(const TAG &tBoard, const TAG &tag)
     return;
 }
 
-void DAQFile::Initialise(DAQEvent &event)
+DAQFile &DAQFile::Initialise(DAQEvent &event)
 {
+    DAQFile &file = *this;
+
     if (!in_.is_open())
     {
         cerr << "!! Error: file not open --> use DAQFile(filename)" << endl;
-        return;
+        return file;
     }
 
     if (in_.tellg() != 0)
     {
         cerr << "!! Error: file already initialized --> ???" << endl;
-        return;
+        return file;
     }
 
-    DAQFile &file = *this;
     TAG bTag, cTag;
     vector<float> times(SAMPLES_PER_WAVEFORM);
 
@@ -259,6 +260,20 @@ void DAQFile::Initialise(DAQEvent &event)
     file >> bTag; // DRSx
     file >> cTag; // TIME
     cout << bTag;
+
+    if (bTag.tag[0] != 'D' and bTag.tag[1] != 'R' and bTag.tag[2] != 'S')
+    {
+        cerr << "!! Error: invalid file header --> expected \"DRS\", found " << bTag << endl;
+        cerr << "Initialisation failed" << endl;
+        return file;
+    }
+    if (strcmp(cTag.tag, "TIME") != 0)
+    {
+        cerr << "!! Error: invalid time header --> expected \"TIME\", found " << cTag << endl;
+        cerr << "Initialisation failed" << endl;
+        return file;
+    }
+
     if (bTag.tag[3] == '8')
     {
         cout << " --> WaveDREAM Board" << endl;
@@ -284,7 +299,7 @@ void DAQFile::Initialise(DAQEvent &event)
         file.ResetTag();
     }
     file.ResetTag();
-    return;
+    return file;
 }
 
 void DAQFile::Read(EventHeader &eh)
@@ -311,19 +326,26 @@ void DAQFile::Read(vector<unsigned short> &vec)
     return;
 }
 
-void DAQFile::Close()
+DAQFile &DAQFile::Close()
 {
-    cout << "Closing file " << filename_ << "..." << endl;
-    in_.close();
-    return;
+    if (in_.is_open())
+    {
+        cout << "Closing file " << filename_ << "..." << endl;
+        in_.close();
+    }
+    else
+    {
+        cout << "File is already closed" << endl;
+    }
+    return *this;
 }
 
 /*!
  @brief Read into a @ref TAG.
- 
- @param t 
- @return true 
- @return false 
+
+ @param t
+ @return true
+ @return false
  */
 bool DAQFile::operator>>(TAG &t) // DAQFile >> TAG
 {
@@ -337,10 +359,10 @@ bool DAQFile::operator>>(TAG &t) // DAQFile >> TAG
 
 /*!
  @brief Read into a @ref EventHeader.
- 
- @param eh 
- @return true 
- @return false 
+
+ @param eh
+ @return true
+ @return false
  */
 bool DAQFile::operator>>(EventHeader &eh) // DAQFile >> EventHeader
 {
@@ -354,10 +376,10 @@ bool DAQFile::operator>>(EventHeader &eh) // DAQFile >> EventHeader
 
 /*!
  @brief Read into a @ref DRSEvent.
- 
- @param event 
- @return true 
- @return false 
+
+ @param event
+ @return true
+ @return false
  */
 bool DAQFile::operator>>(DRSEvent &event) // DAQFile >> DRSEvent
 {
@@ -404,10 +426,10 @@ bool DAQFile::operator>>(DRSEvent &event) // DAQFile >> DRSEvent
 
 /*!
  @brief Read into a @ref WDBEvent.
- 
- @param event 
- @return true 
- @return false 
+
+ @param event
+ @return true
+ @return false
  */
 bool DAQFile::operator>>(WDBEvent &event) // DAQFile >> WDBEvent
 {

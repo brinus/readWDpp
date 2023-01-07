@@ -4,9 +4,9 @@
  @brief Declaration of classes and methods.
  @version 0.1
  @date 2023-01-05
- 
+
  @copyright Copyright (c) 2023
- 
+
  */
 
 #ifndef READWD_H
@@ -44,15 +44,15 @@ struct TAG
  */
 struct EventHeader
 {
-    char tag[4]; ///< The tag of the event header.
-    unsigned int serialNumber; ///< The serial number of the event: starting from 1 for DRS and 0 for WDB.
-    unsigned short year; ///< The year.
-    unsigned short month; ///< The month.
-    unsigned short day; ///< The day.
-    unsigned short hour; ///< The hour.
-    unsigned short min; ///< The minute.
-    unsigned short sec; ///< The second.
-    unsigned short ms; ///< The millisecond.
+    char tag[4];                ///< The tag of the event header.
+    unsigned int serialNumber;  ///< The serial number of the event: starting from 1 for DRS and 0 for WDB.
+    unsigned short year;        ///< The year.
+    unsigned short month;       ///< The month.
+    unsigned short day;         ///< The day.
+    unsigned short hour;        ///< The hour.
+    unsigned short min;         ///< The minute.
+    unsigned short sec;         ///< The second.
+    unsigned short ms;          ///< The millisecond.
     unsigned short rangeCenter; /// The rangeCenter (in Volts).
 };
 
@@ -72,6 +72,7 @@ public:
     float GetCharge();
     float GetAmplitude();
     float GetPedestal();
+    float View();
 
     MAP GetTimeMap() const { return times_; };
     MAP GetVoltMap() const { return volts_; };
@@ -104,7 +105,7 @@ class WDBEvent : public DAQEvent
 
 /*!
  @brief Class to manage the file and the outputing of data in a @ref DAQEvent instance.
- 
+
  */
 class DAQFile
 {
@@ -117,9 +118,9 @@ public:
     }
     ~DAQFile() { in_.close(); }
 
-    void Initialise(DAQEvent &);
-    void Close();
-    void Open(const std::string &fname)
+    DAQFile &Initialise(DAQEvent &);
+    DAQFile &Close();
+    DAQFile &Open(const std::string &fname)
     {
         if (!in_.is_open())
         {
@@ -127,12 +128,12 @@ public:
             in_.open(fname, std::ios::in | std::ios::binary);
             std::cout << std::endl
                       << "Created DAQFile, opened file " << fname << std::endl;
-            return;
+            return *this;
         }
         else
         {
             std::cerr << "!! Error: File is already opened --> " << filename_ << std::endl;
-            return;
+            return *this;
         }
     }
     bool operator>>(DRSEvent &);
@@ -161,6 +162,8 @@ private:
 };
 
 // ----- FUNCTIONS -----
+
+float GetCharge(std::vector<float>);
 
 std::ostream &operator<<(std::ostream &, const TAG &);
 std::ostream &operator<<(std::ostream &, const EventHeader &);

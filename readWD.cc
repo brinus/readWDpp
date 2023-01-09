@@ -38,7 +38,7 @@ ostream &operator<<(ostream &o, const EventHeader &eh) // cout << EventHeader
     return o;
 }
 
-const vector<float> *DAQEvent::GetChannel(const int &channel) // this assumes only a board is present
+DAQEvent &DAQEvent::GetChannel(const int &channel) // this assumes only a board is present
 {
     if (volts_.size() > 1)
     {
@@ -47,7 +47,7 @@ const vector<float> *DAQEvent::GetChannel(const int &channel) // this assumes on
             cerr << "!! Error: more than a board found --> Use GetChannel(int board, int channel)" << endl;
             set_getchannelI_.insert(channel);
         }
-        return NULL;
+        return *this;
     }
 
     int i = 0;
@@ -62,7 +62,7 @@ const vector<float> *DAQEvent::GetChannel(const int &channel) // this assumes on
                      << "       volts[" << bKey << "].size() = " << bVal.size() << endl;
                 set_getchannelI_.insert(channel);
             }
-            return NULL;
+            return *this;
         }
         for (auto &[cKey, cVal] : bVal)
         {
@@ -73,15 +73,17 @@ const vector<float> *DAQEvent::GetChannel(const int &channel) // this assumes on
                     cout << "Obtaining data for board: " << bKey << " channel: " << cKey << endl;
                     set_getchannelS_.insert(bKey + cKey);
                 }
-                return &cVal;
+                wfVolts_ = cVal;
+                wfTimes_ = times_[bKey][cKey];
+                return *this;
             }
             ++i;
         }
     }
-    return NULL;
+    return *this;
 }
 
-const vector<float> *DAQEvent::GetChannel(const int &board, const int &channel)
+DAQEvent &DAQEvent::GetChannel(const int &board, const int &channel)
 {
     if (board > volts_.size() - 1)
     {
@@ -92,7 +94,7 @@ const vector<float> *DAQEvent::GetChannel(const int &board, const int &channel)
                  << "       volts.size() = " << volts_.size() << endl;
             set_getChannelII_.insert(to_string(board) + "-" + to_string(channel));
         }
-        return NULL;
+        return *this;
     }
 
     int i = 0, j = 0;
@@ -109,7 +111,7 @@ const vector<float> *DAQEvent::GetChannel(const int &board, const int &channel)
                          << "       volts[" << bKey << "].size() = " << bVal.size() << endl;
                     set_getChannelII_.insert(to_string(board) + "-" + to_string(channel));
                 }
-                return NULL;
+                return *this;
             }
             for (auto &[cKey, cVal] : bVal)
             {
@@ -120,14 +122,53 @@ const vector<float> *DAQEvent::GetChannel(const int &board, const int &channel)
                         cout << "Obtaining data for board: " << bKey << " channel: " << cKey << endl;
                         set_getchannelS_.insert(bKey + cKey);
                     }
-                    return &cVal;
+                    wfVolts_ = cVal;
+                    wfTimes_ = times_[bKey][cKey];
+                    return *this;
                 }
                 ++j;
             }
         }
         ++i;
     }
-    return NULL;
+    return *this;
+}
+
+DAQEvent &DAQEvent::GetChannel(const std::string &board, const std::string &channel)
+{
+    if (times_[board][channel].size() == SAMPLES_PER_WAVEFORM)
+    {
+        wfTimes_ = times_[board][channel];
+        wfVolts_ = volts_[board][channel];
+    }
+    else
+    {
+        cerr << "!! Error: invalid tag(s) passed --> board: " << board << " channel: " << channel;
+    }
+    return *this;
+}
+
+void DAQEvent::EvalPedestal()
+{
+    if (!is_ped_)
+    {
+        is_ped_ = true;
+        ped_ = {0., 0.};
+        ped_.first = accumulate(wfVolts_.begin(), wfVolts_.begin() + 100, 0.) / 100;
+        for (int i = 0; i < 100; ++i)
+        {
+            ped_.second += pow(wfVolts_[i] - ped_.first, 2);
+        }
+        ped_.second = sqrt(ped_.second / 100);
+    }
+
+    return;    
+}
+
+pair<float, float> DAQEvent::GetPedestal()
+{
+    (*this).EvalPedestal();
+    return ped_;
 }
 
 void DAQEvent::SetTrigger(const unsigned short &trig)
@@ -394,6 +435,8 @@ bool DAQFile::operator>>(DRSEvent &event) // DAQFile >> DRSEvent
     vector<unsigned short> volts(SAMPLES_PER_WAVEFORM);
     vector<float> volts_corr(SAMPLES_PER_WAVEFORM);
 
+    event.is_ped_ = false;
+
     // Read only one event
     file >> eh;
     if (eh.serialNumber == 1)
@@ -443,6 +486,8 @@ bool DAQFile::operator>>(WDBEvent &event) // DAQFile >> WDBEvent
     EventHeader eh;
     vector<unsigned short> volts(SAMPLES_PER_WAVEFORM);
     vector<float> volts_corr(SAMPLES_PER_WAVEFORM);
+
+    event.is_ped_ = false;
 
     // Read only one event
     file >> eh;

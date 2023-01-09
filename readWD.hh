@@ -25,6 +25,12 @@
 
 // ----- CLASSES -----
 
+struct IntegrationWindow
+{
+    int start;
+    int stop;
+};
+
 /*!
  @brief 5 char long word ended with '\0' for simple printing.
 
@@ -65,14 +71,15 @@ class DAQEvent
     using MAP = std::map<std::string, std::map<std::string, std::vector<float>>>;
 
 public:
-    const std::vector<float> *GetChannel(const int &);
-    const std::vector<float> *GetChannel(const int &, const int &);
-    const std::vector<float> *GetChannel(const std::string &, const std::string &);
+    DAQEvent() { is_ped_ = false; }
+
+    DAQEvent &GetChannel(const int &);
+    DAQEvent &GetChannel(const int &, const int &);
+    DAQEvent &GetChannel(const std::string &, const std::string &);
 
     float GetCharge();
     float GetAmplitude();
-    float GetPedestal();
-    float View();
+    std::pair<float, float> GetPedestal();
 
     MAP GetTimeMap() const { return times_; };
     MAP GetVoltMap() const { return volts_; };
@@ -85,6 +92,8 @@ private:
     void SetTime(const std::vector<float> &);
     void SetVolts(const TAG &, const TAG &, const std::vector<float> &);
 
+    void EvalPedestal();
+
     unsigned short trigger_;
     MAP times_; ///< Data structure to hold times' information.
     MAP volts_;
@@ -92,7 +101,15 @@ private:
     std::set<int> set_getchannelI_;
     std::set<std::string> set_getChannelII_;
 
+    std::vector<float> wfVolts_;
+    std::vector<float> wfTimes_;
+
+    std::pair<float, float> ped_;
+
+    bool is_ped_;
+
     friend class DAQFile;
+
 };
 
 class DRSEvent : public DAQEvent

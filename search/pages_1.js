@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['readwdpp_0',['readWDpp',['../index.html',1,'']]]
+  ['the_20binary_20output_0',['The Binary Output',['../binary.html',1,'']]]
 ];

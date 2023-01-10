@@ -162,10 +162,10 @@ void DAQEvent::EvalPedestal()
         ped_.second = sqrt(ped_.second / 100);
     }
 
-    return;    
+    return;
 }
 
-pair<float, float> DAQEvent::GetPedestal()
+const pair<float, float> &DAQEvent::GetPedestal()
 {
     (*this).EvalPedestal();
     return ped_;
@@ -343,6 +343,13 @@ DAQFile &DAQFile::Initialise(DAQEvent &event)
     return file;
 }
 
+void DAQFile::Read(TAG &t)
+{
+    in_.read(t.tag, 4);
+    n_ = t.tag[0];
+    return;
+}
+
 void DAQFile::Read(EventHeader &eh)
 {
     in_.read((char *)&eh, sizeof(eh));
@@ -439,11 +446,7 @@ bool DAQFile::operator>>(DRSEvent &event) // DAQFile >> DRSEvent
 
     // Read only one event
     file >> eh;
-    if (eh.serialNumber == 1)
-    {
-        cout << "Event serial number: " << eh.serialNumber << endl;
-    }
-    if (eh.serialNumber % 100 == 0)
+    if (eh.serialNumber % 100 == 0 and eh.serialNumber > 0)
     {
         cout << "Event serial number: " << eh.serialNumber << endl;
     }

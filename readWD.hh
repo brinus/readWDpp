@@ -79,10 +79,10 @@ public:
 
     float GetCharge();
     float GetAmplitude();
-    std::pair<float, float> GetPedestal();
+    const std::pair<float, float> &GetPedestal();
 
-    MAP GetTimeMap() const { return times_; };
-    MAP GetVoltMap() const { return volts_; };
+    const MAP &GetTimeMap() { return times_; };
+    const MAP &GetVoltMap() { return volts_; };
 
 private:
     void TimeCalibration(const unsigned short &);
@@ -160,13 +160,7 @@ public:
 
 private:
     operator bool();
-    template <class T>
-    void Read(T &t) { in_.read((char *)&t, sizeof(t)); }
-    void Read(TAG &t)
-    {
-        in_.read(t.tag, 4);
-        n_ = t.tag[0];
-    }
+    void Read(TAG &);
     void Read(EventHeader &);
     void Read(std::vector<float> &);
     void Read(std::vector<unsigned short> &);

@@ -33,7 +33,7 @@ int main(void)
     file.Initialise(event);
     while(file >> event)
     {
-        auto pedestal = event.GetChannel("B#2440", "C001").GetPedestal();
+        auto pedestal = event.GetChannel(0, 0).GetPedestal();
         h1->Fill(pedestal.first);
         h2->Fill(pedestal.second);
     }

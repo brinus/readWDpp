@@ -85,35 +85,66 @@ void DAQEvent::EvalPedestal()
 
 const pair<float, float> &DAQEvent::GetPedestal()
 {
-    if (!is_getch_)
+    try
     {
-        cerr << "!! Error: you must first select a channel --> Use DAQEvent::GetChannel(int board, int channel)" << endl;
-        ped_ = {0, 0};
-        return ped_;
+        if (is_getch_)
+        {
+            (*this).EvalPedestal();
+            is_getch_ = false;
+            return ped_;
+        }
+        else
+        {
+            throw runtime_error("!! Error: select a channel --> Use DAQEvent::GetChannel()");
+        }
     }
-    (*this).EvalPedestal();
-    is_getch_ = false;
-    return ped_;
+    catch(exception &obj)
+    {
+        cerr << obj.what() << endl;
+        exit(0);
+    }
 }
 
 const vector<float> &DAQEvent::GetVolts()
 {
-    if (!is_getch_)
+    try
     {
-        cerr << "!! Error: you must first select a channel --> Use DAQEvent::GetChannel(int board, int channel)" << endl;
-        wfVolts_ = std::vector<float>(-1, SAMPLES_PER_WAVEFORM);
+        if (is_getch_)
+        {
+            is_getch_ = false;
+            return wfVolts_;
+        }
+        else
+        {
+            throw runtime_error("!! Error: select a channel --> Use DAQEvent::GetChannel()");
+        }
     }
-    return wfVolts_;
+    catch(exception &obj)
+    {
+        cerr << obj.what() << endl;
+        exit(0);
+    }
 }
 
 const vector<float> &DAQEvent::GetTimes()
 {
-    if (!is_getch_)
+    try
     {
-        cerr << "!! Error: you must first select a channel --> Use DAQEvent::GetChannel(int board, int channel)" << endl;
-        wfTimes_ = std::vector<float>(-1, SAMPLES_PER_WAVEFORM);
+        if (is_getch_)
+        {
+            is_getch_ = false;
+            return wfTimes_;
+        }
+        else
+        {
+            throw runtime_error("!! Error: select a channel --> Use DAQEvent::GetChannel()");
+        }
     }
-    return wfTimes_;
+    catch(exception &obj)
+    {
+        cerr << obj.what() << endl;
+        exit(0);
+    }
 }
 
 /*!

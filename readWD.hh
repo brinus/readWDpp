@@ -18,6 +18,7 @@
 #include <vector>
 #include <map>
 #include <numeric>
+#include <stdexcept>
 
 #define SAMPLES_PER_WAVEFORM 1024 ///< The number of samples made by the waveforms, both DRS and WDB.
 

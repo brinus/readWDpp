@@ -72,6 +72,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-types">Private Types</a> &#124;
 <a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classDAQFile-members.html">List of all members</a>  </div>
@@ -106,6 +107,13 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a32b8493c4a26cbd0de71559be66a6ec1"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQFile.html#a32b8493c4a26cbd0de71559be66a6ec1">operator&gt;&gt;</a> (<a class="el" href="structEventHeader.html">EventHeader</a> &amp;)</td></tr>
 <tr class="memdesc:a32b8493c4a26cbd0de71559be66a6ec1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read into a <a class="el" href="structEventHeader.html">EventHeader</a>.  <br /></td></tr>
 <tr class="separator:a32b8493c4a26cbd0de71559be66a6ec1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0abee65437c5a1af310a57d01aed9e15"><td class="memItemLeft" align="right" valign="top">const char &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQFile.html#a0abee65437c5a1af310a57d01aed9e15">GetVersion</a> ()</td></tr>
+<tr class="separator:a0abee65437c5a1af310a57d01aed9e15"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-types" name="pri-types"></a>
+Private Types</h2></td></tr>
+<tr class="memitem:a4f612979414a025d931e58ef36558c6f"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQFile.html#a4f612979414a025d931e58ef36558c6f">MAP</a> = std::map&lt; int, std::map&lt; int, std::vector&lt; float &gt; &gt; &gt;</td></tr>
+<tr class="separator:a4f612979414a025d931e58ef36558c6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
@@ -118,14 +126,16 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:a628a2a723d111991f884e308c5085247"><td class="memItemLeft" align="right" valign="top"><a id="a628a2a723d111991f884e308c5085247" name="a628a2a723d111991f884e308c5085247"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>Read</b> (std::vector&lt; float &gt; &amp;)</td></tr>
 <tr class="separator:a628a2a723d111991f884e308c5085247"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a89319668b98fcef2c31fb3521834241a"><td class="memItemLeft" align="right" valign="top"><a id="a89319668b98fcef2c31fb3521834241a" name="a89319668b98fcef2c31fb3521834241a"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Read</b> (std::vector&lt; unsigned short &gt; &amp;)</td></tr>
-<tr class="separator:a89319668b98fcef2c31fb3521834241a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6765fd3a6115ea05d22198d92b8bbb71"><td class="memItemLeft" align="right" valign="top"><a id="a6765fd3a6115ea05d22198d92b8bbb71" name="a6765fd3a6115ea05d22198d92b8bbb71"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Read</b> (std::vector&lt; float &gt; &amp;, const unsigned short &amp;)</td></tr>
+<tr class="separator:a6765fd3a6115ea05d22198d92b8bbb71"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a78c34709a9457b584ed7f39d3fd2d117"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQFile.html#a78c34709a9457b584ed7f39d3fd2d117">ResetTag</a> ()</td></tr>
 <tr class="separator:a78c34709a9457b584ed7f39d3fd2d117"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
+<tr class="memitem:aa741da8b24b43523cc1a03fc4d9f794c"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQFile.html#aa741da8b24b43523cc1a03fc4d9f794c">version_</a></td></tr>
+<tr class="separator:aa741da8b24b43523cc1a03fc4d9f794c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4cefba4b531c248296f3ddca708dc7ec"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQFile.html#a4cefba4b531c248296f3ddca708dc7ec">filename_</a></td></tr>
 <tr class="separator:a4cefba4b531c248296f3ddca708dc7ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aff483320738d5cab388617671013e7e9"><td class="memItemLeft" align="right" valign="top">std::ifstream&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQFile.html#aff483320738d5cab388617671013e7e9">in_</a></td></tr>
@@ -136,14 +146,41 @@ Private Attributes</h2></td></tr>
 <tr class="separator:a5918866b9bef2db8dad574bd3a8e2db8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0d214224c33d99d5747eca09a8d14e64"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQFile.html#a0d214224c33d99d5747eca09a8d14e64">initialization_</a></td></tr>
 <tr class="separator:a0d214224c33d99d5747eca09a8d14e64"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9725911cab2d6d9522cb5289833eea9b"><td class="memItemLeft" align="right" valign="top">MAP&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQFile.html#a9725911cab2d6d9522cb5289833eea9b">times_</a></td></tr>
+<tr class="separator:a9725911cab2d6d9522cb5289833eea9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class to manage the file and the outputing of data in a <a class="el" href="classDAQEvent.html">DAQEvent</a> instance. </p>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="main0_8cc-example.html#_a0">main0.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00127">127</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00114">114</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a4f612979414a025d931e58ef36558c6f" name="a4f612979414a025d931e58ef36558c6f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f612979414a025d931e58ef36558c6f">&#9670;&#160;</a></span>MAP</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">using DAQFile::MAP =  std::map&lt;int, std::map&lt;int, std::vector&lt;float&gt; &gt;&gt;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00116">116</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a73d096ffebcd04a3707ba512cf6b17ba" name="a73d096ffebcd04a3707ba512cf6b17ba"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a73d096ffebcd04a3707ba512cf6b17ba">&#9670;&#160;</a></span>DAQFile()</h2>
 
@@ -168,7 +205,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00130">130</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00119">119</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
 
 </div>
 </div>
@@ -195,7 +232,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00136">136</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00126">126</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
 
 </div>
 </div>
@@ -215,7 +252,34 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00377">377</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00269">269</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+
+</div>
+</div>
+<a id="a0abee65437c5a1af310a57d01aed9e15" name="a0abee65437c5a1af310a57d01aed9e15"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0abee65437c5a1af310a57d01aed9e15">&#9670;&#160;</a></span>GetVersion()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char &amp; DAQFile::GetVersion </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00150">150</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
 
 </div>
 </div>
@@ -237,7 +301,7 @@ Private Attributes</h2></td></tr>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="main0_8cc-example.html#a2">main0.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00280">280</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00168">168</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
 
 </div>
 </div>
@@ -265,7 +329,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00140">140</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00130">130</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
 
 </div>
 </div>
@@ -292,7 +356,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00521">521</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00415">415</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
 
 </div>
 </div>
@@ -323,7 +387,7 @@ Private Attributes</h2></td></tr>
 <dd>
 false </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00432">432</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00324">324</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
 
 </div>
 </div>
@@ -354,7 +418,7 @@ false </dd></dl>
 <dd>
 false </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00415">415</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00307">307</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
 
 </div>
 </div>
@@ -385,7 +449,7 @@ false </dd></dl>
 <dd>
 false </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00398">398</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00290">290</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
 
 </div>
 </div>
@@ -416,7 +480,7 @@ false </dd></dl>
 <dd>
 false </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00480">480</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00373">373</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
 
 </div>
 </div>
@@ -444,7 +508,7 @@ false </dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00353">353</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00243">243</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
 
 </div>
 </div>
@@ -472,7 +536,7 @@ false </dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00346">346</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00236">236</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
 
 </div>
 </div>
@@ -499,7 +563,7 @@ false </dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00167">167</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00158">158</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
 
 </div>
 </div>
@@ -524,7 +588,7 @@ false </dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00169">169</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00161">161</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
 
 </div>
 </div>
@@ -548,7 +612,7 @@ false </dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00170">170</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00162">162</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
 
 </div>
 </div>
@@ -572,7 +636,7 @@ false </dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00172">172</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00164">164</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
 
 </div>
 </div>
@@ -596,7 +660,7 @@ false </dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00171">171</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00163">163</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
 
 </div>
 </div>
@@ -620,7 +684,55 @@ false </dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00171">171</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00163">163</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+
+</div>
+</div>
+<a id="a9725911cab2d6d9522cb5289833eea9b" name="a9725911cab2d6d9522cb5289833eea9b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9725911cab2d6d9522cb5289833eea9b">&#9670;&#160;</a></span>times_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">MAP DAQFile::times_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00165">165</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+
+</div>
+</div>
+<a id="aa741da8b24b43523cc1a03fc4d9f794c" name="aa741da8b24b43523cc1a03fc4d9f794c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa741da8b24b43523cc1a03fc4d9f794c">&#9670;&#160;</a></span>version_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">char DAQFile::version_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00160">160</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
 
 </div>
 </div>

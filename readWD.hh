@@ -16,8 +16,6 @@
 #include <fstream>
 #include <string>
 #include <vector>
-#include <iterator>
-#include <set>
 #include <map>
 #include <numeric>
 
@@ -68,48 +66,37 @@ struct EventHeader
  */
 class DAQEvent
 {
-    using MAP = std::map<std::string, std::map<std::string, std::vector<float>>>;
+    using MAP = std::map<int, std::map<int, std::vector<float>>>;
 
 public:
     DAQEvent() { is_ped_ = false; }
 
-    DAQEvent &GetChannel(const int &);
     DAQEvent &GetChannel(const int &, const int &);
-    DAQEvent &GetChannel(const std::string &, const std::string &);
 
     float GetCharge();
     float GetAmplitude();
     const std::pair<float, float> &GetPedestal();
+    const std::vector<float> &GetVolts();
+    const std::vector<float> &GetTimes();
 
     const MAP &GetTimeMap() { return times_; };
     const MAP &GetVoltMap() { return volts_; };
 
 private:
-    void TimeCalibration(const unsigned short &);
-    void CreateBoard(const TAG &);
-    void CreateChannel(const TAG &, const TAG &);
-    void SetTrigger(const unsigned short &);
-    void SetTime(const std::vector<float> &);
-    void SetVolts(const TAG &, const TAG &, const std::vector<float> &);
-
+    void TimeCalibration(const unsigned short &, const std::vector<float> &, int, int);
     void EvalPedestal();
 
-    unsigned short trigger_;
-    MAP times_; ///< Data structure to hold times' information.
+    MAP times_;
     MAP volts_;
-    std::set<std::string> set_getchannelS_;
-    std::set<int> set_getchannelI_;
-    std::set<std::string> set_getChannelII_;
 
     std::vector<float> wfVolts_;
     std::vector<float> wfTimes_;
-
     std::pair<float, float> ped_;
 
     bool is_ped_;
+    bool is_getch_;
 
     friend class DAQFile;
-
 };
 
 class DRSEvent : public DAQEvent
@@ -126,9 +113,12 @@ class WDBEvent : public DAQEvent
  */
 class DAQFile
 {
+    using MAP = std::map<int, std::map<int, std::vector<float>>>;
+
 public:
     DAQFile(const std::string &fname)
     {
+        TAG tag;
         filename_ = fname;
         in_.open(fname, std::ios::in | std::ios::binary);
         std::cout << "Created DAQFile, opened file " << fname << std::endl;
@@ -157,24 +147,25 @@ public:
     bool operator>>(WDBEvent &);
     bool operator>>(TAG &);
     bool operator>>(EventHeader &);
+    const char &GetVersion() { return version_; }
 
 private:
     operator bool();
     void Read(TAG &);
     void Read(EventHeader &);
     void Read(std::vector<float> &);
-    void Read(std::vector<unsigned short> &);
+    void Read(std::vector<float> &, const unsigned short &);
     void ResetTag() { in_.seekg(-4, in_.cur); }
 
+    char version_;
     std::string filename_;
     std::ifstream in_;
     char o_, n_;
     bool initialization_;
+    MAP times_;
 };
 
 // ----- FUNCTIONS -----
-
-float GetCharge(std::vector<float>);
 
 std::ostream &operator<<(std::ostream &, const TAG &);
 std::ostream &operator<<(std::ostream &, const EventHeader &);

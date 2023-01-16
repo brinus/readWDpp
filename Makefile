@@ -7,5 +7,8 @@ main0: example/main0.cc readWD
 main1: example/main1.cc readWD
 	g++ -std=c++17 -Wall `root-config --cflags --libs` -L. -l readWD example/main1.cc -o main1	
 
+main2: example/main2.cc readWD
+	g++ -std=c++17 -Wall `root-config --cflags --libs` -L. -l readWD example/main2.cc -o main2	
+
 main3: example/main3.cc readWD
 	g++ -std=c++17 -Wall `root-config --cflags --libs` -L. -l readWD example/main3.cc -o main3	

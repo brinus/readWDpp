@@ -38,6 +38,21 @@ ostream &operator<<(ostream &o, const EventHeader &eh) // cout << EventHeader
     return o;
 }
 
+//  ____    _    ___  _____                 _
+// |  _ \  / \  / _ \| ____|_   _____ _ __ | |_
+// | | | |/ _ \| | | |  _| \ \ / / _ \ '_ \| __|
+// | |_| / ___ \ |_| | |___ \ V /  __/ | | | |_
+// |____/_/   \_\__\_\_____| \_/ \___|_| |_|\__|
+
+DAQEvent::DAQEvent()
+{
+    is_getch_ = false;
+    is_init_ = false;
+    is_iw_ = false;
+    ped_interval_ = {0, 100};
+    iw_ = {0, SAMPLES_PER_WAVEFORM - 1};
+}
+
 DAQEvent &DAQEvent::GetChannel(const int &board, const int &channel)
 {
     int i = 0, j = 0;
@@ -66,23 +81,6 @@ DAQEvent &DAQEvent::GetChannel(const int &board, const int &channel)
     return *this;
 }
 
-void DAQEvent::EvalPedestal()
-{
-    if (!is_ped_)
-    {
-        is_ped_ = true;
-        ped_ = {0., 0.};
-        ped_.first = accumulate(wfVolts_.begin(), wfVolts_.begin() + 100, 0.) / 100;
-        for (int i = 0; i < 100; ++i)
-        {
-            ped_.second += pow(wfVolts_[i] - ped_.first, 2);
-        }
-        ped_.second = sqrt(ped_.second / 100);
-    }
-
-    return;
-}
-
 const pair<float, float> &DAQEvent::GetPedestal()
 {
     try
@@ -98,11 +96,18 @@ const pair<float, float> &DAQEvent::GetPedestal()
             throw runtime_error("!! Error: select a channel --> Use DAQEvent::GetChannel()");
         }
     }
-    catch(exception &obj)
+    catch (exception &obj)
     {
         cerr << obj.what() << endl;
         exit(0);
     }
+}
+
+const pair<int, int> &DAQEvent::GetIntegrationBounds()
+{
+    (*this).EvalPedestal();
+    (*this).EvalIntegrationBounds();
+    return iw_;
 }
 
 const vector<float> &DAQEvent::GetVolts()
@@ -119,7 +124,7 @@ const vector<float> &DAQEvent::GetVolts()
             throw runtime_error("!! Error: select a channel --> Use DAQEvent::GetChannel()");
         }
     }
-    catch(exception &obj)
+    catch (exception &obj)
     {
         cerr << obj.what() << endl;
         exit(0);
@@ -140,13 +145,85 @@ const vector<float> &DAQEvent::GetTimes()
             throw runtime_error("!! Error: select a channel --> Use DAQEvent::GetChannel()");
         }
     }
-    catch(exception &obj)
+    catch (exception &obj)
     {
         cerr << obj.what() << endl;
         exit(0);
     }
 }
 
+float DAQEvent::GetCharge()
+{
+    (*this).EvalPedestal();
+    (*this).EvalIntegrationBounds();
+    return accumulate(wfVolts_.begin() + iw_.first, wfVolts_.begin() + iw_.second, 0.) - wfVolts_.size() * ped_.first;
+}
+
+DAQEvent &DAQEvent::SetPedInterval(int a, int b)
+{
+    if (a > SAMPLES_PER_WAVEFORM or b > SAMPLES_PER_WAVEFORM)
+    {
+        cerr << "!! Error: in DAQEvent::SetPedInterval --> bound(s) must be lower of " << SAMPLES_PER_WAVEFORM << endl;
+        exit(0);
+    }
+    if (a < b)
+    {
+        ped_interval_ = {a, b};
+    }
+    else if (b < a)
+    {
+        ped_interval_ = {b, a};
+    }
+    else
+    {
+        cerr << "!! Error: invalid pedestal interval declared --> Values must be positive integers less than 1024" << endl;
+    }
+    return *this;
+}
+
+DAQEvent &DAQEvent::EvalPedestal()
+{
+    int ped_interval_dist = ped_interval_.second - ped_interval_.first;
+    ped_ = {0., 0.};
+    ped_.first = accumulate(wfVolts_.begin() + ped_interval_.first, wfVolts_.begin() + ped_interval_.second, 0.) / ped_interval_dist;
+    for (int i = ped_interval_.first; i < ped_interval_.second; ++i)
+    {
+        ped_.second += pow(wfVolts_[i] - ped_.first, 2);
+    }
+    ped_.second = sqrt(ped_.second / ped_interval_dist);
+
+    return *this;
+}
+
+DAQEvent &DAQEvent::EvalIntegrationBounds()
+{
+    if (!is_getch_)
+    {
+        cerr << "!! Error" << endl;
+        exit(0);
+    }
+
+    iw_ = {0, SAMPLES_PER_WAVEFORM - 1};
+
+    auto peak = *min_element(wfVolts_.begin(), wfVolts_.end());
+    auto lower_bound = ped_.first - 5 * ped_.second;
+    auto higher_bound = ped_.first + 5 * ped_.second;
+
+    if ((peak > higher_bound or peak < lower_bound) and !is_iw_)
+    {
+        while (wfVolts_[iw_.first] > lower_bound and wfVolts_[iw_.first] < higher_bound and iw_.first < SAMPLES_PER_WAVEFORM - 1)
+        {
+            ++iw_.first;
+        }
+
+        while (wfVolts_[iw_.second] > lower_bound and wfVolts_[iw_.second] < higher_bound and iw_.second > iw_.first)
+        {
+            --iw_.second;
+        }
+    }
+
+    return *this;
+}
 /*!
      @brief Function to perform the time calibration.
 
@@ -154,14 +231,14 @@ const vector<float> &DAQEvent::GetTimes()
 
      @param tCell Cell number at which the signal triggered the board.
  */
-void DAQEvent::TimeCalibration(const unsigned short &tCell, const std::vector<float> &times, int i, int j)
+DAQEvent &DAQEvent::TimeCalibration(const unsigned short &tCell, const std::vector<float> &times, int i, int j)
 {
     times_[i][j] = times;
     vector<float> &times_ij = times_[i][j];
     rotate(times_ij.begin(), times_ij.begin() + tCell, times_ij.end());
     partial_sum(times_ij.begin(), times_ij.end(), times_ij.begin());
 
-    return;
+    return *this;
 
     // float t1, t2, dt;
 
@@ -195,6 +272,12 @@ void DAQEvent::TimeCalibration(const unsigned short &tCell, const std::vector<fl
     //     }
     // }
 }
+
+//  ____    _    ___  _____ _ _
+// |  _ \  / \  / _ \|  ___(_) | ___
+// | | | |/ _ \| | | | |_  | | |/ _ \
+// | |_| / ___ \ |_| |  _| | | |  __/
+// |____/_/   \_\__\_\_|   |_|_|\___|
 
 DAQFile &DAQFile::Initialise(DAQEvent &event)
 {
@@ -261,7 +344,23 @@ DAQFile &DAQFile::Initialise(DAQEvent &event)
         file.ResetTag();
     }
     file.ResetTag();
+
+    event.is_init_ = true;
     return file;
+}
+
+DAQFile &DAQFile::Close()
+{
+    if (in_.is_open())
+    {
+        cout << "Closing file " << filename_ << "..." << endl;
+        in_.close();
+    }
+    else
+    {
+        cout << "File is already closed" << endl;
+    }
+    return *this;
 }
 
 void DAQFile::Read(TAG &t)
@@ -295,20 +394,6 @@ void DAQFile::Read(vector<float> &vec, const unsigned short &range_center)
         vec[i] = val / 65536. + range_center / 1000. - 0.5;
     }
     return;
-}
-
-DAQFile &DAQFile::Close()
-{
-    if (in_.is_open())
-    {
-        cout << "Closing file " << filename_ << "..." << endl;
-        in_.close();
-    }
-    else
-    {
-        cout << "File is already closed" << endl;
-    }
-    return *this;
 }
 
 /*!
@@ -365,8 +450,6 @@ bool DAQFile::operator>>(DRSEvent &event) // DAQFile >> DRSEvent
     vector<float> volts(SAMPLES_PER_WAVEFORM);
     int i = 0, j = 0;
 
-    event.is_ped_ = false;
-
     // Read only one event
     file >> eh;
     if (eh.serialNumber % 100 == 0 and eh.serialNumber > 0)
@@ -413,8 +496,6 @@ bool DAQFile::operator>>(WDBEvent &event) // DAQFile >> WDBEvent
     EventHeader eh;
     vector<float> volts(SAMPLES_PER_WAVEFORM);
     int i = 0, j = 0;
-
-    event.is_ped_ = false;
 
     // Read only one event
     file >> eh;

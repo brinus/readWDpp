@@ -24,6 +24,9 @@ int main(void)
 {
     DAQFile file("test/testDRS.dat");
     DRSEvent event;
+
+    event.SetPedInterval(100, 2000);
+
     TH1F *h1 = new TH1F("Pedestal mean", "h1", 100, -0.002, 0.004);
     TH1F *h2 = new TH1F("Pedestal std.dev.", "h2", 100, -0.002, 0.004);
 

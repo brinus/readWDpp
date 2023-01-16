@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['samples_5fper_5fwaveform_0',['SAMPLES_PER_WAVEFORM',['../readWD_8hh.html#a0606d74796559e9e9b17d890a305d35a',1,'readWD.hh']]],
-  ['sec_1',['sec',['../structEventHeader.html#a54e689cf8c5e5aa0f749238c028ac106',1,'EventHeader']]],
-  ['serialnumber_2',['serialNumber',['../structEventHeader.html#a0ec383672d74e1048054ebda0704fcde',1,'EventHeader']]]
+  ['tag_0',['TAG',['../structTAG.html',1,'']]],
+  ['tag_1',['tag',['../structEventHeader.html#a579ec852bf31d93558596ff9f45f6ebd',1,'EventHeader']]],
+  ['the_20binary_20output_2',['The Binary Output',['../binary.html',1,'']]],
+  ['timecalibration_3',['TimeCalibration',['../classDAQEvent.html#a1df88166e2ee2c22662c870d3a6463b4',1,'DAQEvent']]]
 ];

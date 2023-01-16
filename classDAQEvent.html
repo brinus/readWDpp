@@ -100,14 +100,15 @@ Inheritance diagram for DAQEvent:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ab1176184ce5206715972cb5fb965a8b9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classDAQEvent.html">DAQEvent</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQEvent.html#ab1176184ce5206715972cb5fb965a8b9">GetChannel</a> (const int &amp;, const int &amp;)</td></tr>
 <tr class="separator:ab1176184ce5206715972cb5fb965a8b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8d5626128e1c0aaa4844c9f2db941bc5"><td class="memItemLeft" align="right" valign="top"><a id="a8d5626128e1c0aaa4844c9f2db941bc5" name="a8d5626128e1c0aaa4844c9f2db941bc5"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>GetCharge</b> ()</td></tr>
+<tr class="memitem:a8d5626128e1c0aaa4844c9f2db941bc5"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQEvent.html#a8d5626128e1c0aaa4844c9f2db941bc5">GetCharge</a> ()</td></tr>
 <tr class="separator:a8d5626128e1c0aaa4844c9f2db941bc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afb33ea10753d01e87a8e0b3d1cd38d4c"><td class="memItemLeft" align="right" valign="top"><a id="afb33ea10753d01e87a8e0b3d1cd38d4c" name="afb33ea10753d01e87a8e0b3d1cd38d4c"></a>
 float&#160;</td><td class="memItemRight" valign="bottom"><b>GetAmplitude</b> ()</td></tr>
 <tr class="separator:afb33ea10753d01e87a8e0b3d1cd38d4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1f094a3b66812c85101669d298ae4d05"><td class="memItemLeft" align="right" valign="top">const std::pair&lt; float, float &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQEvent.html#a1f094a3b66812c85101669d298ae4d05">GetPedestal</a> ()</td></tr>
 <tr class="separator:a1f094a3b66812c85101669d298ae4d05"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a7f06bf5097c12cab47c52c11b1801e"><td class="memItemLeft" align="right" valign="top">const std::pair&lt; int, int &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQEvent.html#a4a7f06bf5097c12cab47c52c11b1801e">GetIntegrationBounds</a> ()</td></tr>
+<tr class="separator:a4a7f06bf5097c12cab47c52c11b1801e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a92675bb38933e12275a917d6b48357e5"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; float &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQEvent.html#a92675bb38933e12275a917d6b48357e5">GetVolts</a> ()</td></tr>
 <tr class="separator:a92675bb38933e12275a917d6b48357e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1300b318afa84d0c4a49c0ec63e5e56d"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; float &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQEvent.html#a1300b318afa84d0c4a49c0ec63e5e56d">GetTimes</a> ()</td></tr>
@@ -116,6 +117,8 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>GetAmplitude</b> ()<
 <tr class="separator:a72ed5fd63b8a44921fae53b5d6b730ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4f1a39901753c8c369a4df8c0c19057d"><td class="memItemLeft" align="right" valign="top">const MAP &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQEvent.html#a4f1a39901753c8c369a4df8c0c19057d">GetVoltMap</a> ()</td></tr>
 <tr class="separator:a4f1a39901753c8c369a4df8c0c19057d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac5d33cf8009906f10396948b9934227c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classDAQEvent.html">DAQEvent</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQEvent.html#ac5d33cf8009906f10396948b9934227c">SetPedInterval</a> (int, int)</td></tr>
+<tr class="separator:ac5d33cf8009906f10396948b9934227c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-types" name="pri-types"></a>
 Private Types</h2></td></tr>
@@ -124,11 +127,13 @@ Private Types</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
-<tr class="memitem:adf80b1e4d5421d7000821cd4d012809c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQEvent.html#adf80b1e4d5421d7000821cd4d012809c">TimeCalibration</a> (const unsigned short &amp;, const std::vector&lt; float &gt; &amp;, int, int)</td></tr>
-<tr class="memdesc:adf80b1e4d5421d7000821cd4d012809c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to perform the time calibration.  <br /></td></tr>
-<tr class="separator:adf80b1e4d5421d7000821cd4d012809c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab18941f2746b2474b5e777ac774cb30d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQEvent.html#ab18941f2746b2474b5e777ac774cb30d">EvalPedestal</a> ()</td></tr>
-<tr class="separator:ab18941f2746b2474b5e777ac774cb30d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1df88166e2ee2c22662c870d3a6463b4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classDAQEvent.html">DAQEvent</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQEvent.html#a1df88166e2ee2c22662c870d3a6463b4">TimeCalibration</a> (const unsigned short &amp;, const std::vector&lt; float &gt; &amp;, int, int)</td></tr>
+<tr class="memdesc:a1df88166e2ee2c22662c870d3a6463b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to perform the time calibration.  <br /></td></tr>
+<tr class="separator:a1df88166e2ee2c22662c870d3a6463b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a16b0dd6deb44b2476889d03cf2ab6e2e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classDAQEvent.html">DAQEvent</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQEvent.html#a16b0dd6deb44b2476889d03cf2ab6e2e">EvalPedestal</a> ()</td></tr>
+<tr class="separator:a16b0dd6deb44b2476889d03cf2ab6e2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a746eeb78c5abe1d27d7c2d97c5a2f0f1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classDAQEvent.html">DAQEvent</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQEvent.html#a746eeb78c5abe1d27d7c2d97c5a2f0f1">EvalIntegrationBounds</a> ()</td></tr>
+<tr class="separator:a746eeb78c5abe1d27d7c2d97c5a2f0f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -142,10 +147,16 @@ Private Attributes</h2></td></tr>
 <tr class="separator:a12716df286776ad7c54e7104ba04dbf0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1208e4bf5a1bc13476abb4487e09d9e0"><td class="memItemLeft" align="right" valign="top">std::pair&lt; float, float &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQEvent.html#a1208e4bf5a1bc13476abb4487e09d9e0">ped_</a></td></tr>
 <tr class="separator:a1208e4bf5a1bc13476abb4487e09d9e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a58907caf1b74b43e1f149ece458c7583"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQEvent.html#a58907caf1b74b43e1f149ece458c7583">is_ped_</a></td></tr>
-<tr class="separator:a58907caf1b74b43e1f149ece458c7583"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad7a1490d9f33d8cf989ff87d9817f1b"><td class="memItemLeft" align="right" valign="top">std::pair&lt; int, int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQEvent.html#aad7a1490d9f33d8cf989ff87d9817f1b">ped_interval_</a></td></tr>
+<tr class="separator:aad7a1490d9f33d8cf989ff87d9817f1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1fc98902d13b6b09a272d384bd3b7fbb"><td class="memItemLeft" align="right" valign="top">std::pair&lt; int, int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQEvent.html#a1fc98902d13b6b09a272d384bd3b7fbb">iw_</a></td></tr>
+<tr class="separator:a1fc98902d13b6b09a272d384bd3b7fbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27db83ed55f55bcf3fc7361bdfa9884f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQEvent.html#a27db83ed55f55bcf3fc7361bdfa9884f">is_init_</a></td></tr>
+<tr class="separator:a27db83ed55f55bcf3fc7361bdfa9884f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adb8d234709d6c85d19f2213d6e6664b6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQEvent.html#adb8d234709d6c85d19f2213d6e6664b6">is_getch_</a></td></tr>
 <tr class="separator:adb8d234709d6c85d19f2213d6e6664b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a6419e4262669022652474bc75f488c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQEvent.html#a0a6419e4262669022652474bc75f488c">is_iw_</a></td></tr>
+<tr class="separator:a0a6419e4262669022652474bc75f488c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
 Friends</h2></td></tr>
@@ -155,7 +166,7 @@ Friends</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class to store time and voltage data. </p>
 
-<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00068">68</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00062">62</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="ae8f8a2bedfe5e50b3f64269fbde63899" name="ae8f8a2bedfe5e50b3f64269fbde63899"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae8f8a2bedfe5e50b3f64269fbde63899">&#9670;&#160;</a></span>MAP</h2>
@@ -177,7 +188,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00070">70</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00064">64</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
 
 </div>
 </div>
@@ -187,9 +198,6 @@ Friends</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">DAQEvent::DAQEvent </td>
@@ -198,20 +206,15 @@ Friends</h2></td></tr>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00073">73</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00047">47</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="ab18941f2746b2474b5e777ac774cb30d" name="ab18941f2746b2474b5e777ac774cb30d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab18941f2746b2474b5e777ac774cb30d">&#9670;&#160;</a></span>EvalPedestal()</h2>
+<a id="a746eeb78c5abe1d27d7c2d97c5a2f0f1" name="a746eeb78c5abe1d27d7c2d97c5a2f0f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a746eeb78c5abe1d27d7c2d97c5a2f0f1">&#9670;&#160;</a></span>EvalIntegrationBounds()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -220,7 +223,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void DAQEvent::EvalPedestal </td>
+          <td class="memname"><a class="el" href="classDAQEvent.html">DAQEvent</a> &amp; DAQEvent::EvalIntegrationBounds </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -233,7 +236,34 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00069">69</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00198">198</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+
+</div>
+</div>
+<a id="a16b0dd6deb44b2476889d03cf2ab6e2e" name="a16b0dd6deb44b2476889d03cf2ab6e2e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a16b0dd6deb44b2476889d03cf2ab6e2e">&#9670;&#160;</a></span>EvalPedestal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classDAQEvent.html">DAQEvent</a> &amp; DAQEvent::EvalPedestal </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00184">184</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
 
 </div>
 </div>
@@ -263,7 +293,45 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00041">41</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00056">56</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+
+</div>
+</div>
+<a id="a8d5626128e1c0aaa4844c9f2db941bc5" name="a8d5626128e1c0aaa4844c9f2db941bc5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d5626128e1c0aaa4844c9f2db941bc5">&#9670;&#160;</a></span>GetCharge()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float DAQEvent::GetCharge </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00155">155</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+
+</div>
+</div>
+<a id="a4a7f06bf5097c12cab47c52c11b1801e" name="a4a7f06bf5097c12cab47c52c11b1801e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a7f06bf5097c12cab47c52c11b1801e">&#9670;&#160;</a></span>GetIntegrationBounds()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const pair&lt; int, int &gt; &amp; DAQEvent::GetIntegrationBounds </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00106">106</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
 
 </div>
 </div>
@@ -282,7 +350,7 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00086">86</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00084">84</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
 
 </div>
 </div>
@@ -309,7 +377,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00083">83</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00078">78</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
 
 </div>
 </div>
@@ -328,7 +396,7 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00129">129</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00134">134</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
 
 </div>
 </div>
@@ -355,7 +423,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00084">84</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00079">79</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
 
 </div>
 </div>
@@ -374,12 +442,44 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00108">108</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00113">113</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
 
 </div>
 </div>
-<a id="adf80b1e4d5421d7000821cd4d012809c" name="adf80b1e4d5421d7000821cd4d012809c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adf80b1e4d5421d7000821cd4d012809c">&#9670;&#160;</a></span>TimeCalibration()</h2>
+<a id="ac5d33cf8009906f10396948b9934227c" name="ac5d33cf8009906f10396948b9934227c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac5d33cf8009906f10396948b9934227c">&#9670;&#160;</a></span>SetPedInterval()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classDAQEvent.html">DAQEvent</a> &amp; DAQEvent::SetPedInterval </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>b</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="main0_8cc-example.html#a2">main0.cc</a>.</dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00162">162</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+
+</div>
+</div>
+<a id="a1df88166e2ee2c22662c870d3a6463b4" name="a1df88166e2ee2c22662c870d3a6463b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1df88166e2ee2c22662c870d3a6463b4">&#9670;&#160;</a></span>TimeCalibration()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -388,7 +488,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void DAQEvent::TimeCalibration </td>
+          <td class="memname"><a class="el" href="classDAQEvent.html">DAQEvent</a> &amp; DAQEvent::TimeCalibration </td>
           <td>(</td>
           <td class="paramtype">const unsigned short &amp;&#160;</td>
           <td class="paramname"><em>tCell</em>, </td>
@@ -433,7 +533,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00157">157</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00234">234</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
 
 </div>
 </div>
@@ -458,7 +558,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00100">100</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00101">101</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
 
 </div>
 </div>
@@ -487,8 +587,8 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a id="a58907caf1b74b43e1f149ece458c7583" name="a58907caf1b74b43e1f149ece458c7583"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a58907caf1b74b43e1f149ece458c7583">&#9670;&#160;</a></span>is_ped_</h2>
+<a id="a27db83ed55f55bcf3fc7361bdfa9884f" name="a27db83ed55f55bcf3fc7361bdfa9884f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a27db83ed55f55bcf3fc7361bdfa9884f">&#9670;&#160;</a></span>is_init_</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -497,7 +597,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool DAQEvent::is_ped_</td>
+          <td class="memname">bool DAQEvent::is_init_</td>
         </tr>
       </table>
   </td>
@@ -508,6 +608,54 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00097">97</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+
+</div>
+</div>
+<a id="a0a6419e4262669022652474bc75f488c" name="a0a6419e4262669022652474bc75f488c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a6419e4262669022652474bc75f488c">&#9670;&#160;</a></span>is_iw_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool DAQEvent::is_iw_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00099">99</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+
+</div>
+</div>
+<a id="a1fc98902d13b6b09a272d384bd3b7fbb" name="a1fc98902d13b6b09a272d384bd3b7fbb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1fc98902d13b6b09a272d384bd3b7fbb">&#9670;&#160;</a></span>iw_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::pair&lt;int, int&gt; DAQEvent::iw_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00095">95</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
 
 </div>
 </div>
@@ -531,7 +679,31 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00095">95</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00093">93</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+
+</div>
+</div>
+<a id="aad7a1490d9f33d8cf989ff87d9817f1b" name="aad7a1490d9f33d8cf989ff87d9817f1b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad7a1490d9f33d8cf989ff87d9817f1b">&#9670;&#160;</a></span>ped_interval_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::pair&lt;int, int&gt; DAQEvent::ped_interval_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00094">94</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
 
 </div>
 </div>
@@ -555,7 +727,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00090">90</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00088">88</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
 
 </div>
 </div>
@@ -579,7 +751,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00091">91</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00089">89</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
 
 </div>
 </div>
@@ -603,7 +775,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00094">94</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00092">92</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
 
 </div>
 </div>
@@ -627,7 +799,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00093">93</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00091">91</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
 
 </div>
 </div>

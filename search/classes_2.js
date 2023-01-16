@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['integrationwindow_0',['IntegrationWindow',['../structIntegrationWindow.html',1,'']]]
+  ['tag_0',['TAG',['../structTAG.html',1,'']]]
 ];

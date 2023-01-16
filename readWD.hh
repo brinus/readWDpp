@@ -24,12 +24,6 @@
 
 // ----- CLASSES -----
 
-struct IntegrationWindow
-{
-    int start;
-    int stop;
-};
-
 /*!
  @brief 5 char long word ended with '\0' for simple printing.
 
@@ -70,22 +64,26 @@ class DAQEvent
     using MAP = std::map<int, std::map<int, std::vector<float>>>;
 
 public:
-    DAQEvent() { is_ped_ = false; }
+    DAQEvent();
 
     DAQEvent &GetChannel(const int &, const int &);
 
     float GetCharge();
     float GetAmplitude();
     const std::pair<float, float> &GetPedestal();
+    const std::pair<int, int> &GetIntegrationBounds();
     const std::vector<float> &GetVolts();
     const std::vector<float> &GetTimes();
 
     const MAP &GetTimeMap() { return times_; };
     const MAP &GetVoltMap() { return volts_; };
+    
+    DAQEvent &SetPedInterval(int, int);
 
 private:
-    void TimeCalibration(const unsigned short &, const std::vector<float> &, int, int);
-    void EvalPedestal();
+    DAQEvent &TimeCalibration(const unsigned short &, const std::vector<float> &, int, int);
+    DAQEvent &EvalPedestal();
+    DAQEvent &EvalIntegrationBounds();
 
     MAP times_;
     MAP volts_;
@@ -93,9 +91,12 @@ private:
     std::vector<float> wfVolts_;
     std::vector<float> wfTimes_;
     std::pair<float, float> ped_;
+    std::pair<int, int> ped_interval_;
+    std::pair<int, int> iw_;
 
-    bool is_ped_;
+    bool is_init_;
     bool is_getch_;
+    bool is_iw_;
 
     friend class DAQFile;
 };

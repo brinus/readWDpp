@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['sec_0',['sec',['../structEventHeader.html#a54e689cf8c5e5aa0f749238c028ac106',1,'EventHeader']]],
-  ['serialnumber_1',['serialNumber',['../structEventHeader.html#a0ec383672d74e1048054ebda0704fcde',1,'EventHeader']]]
+  ['min_0',['min',['../structEventHeader.html#a84f3ecbd5bbcbd6f43031c42579c1352',1,'EventHeader']]],
+  ['month_1',['month',['../structEventHeader.html#a79d020d45bf9b51794fd493907d2b585',1,'EventHeader']]],
+  ['ms_2',['ms',['../structEventHeader.html#a6e18edb4c990ca9e3a4c52def47f6a40',1,'EventHeader']]]
 ];

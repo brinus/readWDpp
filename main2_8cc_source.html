@@ -101,7 +101,7 @@ $(function() {
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    {</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <span class="keywordflow">if</span> (i == evt - 1)</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        {</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>            <span class="keyword">auto</span> times = <span class="keyword">event</span>.GetChannel(0, 0).GetTimes();</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>            <span class="keyword">auto</span> times = <span class="keyword">event</span>.<a class="code hl_function" href="classDAQEvent.html#ab1176184ce5206715972cb5fb965a8b9">GetChannel</a>(0, 0).<a class="code hl_function" href="classDAQEvent.html#a1300b318afa84d0c4a49c0ec63e5e56d">GetTimes</a>();</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>            <span class="keyword">auto</span> volts = <span class="keyword">event</span>.GetChannel(0, 0).GetVolts();</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>            <span class="keyword">auto</span> ped = <span class="keyword">event</span>.GetChannel(0, 0).GetPedestal();</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>            <span class="keyword">auto</span> iw = <span class="keyword">event</span>.GetChannel(0, 0).GetIntegrationBounds();</div>
@@ -168,8 +168,10 @@ $(function() {
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    app.Run();</div>
 <div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    <span class="keywordflow">return</span> 0;</div>
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>}</div>
-<div class="ttc" id="aclassDAQFile_html"><div class="ttname"><a href="classDAQFile.html">DAQFile</a></div><div class="ttdoc">Class to manage the file and the outputing of data in a DAQEvent instance.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8hh_source.html#l00116">readWD.hh:117</a></div></div>
-<div class="ttc" id="aclassWDBEvent_html"><div class="ttname"><a href="classWDBEvent.html">WDBEvent</a></div><div class="ttdef"><b>Definition:</b> <a href="readWD_8hh_source.html#l00108">readWD.hh:109</a></div></div>
+<div class="ttc" id="aclassDAQEvent_html_a1300b318afa84d0c4a49c0ec63e5e56d"><div class="ttname"><a href="classDAQEvent.html#a1300b318afa84d0c4a49c0ec63e5e56d">DAQEvent::GetTimes</a></div><div class="ttdeci">const std::vector&lt; float &gt; &amp; GetTimes()</div><div class="ttdoc">Getter method read-only for the attrinute DAQEvent::wfTimes_.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8cc_source.html#l00251">readWD.cc:251</a></div></div>
+<div class="ttc" id="aclassDAQEvent_html_ab1176184ce5206715972cb5fb965a8b9"><div class="ttname"><a href="classDAQEvent.html#ab1176184ce5206715972cb5fb965a8b9">DAQEvent::GetChannel</a></div><div class="ttdeci">DAQEvent &amp; GetChannel(const int &amp;, const int &amp;)</div><div class="ttdoc">Select the channel to analyze.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8cc_source.html#l00096">readWD.cc:96</a></div></div>
+<div class="ttc" id="aclassDAQFile_html"><div class="ttname"><a href="classDAQFile.html">DAQFile</a></div><div class="ttdoc">Class to manage the file and the outputing of data in a DAQEvent instance.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8hh_source.html#l00129">readWD.hh:130</a></div></div>
+<div class="ttc" id="aclassWDBEvent_html"><div class="ttname"><a href="classWDBEvent.html">WDBEvent</a></div><div class="ttdef"><b>Definition:</b> <a href="readWD_8hh_source.html#l00121">readWD.hh:122</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

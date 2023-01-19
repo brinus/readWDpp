@@ -88,7 +88,7 @@ $(function() {
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <a class="code hl_class" href="classDAQFile.html">DAQFile</a> file(<span class="stringliteral">&quot;test/testDRS.dat&quot;</span>);</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <a class="code hl_class" href="classDRSEvent.html">DRSEvent</a> event;</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keyword">event</span>.SetPedInterval(100, 2000);</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keyword">event</span>.<a class="code hl_function" href="classDAQEvent.html#ac5d33cf8009906f10396948b9934227c">SetPedInterval</a>(100, 2000);</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    TH1F *h1 = <span class="keyword">new</span> TH1F(<span class="stringliteral">&quot;Pedestal mean&quot;</span>, <span class="stringliteral">&quot;h1&quot;</span>, 100, -0.002, 0.004);</div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    TH1F *h2 = <span class="keyword">new</span> TH1F(<span class="stringliteral">&quot;Pedestal std.dev.&quot;</span>, <span class="stringliteral">&quot;h2&quot;</span>, 100, -0.002, 0.004);</div>
@@ -112,8 +112,9 @@ $(function() {
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>{</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    main();</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>}</div>
-<div class="ttc" id="aclassDAQFile_html"><div class="ttname"><a href="classDAQFile.html">DAQFile</a></div><div class="ttdoc">Class to manage the file and the outputing of data in a DAQEvent instance.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8hh_source.html#l00116">readWD.hh:117</a></div></div>
-<div class="ttc" id="aclassDRSEvent_html"><div class="ttname"><a href="classDRSEvent.html">DRSEvent</a></div><div class="ttdef"><b>Definition:</b> <a href="readWD_8hh_source.html#l00104">readWD.hh:105</a></div></div>
+<div class="ttc" id="aclassDAQEvent_html_ac5d33cf8009906f10396948b9934227c"><div class="ttname"><a href="classDAQEvent.html#ac5d33cf8009906f10396948b9934227c">DAQEvent::SetPedInterval</a></div><div class="ttdeci">DAQEvent &amp; SetPedInterval(int, int)</div><div class="ttdoc">Function to set the interval where to perform pedestal evaluation.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8cc_source.html#l00134">readWD.cc:134</a></div></div>
+<div class="ttc" id="aclassDAQFile_html"><div class="ttname"><a href="classDAQFile.html">DAQFile</a></div><div class="ttdoc">Class to manage the file and the outputing of data in a DAQEvent instance.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8hh_source.html#l00129">readWD.hh:130</a></div></div>
+<div class="ttc" id="aclassDRSEvent_html"><div class="ttname"><a href="classDRSEvent.html">DRSEvent</a></div><div class="ttdef"><b>Definition:</b> <a href="readWD_8hh_source.html#l00113">readWD.hh:114</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

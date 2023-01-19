@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['year_0',['year',['../structEventHeader.html#affb55b7e2701a752ac13949639c03e3f',1,'EventHeader']]]
+  ['rangecenter_0',['rangeCenter',['../structEventHeader.html#a966006a854810bddd000a3cb1fc6732b',1,'EventHeader']]]
 ];

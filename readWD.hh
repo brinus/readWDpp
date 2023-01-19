@@ -22,7 +22,11 @@
 
 #define SAMPLES_PER_WAVEFORM 1024 ///< The number of samples made by the waveforms, both DRS and WDB.
 
-// ----- CLASSES -----
+/* 
+  ┌─────────────────────────────────────────────────────────────────────────┐
+  │ CLASSES                                                                 │
+  └─────────────────────────────────────────────────────────────────────────┘
+ */
 
 /*!
  @brief 5 char long word ended with '\0' for simple printing.
@@ -52,21 +56,24 @@ struct EventHeader
     unsigned short min;         ///< The minute.
     unsigned short sec;         ///< The second.
     unsigned short ms;          ///< The millisecond.
-    unsigned short rangeCenter; /// The rangeCenter (in Volts).
+    unsigned short rangeCenter; ///< The rangeCenter (in Volts).
 };
 
 /*!
- @brief Class to store time and voltage data.
+ @brief Main class to store voltage and time values.
+
+ @details This class is used with @ref DAQFile to read each event contained into a file.
 
  */
 class DAQEvent
 {
-    using MAP = std::map<int, std::map<int, std::vector<float>>>;
+    using MAP = std::map<int, std::map<int, std::vector<float>>>; ///< Alias for data structure.
 
 public:
     DAQEvent();
 
     DAQEvent &GetChannel(const int &, const int &);
+    DAQEvent &SetPedInterval(int, int);
 
     float GetCharge();
     float GetAmplitude();
@@ -75,24 +82,22 @@ public:
     const std::vector<float> &GetVolts();
     const std::vector<float> &GetTimes();
 
-    const MAP &GetTimeMap() { return times_; };
     const MAP &GetVoltMap() { return volts_; };
-    
-    DAQEvent &SetPedInterval(int, int);
+    const MAP &GetTimeMap() { return times_; };
 
 private:
     DAQEvent &TimeCalibration(const unsigned short &, const std::vector<float> &, int, int);
     DAQEvent &EvalPedestal();
     DAQEvent &EvalIntegrationBounds();
 
-    MAP times_;
-    MAP volts_;
+    MAP times_; ///< Structure to hold integrated times array of all board and channels.
+    MAP volts_; ///< Structure to hold voltage values of all board and channels.
 
-    std::vector<float> wfVolts_;
-    std::vector<float> wfTimes_;
-    std::pair<float, float> ped_;
-    std::pair<int, int> ped_interval_;
-    std::pair<int, int> iw_;
+    std::vector<float> wfVolts_;       ///< The waveform selected from the user with @ref DAQEvent::GetChannel().
+    std::vector<float> wfTimes_;       ///< The times selected from the user with @ref DAQEvent::GetChannel().
+    std::pair<float, float> ped_;      ///< Pair to hold pedestal *mean* and pedestal *std.dev.*.
+    std::pair<int, int> ped_interval_; ///< Pair to hold indices on which pedestal is evaluated.
+    std::pair<int, int> iw_;           ///< Pair to hold indices on which integration is performed by @ref DAQEvent::GetCharge().
 
     bool is_init_;
     bool is_getch_;
@@ -101,10 +106,18 @@ private:
     friend class DAQFile;
 };
 
+/*!
+ @brief 
+ 
+ */
 class DRSEvent : public DAQEvent
 {
 };
 
+/*!
+ @brief 
+ 
+ */
 class WDBEvent : public DAQEvent
 {
 };
@@ -115,41 +128,20 @@ class WDBEvent : public DAQEvent
  */
 class DAQFile
 {
-    using MAP = std::map<int, std::map<int, std::vector<float>>>;
+    using MAP = std::map<int, std::map<int, std::vector<float>>>; ///< Alias for data structure.
 
 public:
-    DAQFile(const std::string &fname)
-    {
-        TAG tag;
-        filename_ = fname;
-        in_.open(fname, std::ios::in | std::ios::binary);
-        std::cout << "Created DAQFile, opened file " << fname << std::endl;
-    }
+    DAQFile(const std::string &);
     ~DAQFile() { in_.close(); }
 
-    DAQFile &Initialise(DAQEvent &);
+    DAQFile &Initialise();
     DAQFile &Close();
-    DAQFile &Open(const std::string &fname)
-    {
-        if (!in_.is_open())
-        {
-            filename_ = fname;
-            in_.open(fname, std::ios::in | std::ios::binary);
-            std::cout << std::endl
-                      << "Created DAQFile, opened file " << fname << std::endl;
-            return *this;
-        }
-        else
-        {
-            std::cerr << "!! Error: File is already opened --> " << filename_ << std::endl;
-            return *this;
-        }
-    }
-    bool operator>>(DRSEvent &);
-    bool operator>>(WDBEvent &);
+    DAQFile &Open(const std::string &);
+
     bool operator>>(TAG &);
     bool operator>>(EventHeader &);
-    const char &GetVersion() { return version_; }
+    bool operator>>(DRSEvent &);
+    bool operator>>(WDBEvent &);
 
 private:
     operator bool();
@@ -159,7 +151,6 @@ private:
     void Read(std::vector<float> &, const unsigned short &);
     void ResetTag() { in_.seekg(-4, in_.cur); }
 
-    char version_;
     std::string filename_;
     std::ifstream in_;
     char o_, n_;
@@ -167,7 +158,11 @@ private:
     MAP times_;
 };
 
-// ----- FUNCTIONS -----
+/* 
+  ┌─────────────────────────────────────────────────────────────────────────┐
+  │ FUNCTIONS                                                               │
+  └─────────────────────────────────────────────────────────────────────────┘
+ */
 
 std::ostream &operator<<(std::ostream &, const TAG &);
 std::ostream &operator<<(std::ostream &, const EventHeader &);

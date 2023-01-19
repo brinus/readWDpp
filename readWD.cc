@@ -12,6 +12,19 @@
 
 using namespace std;
 
+/*
+  ┌─────────────────────────────────────────────────────────────────────────┐
+  │ FUNCTIONS                                                               │
+  └─────────────────────────────────────────────────────────────────────────┘
+ */
+
+/*!
+ @brief
+
+ @param o
+ @param tag
+ @return ostream&
+ */
 ostream &operator<<(ostream &o, const TAG &tag) // cout << TAG
 {
     if (tag.tag[0] == 'B')
@@ -29,6 +42,13 @@ ostream &operator<<(ostream &o, const TAG &tag) // cout << TAG
     return o;
 }
 
+/*!
+ @brief
+
+ @param o
+ @param eh
+ @return ostream&
+ */
 ostream &operator<<(ostream &o, const EventHeader &eh) // cout << EventHeader
 {
     o << eh.tag << endl;
@@ -38,12 +58,25 @@ ostream &operator<<(ostream &o, const EventHeader &eh) // cout << EventHeader
     return o;
 }
 
-//  ____    _    ___  _____                 _
-// |  _ \  / \  / _ \| ____|_   _____ _ __ | |_
-// | | | |/ _ \| | | |  _| \ \ / / _ \ '_ \| __|
-// | |_| / ___ \ |_| | |___ \ V /  __/ | | | |_
-// |____/_/   \_\__\_\_____| \_/ \___|_| |_|\__|
+/*
+  ┌─────────────────────────────────────────────────────────────────────────┐
+  │ CLASSES : DAQEvent                                                      │
+  └─────────────────────────────────────────────────────────────────────────┘
+ */
 
+/*!
+ @brief Construct a new @ref DAQEvent() object.
+
+ @details The constructor of the class has to initialize the correct values of some check-flags and of some variables
+ that will be later evaluated.
+
+ The default value for @ref DAQEvent::ped_interval_ is `{0, 100}` so that if the method
+ @ref DAQEvent::SetPedInterval() is not called, the pedestal will be evaluated on the first 100 bins.
+
+ The default value for @ref DAQEvent::iw_ is `{0, SAMPLES_PER_WAVEFORM - 1}`. When a method like @ref DAQEvent::GetCharge() is called,
+ it calls also DAQEvent::EvalIntegrationBounds() and the new integration window is evaluated.
+
+ */
 DAQEvent::DAQEvent()
 {
     is_getch_ = false;
@@ -53,6 +86,13 @@ DAQEvent::DAQEvent()
     iw_ = {0, SAMPLES_PER_WAVEFORM - 1};
 }
 
+/*!
+ @brief Select the channel to analyze.
+
+ @param board the index of the board, starting from 0.
+ @param channel the index of the channel in the selected board, starting from 0.
+ @return DAQEvent& to make cascade methods available.
+ */
 DAQEvent &DAQEvent::GetChannel(const int &board, const int &channel)
 {
     int i = 0, j = 0;
@@ -81,84 +121,16 @@ DAQEvent &DAQEvent::GetChannel(const int &board, const int &channel)
     return *this;
 }
 
-const pair<float, float> &DAQEvent::GetPedestal()
-{
-    try
-    {
-        if (is_getch_)
-        {
-            (*this).EvalPedestal();
-            is_getch_ = false;
-            return ped_;
-        }
-        else
-        {
-            throw runtime_error("!! Error: select a channel --> Use DAQEvent::GetChannel()");
-        }
-    }
-    catch (exception &obj)
-    {
-        cerr << obj.what() << endl;
-        exit(0);
-    }
-}
+/*!
+ @brief Function to set the interval where to perform pedestal evaluation.
 
-const pair<int, int> &DAQEvent::GetIntegrationBounds()
-{
-    (*this).EvalPedestal();
-    (*this).EvalIntegrationBounds();
-    return iw_;
-}
+ @details The function checks automatically which value in input is smaller to correctly order the pair passed. A first control is made to check
+ if the inputs are in the correct boundary that is from 0 to @ref SAMPLES_PER_WAVEFORM.
 
-const vector<float> &DAQEvent::GetVolts()
-{
-    try
-    {
-        if (is_getch_)
-        {
-            is_getch_ = false;
-            return wfVolts_;
-        }
-        else
-        {
-            throw runtime_error("!! Error: select a channel --> Use DAQEvent::GetChannel()");
-        }
-    }
-    catch (exception &obj)
-    {
-        cerr << obj.what() << endl;
-        exit(0);
-    }
-}
-
-const vector<float> &DAQEvent::GetTimes()
-{
-    try
-    {
-        if (is_getch_)
-        {
-            is_getch_ = false;
-            return wfTimes_;
-        }
-        else
-        {
-            throw runtime_error("!! Error: select a channel --> Use DAQEvent::GetChannel()");
-        }
-    }
-    catch (exception &obj)
-    {
-        cerr << obj.what() << endl;
-        exit(0);
-    }
-}
-
-float DAQEvent::GetCharge()
-{
-    (*this).EvalPedestal();
-    (*this).EvalIntegrationBounds();
-    return accumulate(wfVolts_.begin() + iw_.first, wfVolts_.begin() + iw_.second, 0.) - wfVolts_.size() * ped_.first;
-}
-
+ @param a The first boundary index value.
+ @param b The second boundary index value.
+ @return DAQEvent& to make cascade methods available.
+ */
 DAQEvent &DAQEvent::SetPedInterval(int a, int b)
 {
     if (a > SAMPLES_PER_WAVEFORM or b > SAMPLES_PER_WAVEFORM)
@@ -181,49 +153,122 @@ DAQEvent &DAQEvent::SetPedInterval(int a, int b)
     return *this;
 }
 
-DAQEvent &DAQEvent::EvalPedestal()
-{
-    int ped_interval_dist = ped_interval_.second - ped_interval_.first;
-    ped_ = {0., 0.};
-    ped_.first = accumulate(wfVolts_.begin() + ped_interval_.first, wfVolts_.begin() + ped_interval_.second, 0.) / ped_interval_dist;
-    for (int i = ped_interval_.first; i < ped_interval_.second; ++i)
-    {
-        ped_.second += pow(wfVolts_[i] - ped_.first, 2);
-    }
-    ped_.second = sqrt(ped_.second / ped_interval_dist);
+/*!
+ @brief Method to evaluate charge in the integration region.
 
-    return *this;
+ @details The methods calls in order @ref DAQEvent::EvalPedestal() and @ref DAQEvent::EvalIntegrationBounds(). The pedestal
+ is then subtracted from the waveform, the integration window is used for an integration over a correct window of values.
+
+ @return float
+ */
+float DAQEvent::GetCharge()
+{
+    (*this).EvalPedestal();
+    (*this).EvalIntegrationBounds();
+    return accumulate(wfVolts_.begin() + iw_.first, wfVolts_.begin() + iw_.second, 0.) - wfVolts_.size() * ped_.first;
 }
 
-DAQEvent &DAQEvent::EvalIntegrationBounds()
+/*!
+ @brief Method to evaluate amplitude in the integration region.
+
+ @return float
+ */
+float DAQEvent::GetAmplitude()
 {
-    if (!is_getch_)
+    return 0.;
+}
+
+/*!
+ @brief Getter method read-only for the attribute @ref DAQEvent::ped_.
+
+ @return const pair<float, float>&
+ */
+const pair<float, float> &DAQEvent::GetPedestal()
+{
+    try
     {
-        cerr << "!! Error" << endl;
+        if (is_getch_)
+        {
+            (*this).EvalPedestal();
+            is_getch_ = false;
+            return ped_;
+        }
+        else
+        {
+            throw runtime_error("!! Error: select a channel --> Use DAQEvent::GetChannel()");
+        }
+    }
+    catch (exception &obj)
+    {
+        cerr << obj.what() << endl;
         exit(0);
     }
+}
 
-    iw_ = {0, SAMPLES_PER_WAVEFORM - 1};
+/*!
+ @brief Getter method read-only for the attribute @ref DAQEvent::iw_.
 
-    auto peak = *min_element(wfVolts_.begin(), wfVolts_.end());
-    auto lower_bound = ped_.first - 5 * ped_.second;
-    auto higher_bound = ped_.first + 5 * ped_.second;
+ @return const pair<int, int>&
+ */
+const pair<int, int> &DAQEvent::GetIntegrationBounds()
+{
+    (*this).EvalPedestal();
+    (*this).EvalIntegrationBounds();
+    return iw_;
+}
 
-    if ((peak > higher_bound or peak < lower_bound) and !is_iw_)
+/*!
+ @brief Getter method read-only for the attribute @ref DAQEvent::wfVolts_.
+
+ @return const vector<float>&
+ */
+const vector<float> &DAQEvent::GetVolts()
+{
+    try
     {
-        while (wfVolts_[iw_.first] > lower_bound and wfVolts_[iw_.first] < higher_bound and iw_.first < SAMPLES_PER_WAVEFORM - 1)
+        if (is_getch_)
         {
-            ++iw_.first;
+            is_getch_ = false;
+            return wfVolts_;
         }
-
-        while (wfVolts_[iw_.second] > lower_bound and wfVolts_[iw_.second] < higher_bound and iw_.second > iw_.first)
+        else
         {
-            --iw_.second;
+            throw runtime_error("!! Error: select a channel --> Use DAQEvent::GetChannel()");
         }
     }
-
-    return *this;
+    catch (exception &obj)
+    {
+        cerr << obj.what() << endl;
+        exit(0);
+    }
 }
+
+/*!
+ @brief Getter method read-only for the attrinute @ref DAQEvent::wfTimes_.
+
+ @return const vector<float>&
+ */
+const vector<float> &DAQEvent::GetTimes()
+{
+    try
+    {
+        if (is_getch_)
+        {
+            is_getch_ = false;
+            return wfTimes_;
+        }
+        else
+        {
+            throw runtime_error("!! Error: select a channel --> Use DAQEvent::GetChannel()");
+        }
+    }
+    catch (exception &obj)
+    {
+        cerr << obj.what() << endl;
+        exit(0);
+    }
+}
+
 /*!
      @brief Function to perform the time calibration.
 
@@ -273,13 +318,86 @@ DAQEvent &DAQEvent::TimeCalibration(const unsigned short &tCell, const std::vect
     // }
 }
 
-//  ____    _    ___  _____ _ _
-// |  _ \  / \  / _ \|  ___(_) | ___
-// | | | |/ _ \| | | | |_  | | |/ _ \
-// | |_| / ___ \ |_| |  _| | | |  __/
-// |____/_/   \_\__\_\_|   |_|_|\___|
+/*!
+ @brief Method to evaluate the pedestal of the currently selected waveform.
 
-DAQFile &DAQFile::Initialise(DAQEvent &event)
+ @return DAQEvent&
+ */
+DAQEvent &DAQEvent::EvalPedestal()
+{
+    int ped_interval_dist = ped_interval_.second - ped_interval_.first;
+    ped_ = {0., 0.};
+    ped_.first = accumulate(wfVolts_.begin() + ped_interval_.first, wfVolts_.begin() + ped_interval_.second, 0.) / ped_interval_dist;
+    for (int i = ped_interval_.first; i < ped_interval_.second; ++i)
+    {
+        ped_.second += pow(wfVolts_[i] - ped_.first, 2);
+    }
+    ped_.second = sqrt(ped_.second / ped_interval_dist);
+
+    return *this;
+}
+
+/*!
+ @brief Method to evaluate the integration window of the currently selected waveform.
+
+ @return DAQEvent&
+ */
+DAQEvent &DAQEvent::EvalIntegrationBounds()
+{
+    if (!is_getch_)
+    {
+        cerr << "!! Error" << endl;
+        exit(0);
+    }
+
+    iw_ = {0, SAMPLES_PER_WAVEFORM - 1};
+
+    auto peak = *min_element(wfVolts_.begin(), wfVolts_.end());
+    auto lower_bound = ped_.first - 5 * ped_.second;
+    auto higher_bound = ped_.first + 5 * ped_.second;
+
+    if ((peak > higher_bound or peak < lower_bound) and !is_iw_)
+    {
+        while (wfVolts_[iw_.first] > lower_bound and wfVolts_[iw_.first] < higher_bound and iw_.first < SAMPLES_PER_WAVEFORM - 1)
+        {
+            ++iw_.first;
+        }
+
+        while (wfVolts_[iw_.second] > lower_bound and wfVolts_[iw_.second] < higher_bound and iw_.second > iw_.first)
+        {
+            --iw_.second;
+        }
+    }
+
+    return *this;
+}
+
+/*
+  ┌─────────────────────────────────────────────────────────────────────────┐
+  │ CLASSES : DAQFile                                                       │
+  └─────────────────────────────────────────────────────────────────────────┘
+ */
+
+/*!
+ @brief Construct a new DAQFile::DAQFile object.
+
+ @param fname The file name to be opened.
+ */
+DAQFile::DAQFile(const string &fname)
+{
+    TAG tag;
+    filename_ = fname;
+    in_.open(fname, std::ios::in | std::ios::binary);
+    std::cout << "Created DAQFile, opened file " << fname << std::endl;
+}
+
+/*!
+ @brief Initialise the file reading the **TIME** block.
+
+ @param event The DAQEvent instance where to
+ @return DAQFile&
+ */
+DAQFile &DAQFile::Initialise()
 {
     DAQFile &file = *this;
 
@@ -329,13 +447,13 @@ DAQFile &DAQFile::Initialise(DAQEvent &event)
     o_ = 'B';
     initialization_ = 0;
     int i = 0, j = 0;
-    while (file >> bTag) // B#?
+    while (file >> bTag)
     {
-        cout << bTag << ":" << endl; // print --> B#?
+        cout << bTag << ":" << endl;
         j = 0;
-        while (file >> cTag) // C001
+        while (file >> cTag)
         {
-            cout << " --> " << cTag << endl; // print --> C001
+            cout << " --> " << cTag << endl;
             file.Read(times);
             times_[i][j] = times;
             ++j;
@@ -345,10 +463,14 @@ DAQFile &DAQFile::Initialise(DAQEvent &event)
     }
     file.ResetTag();
 
-    event.is_init_ = true;
     return file;
 }
 
+/*!
+ @brief
+
+ @return DAQFile&
+ */
 DAQFile &DAQFile::Close()
 {
     if (in_.is_open())
@@ -363,37 +485,27 @@ DAQFile &DAQFile::Close()
     return *this;
 }
 
-void DAQFile::Read(TAG &t)
-{
-    in_.read(t.tag, 4);
-    n_ = t.tag[0];
-    return;
-}
+/*!
+ @brief
 
-void DAQFile::Read(EventHeader &eh)
+ @param fname
+ @return DAQFile&
+ */
+DAQFile &DAQFile::Open(const string &fname)
 {
-    in_.read((char *)&eh, sizeof(eh));
-    n_ = eh.tag[0];
-}
-
-void DAQFile::Read(vector<float> &vec)
-{
-    for (int i = 0; i < vec.size(); ++i)
+    if (!in_.is_open())
     {
-        in_.read((char *)&vec.at(i), sizeof(float));
+        filename_ = fname;
+        in_.open(fname, std::ios::in | std::ios::binary);
+        std::cout << std::endl
+                  << "Created DAQFile, opened file " << fname << std::endl;
+        return *this;
     }
-    return;
-}
-
-void DAQFile::Read(vector<float> &vec, const unsigned short &range_center)
-{
-    unsigned short val;
-    for (int i = 0; i < vec.size(); ++i)
+    else
     {
-        in_.read((char *)&val, sizeof(unsigned short));
-        vec[i] = val / 65536. + range_center / 1000. - 0.5;
+        std::cerr << "!! Error: File is already opened --> " << filename_ << std::endl;
+        return *this;
     }
-    return;
 }
 
 /*!
@@ -452,7 +564,7 @@ bool DAQFile::operator>>(DRSEvent &event) // DAQFile >> DRSEvent
 
     // Read only one event
     file >> eh;
-    if (eh.serialNumber % 100 == 0 and eh.serialNumber > 0)
+    if (eh.serialNumber % 100 == 0)
     {
         cout << "Event serial number: " << eh.serialNumber << endl;
     }
@@ -499,7 +611,7 @@ bool DAQFile::operator>>(WDBEvent &event) // DAQFile >> WDBEvent
 
     // Read only one event
     file >> eh;
-    if (eh.serialNumber % 100 == 0)
+    if (eh.serialNumber % 100 == 0 and eh.serialNumber > 0)
     {
         cout << "Event serial number: " << eh.serialNumber << endl;
     }
@@ -524,6 +636,66 @@ bool DAQFile::operator>>(WDBEvent &event) // DAQFile >> WDBEvent
     return 1;
 }
 
+/*!
+ @brief
+
+ @param t
+ */
+void DAQFile::Read(TAG &t)
+{
+    in_.read(t.tag, 4);
+    n_ = t.tag[0];
+    return;
+}
+
+/*!
+ @brief
+
+ @param eh
+ */
+void DAQFile::Read(EventHeader &eh)
+{
+    in_.read((char *)&eh, sizeof(eh));
+    n_ = eh.tag[0];
+}
+
+/*!
+ @brief
+
+ @param vec
+ */
+void DAQFile::Read(vector<float> &vec)
+{
+    for (int i = 0; i < vec.size(); ++i)
+    {
+        in_.read((char *)&vec.at(i), sizeof(float));
+    }
+    return;
+}
+
+/*!
+ @brief
+
+ @param vec
+ @param range_center
+ */
+void DAQFile::Read(vector<float> &vec, const unsigned short &range_center)
+{
+    unsigned short val;
+    for (int i = 0; i < vec.size(); ++i)
+    {
+        in_.read((char *)&val, sizeof(unsigned short));
+        vec[i] = val / 65536. + range_center / 1000. - 0.5;
+    }
+    return;
+}
+
+/*!
+ @brief
+
+ @return true
+ @return false
+ */
 DAQFile::operator bool()
 {
     map<char, char> header{{'E', 'B'}, {'B', 'C'}, {'C', 'B'}};

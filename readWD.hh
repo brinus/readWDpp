@@ -22,7 +22,7 @@
 
 #define SAMPLES_PER_WAVEFORM 1024 ///< The number of samples made by the waveforms, both DRS and WDB.
 
-/* 
+/*
   ┌─────────────────────────────────────────────────────────────────────────┐
   │ CLASSES                                                                 │
   └─────────────────────────────────────────────────────────────────────────┘
@@ -81,6 +81,7 @@ public:
     const std::pair<int, int> &GetIntegrationBounds();
     const std::vector<float> &GetVolts();
     const std::vector<float> &GetTimes();
+    const std::vector<int> &GetPeakIndices();
 
     const MAP &GetVoltMap() { return volts_; };
     const MAP &GetTimeMap() { return times_; };
@@ -89,15 +90,17 @@ private:
     DAQEvent &TimeCalibration(const unsigned short &, const std::vector<float> &, int, int);
     DAQEvent &EvalPedestal();
     DAQEvent &EvalIntegrationBounds();
+    DAQEvent &FindPeaks();
 
     MAP times_; ///< Structure to hold integrated times array of all board and channels.
     MAP volts_; ///< Structure to hold voltage values of all board and channels.
 
-    std::vector<float> wfVolts_;       ///< The waveform selected from the user with @ref DAQEvent::GetChannel().
-    std::vector<float> wfTimes_;       ///< The times selected from the user with @ref DAQEvent::GetChannel().
     std::pair<float, float> ped_;      ///< Pair to hold pedestal *mean* and pedestal *std.dev.*.
-    std::pair<int, int> ped_interval_; ///< Pair to hold indices on which pedestal is evaluated.
-    std::pair<int, int> iw_;           ///< Pair to hold indices on which integration is performed by @ref DAQEvent::GetCharge().
+    std::pair<float, float> peak_;     ///< Pair to hold value of voltage and time at the peak.
+    std::pair<int, int> ped_interval_; ///< Pair to hold indices as boundary edges where pedestal is evaluated.
+    std::pair<int, int> iw_;           ///< Pair to hold indices as boundary edges where integration is performed by @ref DAQEvent::GetCharge().
+    std::pair<int, int> ch_;           ///< Pair to hold indices of board and channel selected;
+    std::vector<int> indexMin_;        ///< Indices of local minima found.
 
     bool is_init_;
     bool is_getch_;
@@ -107,16 +110,16 @@ private:
 };
 
 /*!
- @brief 
- 
+ @brief
+
  */
 class DRSEvent : public DAQEvent
 {
 };
 
 /*!
- @brief 
- 
+ @brief
+
  */
 class WDBEvent : public DAQEvent
 {
@@ -158,7 +161,7 @@ private:
     MAP times_;
 };
 
-/* 
+/*
   ┌─────────────────────────────────────────────────────────────────────────┐
   │ FUNCTIONS                                                               │
   └─────────────────────────────────────────────────────────────────────────┘

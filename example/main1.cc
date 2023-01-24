@@ -2,43 +2,65 @@
 
 #include "TApplication.h"
 #include "TCanvas.h"
+#include "TMultiGraph.h"
 #include "TGraph.h"
 #include "TH1F.h"
 #include "TLine.h"
 #include "TPad.h"
+#include "TPoint.h"
 
 using namespace std;
 using MAP = map<string, map<string, vector<float>>>;
 
 void main1()
 {
+    TCanvas *c1 = new TCanvas("c1", "c1", 600, 750);
+    auto *pad1 = new TPad("pad1", "waveform", 0, 0.5, 1, 1);
+    auto *pad2 = new TPad("pad2", "charge", 0, 0, 0.5, 0.5);
+    auto *pad3 = new TPad("pad3", "amplitude", 0.5, 0, 1, 0.5);
+
+    pad1->Draw();
+    pad2->Draw();
+    pad3->Draw();
+
     DAQFile file("test/testDRS.dat");
     DRSEvent event;
     int i = 0;
-    int evt = 1201;
+    int evt = -1;
 
-    file.Initialise(event);
-    while (file >> event and i < evt + 1)
+    file.Initialise();
+    while (file >> event and evt == -1)
     {
-        if (i == evt)
+        if (event.GetChannel(0, 0).GetCharge() < 1 or i == 9999)
         {
+            cout << event.GetChannel(0, 0).GetCharge() << endl;
+            evt = i;
+
             auto times = event.GetChannel(0, 0).GetTimes();
             auto volts = event.GetChannel(0, 0).GetVolts();
             auto ped = event.GetChannel(0, 0).GetPedestal();
             auto iw = event.GetChannel(0, 0).GetIntegrationBounds();
+            auto indexMin = event.GetChannel(0, 0).GetPeakIndices();
 
             cout << "Integration index: " << iw.first << " " << iw.second << endl;
             cout << "Pedestal: " << ped.first << " +/- " << ped.second << endl;
 
-            TCanvas *c1 = new TCanvas("c1", "c1", 1);
-            c1->cd();
-
-            TGraph *g1 = new TGraph(times.size(), times.data(), volts.data());
+            auto mg = new TMultiGraph();
             string title = "{event}=" + to_string(evt) + ", {iw}=(" + to_string(iw.first) + "," + to_string(iw.second) + "), {ped}=" + to_string(ped.first) + "+/-" + to_string(ped.second);
-            g1->SetMarkerStyle(kFullSquare);
-            g1->SetMarkerSize(0.2);
-            g1->SetTitle(title.c_str());
-            g1->Draw("AP");
+            mg->SetTitle(title.c_str());
+
+            auto g1 = new TGraph(times.size(), times.data(), volts.data());
+
+            auto g2 = new TGraph(0);
+            g2->AddPoint(times[indexMin[0]], volts[indexMin[0]]);
+            g2->SetMarkerSize(0.8);
+            g2->SetMarkerColor(kRed);
+            g2->SetMarkerStyle(kFullTriangleDown);
+
+            pad1->cd();
+            mg->Add(g1, "L");
+            mg->Add(g2, "P");
+            mg->Draw("A");
 
             c1->Update();
             TLine *ped_m = new TLine(gPad->GetUxmin(), ped.first - 5 * ped.second, gPad->GetUxmax(), ped.first - 5 * ped.second);
@@ -63,21 +85,24 @@ void main1()
 
     file.Close();
 
-    TCanvas *c2 = new TCanvas("c2", "c2", 1);
-    c2->cd();
     TH1F *h1 = new TH1F("h1", "charge histogram", 100, 0, 15);
+    TH1F *h2 = new TH1F("h2", "amplitude histogram", 100, -1, 0);
 
     file.Open("test/testDRS.dat");
-    file.Initialise(event);
+    file.Initialise();
     while (file >> event)
     {
         auto charge = event.GetChannel(0, 0).GetCharge();
+        auto amp = event.GetChannel(0, 0).GetAmplitude();
         h1->Fill(-charge);
-        ++i;
+        h2->Fill(amp);
     }
 
+    pad2->cd();
     h1->Draw();
-    c2->Update();
+    pad3->cd();
+    h2->Draw();
+    c1->Update();
 
     return;
 }

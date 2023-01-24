@@ -95,30 +95,25 @@ DAQEvent::DAQEvent()
  */
 DAQEvent &DAQEvent::GetChannel(const int &board, const int &channel)
 {
-    int i = 0, j = 0;
-    for (auto &[bKey, bVal] : volts_)
+    if (board < 0 or channel < 0)
     {
-        if (i == board)
-        {
-            if (bVal.size() - 1 < channel)
-            {
-                return *this;
-            }
-            for (auto &[cKey, cVal] : bVal)
-            {
-                if (j == channel)
-                {
-                    wfVolts_ = cVal;
-                    wfTimes_ = times_[bKey][cKey];
-                    is_getch_ = true;
-                    return *this;
-                }
-                ++j;
-            }
-        }
-        ++i;
+        cerr << "!! Error: board and channel ID number(s) must be positive integers" << endl;
+        exit(0);
     }
-    return *this;
+
+    if (volts_.find(board) != volts_.end())
+    {
+        if (volts_[board].find(channel) != volts_[board].end())
+        {
+            is_getch_ = true;
+            ch_ = {board, channel};
+            return *this;
+        }
+        cerr << "!! Error: invalid channel, max channel ID number for this board is " << volts_[board].size() - 1 << endl;
+        exit(0);
+    }
+    cerr << "!! Error: invalid board, max board ID number is " << volts_.size() - 1 << endl;
+    exit(0);
 }
 
 /*!
@@ -135,7 +130,7 @@ DAQEvent &DAQEvent::SetPedInterval(int a, int b)
 {
     if (a > SAMPLES_PER_WAVEFORM or b > SAMPLES_PER_WAVEFORM)
     {
-        cerr << "!! Error: in DAQEvent::SetPedInterval --> bound(s) must be lower of " << SAMPLES_PER_WAVEFORM << endl;
+        cerr << "!! Error: in DAQEvent::SetPedInterval, bound(s) must be lower of " << SAMPLES_PER_WAVEFORM << endl;
         exit(0);
     }
     if (a < b)
@@ -148,7 +143,8 @@ DAQEvent &DAQEvent::SetPedInterval(int a, int b)
     }
     else
     {
-        cerr << "!! Error: invalid pedestal interval declared --> Values must be positive integers less than 1024" << endl;
+        cerr << "!! Error: invalid pedestal interval declared, values must be positive integers less than 1024" << endl;
+        exit(0);
     }
     return *this;
 }
@@ -164,8 +160,13 @@ DAQEvent &DAQEvent::SetPedInterval(int a, int b)
 float DAQEvent::GetCharge()
 {
     (*this).EvalPedestal();
+    (*this).FindPeaks();
     (*this).EvalIntegrationBounds();
-    return accumulate(wfVolts_.begin() + iw_.first, wfVolts_.begin() + iw_.second, 0.) - wfVolts_.size() * ped_.first;
+
+    const auto &volts = volts_[ch_.first][ch_.second];
+    int distance = iw_.second - iw_.first;
+
+    return abs(accumulate(volts.begin() + iw_.first, volts.begin() + iw_.second, - distance * ped_.first));
 }
 
 /*!
@@ -175,7 +176,9 @@ float DAQEvent::GetCharge()
  */
 float DAQEvent::GetAmplitude()
 {
-    return 0.;
+    (*this).EvalPedestal();
+    (*this).FindPeaks();
+    return peak_.first - ped_.first;
 }
 
 /*!
@@ -185,24 +188,15 @@ float DAQEvent::GetAmplitude()
  */
 const pair<float, float> &DAQEvent::GetPedestal()
 {
-    try
+    if (is_getch_)
     {
-        if (is_getch_)
-        {
-            (*this).EvalPedestal();
-            is_getch_ = false;
-            return ped_;
-        }
-        else
-        {
-            throw runtime_error("!! Error: select a channel --> Use DAQEvent::GetChannel()");
-        }
+        (*this).EvalPedestal();
+        is_getch_ = false;
+        return ped_;
     }
-    catch (exception &obj)
-    {
-        cerr << obj.what() << endl;
-        exit(0);
-    }
+
+    cerr << "!! Error: select a channel with DAQEvent::GetChannel()" << endl;
+    exit(0);
 }
 
 /*!
@@ -213,60 +207,61 @@ const pair<float, float> &DAQEvent::GetPedestal()
 const pair<int, int> &DAQEvent::GetIntegrationBounds()
 {
     (*this).EvalPedestal();
+    (*this).FindPeaks();
     (*this).EvalIntegrationBounds();
     return iw_;
 }
 
 /*!
- @brief Getter method read-only for the attribute @ref DAQEvent::wfVolts_.
+ @brief Getter method read-only for the waveform's voltages selected.
+
+ @details The method checks if @ref DAQEvent::GetChannel() has been called. If it is the case, it returns
+ the waveform's voltages of the selected board/channel.
 
  @return const vector<float>&
  */
 const vector<float> &DAQEvent::GetVolts()
 {
-    try
+    if (is_getch_)
     {
-        if (is_getch_)
-        {
-            is_getch_ = false;
-            return wfVolts_;
-        }
-        else
-        {
-            throw runtime_error("!! Error: select a channel --> Use DAQEvent::GetChannel()");
-        }
+        is_getch_ = false;
+        return volts_[ch_.first][ch_.second];
     }
-    catch (exception &obj)
-    {
-        cerr << obj.what() << endl;
-        exit(0);
-    }
+
+    cerr << "!! Error: select a channel with DAQEvent::GetChannel()" << endl;
+    exit(0);
 }
 
 /*!
- @brief Getter method read-only for the attrinute @ref DAQEvent::wfTimes_.
+ @brief Getter method read-only for the waveform's times selected.
+
+ @details The method checks if @ref DAQEvent::GetChannel() has been called. If it is the case, it returns
+ the waveform's times of the selected board/channel.
 
  @return const vector<float>&
  */
 const vector<float> &DAQEvent::GetTimes()
 {
-    try
+    if (is_getch_)
     {
-        if (is_getch_)
-        {
-            is_getch_ = false;
-            return wfTimes_;
-        }
-        else
-        {
-            throw runtime_error("!! Error: select a channel --> Use DAQEvent::GetChannel()");
-        }
+        is_getch_ = false;
+        return times_[ch_.first][ch_.second];
     }
-    catch (exception &obj)
-    {
-        cerr << obj.what() << endl;
-        exit(0);
-    }
+
+    cerr << "!! Error: select a channel with DAQEvent::GetChannel()" << endl;
+    exit(0);
+}
+
+/*!
+ @brief 
+ 
+ @return const vector<int>& 
+ */
+const vector<int> &DAQEvent::GetPeakIndices()
+{
+    (*this).EvalPedestal();
+    (*this).FindPeaks();
+    return indexMin_;
 }
 
 /*!
@@ -284,38 +279,6 @@ DAQEvent &DAQEvent::TimeCalibration(const unsigned short &tCell, const std::vect
     partial_sum(times_ij.begin(), times_ij.end(), times_ij.begin());
 
     return *this;
-
-    // float t1, t2, dt;
-
-    // // Time sum: DA CORREGGERE!
-    // for (auto &[board_tag, board] : times_)
-    // {
-    //     for (auto &[channel_tag, times] : board)
-    //     {
-    //         rotate(times.begin(), times.begin() + tCell, times.end());
-    //         partial_sum(times.begin(), times.end(), times.begin());
-    //     }
-    // }
-
-    // Time alignement
-    // for (auto &[board_tag, board] : times_)
-    // {
-    //     t1 = -1.;
-    //     for (auto &[channel_tag, channel] : board)
-    //     {
-    //         if (t1 == -1.)
-    //         {
-    //             t1 = channel[(1024 - tCell) % 1024];
-    //         }
-    //         else
-    //         {
-    //             t2 = channel[(1024 - tCell) % 1024];
-    //             dt = t1 - t2;
-    //             for_each(channel.begin(), channel.end(), [&](float &val)
-    //                      { val += dt; });
-    //         }
-    //     }
-    // }
 }
 
 /*!
@@ -325,12 +288,19 @@ DAQEvent &DAQEvent::TimeCalibration(const unsigned short &tCell, const std::vect
  */
 DAQEvent &DAQEvent::EvalPedestal()
 {
+    if (!is_getch_)
+    {
+        cerr << "!! Error: select a channel using DAQEvent::GetChannel()" << endl;
+        exit(0);
+    }
+
     int ped_interval_dist = ped_interval_.second - ped_interval_.first;
+    const vector<float> &volts = volts_[ch_.first][ch_.second];
     ped_ = {0., 0.};
-    ped_.first = accumulate(wfVolts_.begin() + ped_interval_.first, wfVolts_.begin() + ped_interval_.second, 0.) / ped_interval_dist;
+    ped_.first = accumulate(volts.begin() + ped_interval_.first, volts.begin() + ped_interval_.second, 0.) / ped_interval_dist;
     for (int i = ped_interval_.first; i < ped_interval_.second; ++i)
     {
-        ped_.second += pow(wfVolts_[i] - ped_.first, 2);
+        ped_.second += pow(volts[i] - ped_.first, 2);
     }
     ped_.second = sqrt(ped_.second / ped_interval_dist);
 
@@ -346,28 +316,73 @@ DAQEvent &DAQEvent::EvalIntegrationBounds()
 {
     if (!is_getch_)
     {
-        cerr << "!! Error" << endl;
+        cerr << "!! Error: select a channel using DAQEvent::GetChannel()" << endl;
         exit(0);
     }
 
-    iw_ = {0, SAMPLES_PER_WAVEFORM - 1};
+    iw_ = {indexMin_[0], indexMin_[0]};
 
-    auto peak = *min_element(wfVolts_.begin(), wfVolts_.end());
+    const vector<float> &volts = volts_[ch_.first][ch_.second];
     auto lower_bound = ped_.first - 5 * ped_.second;
-    auto higher_bound = ped_.first + 5 * ped_.second;
 
-    if ((peak > higher_bound or peak < lower_bound) and !is_iw_)
+    if (peak_.first < lower_bound)
     {
-        while (wfVolts_[iw_.first] > lower_bound and wfVolts_[iw_.first] < higher_bound and iw_.first < SAMPLES_PER_WAVEFORM - 1)
+        while (volts[iw_.first] < lower_bound and iw_.first > 0)
         {
-            ++iw_.first;
+            --iw_.first;
         }
 
-        while (wfVolts_[iw_.second] > lower_bound and wfVolts_[iw_.second] < higher_bound and iw_.second > iw_.first)
+        while (volts[iw_.second] < lower_bound and iw_.second < SAMPLES_PER_WAVEFORM - 1)
         {
-            --iw_.second;
+            ++iw_.second;
         }
     }
+
+    return *this;
+}
+
+/*!
+ @brief 
+ 
+ @return DAQEvent& 
+ */
+DAQEvent &DAQEvent::FindPeaks()
+{
+    if (!is_getch_)
+    {
+        cerr << "!! Error: select a channel using DAQEvent::GetChannel()" << endl;
+        exit(0);
+    }
+
+    const vector<float> &volts = volts_[ch_.first][ch_.second];
+    const vector<float> &times = times_[ch_.first][ch_.second];
+    indexMin_ = {};
+    auto index_min = distance(volts.begin(), min_element(volts.begin(), volts.end()));
+
+    for (int i = 1; i < SAMPLES_PER_WAVEFORM - 1; ++i)
+    {
+        auto signal = volts[i] - ped_.first < - 5 * ped_.second;
+        auto min_left = abs(volts[i]) > abs(volts[i - 1]) + ped_.second;
+        auto min_right = abs(volts[i]) > abs(volts[i + 1]) + ped_.second;
+        auto at_least = volts[i] < volts[index_min] * 0.5;
+        if (signal and min_left and min_right and at_least)
+        {
+            indexMin_.push_back(i);
+        }
+    }
+
+    if (find(indexMin_.begin(), indexMin_.end(), index_min) == indexMin_.end())
+    {
+        auto pos = find_if(indexMin_.begin(), indexMin_.end(), [index_min](auto i){ return i > index_min;});
+        indexMin_.insert(pos, index_min);
+    }
+
+    else if (indexMin_.size() == 0)
+    {
+        indexMin_.push_back(index_min);
+    }
+
+    peak_ = {volts[indexMin_[0]], times[indexMin_[0]]};
 
     return *this;
 }

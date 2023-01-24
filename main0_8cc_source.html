@@ -88,33 +88,30 @@ $(function() {
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <a class="code hl_class" href="classDAQFile.html">DAQFile</a> file(<span class="stringliteral">&quot;test/testDRS.dat&quot;</span>);</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <a class="code hl_class" href="classDRSEvent.html">DRSEvent</a> event;</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keyword">event</span>.<a class="code hl_function" href="classDAQEvent.html#ac5d33cf8009906f10396948b9934227c">SetPedInterval</a>(100, 2000);</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    TH1F *h1 = <span class="keyword">new</span> TH1F(<span class="stringliteral">&quot;Pedestal mean&quot;</span>, <span class="stringliteral">&quot;h1&quot;</span>, 100, -0.002, 0.004);</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    TH1F *h2 = <span class="keyword">new</span> TH1F(<span class="stringliteral">&quot;Pedestal std.dev.&quot;</span>, <span class="stringliteral">&quot;h2&quot;</span>, 100, -0.002, 0.004);</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    h1-&gt;SetLineColor(kRed);</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    h2-&gt;SetLineColor(kGreen);</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    file.Initialise(event);</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keywordflow">while</span> (file &gt;&gt; event)</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    {</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        <span class="keyword">auto</span> pedestal = <span class="keyword">event</span>.GetChannel(0, 0).GetPedestal();</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        h1-&gt;Fill(pedestal.first);</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        h2-&gt;Fill(pedestal.second);</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    }</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    h2-&gt;Draw();</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    h1-&gt;Draw(<span class="stringliteral">&quot;SAMES&quot;</span>);</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>}</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="keywordtype">void</span> main0()</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>{</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    main();</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>}</div>
-<div class="ttc" id="aclassDAQEvent_html_ac5d33cf8009906f10396948b9934227c"><div class="ttname"><a href="classDAQEvent.html#ac5d33cf8009906f10396948b9934227c">DAQEvent::SetPedInterval</a></div><div class="ttdeci">DAQEvent &amp; SetPedInterval(int, int)</div><div class="ttdoc">Function to set the interval where to perform pedestal evaluation.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8cc_source.html#l00134">readWD.cc:134</a></div></div>
-<div class="ttc" id="aclassDAQFile_html"><div class="ttname"><a href="classDAQFile.html">DAQFile</a></div><div class="ttdoc">Class to manage the file and the outputing of data in a DAQEvent instance.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8hh_source.html#l00129">readWD.hh:130</a></div></div>
-<div class="ttc" id="aclassDRSEvent_html"><div class="ttname"><a href="classDRSEvent.html">DRSEvent</a></div><div class="ttdef"><b>Definition:</b> <a href="readWD_8hh_source.html#l00113">readWD.hh:114</a></div></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    TH1F *h1 = <span class="keyword">new</span> TH1F(<span class="stringliteral">&quot;Pedestal mean&quot;</span>, <span class="stringliteral">&quot;h1&quot;</span>, 100, -0.002, 0.004);</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    TH1F *h2 = <span class="keyword">new</span> TH1F(<span class="stringliteral">&quot;Pedestal std.dev.&quot;</span>, <span class="stringliteral">&quot;h2&quot;</span>, 100, -0.002, 0.004);</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    h1-&gt;SetLineColor(kRed);</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    h2-&gt;SetLineColor(kGreen);</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    file.Initialise();</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keywordflow">while</span> (file &gt;&gt; event)</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    {</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        <span class="keyword">auto</span> pedestal = <span class="keyword">event</span>.GetChannel(0, 0).GetPedestal();</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        h1-&gt;Fill(pedestal.first);</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        h2-&gt;Fill(pedestal.second);</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    }</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    h2-&gt;Draw();</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    h1-&gt;Draw(<span class="stringliteral">&quot;SAMES&quot;</span>);</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>}</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="keywordtype">void</span> main0()</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>{</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    main();</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>}</div>
+<div class="ttc" id="aclassDAQFile_html"><div class="ttname"><a href="classDAQFile.html">DAQFile</a></div><div class="ttdoc">Class to manage the file and the outputing of data in a DAQEvent instance.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8hh_source.html#l00132">readWD.hh:133</a></div></div>
+<div class="ttc" id="aclassDRSEvent_html"><div class="ttname"><a href="classDRSEvent.html">DRSEvent</a></div><div class="ttdef"><b>Definition:</b> <a href="readWD_8hh_source.html#l00116">readWD.hh:117</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

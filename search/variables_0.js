@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['day_0',['day',['../structEventHeader.html#a7d4b154e2507c5311c4d8b9a016fa925',1,'EventHeader']]]
+  ['ch_5f_0',['ch_',['../classDAQEvent.html#a4273c29770d341a1c7683e0cc715c63e',1,'DAQEvent']]]
 ];

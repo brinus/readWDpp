@@ -1,7 +1,8 @@
 var searchData=
 [
-  ['samples_5fper_5fwaveform_0',['SAMPLES_PER_WAVEFORM',['../readWD_8hh.html#a0606d74796559e9e9b17d890a305d35a',1,'readWD.hh']]],
-  ['sec_1',['sec',['../structEventHeader.html#a54e689cf8c5e5aa0f749238c028ac106',1,'EventHeader']]],
-  ['serialnumber_2',['serialNumber',['../structEventHeader.html#a0ec383672d74e1048054ebda0704fcde',1,'EventHeader']]],
-  ['setpedinterval_3',['SetPedInterval',['../classDAQEvent.html#ac5d33cf8009906f10396948b9934227c',1,'DAQEvent']]]
+  ['rangecenter_0',['rangeCenter',['../structEventHeader.html#a966006a854810bddd000a3cb1fc6732b',1,'EventHeader']]],
+  ['read_1',['Read',['../classDAQFile.html#aa9f5a14429b16c49a886b4796d594dec',1,'DAQFile::Read(TAG &amp;)'],['../classDAQFile.html#aa5669987d02fd94eb1d767c8fb2d3420',1,'DAQFile::Read(EventHeader &amp;)']]],
+  ['readwd_2ecc_2',['readWD.cc',['../readWD_8cc.html',1,'']]],
+  ['readwd_2ehh_3',['readWD.hh',['../readWD_8hh.html',1,'']]],
+  ['readwdpp_4',['readWDpp',['../index.html',1,'']]]
 ];

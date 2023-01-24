@@ -90,15 +90,13 @@ $(function() {
 <div class="line">    <a id="_a0" name="_a0"></a><a class="code hl_class" href="classDAQFile.html">DAQFile</a> file(<span class="stringliteral">&quot;test/testDRS.dat&quot;</span>);</div>
 <div class="line">    <a id="_a1" name="_a1"></a><a class="code hl_class" href="classDRSEvent.html">DRSEvent</a> event;</div>
 <div class="line"> </div>
-<div class="line">    <span class="keyword">event</span>.<a id="a2" name="a2"></a><a class="code hl_function" href="classDAQEvent.html#ac5d33cf8009906f10396948b9934227c">SetPedInterval</a>(100, 2000);</div>
-<div class="line"> </div>
 <div class="line">    TH1F *h1 = <span class="keyword">new</span> TH1F(<span class="stringliteral">&quot;Pedestal mean&quot;</span>, <span class="stringliteral">&quot;h1&quot;</span>, 100, -0.002, 0.004);</div>
 <div class="line">    TH1F *h2 = <span class="keyword">new</span> TH1F(<span class="stringliteral">&quot;Pedestal std.dev.&quot;</span>, <span class="stringliteral">&quot;h2&quot;</span>, 100, -0.002, 0.004);</div>
 <div class="line"> </div>
 <div class="line">    h1-&gt;SetLineColor(kRed);</div>
 <div class="line">    h2-&gt;SetLineColor(kGreen);</div>
 <div class="line"> </div>
-<div class="line">    file.<a id="a3" name="a3"></a><a class="code hl_function" href="classDAQFile.html#adf184c72d64312f62e4a1056a375bd69">Initialise</a>(event);</div>
+<div class="line">    file.<a id="a2" name="a2"></a><a class="code hl_function" href="classDAQFile.html#adf184c72d64312f62e4a1056a375bd69">Initialise</a>();</div>
 <div class="line">    <span class="keywordflow">while</span> (file &gt;&gt; event)</div>
 <div class="line">    {</div>
 <div class="line">        <span class="keyword">auto</span> pedestal = <span class="keyword">event</span>.GetChannel(0, 0).GetPedestal();</div>
@@ -114,10 +112,9 @@ $(function() {
 <div class="line">{</div>
 <div class="line">    main();</div>
 <div class="line">}</div>
-<div class="ttc" id="aclassDAQEvent_html_ac5d33cf8009906f10396948b9934227c"><div class="ttname"><a href="classDAQEvent.html#ac5d33cf8009906f10396948b9934227c">DAQEvent::SetPedInterval</a></div><div class="ttdeci">DAQEvent &amp; SetPedInterval(int, int)</div><div class="ttdoc">Function to set the interval where to perform pedestal evaluation.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8cc_source.html#l00134">readWD.cc:134</a></div></div>
-<div class="ttc" id="aclassDAQFile_html"><div class="ttname"><a href="classDAQFile.html">DAQFile</a></div><div class="ttdoc">Class to manage the file and the outputing of data in a DAQEvent instance.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8hh_source.html#l00129">readWD.hh:130</a></div></div>
-<div class="ttc" id="aclassDAQFile_html_adf184c72d64312f62e4a1056a375bd69"><div class="ttname"><a href="classDAQFile.html#adf184c72d64312f62e4a1056a375bd69">DAQFile::Initialise</a></div><div class="ttdeci">DAQFile &amp; Initialise()</div><div class="ttdoc">Initialise the file reading the TIME block.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8cc_source.html#l00400">readWD.cc:400</a></div></div>
-<div class="ttc" id="aclassDRSEvent_html"><div class="ttname"><a href="classDRSEvent.html">DRSEvent</a></div><div class="ttdef"><b>Definition:</b> <a href="readWD_8hh_source.html#l00113">readWD.hh:114</a></div></div>
+<div class="ttc" id="aclassDAQFile_html"><div class="ttname"><a href="classDAQFile.html">DAQFile</a></div><div class="ttdoc">Class to manage the file and the outputing of data in a DAQEvent instance.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8hh_source.html#l00132">readWD.hh:133</a></div></div>
+<div class="ttc" id="aclassDAQFile_html_adf184c72d64312f62e4a1056a375bd69"><div class="ttname"><a href="classDAQFile.html#adf184c72d64312f62e4a1056a375bd69">DAQFile::Initialise</a></div><div class="ttdeci">DAQFile &amp; Initialise()</div><div class="ttdoc">Initialise the file reading the TIME block.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8cc_source.html#l00415">readWD.cc:415</a></div></div>
+<div class="ttc" id="aclassDRSEvent_html"><div class="ttname"><a href="classDRSEvent.html">DRSEvent</a></div><div class="ttdef"><b>Definition:</b> <a href="readWD_8hh_source.html#l00116">readWD.hh:117</a></div></div>
 </div><!-- fragment --> </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

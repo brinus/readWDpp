@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['min_0',['min',['../structEventHeader.html#a84f3ecbd5bbcbd6f43031c42579c1352',1,'EventHeader']]],
-  ['month_1',['month',['../structEventHeader.html#a79d020d45bf9b51794fd493907d2b585',1,'EventHeader']]],
-  ['ms_2',['ms',['../structEventHeader.html#a6e18edb4c990ca9e3a4c52def47f6a40',1,'EventHeader']]]
+  ['indexmin_5f_0',['indexMin_',['../classDAQEvent.html#aa180b281f5aca573389fafc2d428220b',1,'DAQEvent']]],
+  ['iw_5f_1',['iw_',['../classDAQEvent.html#a1fc98902d13b6b09a272d384bd3b7fbb',1,'DAQEvent']]]
 ];

@@ -1,85 +1,58 @@
 #include "../readWD.hh"
 
 #include "TApplication.h"
-#include "TCanvas.h"
 #include "TGraph.h"
-#include "TH1F.h"
-#include "TLine.h"
-#include "TPad.h"
+#include "TMultiGraph.h"
+#include "TCanvas.h"
 
 using namespace std;
-using MAP = map<string, map<string, vector<float>>>;
 
-void main2()
+void main2(void)
 {
-    DAQFile file("test/testWDB3.bin");
-    WDBEvent event;
+    DAQFile file("test/testDRS.dat");
+    DRSEvent event;
     int i = 0;
-    int evt = 146;
+    auto mg = new TMultiGraph();
+    auto c1 = new TCanvas("c1", "c1", 1);
 
-    file.Initialise(event);
-    while (file >> event and i < evt)
+    file.Initialise();
+    while (file >> event and i < 99)
     {
-        if (i == evt - 1)
+        if (i == 98)
         {
-            auto times = event.GetChannel(0, 0).GetTimes();
+            auto indices = event.GetChannel(0, 0).GetPeakIndices();
             auto volts = event.GetChannel(0, 0).GetVolts();
+            auto times = event.GetChannel(0, 0).GetTimes();
             auto ped = event.GetChannel(0, 0).GetPedestal();
-            auto iw = event.GetChannel(0, 0).GetIntegrationBounds();
 
-            cout << "Integration index: " << iw.first << " " << iw.second << endl;
-            cout << "Pedestal: " << ped.first << " +/- " << ped.second << endl;
+            vector<float> m_volts, m_times;
+            for (auto index : indices)
+            {
+                m_volts.push_back(volts[index]);
+                m_times.push_back(times[index]);
+            } 
 
-            TCanvas *c1 = new TCanvas("c1", "c1", 1);
-            c1->cd();
+            cout << "Pedestal = " << ped.first << " +/- " << ped.second << endl;
+            cout << "#local minima = " << indices.size() << endl;
 
-            TGraph *g1 = new TGraph(times.size(), times.data(), volts.data());
-            string title = "{event}=" + to_string(evt) + ", {iw}=(" + to_string(iw.first) + "," + to_string(iw.second) + "), {ped}=" + to_string(ped.first) + "+/-" + to_string(ped.second);
+            auto g1 = new TGraph(SAMPLES_PER_WAVEFORM, times.data(), volts.data());
+            auto g2 = new TGraph(indices.size(), m_times.data(), m_volts.data());
+
+            g1->SetMarkerColor(kBlack);
+            g1->SetMarkerSize(0.5);
             g1->SetMarkerStyle(kFullSquare);
-            g1->SetMarkerSize(0.2);
-            g1->SetTitle(title.c_str());
-            g1->Draw("AP");
 
-            c1->Update();
-            TLine *ped_m = new TLine(gPad->GetUxmin(), ped.first - 5 * ped.second, gPad->GetUxmax(), ped.first - 5 * ped.second);
-            TLine *ped_M = new TLine(gPad->GetUxmin(), ped.first + 5 * ped.second, gPad->GetUxmax(), ped.first + 5 * ped.second);
-            TLine *iw_m = new TLine(times[iw.first], gPad->GetUymin(), times[iw.first], gPad->GetUymax());
-            TLine *iw_M = new TLine(times[iw.second], gPad->GetUymin(), times[iw.second], gPad->GetUymax());
+            g2->SetMarkerColor(kRed);
+            g2->SetMarkerSize(0.5);
+            g2->SetMarkerStyle(kFullTriangleDown);
 
-            ped_m->SetLineColor(kRed);
-            ped_M->SetLineColor(kRed);
-            iw_m->SetLineColor(kGreen);
-            iw_M->SetLineColor(kGreen);
-
-            iw_m->Draw("SAME");
-            iw_M->Draw("SAME");
-            ped_m->Draw("SAME");
-            ped_M->Draw("SAME");
-
+            mg->Add(g1, "L");
+            mg->Add(g2, "P");
+            mg->Draw("A");
             c1->Update();
         }
         ++i;
     }
-
-    // file.Close();
-
-    // TCanvas *c2 = new TCanvas("c2", "c2", 1);
-    // c2->cd();
-    // TH1F *h1 = new TH1F("h1", "charge histogram", 100, 0, 15);
-
-    // file.Open("test/testDRS.dat");
-    // file.Initialise(event);
-    // while (file >> event)
-    // {
-    //     auto charge = event.GetChannel(0, 0).GetCharge();
-    //     h1->Fill(-charge);
-    //     ++i;
-    // }
-
-    // h1->Draw();
-    // c2->Update();
-
-    return;
 }
 
 int main(int argc, char **argv)

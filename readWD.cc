@@ -166,7 +166,7 @@ float DAQEvent::GetCharge()
     const auto &volts = volts_[ch_.first][ch_.second];
     int distance = iw_.second - iw_.first;
 
-    return abs(accumulate(volts.begin() + iw_.first, volts.begin() + iw_.second, - distance * ped_.first));
+    return abs(accumulate(volts.begin() + iw_.first, volts.begin() + iw_.second, -distance * ped_.first));
 }
 
 /*!
@@ -253,9 +253,9 @@ const vector<float> &DAQEvent::GetTimes()
 }
 
 /*!
- @brief 
- 
- @return const vector<int>& 
+ @brief
+
+ @return const vector<int>&
  */
 const vector<int> &DAQEvent::GetPeakIndices()
 {
@@ -342,9 +342,9 @@ DAQEvent &DAQEvent::EvalIntegrationBounds()
 }
 
 /*!
- @brief 
- 
- @return DAQEvent& 
+ @brief
+
+ @return DAQEvent&
  */
 DAQEvent &DAQEvent::FindPeaks()
 {
@@ -361,7 +361,7 @@ DAQEvent &DAQEvent::FindPeaks()
 
     for (int i = 1; i < SAMPLES_PER_WAVEFORM - 1; ++i)
     {
-        auto signal = volts[i] - ped_.first < - 5 * ped_.second;
+        auto signal = volts[i] - ped_.first < -5 * ped_.second;
         auto min_left = abs(volts[i]) > abs(volts[i - 1]) + ped_.second;
         auto min_right = abs(volts[i]) > abs(volts[i + 1]) + ped_.second;
         auto at_least = volts[i] < volts[index_min] * 0.5;
@@ -373,7 +373,8 @@ DAQEvent &DAQEvent::FindPeaks()
 
     if (find(indexMin_.begin(), indexMin_.end(), index_min) == indexMin_.end())
     {
-        auto pos = find_if(indexMin_.begin(), indexMin_.end(), [index_min](auto i){ return i > index_min;});
+        auto pos = find_if(indexMin_.begin(), indexMin_.end(), [index_min](auto i)
+                           { return i > index_min; });
         indexMin_.insert(pos, index_min);
     }
 
@@ -394,13 +395,20 @@ DAQEvent &DAQEvent::FindPeaks()
  */
 
 /*!
+ @brief Construct a new DAQFile::DAQFile object
+ 
+ */
+DAQFile::DAQFile()
+{
+}
+
+/*!
  @brief Construct a new DAQFile::DAQFile object.
 
  @param fname The file name to be opened.
  */
 DAQFile::DAQFile(const string &fname)
 {
-    TAG tag;
     filename_ = fname;
     in_.open(fname, std::ios::in | std::ios::binary);
     std::cout << "Created DAQFile, opened file " << fname << std::endl;

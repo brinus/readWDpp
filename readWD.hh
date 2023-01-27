@@ -134,6 +134,7 @@ class DAQFile
     using MAP = std::map<int, std::map<int, std::vector<float>>>; ///< Alias for data structure.
 
 public:
+    DAQFile();
     DAQFile(const std::string &);
     ~DAQFile() { in_.close(); }
 

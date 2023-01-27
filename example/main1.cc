@@ -23,7 +23,7 @@ void main1()
     pad2->Draw();
     pad3->Draw();
 
-    DAQFile file("test/testDRS.dat");
+    DAQFile file("data/testDRS.dat");
     DRSEvent event;
     int i = 0;
     int evt = -1;
@@ -88,7 +88,7 @@ void main1()
     TH1F *h1 = new TH1F("h1", "charge histogram", 100, 0, 15);
     TH1F *h2 = new TH1F("h2", "amplitude histogram", 100, -1, 0);
 
-    file.Open("test/testDRS.dat");
+    file.Open("data/testDRS.dat");
     file.Initialise();
     while (file >> event)
     {

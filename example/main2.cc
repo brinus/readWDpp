@@ -9,7 +9,7 @@ using namespace std;
 
 void main2(void)
 {
-    DAQFile file("test/testDRS.dat");
+    DAQFile file("data/testDRS.dat");
     DRSEvent event;
     int i = 0;
     auto mg = new TMultiGraph();

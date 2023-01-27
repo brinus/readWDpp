@@ -22,7 +22,7 @@ using namespace std;
 
 int main(void)
 {
-    DAQFile file("test/testDRS.dat");
+    DAQFile file("data/testDRS.dat");
     DRSEvent event;
 
     TH1F *h1 = new TH1F("Pedestal mean", "h1", 100, -0.002, 0.004);

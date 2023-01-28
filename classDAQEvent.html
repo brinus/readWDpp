@@ -107,12 +107,24 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ac5d33cf8009906f10396948b9934227c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classDAQEvent.html">DAQEvent</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQEvent.html#ac5d33cf8009906f10396948b9934227c">SetPedInterval</a> (int, int)</td></tr>
 <tr class="memdesc:ac5d33cf8009906f10396948b9934227c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to set the interval where to perform pedestal evaluation.  <br /></td></tr>
 <tr class="separator:ac5d33cf8009906f10396948b9934227c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a698fb367ce23e6731f7f8613ed646a52"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classDAQEvent.html">DAQEvent</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQEvent.html#a698fb367ce23e6731f7f8613ed646a52">SetPeakThr</a> (float)</td></tr>
+<tr class="memdesc:a698fb367ce23e6731f7f8613ed646a52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the threshold in volt by the user.  <br /></td></tr>
+<tr class="separator:a698fb367ce23e6731f7f8613ed646a52"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd1b3e8045de9fc782300bd80e808e59"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classDAQEvent.html">DAQEvent</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQEvent.html#acd1b3e8045de9fc782300bd80e808e59">SetIntWindow</a> (int, int)</td></tr>
+<tr class="memdesc:acd1b3e8045de9fc782300bd80e808e59"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the integration window passing two indices that go from 0 to <a class="el" href="readWD_8hh.html#a0606d74796559e9e9b17d890a305d35a">SAMPLES_PER_WAVEFORM</a>.  <br /></td></tr>
+<tr class="separator:acd1b3e8045de9fc782300bd80e808e59"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8255f5f9bb63ea2abb114fdda5174a5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classDAQEvent.html">DAQEvent</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQEvent.html#ab8255f5f9bb63ea2abb114fdda5174a5">SetIntWindow</a> (float, float)</td></tr>
+<tr class="memdesc:ab8255f5f9bb63ea2abb114fdda5174a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the integration window passing time values in seconds.  <br /></td></tr>
+<tr class="separator:ab8255f5f9bb63ea2abb114fdda5174a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8d5626128e1c0aaa4844c9f2db941bc5"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQEvent.html#a8d5626128e1c0aaa4844c9f2db941bc5">GetCharge</a> ()</td></tr>
 <tr class="memdesc:a8d5626128e1c0aaa4844c9f2db941bc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method to evaluate charge in the integration region.  <br /></td></tr>
 <tr class="separator:a8d5626128e1c0aaa4844c9f2db941bc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afb33ea10753d01e87a8e0b3d1cd38d4c"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQEvent.html#afb33ea10753d01e87a8e0b3d1cd38d4c">GetAmplitude</a> ()</td></tr>
 <tr class="memdesc:afb33ea10753d01e87a8e0b3d1cd38d4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method to evaluate amplitude in the integration region.  <br /></td></tr>
 <tr class="separator:afb33ea10753d01e87a8e0b3d1cd38d4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6b6c9740159ce48c3462a57fe853751"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQEvent.html#ab6b6c9740159ce48c3462a57fe853751">FindTime</a> (float)</td></tr>
+<tr class="memdesc:ab6b6c9740159ce48c3462a57fe853751"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the time at which the waveform goes under a give threshold level.  <br /></td></tr>
+<tr class="separator:ab6b6c9740159ce48c3462a57fe853751"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1f094a3b66812c85101669d298ae4d05"><td class="memItemLeft" align="right" valign="top">const std::pair&lt; float, float &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQEvent.html#a1f094a3b66812c85101669d298ae4d05">GetPedestal</a> ()</td></tr>
 <tr class="memdesc:a1f094a3b66812c85101669d298ae4d05"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter method read-only for the attribute <a class="el" href="classDAQEvent.html#a1208e4bf5a1bc13476abb4487e09d9e0">DAQEvent::ped_</a>.  <br /></td></tr>
 <tr class="separator:a1f094a3b66812c85101669d298ae4d05"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -184,6 +196,10 @@ Private Attributes</h2></td></tr>
 <tr class="separator:adb8d234709d6c85d19f2213d6e6664b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0a6419e4262669022652474bc75f488c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQEvent.html#a0a6419e4262669022652474bc75f488c">is_iw_</a></td></tr>
 <tr class="separator:a0a6419e4262669022652474bc75f488c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51a2224ee995016b036528eef8048d9b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQEvent.html#a51a2224ee995016b036528eef8048d9b">user_iw_</a></td></tr>
+<tr class="separator:a51a2224ee995016b036528eef8048d9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7fb8062a5ccc1c6d1fbec6f466777923"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQEvent.html#a7fb8062a5ccc1c6d1fbec6f466777923">peak_threshold_</a></td></tr>
+<tr class="separator:a7fb8062a5ccc1c6d1fbec6f466777923"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
 Friends</h2></td></tr>
@@ -194,7 +210,7 @@ Friends</h2></td></tr>
 <div class="textblock"><p>Main class to store voltage and time values. </p>
 <p>This class is used with <a class="el" href="classDAQFile.html">DAQFile</a> to read each event contained into a file. </p>
 
-<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00068">68</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00067">67</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="ae8f8a2bedfe5e50b3f64269fbde63899" name="ae8f8a2bedfe5e50b3f64269fbde63899"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae8f8a2bedfe5e50b3f64269fbde63899">&#9670;&#160;</a></span>MAP</h2>
@@ -218,7 +234,7 @@ Friends</h2></td></tr>
 
 <p>Alias for data structure. </p>
 
-<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00070">70</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00069">69</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
 
 </div>
 </div>
@@ -274,7 +290,7 @@ Friends</h2></td></tr>
 <p>Method to evaluate the integration window of the currently selected waveform. </p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classDAQEvent.html" title="Main class to store voltage and time values.">DAQEvent</a>&amp; </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00315">315</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00418">418</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
 
 </div>
 </div>
@@ -304,7 +320,7 @@ Friends</h2></td></tr>
 <p>Method to evaluate the pedestal of the currently selected waveform. </p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classDAQEvent.html" title="Main class to store voltage and time values.">DAQEvent</a>&amp; </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00289">289</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00392">392</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
 
 </div>
 </div>
@@ -332,7 +348,36 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classDAQEvent.html" title="Main class to store voltage and time values.">DAQEvent</a>&amp; </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00349">349</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00457">457</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+
+</div>
+</div>
+<a id="ab6b6c9740159ce48c3462a57fe853751" name="ab6b6c9740159ce48c3462a57fe853751"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab6b6c9740159ce48c3462a57fe853751">&#9670;&#160;</a></span>FindTime()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float DAQEvent::FindTime </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>thr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Find the time at which the waveform goes under a give threshold level. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">thr</td><td>The threshold level passed by the user. It must be in a range from -0.5 to 0.5 V. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>float </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00265">265</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
 
 </div>
 </div>
@@ -354,7 +399,7 @@ Friends</h2></td></tr>
 <p>Method to evaluate amplitude in the integration region. </p>
 <dl class="section return"><dt>Returns</dt><dd>float </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00177">177</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00252">252</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
 
 </div>
 </div>
@@ -394,7 +439,7 @@ Friends</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classDAQEvent.html" title="Main class to store voltage and time values.">DAQEvent</a>&amp; to make cascade methods available. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00096">96</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00098">98</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
 
 </div>
 </div>
@@ -417,7 +462,7 @@ Friends</h2></td></tr>
 <p>The methods calls in order <a class="el" href="classDAQEvent.html#a16b0dd6deb44b2476889d03cf2ab6e2e">DAQEvent::EvalPedestal()</a> and <a class="el" href="classDAQEvent.html#a746eeb78c5abe1d27d7c2d97c5a2f0f1">DAQEvent::EvalIntegrationBounds()</a>. The pedestal is then subtracted from the waveform, the integration window is used for an integration over a correct window of values.</p>
 <dl class="section return"><dt>Returns</dt><dd>float </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00160">160</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00235">235</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
 
 </div>
 </div>
@@ -439,7 +484,7 @@ Friends</h2></td></tr>
 <p>Getter method read-only for the attribute <a class="el" href="classDAQEvent.html#a1fc98902d13b6b09a272d384bd3b7fbb">DAQEvent::iw_</a>. </p>
 <dl class="section return"><dt>Returns</dt><dd>const pair&lt;int, int&gt;&amp; </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00207">207</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00310">310</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
 
 </div>
 </div>
@@ -459,7 +504,7 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>const vector&lt;int&gt;&amp; </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00260">260</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00363">363</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
 
 </div>
 </div>
@@ -481,7 +526,7 @@ Friends</h2></td></tr>
 <p>Getter method read-only for the attribute <a class="el" href="classDAQEvent.html#a1208e4bf5a1bc13476abb4487e09d9e0">DAQEvent::ped_</a>. </p>
 <dl class="section return"><dt>Returns</dt><dd>const pair&lt;float, float&gt;&amp; </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00189">189</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00292">292</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
 
 </div>
 </div>
@@ -508,7 +553,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00087">87</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00090">90</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
 
 </div>
 </div>
@@ -531,7 +576,7 @@ Friends</h2></td></tr>
 <p>The method checks if <a class="el" href="classDAQEvent.html#ab1176184ce5206715972cb5fb965a8b9">DAQEvent::GetChannel()</a> has been called. If it is the case, it returns the waveform's times of the selected board/channel.</p>
 <dl class="section return"><dt>Returns</dt><dd>const vector&lt;float&gt;&amp; </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00243">243</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00346">346</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
 
 </div>
 </div>
@@ -558,7 +603,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00086">86</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00089">89</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
 
 </div>
 </div>
@@ -581,7 +626,116 @@ Friends</h2></td></tr>
 <p>The method checks if <a class="el" href="classDAQEvent.html#ab1176184ce5206715972cb5fb965a8b9">DAQEvent::GetChannel()</a> has been called. If it is the case, it returns the waveform's voltages of the selected board/channel.</p>
 <dl class="section return"><dt>Returns</dt><dd>const vector&lt;float&gt;&amp; </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00223">223</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00326">326</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+
+</div>
+</div>
+<a id="ab8255f5f9bb63ea2abb114fdda5174a5" name="ab8255f5f9bb63ea2abb114fdda5174a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab8255f5f9bb63ea2abb114fdda5174a5">&#9670;&#160;</a></span>SetIntWindow() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classDAQEvent.html">DAQEvent</a> &amp; DAQEvent::SetIntWindow </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>b</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the integration window passing time values in seconds. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a</td><td>The left bound </td></tr>
+    <tr><td class="paramname">b</td><td>The right bound </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classDAQEvent.html" title="Main class to store voltage and time values.">DAQEvent</a>&amp; </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00202">202</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+
+</div>
+</div>
+<a id="acd1b3e8045de9fc782300bd80e808e59" name="acd1b3e8045de9fc782300bd80e808e59"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd1b3e8045de9fc782300bd80e808e59">&#9670;&#160;</a></span>SetIntWindow() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classDAQEvent.html">DAQEvent</a> &amp; DAQEvent::SetIntWindow </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>b</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the integration window passing two indices that go from 0 to <a class="el" href="readWD_8hh.html#a0606d74796559e9e9b17d890a305d35a">SAMPLES_PER_WAVEFORM</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a</td><td>The left bound </td></tr>
+    <tr><td class="paramname">b</td><td>The right bound </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classDAQEvent.html" title="Main class to store voltage and time values.">DAQEvent</a>&amp; </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00178">178</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+
+</div>
+</div>
+<a id="a698fb367ce23e6731f7f8613ed646a52" name="a698fb367ce23e6731f7f8613ed646a52"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a698fb367ce23e6731f7f8613ed646a52">&#9670;&#160;</a></span>SetPeakThr()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classDAQEvent.html">DAQEvent</a> &amp; DAQEvent::SetPeakThr </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>thr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the threshold in volt by the user. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">thr</td><td>The threshold level in Volts in a range (-0.5, +0.5)V </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classDAQEvent.html" title="Main class to store voltage and time values.">DAQEvent</a>&amp; </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00160">160</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
 
 </div>
 </div>
@@ -622,7 +776,7 @@ Friends</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classDAQEvent.html" title="Main class to store voltage and time values.">DAQEvent</a>&amp; to make cascade methods available. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00129">129</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00131">131</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
 
 </div>
 </div>
@@ -681,7 +835,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00274">274</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00377">377</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
 
 </div>
 </div>
@@ -706,7 +860,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00109">109</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00114">114</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
 
 </div>
 </div>
@@ -733,7 +887,7 @@ Friends</h2></td></tr>
 
 <p>Pair to hold indices of board and channel selected;. </p>
 
-<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00102">102</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00105">105</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
 
 </div>
 </div>
@@ -759,7 +913,7 @@ Friends</h2></td></tr>
 
 <p>Indices of local minima found. </p>
 
-<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00103">103</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00106">106</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
 
 </div>
 </div>
@@ -783,7 +937,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00106">106</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00109">109</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
 
 </div>
 </div>
@@ -807,7 +961,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00105">105</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00108">108</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
 
 </div>
 </div>
@@ -831,7 +985,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00107">107</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00110">110</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
 
 </div>
 </div>
@@ -857,7 +1011,7 @@ Friends</h2></td></tr>
 
 <p>Pair to hold indices as boundary edges where integration is performed by <a class="el" href="classDAQEvent.html#a8d5626128e1c0aaa4844c9f2db941bc5">DAQEvent::GetCharge()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00101">101</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00104">104</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
 
 </div>
 </div>
@@ -883,7 +1037,31 @@ Friends</h2></td></tr>
 
 <p>Pair to hold value of voltage and time at the peak. </p>
 
-<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00099">99</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00102">102</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+
+</div>
+</div>
+<a id="a7fb8062a5ccc1c6d1fbec6f466777923" name="a7fb8062a5ccc1c6d1fbec6f466777923"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7fb8062a5ccc1c6d1fbec6f466777923">&#9670;&#160;</a></span>peak_threshold_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float DAQEvent::peak_threshold_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00112">112</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
 
 </div>
 </div>
@@ -909,7 +1087,7 @@ Friends</h2></td></tr>
 
 <p>Pair to hold pedestal <em>mean</em> and pedestal <em>std.dev.</em>. </p>
 
-<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00098">98</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00101">101</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
 
 </div>
 </div>
@@ -935,7 +1113,7 @@ Friends</h2></td></tr>
 
 <p>Pair to hold indices as boundary edges where pedestal is evaluated. </p>
 
-<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00100">100</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00103">103</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
 
 </div>
 </div>
@@ -961,7 +1139,31 @@ Friends</h2></td></tr>
 
 <p>Structure to hold integrated times array of all board and channels. </p>
 
-<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00095">95</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00098">98</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+
+</div>
+</div>
+<a id="a51a2224ee995016b036528eef8048d9b" name="a51a2224ee995016b036528eef8048d9b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51a2224ee995016b036528eef8048d9b">&#9670;&#160;</a></span>user_iw_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool DAQEvent::user_iw_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00111">111</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
 
 </div>
 </div>
@@ -987,7 +1189,7 @@ Friends</h2></td></tr>
 
 <p>Structure to hold voltage values of all board and channels. </p>
 
-<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00096">96</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00099">99</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
 
 </div>
 </div>

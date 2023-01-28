@@ -18,7 +18,6 @@
 #include <vector>
 #include <map>
 #include <numeric>
-#include <stdexcept>
 
 #define SAMPLES_PER_WAVEFORM 1024 ///< The number of samples made by the waveforms, both DRS and WDB.
 
@@ -74,9 +73,13 @@ public:
 
     DAQEvent &GetChannel(const int &, const int &);
     DAQEvent &SetPedInterval(int, int);
+    DAQEvent &SetPeakThr(float);
+    DAQEvent &SetIntWindow(int, int);
+    DAQEvent &SetIntWindow(float, float);
 
     float GetCharge();
     float GetAmplitude();
+    float FindTime(float);
     const std::pair<float, float> &GetPedestal();
     const std::pair<int, int> &GetIntegrationBounds();
     const std::vector<float> &GetVolts();
@@ -105,6 +108,8 @@ private:
     bool is_init_;
     bool is_getch_;
     bool is_iw_;
+    bool user_iw_;
+    float peak_threshold_;
 
     friend class DAQFile;
 };

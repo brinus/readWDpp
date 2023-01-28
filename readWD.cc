@@ -82,8 +82,10 @@ DAQEvent::DAQEvent()
     is_getch_ = false;
     is_init_ = false;
     is_iw_ = false;
+    user_iw_ = false;
     ped_interval_ = {0, 100};
     iw_ = {0, SAMPLES_PER_WAVEFORM - 1};
+    peak_threshold_ = 1.;
 }
 
 /*!
@@ -150,6 +152,79 @@ DAQEvent &DAQEvent::SetPedInterval(int a, int b)
 }
 
 /*!
+ @brief Set the threshold in volt by the user.
+ 
+ @param thr The threshold level in Volts in a range (-0.5, +0.5)V
+ @return DAQEvent& 
+ */
+DAQEvent &DAQEvent::SetPeakThr(float thr)
+{
+    if ((thr < -0.5 or thr > 0.5) and thr != 1.)
+    {
+        cerr << "!! Error: invalid threshold level passed to function" << endl;
+        exit(0);
+    }
+    peak_threshold_ = thr;
+    return *this;
+}
+
+/*!
+ @brief Set the integration window passing two indices that go from 0 to @ref SAMPLES_PER_WAVEFORM.
+ 
+ @param a The left bound
+ @param b The right bound
+ @return DAQEvent& 
+ */
+DAQEvent &DAQEvent::SetIntWindow(int a, int b)
+{
+    auto good_a = a < b and a >= 0;
+    auto good_b = b < SAMPLES_PER_WAVEFORM;
+    if (good_a and good_b)
+    {
+        iw_ = {a, b};
+        user_iw_ = true;
+    }
+    else 
+    {
+        cerr << "!! Error: invalid values passed as integration window" << endl;
+        exit(0);
+    }
+    return *this;
+}
+
+/*!
+ @brief Set the integration window passing time values in seconds.
+ 
+ @param a The left bound
+ @param b The right bound
+ @return DAQEvent& 
+ */
+DAQEvent &DAQEvent::SetIntWindow(float a, float b)
+{
+    auto &times = times_[ch_.first][ch_.second];
+
+    if (a < times[0] or a > b or b > times[SAMPLES_PER_WAVEFORM - 1])
+    {
+        cerr << "!! Error: invalid times passed as integration window" << endl;
+        exit(0);
+    }
+
+    int i = 0;
+    while (times[i] < a)
+    {
+        ++i;
+    }
+    iw_.first = i;
+    while (times[i] < b)
+    {
+        ++i;
+    }
+    iw_.second = i;
+    user_iw_ = true;
+    return *this;
+}
+
+/*!
  @brief Method to evaluate charge in the integration region.
 
  @details The methods calls in order @ref DAQEvent::EvalPedestal() and @ref DAQEvent::EvalIntegrationBounds(). The pedestal
@@ -179,6 +254,34 @@ float DAQEvent::GetAmplitude()
     (*this).EvalPedestal();
     (*this).FindPeaks();
     return peak_.first - ped_.first;
+}
+
+/*!
+ @brief Find the time at which the waveform goes under a give threshold level
+ 
+ @param thr The threshold level passed by the user. It must be in a range from -0.5 to 0.5 V.
+ @return float 
+ */
+float DAQEvent::FindTime(float thr)
+{
+    auto &volts = volts_[ch_.first][ch_.second];
+    auto &times = times_[ch_.first][ch_.second];
+    int i = 0;
+
+    while (volts[i] > thr)
+    {
+        ++i;
+    }
+    
+    if (i == SAMPLES_PER_WAVEFORM)
+    {
+        cout << "Time not found given threshold " << thr << ". Returning 0"<< endl;
+        return 0;
+    }
+
+    auto time = times[i] + (thr - volts[i]) * (times[i + 1] - times[i]) / (volts[i + 1] - volts[i]);
+
+    return time;
 }
 
 /*!
@@ -320,6 +423,11 @@ DAQEvent &DAQEvent::EvalIntegrationBounds()
         exit(0);
     }
 
+    if (user_iw_)
+    {
+        return *this;
+    }
+
     iw_ = {indexMin_[0], indexMin_[0]};
 
     const vector<float> &volts = volts_[ch_.first][ch_.second];
@@ -354,32 +462,58 @@ DAQEvent &DAQEvent::FindPeaks()
         exit(0);
     }
 
-    const vector<float> &volts = volts_[ch_.first][ch_.second];
-    const vector<float> &times = times_[ch_.first][ch_.second];
+    auto &volts = volts_[ch_.first][ch_.second];
+    auto &times = times_[ch_.first][ch_.second];
     indexMin_ = {};
-    auto index_min = distance(volts.begin(), min_element(volts.begin(), volts.end()));
 
-    for (int i = 1; i < SAMPLES_PER_WAVEFORM - 1; ++i)
+    if (peak_threshold_ == 1.) // No threshold level set by the user
     {
-        auto signal = volts[i] - ped_.first < -5 * ped_.second;
-        auto min_left = abs(volts[i]) > abs(volts[i - 1]) + ped_.second;
-        auto min_right = abs(volts[i]) > abs(volts[i + 1]) + ped_.second;
-        auto at_least = volts[i] < volts[index_min] * 0.5;
-        if (signal and min_left and min_right and at_least)
+        auto index_min = distance(volts.begin(), min_element(volts.begin(), volts.end()));
+        for (int i = 1; i < SAMPLES_PER_WAVEFORM - 1; ++i)
         {
-            indexMin_.push_back(i);
+            auto signal = volts[i] - ped_.first < -5 * ped_.second;
+            auto min_left = abs(volts[i]) > abs(volts[i - 1]) + ped_.second;
+            auto min_right = abs(volts[i]) > abs(volts[i + 1]) + ped_.second;
+            auto at_least = volts[i] < volts[index_min] * 0.5;
+            if (signal and min_left and min_right and at_least)
+            {
+                indexMin_.push_back(i);
+            }
+        }
+
+        if (find(indexMin_.begin(), indexMin_.end(), index_min) == indexMin_.end()) // Sorted insertion of min element's index
+        {
+            auto pos = find_if(indexMin_.begin(), indexMin_.end(), [index_min](auto i)
+                            { return i > index_min; });
+            indexMin_.insert(pos, index_min);
+        }
+    }
+    else // Threshold level set by the user
+    {
+        if (user_iw_) // IW set by the user
+        {
+            auto index_min = distance(volts.begin(), min_element(volts.begin() + iw_.first, volts.begin() + iw_.second));
+            indexMin_.push_back(index_min);
+        }
+        else // IW not set by the user
+        {
+            for (int i = 1; i < SAMPLES_PER_WAVEFORM - 1; ++i)
+            {
+                auto signal = volts[i] - ped_.first < -5 * ped_.second;
+                auto min_left = abs(volts[i]) > abs(volts[i - 1]) + ped_.second;
+                auto min_right = abs(volts[i]) > abs(volts[i + 1]) + ped_.second;
+                auto at_least = volts[i] < peak_threshold_;
+                if (signal and (min_left or min_right) and at_least)
+                {
+                    indexMin_.push_back(i);
+                }
+            }
         }
     }
 
-    if (find(indexMin_.begin(), indexMin_.end(), index_min) == indexMin_.end())
+    if (indexMin_.size() == 0)
     {
-        auto pos = find_if(indexMin_.begin(), indexMin_.end(), [index_min](auto i)
-                           { return i > index_min; });
-        indexMin_.insert(pos, index_min);
-    }
-
-    else if (indexMin_.size() == 0)
-    {
+        auto index_min = distance(volts.begin(), min_element(volts.begin(), volts.end()));
         indexMin_.push_back(index_min);
     }
 

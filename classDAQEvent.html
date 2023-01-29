@@ -122,9 +122,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:afb33ea10753d01e87a8e0b3d1cd38d4c"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQEvent.html#afb33ea10753d01e87a8e0b3d1cd38d4c">GetAmplitude</a> ()</td></tr>
 <tr class="memdesc:afb33ea10753d01e87a8e0b3d1cd38d4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method to evaluate amplitude in the integration region.  <br /></td></tr>
 <tr class="separator:afb33ea10753d01e87a8e0b3d1cd38d4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab6b6c9740159ce48c3462a57fe853751"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQEvent.html#ab6b6c9740159ce48c3462a57fe853751">FindTime</a> (float)</td></tr>
-<tr class="memdesc:ab6b6c9740159ce48c3462a57fe853751"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the time at which the waveform goes under a give threshold level.  <br /></td></tr>
-<tr class="separator:ab6b6c9740159ce48c3462a57fe853751"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68d818ecf91c0d69fb2c7894f1ec532c"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQEvent.html#a68d818ecf91c0d69fb2c7894f1ec532c">GetTime</a> (float)</td></tr>
+<tr class="memdesc:a68d818ecf91c0d69fb2c7894f1ec532c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the time at which the waveform goes under a give threshold level.  <br /></td></tr>
+<tr class="separator:a68d818ecf91c0d69fb2c7894f1ec532c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1f094a3b66812c85101669d298ae4d05"><td class="memItemLeft" align="right" valign="top">const std::pair&lt; float, float &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQEvent.html#a1f094a3b66812c85101669d298ae4d05">GetPedestal</a> ()</td></tr>
 <tr class="memdesc:a1f094a3b66812c85101669d298ae4d05"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter method read-only for the attribute <a class="el" href="classDAQEvent.html#a1208e4bf5a1bc13476abb4487e09d9e0">DAQEvent::ped_</a>.  <br /></td></tr>
 <tr class="separator:a1f094a3b66812c85101669d298ae4d05"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -352,35 +352,6 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a id="ab6b6c9740159ce48c3462a57fe853751" name="ab6b6c9740159ce48c3462a57fe853751"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab6b6c9740159ce48c3462a57fe853751">&#9670;&#160;</a></span>FindTime()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float DAQEvent::FindTime </td>
-          <td>(</td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>thr</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Find the time at which the waveform goes under a give threshold level. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">thr</td><td>The threshold level passed by the user. It must be in a range from -0.5 to 0.5 V. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>float </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00265">265</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
-
-</div>
-</div>
 <a id="afb33ea10753d01e87a8e0b3d1cd38d4c" name="afb33ea10753d01e87a8e0b3d1cd38d4c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afb33ea10753d01e87a8e0b3d1cd38d4c">&#9670;&#160;</a></span>GetAmplitude()</h2>
 
@@ -527,6 +498,35 @@ Friends</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>const pair&lt;float, float&gt;&amp; </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00292">292</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+
+</div>
+</div>
+<a id="a68d818ecf91c0d69fb2c7894f1ec532c" name="a68d818ecf91c0d69fb2c7894f1ec532c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a68d818ecf91c0d69fb2c7894f1ec532c">&#9670;&#160;</a></span>GetTime()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float DAQEvent::GetTime </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>thr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Find the time at which the waveform goes under a give threshold level. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">thr</td><td>The threshold level passed by the user. It must be in a range from -0.5 to 0.5 V. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>float </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00265">265</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
 
 </div>
 </div>

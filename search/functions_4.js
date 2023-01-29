@@ -6,6 +6,7 @@ var searchData=
   ['getintegrationbounds_3',['GetIntegrationBounds',['../classDAQEvent.html#a4a7f06bf5097c12cab47c52c11b1801e',1,'DAQEvent']]],
   ['getpeakindices_4',['GetPeakIndices',['../classDAQEvent.html#ab51c29021323fe4487db8d9e1d5237c4',1,'DAQEvent']]],
   ['getpedestal_5',['GetPedestal',['../classDAQEvent.html#a1f094a3b66812c85101669d298ae4d05',1,'DAQEvent']]],
-  ['gettimes_6',['GetTimes',['../classDAQEvent.html#a1300b318afa84d0c4a49c0ec63e5e56d',1,'DAQEvent']]],
-  ['getvolts_7',['GetVolts',['../classDAQEvent.html#a92675bb38933e12275a917d6b48357e5',1,'DAQEvent']]]
+  ['gettime_6',['GetTime',['../classDAQEvent.html#a68d818ecf91c0d69fb2c7894f1ec532c',1,'DAQEvent']]],
+  ['gettimes_7',['GetTimes',['../classDAQEvent.html#a1300b318afa84d0c4a49c0ec63e5e56d',1,'DAQEvent']]],
+  ['getvolts_8',['GetVolts',['../classDAQEvent.html#a92675bb38933e12275a917d6b48357e5',1,'DAQEvent']]]
 ];

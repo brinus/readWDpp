@@ -262,7 +262,7 @@ float DAQEvent::GetAmplitude()
  @param thr The threshold level passed by the user. It must be in a range from -0.5 to 0.5 V.
  @return float 
  */
-float DAQEvent::FindTime(float thr)
+float DAQEvent::GetTime(float thr)
 {
     auto &volts = volts_[ch_.first][ch_.second];
     auto &times = times_[ch_.first][ch_.second];

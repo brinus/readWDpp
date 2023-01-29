@@ -79,7 +79,7 @@ public:
 
     float GetCharge();
     float GetAmplitude();
-    float FindTime(float);
+    float GetTime(float);
     const std::pair<float, float> &GetPedestal();
     const std::pair<int, int> &GetIntegrationBounds();
     const std::vector<float> &GetVolts();

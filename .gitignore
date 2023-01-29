@@ -35,6 +35,7 @@
 .DS_Store
 readWD
 html
+ignored_tests
 
 # Tests
 main0

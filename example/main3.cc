@@ -1,13 +1,7 @@
 /*!
  @example main3.cc
- @author Matteo Brini (brinimatteo@gmail.com)
- @brief Measuring WDB time resolution between channel on same chip and on different chip.
- @version 0.1
- @date 2023-01-27
-
- @copyright Copyright (c) 2023
-
- @details The WDB has at the inside two different DRS chips, due to this fact the difference between two same timecells depends on what channel are we looking at.
+ 
+ The WDB has at the inside two different DRS chips, due to this fact the difference between two same timecells depends on what channel are we looking at.
  In particular the channels going from 0 to 7 (included) are on the same first chip, the channels going from 8 to 15 are on the same second chip.
 
  To show this effect a NIM signal is generated and splitted equally to be then distributed to two channels of the WDB. The file ```data/split1-2at4GSPS``` contains 

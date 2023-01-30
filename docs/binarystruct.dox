@@ -9,6 +9,12 @@ The main difference between the two types of file is given in the event header: 
 the latter has a trigger cell for each channel. This is due to the fact that the WDB has inside two DRS chip, so to distinguish between 
 the two chip, in the binary the trigger cell is saved for each channel.
 
+The file can be separated in two parts:
+1. ```TIME``` part: here there are stored all the time bin width for all boards and channels. This is made by a *sample and hold* circuit
+contained in the board.
+2. ```EHDR``` part: there are as many events as selected in the software interface of the specific board, before the binary is saved. In each event there are stored informations about the 
+trigger time, the trigger cell (to reconstruct the time array) and the voltages.
+
 ### DRS Evaluation Board
 
 | Word |        Byte 0         | Byte 1 |      Byte 2       |            Byte 3            | Contents                                                                             |

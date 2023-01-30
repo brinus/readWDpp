@@ -34,15 +34,20 @@
  */
 struct TAG
 {
+    /*!
+     @brief Construct a new TAG object
+     
+     The last char is set equal to `\0`
+     */
     TAG() { tag[4] = '\0'; }
-    char tag[5];
+    char tag[5]; ///< The array of char
 };
 
 /*!
  @brief Informations about the event contained in the file.
 
- @details Everytime an @ref EventHeader is read, the infos about the event are read in order just as specified in the
-          DRS Evaluation Board manual.
+ Everytime an @ref EventHeader is read, the infos about the event are read in order just as specified in the 
+ DRS Evaluation Board manual.
  */
 struct EventHeader
 {
@@ -61,7 +66,7 @@ struct EventHeader
 /*!
  @brief Main class to store voltage and time values.
 
- @details This class is used with @ref DAQFile to read each event contained into a file.
+ This class is used with @ref DAQFile to read each event contained into a file.
 
  */
 class DAQEvent
@@ -95,8 +100,8 @@ private:
     DAQEvent &EvalIntegrationBounds();
     DAQEvent &FindPeaks();
 
-    MAP times_; ///< Structure to hold integrated times array of all board and channels.
-    MAP volts_; ///< Structure to hold voltage values of all board and channels.
+    MAP times_; ///< Structure to hold integrated times values of all boards and channels.
+    MAP volts_; ///< Structure to hold voltage values of all boards and channels.
 
     std::pair<float, float> ped_;      ///< Pair to hold pedestal *mean* and pedestal *std.dev.*.
     std::pair<float, float> peak_;     ///< Pair to hold value of voltage and time at the peak.
@@ -105,11 +110,11 @@ private:
     std::pair<int, int> ch_;           ///< Pair to hold indices of board and channel selected;
     std::vector<int> indexMin_;        ///< Indices of local minima found.
 
-    bool is_init_;
-    bool is_getch_;
-    bool is_iw_;
-    bool user_iw_;
-    float peak_threshold_;
+    bool is_init_; ///< Flag to check if the file is initialised
+    bool is_getch_; ///< Flag to check if the method @ref DAQEvent::GetChannel() has been called
+    bool is_iw_; ///< Flag to check if integration window has been evaluated once
+    bool user_iw_; ///< Flag to check if the integration window was passed by the user
+    float peak_threshold_; ///< Value to store the threshold in volts passed by the user
 
     friend class DAQFile;
 };
@@ -160,11 +165,12 @@ private:
     void Read(std::vector<float> &, const unsigned short &);
     void ResetTag() { in_.seekg(-4, in_.cur); }
 
-    std::string filename_;
-    std::ifstream in_;
-    char o_, n_;
-    bool initialization_;
-    MAP times_;
+    std::string filename_; ///< The name of the file
+    std::ifstream in_;     ///< The input file to read
+    char o_;               ///< The initial letter of the previous tag read
+    char n_;               ///< The initial letter of the newest tag read
+    bool initialization_;  ///< Flag to store if @ref DAQFile::Initialise() was already called
+    MAP times_;            ///< Struct to hold \f$ \Delta t\f$ read from the ```TIME```part of the file
 };
 
 /*

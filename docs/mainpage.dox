@@ -21,27 +21,68 @@ we are interested in.
 
 void mainExample0()
 {
+
+    auto h1 = new TH1F("h1", "Charge histogram", 100, 0, 10);
+    
     DAQFile file("path/to/file.dat");
     DRSEvent event;
-    file.Initialise(event);
-    TH1F * h1 = new TH1F("h1", "Charge histogram", 100, 0, 10);
 
+    file.Initialise();
     while (file >> event)
     {
-        float charge = event.GetChannel("B#01", "C001").GetCharge();
+        float charge = event.GetChannel(0, 0).GetCharge();
         h1->Fill(charge);
     }
+
     h1->Draw();
+    return;
 }
 @endcode
 
-The user must know prevently if the file he is reading comes from a DRS or a WDB. The output will be:
+The output will be:
 
-@code
-$ root -l mainExample0.cc
+@code{.bash}
+$ root -l mainExample0.cc                           
 root [0] 
+Processing path/to/file.dat...
+Created DAQFile, opened file path/to/file.dat
+Initializing file path/to/file.dat
+DRS2 --> DRS Evaluation Board
+B#2440:
+ --> C001
+Initialization done --> EHDR next
+Event serial number: 100
+...
+Event serial number: 10000
+End of file reached
+Info in <TCanvas::MakeDefCanvas>:  created default TCanvas with name c1
+root [1] 
+
 @endcode
 
-To understand more deeply the usage of the library, the user can read the @ref examples page.
+The user can read the Examples page to see other applications of the library.
+
+## The main classes
+
+The library implements two main classes @ref DAQFile and @ref DAQEvent, these two are the classes that must be used to read the file.
+
+### DAQFile
+
+It is recomended at the beginning to create an istance of @ref DAQFile, using the default constructor or passing it the path to the file to be opened. Then it must be used the method
+@ref DAQFile::Initialise(), which will read the ```TIME``` header and the array of times. After that, the class is thought to be used as an input stream. Redirecting the @ref DAQFile into 
+a @ref DAQEvent instance, one single event is read: voltages and and integrated times are passed into the @ref DAQEvent instance. It is possible to do this operation untill the end of the
+file is reached.
+
+### DAQEvent
+
+The main goal of this class is to implement many usefull methods that the user can call to analyse the data contained in the file. There are two children classes:
+@ref WDBEvent and @ref DRSEvent. The user must know previously if the file he is going to read comes from a DRS or WDB. This happends because of the different binary structure
+coming from DRS and WDB, read the page @ref binary for more informations.
+
+## How it works
+
+Every time an instruction such like ```file >> event``` is executed, the file reads as many lines as possible from @ref DAQFile::in_, untill another ```EHDR``` tag is found.
+After that, using the *trigger cell* contained in the event header structure (see @ref EventHeader) and using the \f$ \Delta t\f$ arrays in @ref DAQFile::times_, the time intervals are
+integrated and passed to @ref DAQEvent::times_. After that the user can access all the statistical methods calling at first the method @ref DAQEvent::GetChannel().
 
 */

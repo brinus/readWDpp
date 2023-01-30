@@ -86,25 +86,56 @@ Usage</h2>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">void</span> mainExample0()</div>
 <div class="line">{</div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">auto</span> h1 = <span class="keyword">new</span> TH1F(<span class="stringliteral">&quot;h1&quot;</span>, <span class="stringliteral">&quot;Charge histogram&quot;</span>, 100, 0, 10);</div>
+<div class="line">    </div>
 <div class="line">    <a class="code hl_class" href="classDAQFile.html">DAQFile</a> file(<span class="stringliteral">&quot;path/to/file.dat&quot;</span>);</div>
 <div class="line">    <a class="code hl_class" href="classDRSEvent.html">DRSEvent</a> event;</div>
-<div class="line">    file.Initialise(event);</div>
-<div class="line">    TH1F * h1 = <span class="keyword">new</span> TH1F(<span class="stringliteral">&quot;h1&quot;</span>, <span class="stringliteral">&quot;Charge histogram&quot;</span>, 100, 0, 10);</div>
 <div class="line"> </div>
+<div class="line">    file.Initialise();</div>
 <div class="line">    <span class="keywordflow">while</span> (file &gt;&gt; event)</div>
 <div class="line">    {</div>
-<div class="line">        <span class="keywordtype">float</span> charge = <span class="keyword">event</span>.GetChannel(<span class="stringliteral">&quot;B#01&quot;</span>, <span class="stringliteral">&quot;C001&quot;</span>).GetCharge();</div>
+<div class="line">        <span class="keywordtype">float</span> charge = <span class="keyword">event</span>.<a class="code hl_function" href="classDAQEvent.html#ab1176184ce5206715972cb5fb965a8b9">GetChannel</a>(0, 0).<a class="code hl_function" href="classDAQEvent.html#a8d5626128e1c0aaa4844c9f2db941bc5">GetCharge</a>();</div>
 <div class="line">        h1-&gt;Fill(charge);</div>
 <div class="line">    }</div>
+<div class="line"> </div>
 <div class="line">    h1-&gt;Draw();</div>
+<div class="line">    <span class="keywordflow">return</span>;</div>
 <div class="line">}</div>
-<div class="ttc" id="aclassDAQFile_html"><div class="ttname"><a href="classDAQFile.html">DAQFile</a></div><div class="ttdoc">Class to manage the file and the outputing of data in a DAQEvent instance.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8hh_source.html#l00137">readWD.hh:138</a></div></div>
-<div class="ttc" id="aclassDRSEvent_html"><div class="ttname"><a href="classDRSEvent.html">DRSEvent</a></div><div class="ttdef"><b>Definition:</b> <a href="readWD_8hh_source.html#l00121">readWD.hh:122</a></div></div>
+<div class="ttc" id="aclassDAQEvent_html_a8d5626128e1c0aaa4844c9f2db941bc5"><div class="ttname"><a href="classDAQEvent.html#a8d5626128e1c0aaa4844c9f2db941bc5">DAQEvent::GetCharge</a></div><div class="ttdeci">float GetCharge()</div><div class="ttdoc">Method to evaluate charge in the integration region.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8cc_source.html#l00235">readWD.cc:235</a></div></div>
+<div class="ttc" id="aclassDAQEvent_html_ab1176184ce5206715972cb5fb965a8b9"><div class="ttname"><a href="classDAQEvent.html#ab1176184ce5206715972cb5fb965a8b9">DAQEvent::GetChannel</a></div><div class="ttdeci">DAQEvent &amp; GetChannel(const int &amp;, const int &amp;)</div><div class="ttdoc">Select the channel to analyze.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8cc_source.html#l00098">readWD.cc:98</a></div></div>
+<div class="ttc" id="aclassDAQFile_html"><div class="ttname"><a href="classDAQFile.html">DAQFile</a></div><div class="ttdoc">Class to manage the file and the outputing of data in a DAQEvent instance.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8hh_source.html#l00142">readWD.hh:143</a></div></div>
+<div class="ttc" id="aclassDRSEvent_html"><div class="ttname"><a href="classDRSEvent.html">DRSEvent</a></div><div class="ttdef"><b>Definition:</b> <a href="readWD_8hh_source.html#l00126">readWD.hh:127</a></div></div>
 <div class="ttc" id="areadWD_8hh_html"><div class="ttname"><a href="readWD_8hh.html">readWD.hh</a></div><div class="ttdoc">Declaration of classes and methods.</div></div>
-</div><!-- fragment --><p>The user must know prevently if the file he is reading comes from a DRS or a WDB. The output will be:</p>
-<div class="fragment"><div class="line">$ root -l mainExample0.cc</div>
+</div><!-- fragment --><p>The output will be:</p>
+<div class="fragment"><div class="line">$ root -l mainExample0.cc                           </div>
 <div class="line">root [0] </div>
-</div><!-- fragment --><p>To understand more deeply the usage of the library, the user can read the examples page. </p>
+<div class="line">Processing path/to/file.dat...</div>
+<div class="line">Created DAQFile, opened file path/to/file.dat</div>
+<div class="line">Initializing file path/to/file.dat</div>
+<div class="line">DRS2 --&gt; DRS Evaluation Board</div>
+<div class="line">B#2440:</div>
+<div class="line"> --&gt; C001</div>
+<div class="line">Initialization done --&gt; EHDR next</div>
+<div class="line">Event serial number: 100</div>
+<div class="line">...</div>
+<div class="line">Event serial number: 10000</div>
+<div class="line">End of file reached</div>
+<div class="line">Info in &lt;TCanvas::MakeDefCanvas&gt;:  created default TCanvas with name c1</div>
+<div class="line">root [1] </div>
+</div><!-- fragment --><p>The user can read the Examples page to see other applications of the library.</p>
+<h2><a class="anchor" id="autotoc_md5"></a>
+The main classes</h2>
+<p>The library implements two main classes <a class="el" href="classDAQFile.html">DAQFile</a> and <a class="el" href="classDAQEvent.html">DAQEvent</a>, these two are the classes that must be used to read the file.</p>
+<h3><a class="anchor" id="autotoc_md6"></a>
+DAQFile</h3>
+<p>It is recomended at the beginning to create an istance of <a class="el" href="classDAQFile.html">DAQFile</a>, using the default constructor or passing it the path to the file to be opened. Then it must be used the method <a class="el" href="classDAQFile.html#adf184c72d64312f62e4a1056a375bd69">DAQFile::Initialise()</a>, which will read the <code>TIME</code> header and the array of times. After that, the class is thought to be used as an input stream. Redirecting the <a class="el" href="classDAQFile.html">DAQFile</a> into a <a class="el" href="classDAQEvent.html">DAQEvent</a> instance, one single event is read: voltages and and integrated times are passed into the <a class="el" href="classDAQEvent.html">DAQEvent</a> instance. It is possible to do this operation untill the end of the file is reached.</p>
+<h3><a class="anchor" id="autotoc_md7"></a>
+DAQEvent</h3>
+<p>The main goal of this class is to implement many usefull methods that the user can call to analyse the data contained in the file. There are two children classes: <a class="el" href="classWDBEvent.html">WDBEvent</a> and <a class="el" href="classDRSEvent.html">DRSEvent</a>. The user must know previously if the file he is going to read comes from a DRS or WDB. This happends because of the different binary structure coming from DRS and WDB, read the page <a class="el" href="binary.html">The Binary Output</a> for more informations.</p>
+<h2><a class="anchor" id="autotoc_md8"></a>
+How it works</h2>
+<p>Every time an instruction such like <code>file &gt;&gt; event</code> is executed, the file reads as many lines as possible from <a class="el" href="classDAQFile.html#aff483320738d5cab388617671013e7e9">DAQFile::in_</a>, untill another <code>EHDR</code> tag is found. After that, using the <em>trigger cell</em> contained in the event header structure (see <a class="el" href="structEventHeader.html">EventHeader</a>) and using the <picture><source srcset="form_0_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$ \Delta t$" src="form_0.png"/></picture> arrays in <a class="el" href="classDAQFile.html#a9725911cab2d6d9522cb5289833eea9b">DAQFile::times_</a>, the time intervals are integrated and passed to <a class="el" href="classDAQEvent.html#aed4f7042be0939c874ea26377eb95e4e">DAQEvent::times_</a>. After that the user can access all the statistical methods calling at first the method <a class="el" href="classDAQEvent.html#ab1176184ce5206715972cb5fb965a8b9">DAQEvent::GetChannel()</a>. </p>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
 <!-- start footer part -->

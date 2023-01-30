@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['peak_5f_0',['peak_',['../classDAQEvent.html#a98bb0a3c59459be2946814c3c60c624b',1,'DAQEvent']]],
-  ['ped_5f_1',['ped_',['../classDAQEvent.html#a1208e4bf5a1bc13476abb4487e09d9e0',1,'DAQEvent']]],
-  ['ped_5finterval_5f_2',['ped_interval_',['../classDAQEvent.html#aad7a1490d9f33d8cf989ff87d9817f1b',1,'DAQEvent']]]
+  ['min_0',['min',['../structEventHeader.html#a84f3ecbd5bbcbd6f43031c42579c1352',1,'EventHeader']]],
+  ['month_1',['month',['../structEventHeader.html#a79d020d45bf9b51794fd493907d2b585',1,'EventHeader']]],
+  ['ms_2',['ms',['../structEventHeader.html#a6e18edb4c990ca9e3a4c52def47f6a40',1,'EventHeader']]]
 ];

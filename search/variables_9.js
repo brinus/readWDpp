@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['volts_5f_0',['volts_',['../classDAQEvent.html#a0b981b2e313c1337c8e4e69feaa84724',1,'DAQEvent']]]
+  ['rangecenter_0',['rangeCenter',['../structEventHeader.html#a966006a854810bddd000a3cb1fc6732b',1,'EventHeader']]]
 ];

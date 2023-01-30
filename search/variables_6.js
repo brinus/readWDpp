@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['rangecenter_0',['rangeCenter',['../structEventHeader.html#a966006a854810bddd000a3cb1fc6732b',1,'EventHeader']]]
+  ['n_5f_0',['n_',['../classDAQFile.html#a5918866b9bef2db8dad574bd3a8e2db8',1,'DAQFile']]]
 ];

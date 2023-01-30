@@ -73,11 +73,6 @@ $(function() {
   <div class="headertitle"><div class="title">main0.cc</div></div>
 </div><!--header-->
 <div class="contents">
-<p>Example on how to use <a class="el" href="classDAQEvent.html#a1f094a3b66812c85101669d298ae4d05">DAQEvent::GetPedestal()</a></p>
-<p>Example on how to use <a class="el" href="classDAQEvent.html#a1f094a3b66812c85101669d298ae4d05">DAQEvent::GetPedestal()</a> </p><dl class="section author"><dt>Author</dt><dd>Matteo Brini (<a href="#" onclick="location.href='mai'+'lto:'+'bri'+'ni'+'mat'+'te'+'o@g'+'ma'+'il.'+'co'+'m'; return false;">brini<span class="obfuscator">.nosp@m.</span>matt<span class="obfuscator">.nosp@m.</span>eo@gm<span class="obfuscator">.nosp@m.</span>ail.<span class="obfuscator">.nosp@m.</span>com</a>) </dd></dl>
-<dl class="section version"><dt>Version</dt><dd>0.1 </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2023-01-09</dd></dl>
-<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2023</dd></dl>
 <p>The method <a class="el" href="classDAQFile.html#a402fdd50afd00045414f77539a1fba8a">DAQFile::operator&gt;&gt;</a> is used to fill at each event the instance of <a class="el" href="classDAQEvent.html">DAQEvent</a>. In the <code>while</code> the object <code>event</code> is updated everytime with the new event read from the file. The the proper channel is chosen with <a class="el" href="classDAQEvent.html#ab1176184ce5206715972cb5fb965a8b9">DAQEvent::GetChannel()</a> and in cascade is used <a class="el" href="classDAQEvent.html#a1f094a3b66812c85101669d298ae4d05">DAQEvent::GetPedestal()</a> that returns an <code>std::pair&lt;float, float&gt;</code>, the two values are the mean and the standard deviation of the pedestal, these values are used to fill two distinct histograms using ROOT.</p>
 <div class="fragment"><div class="line"> </div>
 <div class="line"><span class="preprocessor">#include &quot;../readWD.hh&quot;</span></div>
@@ -112,9 +107,9 @@ $(function() {
 <div class="line">{</div>
 <div class="line">    main();</div>
 <div class="line">}</div>
-<div class="ttc" id="aclassDAQFile_html"><div class="ttname"><a href="classDAQFile.html">DAQFile</a></div><div class="ttdoc">Class to manage the file and the outputing of data in a DAQEvent instance.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8hh_source.html#l00137">readWD.hh:138</a></div></div>
+<div class="ttc" id="aclassDAQFile_html"><div class="ttname"><a href="classDAQFile.html">DAQFile</a></div><div class="ttdoc">Class to manage the file and the outputing of data in a DAQEvent instance.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8hh_source.html#l00142">readWD.hh:143</a></div></div>
 <div class="ttc" id="aclassDAQFile_html_adf184c72d64312f62e4a1056a375bd69"><div class="ttname"><a href="classDAQFile.html#adf184c72d64312f62e4a1056a375bd69">DAQFile::Initialise</a></div><div class="ttdeci">DAQFile &amp; Initialise()</div><div class="ttdoc">Initialise the file reading the TIME block.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8cc_source.html#l00557">readWD.cc:557</a></div></div>
-<div class="ttc" id="aclassDRSEvent_html"><div class="ttname"><a href="classDRSEvent.html">DRSEvent</a></div><div class="ttdef"><b>Definition:</b> <a href="readWD_8hh_source.html#l00121">readWD.hh:122</a></div></div>
+<div class="ttc" id="aclassDRSEvent_html"><div class="ttname"><a href="classDRSEvent.html">DRSEvent</a></div><div class="ttdef"><b>Definition:</b> <a href="readWD_8hh_source.html#l00126">readWD.hh:127</a></div></div>
 </div><!-- fragment --> </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

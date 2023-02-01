@@ -416,9 +416,12 @@ const vector<int> &DAQEvent::GetPeakIndices()
 /*!
      @brief Function to perform the time calibration.
 
-     @details The time calibration is performed as specified in the DRS manual.
+     @details The time calibration is performed as specified in the DRS manual. The operation is done as following:
+     \f[
+        t_{ch}[i] = \sum_{j = 0}^{i - 1} dt_{ch}[(j + tCell)%1024]
+     \f]
 
-     @param tCell Cell number at which the signal triggered the board.
+     @param tCell Cell number at which the signal triggered the board. Found in the event header.
  */
 DAQEvent &DAQEvent::TimeCalibration(const unsigned short &tCell, const std::vector<float> &times, int i, int j)
 {

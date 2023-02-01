@@ -36,7 +36,7 @@ struct TAG
 {
     /*!
      @brief Construct a new TAG object
-     
+
      The last char is set equal to `\0`
      */
     TAG() { tag[4] = '\0'; }
@@ -46,7 +46,7 @@ struct TAG
 /*!
  @brief Informations about the event contained in the file.
 
- Everytime an @ref EventHeader is read, the infos about the event are read in order just as specified in the 
+ Everytime an @ref EventHeader is read, the infos about the event are read in order just as specified in the
  DRS Evaluation Board manual.
  */
 struct EventHeader
@@ -85,6 +85,7 @@ public:
     float GetCharge();
     float GetAmplitude();
     float GetTime(float);
+    float GetTimeCF(float);
     const std::pair<float, float> &GetPedestal();
     const std::pair<int, int> &GetIntegrationBounds();
     const std::vector<float> &GetVolts();
@@ -110,10 +111,12 @@ private:
     std::pair<int, int> ch_;           ///< Pair to hold indices of board and channel selected;
     std::vector<int> indexMin_;        ///< Indices of local minima found.
 
-    bool is_init_; ///< Flag to check if the file is initialised
-    bool is_getch_; ///< Flag to check if the method @ref DAQEvent::GetChannel() has been called
-    bool is_iw_; ///< Flag to check if integration window has been evaluated once
-    bool user_iw_; ///< Flag to check if the integration window was passed by the user
+    bool is_init_;         ///< Flag to check if the file is initialised
+    bool is_getch_;        ///< Flag to check if the method @ref DAQEvent::GetChannel() has been called
+    bool is_iw_;           ///< Flag to check if integration window has been evaluated once
+    bool is_ped_;          ///< Flag to check if pedestal has been evaluated once
+    bool is_peak_;         ///< Flag to check if peaks have been found once
+    bool user_iw_;         ///< Flag to check if the integration window was passed by the user
     float peak_threshold_; ///< Value to store the threshold in volts passed by the user
 
     friend class DAQFile;

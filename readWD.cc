@@ -82,6 +82,8 @@ DAQEvent::DAQEvent()
     is_getch_ = false;
     is_init_ = false;
     is_iw_ = false;
+    is_ped_ = false;
+    is_peak_ = false;
     user_iw_ = false;
     ped_interval_ = {0, 100};
     iw_ = {0, SAMPLES_PER_WAVEFORM - 1};
@@ -103,7 +105,12 @@ DAQEvent &DAQEvent::GetChannel(const int &board, const int &channel)
         exit(0);
     }
 
-    if (volts_.find(board) != volts_.end())
+    else if (ch_.first == board and ch_.second == channel)
+    {
+        return *this;
+    }
+
+    else if (volts_.find(board) != volts_.end())
     {
         if (volts_[board].find(channel) != volts_[board].end())
         {
@@ -241,6 +248,8 @@ float DAQEvent::GetCharge()
     const auto &volts = volts_[ch_.first][ch_.second];
     int distance = iw_.second - iw_.first;
 
+    is_getch_ = false;
+
     return abs(accumulate(volts.begin() + iw_.first, volts.begin() + iw_.second, -distance * ped_.first));
 }
 
@@ -253,6 +262,9 @@ float DAQEvent::GetAmplitude()
 {
     (*this).EvalPedestal();
     (*this).FindPeaks();
+
+    is_getch_ = false;
+
     return peak_.first - ped_.first;
 }
 
@@ -260,7 +272,7 @@ float DAQEvent::GetAmplitude()
  @brief Find the time at which the waveform goes under a give threshold level
  
  @param thr The threshold level passed by the user. It must be in a range from -0.5 to 0.5 V.
- @return float 
+ @return The time requested 
  */
 float DAQEvent::GetTime(float thr)
 {
@@ -281,7 +293,32 @@ float DAQEvent::GetTime(float thr)
 
     auto time = times[i] + (thr - volts[i]) * (times[i + 1] - times[i]) / (volts[i + 1] - volts[i]);
 
+    is_getch_ = false;
+
     return time;
+}
+
+/*!
+ @brief Find the time at which the waveform goes under a given percentage of the waveform peak value
+ 
+ @param CF the constant fraction value. Must be in range (0,1)
+ @return The time requested
+ */
+float DAQEvent::GetTimeCF(float CF)
+{
+    if (CF <= 0 or CF > 1 )
+    {
+        cerr << "!! Error: CF value must be in range (0, 1)" << endl;
+        exit(0);
+    }
+
+    (*this).EvalPedestal();
+    (*this).FindPeaks();
+    (*this).EvalIntegrationBounds();
+
+    float thr = ped_.first + (peak_.first - ped_.first) * CF;
+
+    return (*this).GetTime(thr);
 }
 
 /*!
@@ -291,15 +328,20 @@ float DAQEvent::GetTime(float thr)
  */
 const pair<float, float> &DAQEvent::GetPedestal()
 {
-    if (is_getch_)
+    if (!is_getch_)
     {
-        (*this).EvalPedestal();
-        is_getch_ = false;
-        return ped_;
+        cerr << "!! Error: select a channel with DAQEvent::GetChannel()" << endl;
+        exit(0);
     }
 
-    cerr << "!! Error: select a channel with DAQEvent::GetChannel()" << endl;
-    exit(0);
+    if (is_ped_)
+    {
+        (*this).EvalPedestal();
+    }
+
+    is_getch_ = false;
+    return ped_;
+
 }
 
 /*!
@@ -312,6 +354,7 @@ const pair<int, int> &DAQEvent::GetIntegrationBounds()
     (*this).EvalPedestal();
     (*this).FindPeaks();
     (*this).EvalIntegrationBounds();
+    is_getch_ = false;
     return iw_;
 }
 
@@ -325,14 +368,14 @@ const pair<int, int> &DAQEvent::GetIntegrationBounds()
  */
 const vector<float> &DAQEvent::GetVolts()
 {
-    if (is_getch_)
+    if (!is_getch_)
     {
-        is_getch_ = false;
-        return volts_[ch_.first][ch_.second];
+        cerr << "!! Error: select a channel with DAQEvent::GetChannel()" << endl;
+        exit(0);
     }
 
-    cerr << "!! Error: select a channel with DAQEvent::GetChannel()" << endl;
-    exit(0);
+    is_getch_ = false;
+    return volts_[ch_.first][ch_.second];
 }
 
 /*!
@@ -364,6 +407,9 @@ const vector<int> &DAQEvent::GetPeakIndices()
 {
     (*this).EvalPedestal();
     (*this).FindPeaks();
+
+    is_getch_ = false;
+
     return indexMin_;
 }
 

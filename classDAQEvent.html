@@ -304,7 +304,7 @@ Friends</h2></td></tr>
 <p>Method to evaluate the integration window of the currently selected waveform. </p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classDAQEvent.html" title="Main class to store voltage and time values.">DAQEvent</a>&amp; </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00464">464</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00467">467</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
 
 </div>
 </div>
@@ -334,7 +334,7 @@ Friends</h2></td></tr>
 <p>Method to evaluate the pedestal of the currently selected waveform. </p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classDAQEvent.html" title="Main class to store voltage and time values.">DAQEvent</a>&amp; </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00438">438</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00441">441</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
 
 </div>
 </div>
@@ -362,7 +362,7 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classDAQEvent.html" title="Main class to store voltage and time values.">DAQEvent</a>&amp; </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00503">503</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00506">506</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
 
 </div>
 </div>
@@ -870,15 +870,19 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Function to perform the time calibration. </p>
-<p>The time calibration is performed as specified in the DRS manual.</p>
+<p>The time calibration is performed as specified in the DRS manual. The operation is done as following:  </p><p class="formulaDsp">
+<picture><source srcset="form_2_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaDsp" alt="\[
+   t_{ch}[i] = \sum_{j = 0}^{i - 1} dt_{ch}[(j + tCell)%1024]
+\]" src="form_2.png"/></picture>
+</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">tCell</td><td>Cell number at which the signal triggered the board. </td></tr>
+    <tr><td class="paramname">tCell</td><td>Cell number at which the signal triggered the board. Found in the event header. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00423">423</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00426">426</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
 
 </div>
 </div>

@@ -12,6 +12,13 @@
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  extensions: ["tex2jax.js"],
+  jax: ["input/TeX","output/HTML-CSS"],
+});
+</script>
+<script type="text/javascript" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -871,9 +878,9 @@ Friends</h2></td></tr>
 
 <p>Function to perform the time calibration. </p>
 <p>The time calibration is performed as specified in the DRS manual. The operation is done as following:  </p><p class="formulaDsp">
-<picture><source srcset="form_2_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaDsp" alt="\[
+\[
    t_{ch}[i] = \sum_{j = 0}^{i - 1} dt_{ch}[(j + tCell)%1024]
-\]" src="form_2.png"/></picture>
+\]
 </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">

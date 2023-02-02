@@ -12,6 +12,13 @@
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  extensions: ["tex2jax.js"],
+  jax: ["input/TeX","output/HTML-CSS"],
+});
+</script>
+<script type="text/javascript" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -76,7 +83,7 @@ $(function() {
 <p>The WDB has at the inside two different DRS chips, due to this fact the difference between two same timecells depends on what channel are we looking at. In particular the channels going from 0 to 7 (included) are on the same first chip, the channels going from 8 to 15 are on the same second chip.</p>
 <p>To show this effect a NIM signal is generated and splitted equally to be then distributed to two channels of the WDB. The file <code>data/split1-2at4GSPS</code> contains the waveform on channel 0 and channel 1, the file <code>data/split1-8at4GSPS</code> contains the waveform on the channel 0 and channel 8.</p>
 <p>This script uses the methods <a class="el" href="classDAQEvent.html#ab1176184ce5206715972cb5fb965a8b9">DAQEvent::GetChannel</a> and <a class="el" href="classDAQEvent.html#a1300b318afa84d0c4a49c0ec63e5e56d">DAQEvent::GetTimes()</a> to get the times array of the selected channels at every event reading. Using a simple for loop we get each cell difference and we then fill an histogram.</p>
-<p>The results show that there is an order of magnitude in temporal resolution between channels on the same chip (red dotted line, <em>std.dev.</em> <picture><source srcset="form_0_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$\sim 10^{-12}\textup{s}$" src="form_0.png"/></picture>) and channel on different chips (blue solid line, <em>std.dev.</em> <picture><source srcset="form_1_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$\sim 10^{-11}\textup{s}$" src="form_1.png"/></picture>). This effect can anyway be corrected using the information contained on channels 16 and 17.</p>
+<p>The results show that there is an order of magnitude in temporal resolution between channels on the same chip (red dotted line, <em>std.dev.</em> \(\sim 10^{-12}\textup{s}\)) and channel on different chips (blue solid line, <em>std.dev.</em> \(\sim 10^{-11}\textup{s}\)). This effect can anyway be corrected using the information contained on channels 16 and 17.</p>
 <div class="fragment"><div class="line"> </div>
 <div class="line"><span class="preprocessor">#include &quot;../readWD.hh&quot;</span></div>
 <div class="line"> </div>

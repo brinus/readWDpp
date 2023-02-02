@@ -107,6 +107,7 @@ DAQEvent &DAQEvent::GetChannel(const int &board, const int &channel)
 
     else if (ch_.first == board and ch_.second == channel)
     {
+        is_getch_ = true;
         return *this;
     }
 
@@ -334,11 +335,7 @@ const pair<float, float> &DAQEvent::GetPedestal()
         exit(0);
     }
 
-    if (is_ped_)
-    {
-        (*this).EvalPedestal();
-    }
-
+    (*this).EvalPedestal();
     is_getch_ = false;
     return ped_;
 

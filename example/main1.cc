@@ -1,3 +1,16 @@
+/*!
+ @example main1.cc
+
+ This example shows many utilities. The file ```testDRS.dat``` is read, three pads are made to contain:
+ 1. An event selected by the variable ```evt```.
+ 2. The charge histogram.
+ 3. The amplitude histogram 
+ 
+ In details, the first pad contains the selected waveform, the pedestal band (red lines), the integration window (green lines) and the peak (red triangle).
+ The integration window in this example is setted by the user with the method @ref DAQEvent::SetIntWindow().
+
+ */
+
 #include "../readWD.hh"
 
 #include "TApplication.h"
@@ -10,7 +23,6 @@
 #include "TPoint.h"
 
 using namespace std;
-using MAP = map<string, map<string, vector<float>>>;
 
 void main1()
 {
@@ -19,22 +31,30 @@ void main1()
     auto *pad2 = new TPad("pad2", "charge", 0, 0, 0.5, 0.5);
     auto *pad3 = new TPad("pad3", "amplitude", 0.5, 0, 1, 0.5);
 
+    TH1F *h1 = new TH1F("h1", "charge histogram", 100, 0, 10);
+    TH1F *h2 = new TH1F("h2", "amplitude histogram", 100, -0.5, 0);
+
     pad1->Draw();
     pad2->Draw();
     pad3->Draw();
 
     DAQFile file("data/testDRS.dat");
     DRSEvent event;
+    
     int i = 0;
     int evt = -1;
+    float iw_start = 400;
+    float iw_stop = 600;
 
     file.Initialise();
-    while (file >> event and evt == -1)
+    while (file >> event)
     {
-        if (event.GetChannel(0, 0).GetCharge() < 1 or i == 9999)
+        event.SetIntWindow(iw_start, iw_stop);
+        auto charge = event.GetChannel(0, 0).GetCharge();
+        auto amplitude = event.GetChannel(0, 0).GetAmplitude();
+        if (i == evt or i == 9999)
         {
-            cout << event.GetChannel(0, 0).GetCharge() << endl;
-            evt = i;
+            cout << "Charge: " <<  charge << endl;
 
             auto times = event.GetChannel(0, 0).GetTimes();
             auto volts = event.GetChannel(0, 0).GetVolts();
@@ -81,21 +101,9 @@ void main1()
             c1->Update();
         }
         ++i;
-    }
 
-    file.Close();
-
-    TH1F *h1 = new TH1F("h1", "charge histogram", 100, 0, 15);
-    TH1F *h2 = new TH1F("h2", "amplitude histogram", 100, -1, 0);
-
-    file.Open("data/testDRS.dat");
-    file.Initialise();
-    while (file >> event)
-    {
-        auto charge = event.GetChannel(0, 0).GetCharge();
-        auto amp = event.GetChannel(0, 0).GetAmplitude();
-        h1->Fill(-charge);
-        h2->Fill(amp);
+        h1->Fill(charge);
+        h2->Fill(amplitude);
     }
 
     pad2->cd();

@@ -10,11 +10,13 @@
  */
 
 #include "../readWD.hh"
+
+#include "TApplication.h"
 #include "TH1F.h"
 
 using namespace std;
 
-int main(void)
+void main0()
 {
     DAQFile file("data/testDRS.dat");
     DRSEvent event;
@@ -37,7 +39,10 @@ int main(void)
     h1->Draw("SAMES");
 }
 
-void main0()
+int main(int argc, char **argv)
 {
-    main();
+    TApplication app("ROOT Application", &argc, argv);
+    main0();
+    app.Run();
+    return 0;
 }

@@ -76,11 +76,13 @@ $(function() {
 <p>The method <a class="el" href="classDAQFile.html#a402fdd50afd00045414f77539a1fba8a">DAQFile::operator&gt;&gt;</a> is used to fill at each event the instance of <a class="el" href="classDAQEvent.html">DAQEvent</a>. In the <code>while</code> the object <code>event</code> is updated everytime with the new event read from the file. The the proper channel is chosen with <a class="el" href="classDAQEvent.html#ab1176184ce5206715972cb5fb965a8b9">DAQEvent::GetChannel()</a> and in cascade is used <a class="el" href="classDAQEvent.html#a1f094a3b66812c85101669d298ae4d05">DAQEvent::GetPedestal()</a> that returns an <code>std::pair&lt;float, float&gt;</code>, the two values are the mean and the standard deviation of the pedestal, these values are used to fill two distinct histograms using ROOT.</p>
 <div class="fragment"><div class="line"> </div>
 <div class="line"><span class="preprocessor">#include &quot;../readWD.hh&quot;</span></div>
+<div class="line"> </div>
+<div class="line"><span class="preprocessor">#include &quot;TApplication.h&quot;</span></div>
 <div class="line"><span class="preprocessor">#include &quot;TH1F.h&quot;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="keyword">using namespace </span>std;</div>
 <div class="line"> </div>
-<div class="line"><span class="keywordtype">int</span> main(<span class="keywordtype">void</span>)</div>
+<div class="line"><span class="keywordtype">void</span> main0()</div>
 <div class="line">{</div>
 <div class="line">    <a id="_a0" name="_a0"></a><a class="code hl_class" href="classDAQFile.html">DAQFile</a> file(<span class="stringliteral">&quot;data/testDRS.dat&quot;</span>);</div>
 <div class="line">    <a id="_a1" name="_a1"></a><a class="code hl_class" href="classDRSEvent.html">DRSEvent</a> event;</div>
@@ -103,12 +105,15 @@ $(function() {
 <div class="line">    h1-&gt;Draw(<span class="stringliteral">&quot;SAMES&quot;</span>);</div>
 <div class="line">}</div>
 <div class="line"> </div>
-<div class="line"><span class="keywordtype">void</span> main0()</div>
+<div class="line"><span class="keywordtype">int</span> main(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> **argv)</div>
 <div class="line">{</div>
-<div class="line">    main();</div>
+<div class="line">    TApplication app(<span class="stringliteral">&quot;ROOT Application&quot;</span>, &amp;argc, argv);</div>
+<div class="line">    main0();</div>
+<div class="line">    app.Run();</div>
+<div class="line">    <span class="keywordflow">return</span> 0;</div>
 <div class="line">}</div>
 <div class="ttc" id="aclassDAQFile_html"><div class="ttname"><a href="classDAQFile.html">DAQFile</a></div><div class="ttdoc">Class to manage the file and the outputing of data in a DAQEvent instance.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8hh_source.html#l00145">readWD.hh:146</a></div></div>
-<div class="ttc" id="aclassDAQFile_html_adf184c72d64312f62e4a1056a375bd69"><div class="ttname"><a href="classDAQFile.html#adf184c72d64312f62e4a1056a375bd69">DAQFile::Initialise</a></div><div class="ttdeci">DAQFile &amp; Initialise()</div><div class="ttdoc">Initialise the file reading the TIME block.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8cc_source.html#l00606">readWD.cc:606</a></div></div>
+<div class="ttc" id="aclassDAQFile_html_adf184c72d64312f62e4a1056a375bd69"><div class="ttname"><a href="classDAQFile.html#adf184c72d64312f62e4a1056a375bd69">DAQFile::Initialise</a></div><div class="ttdeci">DAQFile &amp; Initialise()</div><div class="ttdoc">Initialise the file reading the TIME block.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8cc_source.html#l00603">readWD.cc:603</a></div></div>
 <div class="ttc" id="aclassDRSEvent_html"><div class="ttname"><a href="classDRSEvent.html">DRSEvent</a></div><div class="ttdef"><b>Definition:</b> <a href="readWD_8hh_source.html#l00129">readWD.hh:130</a></div></div>
 </div><!-- fragment --> </div><!-- contents -->
 <!-- start footer part -->

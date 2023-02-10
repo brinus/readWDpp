@@ -49,7 +49,7 @@ void main1()
     file.Initialise();
     while (file >> event)
     {
-        event.SetIntWindow(iw_start, iw_stop);
+        event.GetChannel(0, 0).SetIntWindow(iw_start, iw_stop);
         auto charge = event.GetChannel(0, 0).GetCharge();
         auto amplitude = event.GetChannel(0, 0).GetAmplitude();
         if (i == evt or i == 9999)

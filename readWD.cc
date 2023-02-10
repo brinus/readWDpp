@@ -220,25 +220,21 @@ DAQEvent &DAQEvent::SetIntWindow(int a, int b)
  */
 DAQEvent &DAQEvent::SetIntWindow(float a, float b)
 {
-    auto &times = times_[ch_.first][ch_.second];
+    if (!is_getch_)
+    {
+        cerr << "!! Error: select a channel using DAQEvent::GetChannel()" << endl;
+        exit(0);
+    }
 
+    auto &times = times_[ch_.first][ch_.second];
     if (a < times[0] or a > b or b > times[SAMPLES_PER_WAVEFORM - 1])
     {
         cerr << "!! Error: invalid times passed as integration window" << endl;
         exit(0);
     }
 
-    int i = 0;
-    while (times[i] < a)
-    {
-        ++i;
-    }
-    iw_.first = i;
-    while (times[i] < b)
-    {
-        ++i;
-    }
-    iw_.second = i;
+    iw_.first = distance(times.begin(), lower_bound(times.begin(), times.end(), a));
+    iw_.second = distance(times.begin(), lower_bound(times.begin() + iw_.first, times.end(), b));
     user_iw_ = true;
     return *this;
 }

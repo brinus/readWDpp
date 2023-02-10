@@ -19,7 +19,7 @@ using namespace std;
  */
 
 /*!
- @brief
+ @brief Function to print a @ref TAG istance easily on stream::cout
 
  @param o
  @param tag
@@ -43,7 +43,7 @@ ostream &operator<<(ostream &o, const TAG &tag) // cout << TAG
 }
 
 /*!
- @brief
+ @brief Function to print a @ref EventHeader easily on stream::cout
 
  @param o
  @param eh
@@ -74,7 +74,8 @@ ostream &operator<<(ostream &o, const EventHeader &eh) // cout << EventHeader
  @ref DAQEvent::SetPedInterval() is not called, the pedestal will be evaluated on the first 100 bins.
 
  The default value for @ref DAQEvent::iw_ is `{0, SAMPLES_PER_WAVEFORM - 1}`. When a method like @ref DAQEvent::GetCharge() is called,
- it calls also DAQEvent::EvalIntegrationBounds() and the new integration window is evaluated.
+ it calls also DAQEvent::EvalIntegrationBounds() and the new integration window is evaluated. Otherwise, the integration window can be setted
+ by the user calling the method @ref DAQEvent::SetIntWindow().
 
  */
 DAQEvent::DAQEvent()
@@ -92,6 +93,12 @@ DAQEvent::DAQEvent()
 
 /*!
  @brief Select the channel to analyze.
+
+ @details To select a channel, the user must consider only the channels that are turned on on the board. This means that the right order of the channel is 
+ not given by the channel ID number: the channel 6 on a WDB is not always the sixth channel, but it depends by the channels that are turned on. In any case,
+ during the call to @ref DAQEvent::Initialise() a list of the active channel is displayed on terminal to double check.
+
+ After the call to this method, the values of DAQEvent::ch_ are updated.
 
  @param board the index of the board, starting from 0.
  @param channel the index of the channel in the selected board, starting from 0.
@@ -161,6 +168,8 @@ DAQEvent &DAQEvent::SetPedInterval(int a, int b)
 
 /*!
  @brief Set the threshold in volt by the user.
+
+ @details This threshold level is used by the code when the minima of the waveform are requested.
  
  @param thr The threshold level in Volts in a range (-0.5, +0.5)V
  @return DAQEvent& 
@@ -202,6 +211,8 @@ DAQEvent &DAQEvent::SetIntWindow(int a, int b)
 
 /*!
  @brief Set the integration window passing time values in seconds.
+
+ @details This method with this signature must be used after the call of DAQEvent::GetChannel().
  
  @param a The left bound
  @param b The right bound

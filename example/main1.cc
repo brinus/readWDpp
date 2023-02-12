@@ -42,7 +42,7 @@ void main1()
     DRSEvent event;
     
     int i = 0;
-    int evt = -1;
+    int evt = 100;
     float iw_start = 400;
     float iw_stop = 600;
 

@@ -17,6 +17,7 @@
 #include "../readWD.hh"
 
 #include "TApplication.h"
+#include "TLegend.h"
 #include "TCanvas.h"
 #include "TH1F.h"
 
@@ -27,11 +28,10 @@ void main1()
     DAQFile file;
     WDBEvent event;
 
-    int i = 0;
-
     auto c0 = new TCanvas("c0", "c0", 1);
     auto h0 = new TH1F("ch01", "ch01", 80, -0.07e-9, 0.07e-9);
     auto h1 = new TH1F("ch08", "ch08", 80, -0.7e-9, 0.7e-9);
+    auto legend = new TLegend();
 
     file.Open("data/split1-2at4GSPS");
     file.Initialise();
@@ -45,14 +45,11 @@ void main1()
         {
             h0->Fill(times0[j] - times1[j]);
         }
-        
-        ++i;
     }
 
     file.Close();
     file.Open("data/split1-8at4GSPS");
     file.Initialise();
-    i = 0;
 
     while (file >> event)
     {
@@ -63,8 +60,6 @@ void main1()
         {
             h1->Fill(times0[j] - times8[j]);
         }
-
-        ++i;
     }
 
     h1->SetTitle("Time resolution on same chip and on different chips");
@@ -77,6 +72,12 @@ void main1()
     h0->Draw("SAMES");
 
     h1->GetYaxis()->SetRangeUser(0, 5.5e4);
+    h1->GetXaxis()->SetTitle("Time [s]");
+
+    legend->AddEntry(h0, "same chip");
+    legend->AddEntry(h1, "different chip");
+    
+    legend->Draw();
     c0->Update();
 
     return;

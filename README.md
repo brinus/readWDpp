@@ -8,3 +8,11 @@ Library to read binary files from WaveDreamBoard (Paul Scherrer Institut).
 The library implements some classes to handle file(s) coming from DRS and/or WDB. The final aim is to provide some methods to gather informations such as charge and amplitude about the events in the file(s). 
 
 Read the documentation for more infos.
+
+To run the examples run
+```
+$ make main1
+g++ -std=c++17 -shared -fpic -Wall -o libreadWD.so readWD.cc
+g++ -std=c++17 -Wall `root-config --cflags --libs` -L. -l readWD example/main1.cc -o main1
+$ ./main1
+```

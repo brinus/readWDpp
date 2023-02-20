@@ -254,10 +254,18 @@ float DAQEvent::GetCharge()
     (*this).EvalIntegrationBounds();
 
     const auto &volts = volts_[ch_.first][ch_.second];
+    const auto &times = times_[ch_.first][ch_.second];
     int distance = iw_.second - iw_.first;
 
     is_getch_ = false;
+    float charge = 0;
 
+    for (int i = iw_.first; i < iw_.second; ++i)
+    {
+        charge += (volts[i + 1] + volts[i] - 2 * ped_.first) / (2 * (times[i + 1] - times[i]));
+    }
+
+    return abs(charge);
     return abs(accumulate(volts.begin() + iw_.first, volts.begin() + iw_.second, -distance * ped_.first));
 }
 

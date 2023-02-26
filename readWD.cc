@@ -309,7 +309,7 @@ float DAQEvent::GetTime(float thr)
 
     auto time = times[i] + (thr - volts[i]) * (times[i + 1] - times[i]) / (volts[i + 1] - volts[i]);
 
-    is_getch_ = false;
+    //is_getch_ = false;
 
     return time;
 }
@@ -335,6 +335,16 @@ float DAQEvent::GetTimeCF(float CF)
     float thr = ped_.first + (peak_.first - ped_.first) * CF;
 
     return (*this).GetTime(thr);
+}
+
+/*!
+ @brief Evaluate the risetime of the waveform
+ 
+ @return float 
+ */
+float DAQEvent::GetRiseTime()
+{
+    return (*this).GetTimeCF(0.9) - (*this).GetTimeCF(0.1);
 }
 
 /*!
@@ -400,14 +410,14 @@ const vector<float> &DAQEvent::GetVolts()
  */
 const vector<float> &DAQEvent::GetTimes()
 {
-    if (is_getch_)
+    if (!is_getch_)
     {
-        is_getch_ = false;
-        return times_[ch_.first][ch_.second];
+        cerr << "!! Error: select a channel with DAQEvent::GetChannel()" << endl;
+        exit(0);
     }
 
-    cerr << "!! Error: select a channel with DAQEvent::GetChannel()" << endl;
-    exit(0);
+    is_getch_ = false;
+    return times_[ch_.first][ch_.second];
 }
 
 /*!

@@ -94,7 +94,7 @@ DAQEvent::DAQEvent()
 /*!
  @brief Select the channel to analyze.
 
- @details To select a channel, the user must consider only the channels that are turned on on the board. This means that the right order of the channel is 
+ @details To select a channel, the user must consider only the channels that are turned on on the board. This means that the right order of the channel is
  not given by the channel ID number: the channel 6 on a WDB is not always the sixth channel, but it depends by the channels that are turned on. In any case,
  during the call to @ref DAQEvent::Initialise() a list of the active channel is displayed on terminal to double check.
 
@@ -170,9 +170,9 @@ DAQEvent &DAQEvent::SetPedInterval(int a, int b)
  @brief Set the threshold in volt by the user.
 
  @details This threshold level is used by the code when the minima of the waveform are requested.
- 
+
  @param thr The threshold level in Volts in a range (-0.5, +0.5)V
- @return DAQEvent& 
+ @return DAQEvent&
  */
 DAQEvent &DAQEvent::SetPeakThr(float thr)
 {
@@ -187,10 +187,10 @@ DAQEvent &DAQEvent::SetPeakThr(float thr)
 
 /*!
  @brief Set the integration window passing two indices that go from 0 to @ref SAMPLES_PER_WAVEFORM.
- 
+
  @param a The left bound
  @param b The right bound
- @return DAQEvent& 
+ @return DAQEvent&
  */
 DAQEvent &DAQEvent::SetIntWindow(int a, int b)
 {
@@ -201,7 +201,7 @@ DAQEvent &DAQEvent::SetIntWindow(int a, int b)
         iw_ = {a, b};
         user_iw_ = true;
     }
-    else 
+    else
     {
         cerr << "!! Error: invalid values passed as integration window" << endl;
         exit(0);
@@ -213,10 +213,10 @@ DAQEvent &DAQEvent::SetIntWindow(int a, int b)
  @brief Set the integration window passing time values in seconds.
 
  @details This method with this signature must be used after the call of DAQEvent::GetChannel().
- 
+
  @param a The left bound
  @param b The right bound
- @return DAQEvent& 
+ @return DAQEvent&
  */
 DAQEvent &DAQEvent::SetIntWindow(float a, float b)
 {
@@ -286,9 +286,9 @@ float DAQEvent::GetAmplitude()
 
 /*!
  @brief Find the time at which the waveform goes under a give threshold level
- 
+
  @param thr The threshold level passed by the user. It must be in a range from -0.5 to 0.5 V.
- @return The time requested 
+ @return The time requested
  */
 float DAQEvent::GetTime(float thr)
 {
@@ -300,29 +300,29 @@ float DAQEvent::GetTime(float thr)
     {
         ++i;
     }
-    
+
     if (i == SAMPLES_PER_WAVEFORM)
     {
-        cout << "Time not found given threshold " << thr << ". Returning 0"<< endl;
+        cout << "Time not found given threshold " << thr << ". Returning 0" << endl;
         return 0;
     }
 
     auto time = times[i] + (thr - volts[i]) * (times[i + 1] - times[i]) / (volts[i + 1] - volts[i]);
 
-    //is_getch_ = false;
+    // is_getch_ = false;
 
     return time;
 }
 
 /*!
  @brief Find the time at which the waveform goes under a given percentage of the waveform peak value
- 
+
  @param CF the constant fraction value. Must be in range (0,1)
  @return The time requested
  */
 float DAQEvent::GetTimeCF(float CF)
 {
-    if (CF <= 0 or CF > 1 )
+    if (CF <= 0 or CF > 1)
     {
         cerr << "!! Error: CF value must be in range (0, 1)" << endl;
         exit(0);
@@ -339,8 +339,8 @@ float DAQEvent::GetTimeCF(float CF)
 
 /*!
  @brief Evaluate the risetime of the waveform
- 
- @return float 
+
+ @return float
  */
 float DAQEvent::GetRiseTime()
 {
@@ -363,7 +363,6 @@ const pair<float, float> &DAQEvent::GetPedestal()
     (*this).EvalPedestal();
     is_getch_ = false;
     return ped_;
-
 }
 
 /*!
@@ -537,7 +536,12 @@ DAQEvent &DAQEvent::FindPeaks()
     auto &times = times_[ch_.first][ch_.second];
     indexMin_ = {};
 
-    if (peak_threshold_ == 1.) // No threshold level set by the user
+    if (user_iw_) // IW set by the user
+    {
+        auto index_min = distance(volts.begin(), min_element(volts.begin() + iw_.first, volts.begin() + iw_.second));
+        indexMin_.push_back(index_min);
+    }
+    else if (peak_threshold_ == 1.) // No threshold level set by the user
     {
         auto index_min = distance(volts.begin(), min_element(volts.begin(), volts.end()));
         for (int i = 1; i < SAMPLES_PER_WAVEFORM - 1; ++i)
@@ -555,29 +559,21 @@ DAQEvent &DAQEvent::FindPeaks()
         if (find(indexMin_.begin(), indexMin_.end(), index_min) == indexMin_.end()) // Sorted insertion of min element's index
         {
             auto pos = find_if(indexMin_.begin(), indexMin_.end(), [index_min](auto i)
-                            { return i > index_min; });
+                               { return i > index_min; });
             indexMin_.insert(pos, index_min);
         }
     }
     else // Threshold level set by the user
     {
-        if (user_iw_) // IW set by the user
+        for (int i = 1; i < SAMPLES_PER_WAVEFORM - 1; ++i)
         {
-            auto index_min = distance(volts.begin(), min_element(volts.begin() + iw_.first, volts.begin() + iw_.second));
-            indexMin_.push_back(index_min);
-        }
-        else // IW not set by the user
-        {
-            for (int i = 1; i < SAMPLES_PER_WAVEFORM - 1; ++i)
+            auto signal = volts[i] - ped_.first < -5 * ped_.second;
+            auto min_left = abs(volts[i]) > abs(volts[i - 1]) + ped_.second;
+            auto min_right = abs(volts[i]) > abs(volts[i + 1]) + ped_.second;
+            auto at_least = volts[i] < peak_threshold_;
+            if (signal and (min_left or min_right) and at_least)
             {
-                auto signal = volts[i] - ped_.first < -5 * ped_.second;
-                auto min_left = abs(volts[i]) > abs(volts[i - 1]) + ped_.second;
-                auto min_right = abs(volts[i]) > abs(volts[i + 1]) + ped_.second;
-                auto at_least = volts[i] < peak_threshold_;
-                if (signal and (min_left or min_right) and at_least)
-                {
-                    indexMin_.push_back(i);
-                }
+                indexMin_.push_back(i);
             }
         }
     }
@@ -601,7 +597,7 @@ DAQEvent &DAQEvent::FindPeaks()
 
 /*!
  @brief Construct a new DAQFile::DAQFile object
- 
+
  */
 DAQFile::DAQFile()
 {

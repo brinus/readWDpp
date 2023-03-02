@@ -87,7 +87,6 @@ public:
     float GetTime(float);
     float GetTimeCF(float);
     float GetRiseTime();
-    float GetFallTime();
     const std::pair<float, float> &GetPedestal();
     const std::pair<int, int> &GetIntegrationBounds();
     const std::vector<float> &GetVolts();

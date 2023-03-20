@@ -285,7 +285,7 @@ float DAQEvent::GetAmplitude()
 }
 
 /*!
- @brief Find the time at which the waveform goes under a give threshold level
+ @brief Find the time at which the waveform goes under a given threshold level
 
  @param thr The threshold level passed by the user. It must be in a range from -0.5 to 0.5 V.
  @return The time requested
@@ -443,6 +443,9 @@ const vector<int> &DAQEvent::GetPeakIndices()
      \f]
 
      @param tCell Cell number at which the signal triggered the board. Found in the event header.
+     @param times Array with time bin width.
+     @param i The index of the board.
+     @param j The index of the channel.
  */
 DAQEvent &DAQEvent::TimeCalibration(const unsigned short &tCell, const std::vector<float> &times, int i, int j)
 {
@@ -520,7 +523,7 @@ DAQEvent &DAQEvent::EvalIntegrationBounds()
 }
 
 /*!
- @brief
+ @brief Method to find peaks in the integration window.
 
  @return DAQEvent&
  */
@@ -618,7 +621,6 @@ DAQFile::DAQFile(const string &fname)
 /*!
  @brief Initialise the file reading the **TIME** block.
 
- @param event The DAQEvent instance where to
  @return DAQFile&
  */
 DAQFile &DAQFile::Initialise()
@@ -691,7 +693,7 @@ DAQFile &DAQFile::Initialise()
 }
 
 /*!
- @brief
+ @brief Method to close the file.
 
  @return DAQFile&
  */
@@ -710,7 +712,7 @@ DAQFile &DAQFile::Close()
 }
 
 /*!
- @brief
+ @brief Method to open a file given the file path and name.
 
  @param fname
  @return DAQFile&
@@ -861,7 +863,7 @@ bool DAQFile::operator>>(WDBEvent &event) // DAQFile >> WDBEvent
 }
 
 /*!
- @brief
+ @brief Read a tag.
 
  @param t
  */
@@ -873,7 +875,7 @@ void DAQFile::Read(TAG &t)
 }
 
 /*!
- @brief
+ @brief Read an event header.
 
  @param eh
  */
@@ -884,7 +886,7 @@ void DAQFile::Read(EventHeader &eh)
 }
 
 /*!
- @brief
+ @brief Read a vector of float.
 
  @param vec
  */
@@ -898,7 +900,9 @@ void DAQFile::Read(vector<float> &vec)
 }
 
 /*!
- @brief
+ @brief Read a vector of voltages.
+
+ @details The reading of a vector of voltages implies also the trasformation from integer to Volts, and the shift due to the range center.
 
  @param vec
  @param range_center
@@ -915,7 +919,11 @@ void DAQFile::Read(vector<float> &vec, const unsigned short &range_center)
 }
 
 /*!
- @brief
+ @brief The evaluation of boolean for the class DAQFile.
+
+ @details This method evaluates all the valid possible combination of consecutive tags to determine if the value to return is 1 or 0.
+ It uses the same principle of a finite state machine with the usage of a map named **header**, where the combination of key-value match the
+ possible configuration of consecutive non-equal tags that can be found in the binary file.
 
  @return true
  @return false
@@ -929,9 +937,7 @@ DAQFile::operator bool()
         return 0;
     }
     else if (n_ == 'T' or n_ == 'D') // Ignores DRSx and TIME
-    {
         return 0;
-    }
     else if (n_ == o_) // C --> C, B --> B
         return 1;
     else if (n_ == header[o_]) // E --> B, B --> C, C --> B

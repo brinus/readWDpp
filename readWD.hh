@@ -161,11 +161,13 @@ public:
     bool operator>>(DRSEvent &);
     bool operator>>(WDBEvent &);
 
+    const MAP &GetTimeMap() { return times_;}; 
+
 private:
     operator bool();
     void Read(TAG &);
     void Read(EventHeader &);
-    void Read(std::vector<float> &);
+    void Read(std::vector<float> &);    
     void Read(std::vector<float> &, const unsigned short &);
     void ResetTag() { in_.seekg(-4, in_.cur); }
 

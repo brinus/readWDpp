@@ -921,9 +921,9 @@ void DAQFile::Read(vector<float> &vec, const unsigned short &range_center)
 /*!
  @brief The evaluation of boolean for the class DAQFile.
 
- @details This method evaluates all the valid possible combination of consecutive tags to determine if the value to return is 1 or 0.
- It uses the same principle of a finite state machine with the usage of a map named **header**, where the combination of key-value match the
- possible configuration of consecutive non-equal tags that can be found in the binary file.
+ @details This method evaluates all the valid possible combinations of consecutive tags to determine if the value to return is 1 or 0.
+ It uses the same principle of a finite state machine with the usage of a map named **header**, where the combinations of key-value match the
+ possible configurations of consecutive non-equal tags that can be found in the binary file.
 
  @return true
  @return false

@@ -121,6 +121,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a553de18754148649638f5ebd2fd2ff8f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQFile.html#a553de18754148649638f5ebd2fd2ff8f">operator&gt;&gt;</a> (<a class="el" href="classWDBEvent.html">WDBEvent</a> &amp;)</td></tr>
 <tr class="memdesc:a553de18754148649638f5ebd2fd2ff8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read into a <a class="el" href="classWDBEvent.html">WDBEvent</a>.  <br /></td></tr>
 <tr class="separator:a553de18754148649638f5ebd2fd2ff8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3e6eb2ed5a7e49820301148198cd9d3"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classDAQFile.html#a4f612979414a025d931e58ef36558c6f">MAP</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQFile.html#ae3e6eb2ed5a7e49820301148198cd9d3">GetTimeMap</a> ()</td></tr>
+<tr class="separator:ae3e6eb2ed5a7e49820301148198cd9d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-types" name="pri-types"></a>
 Private Types</h2></td></tr>
@@ -276,6 +278,33 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="ae3e6eb2ed5a7e49820301148198cd9d3" name="ae3e6eb2ed5a7e49820301148198cd9d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae3e6eb2ed5a7e49820301148198cd9d3">&#9670;&#160;</a></span>GetTimeMap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classDAQFile.html#a4f612979414a025d931e58ef36558c6f">MAP</a> &amp; DAQFile::GetTimeMap </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00164">164</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+
+</div>
+</div>
 <a id="adf184c72d64312f62e4a1056a375bd69" name="adf184c72d64312f62e4a1056a375bd69"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#adf184c72d64312f62e4a1056a375bd69">&#9670;&#160;</a></span>Initialise()</h2>
 
@@ -355,7 +384,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>The evaluation of boolean for the class <a class="el" href="classDAQFile.html" title="Class to manage the file and the outputing of data in a DAQEvent instance.">DAQFile</a>. </p>
-<p>This method evaluates all the valid possible combination of consecutive tags to determine if the value to return is 1 or 0. It uses the same principle of a finite state machine with the usage of a map named <b>header</b>, where the combination of key-value match the possible configuration of consecutive non-equal tags that can be found in the binary file.</p>
+<p>This method evaluates all the valid possible combinations of consecutive tags to determine if the value to return is 1 or 0. It uses the same principle of a finite state machine with the usage of a map named <b>header</b>, where the combinations of key-value match the possible configurations of consecutive non-equal tags that can be found in the binary file.</p>
 <dl class="section return"><dt>Returns</dt><dd>true </dd>
 <dd>
 false </dd></dl>
@@ -583,7 +612,7 @@ false </dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00170">170</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00172">172</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
 
 </div>
 </div>
@@ -610,7 +639,7 @@ false </dd></dl>
 
 <p>The name of the file. </p>
 
-<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00172">172</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00174">174</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
 
 </div>
 </div>
@@ -636,7 +665,7 @@ false </dd></dl>
 
 <p>The input file to read. </p>
 
-<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00173">173</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00175">175</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
 
 </div>
 </div>
@@ -662,7 +691,7 @@ false </dd></dl>
 
 <p>Flag to store if <a class="el" href="classDAQFile.html#adf184c72d64312f62e4a1056a375bd69">DAQFile::Initialise()</a> was already called. </p>
 
-<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00176">176</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00178">178</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
 
 </div>
 </div>
@@ -688,7 +717,7 @@ false </dd></dl>
 
 <p>The initial letter of the newest tag read. </p>
 
-<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00175">175</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00177">177</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
 
 </div>
 </div>
@@ -714,7 +743,7 @@ false </dd></dl>
 
 <p>The initial letter of the previous tag read. </p>
 
-<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00174">174</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00176">176</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
 
 </div>
 </div>
@@ -740,7 +769,7 @@ false </dd></dl>
 
 <p>Struct to hold \( \Delta t\) read from the <code>TIME</code>part of the file. </p>
 
-<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00177">177</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00179">179</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
 
 </div>
 </div>

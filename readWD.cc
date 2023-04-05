@@ -616,6 +616,7 @@ DAQFile::DAQFile(const string &fname)
     filename_ = fname;
     in_.open(fname, std::ios::in | std::ios::binary);
     std::cout << "Created DAQFile, opened file " << fname << std::endl;
+    is_lab_ = 0;
 }
 
 /*!
@@ -644,30 +645,36 @@ DAQFile &DAQFile::Initialise()
 
     cout << "Initializing file " << filename_ << endl;
 
-    file >> bTag; // DRSx
-    file >> cTag; // TIME
-    cout << bTag;
-
-    if (bTag.tag[0] != 'D' and bTag.tag[1] != 'R' and bTag.tag[2] != 'S')
+    file >> bTag; // DRSx (TIME for Lab's DRS boards)
+    if (bTag.tag[0] == 'D' && bTag.tag[1] == 'R' && bTag.tag[2] == 'S')
+    {
+        cout << bTag;
+        if (bTag.tag[3] == '8')
+        {
+            cout << " --> WaveDREAM Board" << endl;
+        }
+        else
+        {
+            cout << " --> DRS Evaluation Board" << endl;
+        }
+        file >> bTag; // TIME
+    }
+    else if (strcmp(bTag.tag, "TIME") == 0)
+    {
+        cout << "LAB-DRS" << endl;
+        is_lab_ = 1;
+    }
+    else
     {
         cerr << "!! Error: invalid file header --> expected \"DRS\", found " << bTag << endl;
         cerr << "Initialisation failed" << endl;
         return file;
     }
-    if (strcmp(cTag.tag, "TIME") != 0)
+    if (strcmp(bTag.tag, "TIME") != 0)
     {
         cerr << "!! Error: invalid time header --> expected \"TIME\", found " << cTag << endl;
         cerr << "Initialisation failed" << endl;
         return file;
-    }
-
-    if (bTag.tag[3] == '8')
-    {
-        cout << " --> WaveDREAM Board" << endl;
-    }
-    else
-    {
-        cout << " --> DRS Evaluation Board" << endl;
     }
 
     o_ = 'B';
@@ -784,15 +791,14 @@ bool DAQFile::operator>>(DRSEvent &event) // DAQFile >> DRSEvent
 
     DAQFile &file = *this;
     TAG bTag, cTag, tag;
-    EventHeader eh;
     vector<float> volts(SAMPLES_PER_WAVEFORM);
     int i = 0, j = 0;
 
     // Read only one event
-    file >> eh;
-    if (eh.serialNumber % 100 == 0)
+    file >> event.eh_;
+    if (event.eh_.serialNumber % 100 == 0)
     {
-        cout << "Event serial number: " << eh.serialNumber << endl;
+        cout << "Event serial number: " << event.eh_.serialNumber << endl;
     }
 
     while (file >> bTag)
@@ -802,8 +808,11 @@ bool DAQFile::operator>>(DRSEvent &event) // DAQFile >> DRSEvent
         j = 0;
         while (file >> cTag)
         {
-            file >> tag; // Time scaler
-            file.Read(volts, eh.rangeCenter);
+            if (!is_lab_)
+            {
+                file >> tag; // Time scaler, LAB-DRS don't have time scaler
+            }
+            file.Read(volts, event.eh_.rangeCenter);
             event.volts_[i][j] = volts;
             event.TimeCalibration(tCell, times_[i][j], i, j);
             ++j;
@@ -831,15 +840,14 @@ bool DAQFile::operator>>(WDBEvent &event) // DAQFile >> WDBEvent
 
     DAQFile &file = *this;
     TAG bTag, cTag, tag;
-    EventHeader eh;
     vector<float> volts(SAMPLES_PER_WAVEFORM);
     int i = 0, j = 0;
 
     // Read only one event
-    file >> eh;
-    if (eh.serialNumber % 100 == 0 and eh.serialNumber > 0)
+    file >> event.eh_;
+    if (event.eh_.serialNumber % 100 == 0 and event.eh_.serialNumber > 0)
     {
-        cout << "Event serial number: " << eh.serialNumber << endl;
+        cout << "Event serial number: " << event.eh_.serialNumber << endl;
     }
 
     while (file >> bTag)
@@ -850,7 +858,7 @@ bool DAQFile::operator>>(WDBEvent &event) // DAQFile >> WDBEvent
             file >> tag; // Time scaler
             file >> tag; // Trigger cell
             auto tCell = *(unsigned short *)(tag.tag + 2);
-            file.Read(volts, eh.rangeCenter);
+            file.Read(volts, event.eh_.rangeCenter);
             event.volts_[i][j] = volts;
             event.TimeCalibration(tCell, times_[i][j], i, j);
             ++j;

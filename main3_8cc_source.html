@@ -105,66 +105,63 @@ $(function() {
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="keyword">auto</span> legend = <span class="keyword">new</span> TLegend();</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    file.<a class="code hl_function" href="classDAQFile.html#a825bff86707cd65dcf2e625c25d85f96">Open</a>(<span class="stringliteral">&quot;data/split1-2at4GSPS&quot;</span>);</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    file.<a class="code hl_function" href="classDAQFile.html#adf184c72d64312f62e4a1056a375bd69">Initialise</a>();</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keywordflow">while</span> (file &gt;&gt; event)</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    {</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <span class="keyword">auto</span> &amp;times0 = <span class="keyword">event</span>.GetChannel(0, 0).GetTimes();</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <span class="keyword">auto</span> &amp;times1 = <span class="keyword">event</span>.GetChannel(0, 1).GetTimes();</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; <a class="code hl_define" href="readWD_8hh.html#a0606d74796559e9e9b17d890a305d35a">SAMPLES_PER_WAVEFORM</a>; ++j)</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        {</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>            h0-&gt;Fill(times0[j] - times1[j]);</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        }</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    }</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    file.<a class="code hl_function" href="classDAQFile.html#a8c817a643655e94d41b1cc7487a61d8d">Close</a>();</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    file.<a class="code hl_function" href="classDAQFile.html#a825bff86707cd65dcf2e625c25d85f96">Open</a>(<span class="stringliteral">&quot;data/split1-8at4GSPS&quot;</span>);</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    file.<a class="code hl_function" href="classDAQFile.html#adf184c72d64312f62e4a1056a375bd69">Initialise</a>();</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keywordflow">while</span> (file &gt;&gt; event)</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    {</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        <span class="keyword">auto</span> &amp;times0 = <span class="keyword">event</span>.GetChannel(0, 0).GetTimes();</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        <span class="keyword">auto</span> &amp;times8 = <span class="keyword">event</span>.GetChannel(0, 8).GetTimes();</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        </div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; <a class="code hl_define" href="readWD_8hh.html#a0606d74796559e9e9b17d890a305d35a">SAMPLES_PER_WAVEFORM</a>; ++j)</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        {</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>            h1-&gt;Fill(times0[j] - times8[j]);</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        }</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    }</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    h1-&gt;SetTitle(<span class="stringliteral">&quot;Time resolution on same chip and on different chips&quot;</span>);</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    h1-&gt;SetLineColor(4);</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    h0-&gt;SetLineColor(2);</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    h0-&gt;SetLineStyle(2);</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    h1-&gt;Draw();</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    h0-&gt;Draw(<span class="stringliteral">&quot;SAMES&quot;</span>);</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    h1-&gt;GetYaxis()-&gt;SetRangeUser(0, 5.5e4);</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    h1-&gt;GetXaxis()-&gt;SetTitle(<span class="stringliteral">&quot;Time [s]&quot;</span>);</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    legend-&gt;AddEntry(h0, <span class="stringliteral">&quot;same chip&quot;</span>);</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    legend-&gt;AddEntry(h1, <span class="stringliteral">&quot;different chip&quot;</span>);</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    </div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    legend-&gt;Draw();</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    c0-&gt;Update();</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    <span class="keywordflow">return</span>;</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>}</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="keywordtype">int</span> main(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> **argv)</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>{</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    TApplication app(<span class="stringliteral">&quot;ROOT Application&quot;</span>, &amp;argc, argv);</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    main1();</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    app.Run();</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>}</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keywordflow">while</span> (file &gt;&gt; event)</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    {</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        <span class="keyword">auto</span> &amp;times0 = <span class="keyword">event</span>.GetChannel(0, 0).GetTimes();</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <span class="keyword">auto</span> &amp;times1 = <span class="keyword">event</span>.GetChannel(0, 1).GetTimes();</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; <a class="code hl_define" href="readWD_8hh.html#a0606d74796559e9e9b17d890a305d35a">SAMPLES_PER_WAVEFORM</a>; ++j)</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        {</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>            h0-&gt;Fill(times0[j] - times1[j]);</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        }</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    }</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    file.<a class="code hl_function" href="classDAQFile.html#a8c817a643655e94d41b1cc7487a61d8d">Close</a>();</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    file.<a class="code hl_function" href="classDAQFile.html#a825bff86707cd65dcf2e625c25d85f96">Open</a>(<span class="stringliteral">&quot;data/split1-8at4GSPS&quot;</span>);</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keywordflow">while</span> (file &gt;&gt; event)</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    {</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <span class="keyword">auto</span> &amp;times0 = <span class="keyword">event</span>.GetChannel(0, 0).GetTimes();</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <span class="keyword">auto</span> &amp;times8 = <span class="keyword">event</span>.GetChannel(0, 8).GetTimes();</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; <a class="code hl_define" href="readWD_8hh.html#a0606d74796559e9e9b17d890a305d35a">SAMPLES_PER_WAVEFORM</a>; ++j)</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        {</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>            h1-&gt;Fill(times0[j] - times8[j]);</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        }</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    }</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    h1-&gt;SetTitle(<span class="stringliteral">&quot;Time resolution on same chip and on different chips&quot;</span>);</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    h1-&gt;SetLineColor(4);</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    h0-&gt;SetLineColor(2);</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    h0-&gt;SetLineStyle(2);</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    h1-&gt;Draw();</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    h0-&gt;Draw(<span class="stringliteral">&quot;SAMES&quot;</span>);</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    h1-&gt;GetYaxis()-&gt;SetRangeUser(0, 5.5e4);</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    h1-&gt;GetXaxis()-&gt;SetTitle(<span class="stringliteral">&quot;Time [s]&quot;</span>);</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    legend-&gt;AddEntry(h0, <span class="stringliteral">&quot;same chip&quot;</span>);</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    legend-&gt;AddEntry(h1, <span class="stringliteral">&quot;different chip&quot;</span>);</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    </div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    legend-&gt;Draw();</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    c0-&gt;Update();</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>}</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="keywordtype">int</span> main(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> **argv)</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>{</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    TApplication app(<span class="stringliteral">&quot;ROOT Application&quot;</span>, &amp;argc, argv);</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    main1();</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    app.Run();</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>}</div>
 <div class="ttc" id="aclassDAQFile_html"><div class="ttname"><a href="classDAQFile.html">DAQFile</a></div><div class="ttdoc">Class to manage the file and the outputing of data in a DAQEvent instance.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8hh_source.html#l00152">readWD.hh:153</a></div></div>
-<div class="ttc" id="aclassDAQFile_html_a825bff86707cd65dcf2e625c25d85f96"><div class="ttname"><a href="classDAQFile.html#a825bff86707cd65dcf2e625c25d85f96">DAQFile::Open</a></div><div class="ttdeci">DAQFile &amp; Open(const std::string &amp;)</div><div class="ttdoc">Method to open a file given the file path and name.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8cc_source.html#l00727">readWD.cc:727</a></div></div>
-<div class="ttc" id="aclassDAQFile_html_a8c817a643655e94d41b1cc7487a61d8d"><div class="ttname"><a href="classDAQFile.html#a8c817a643655e94d41b1cc7487a61d8d">DAQFile::Close</a></div><div class="ttdeci">DAQFile &amp; Close()</div><div class="ttdoc">Method to close the file.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8cc_source.html#l00707">readWD.cc:707</a></div></div>
-<div class="ttc" id="aclassDAQFile_html_adf184c72d64312f62e4a1056a375bd69"><div class="ttname"><a href="classDAQFile.html#adf184c72d64312f62e4a1056a375bd69">DAQFile::Initialise</a></div><div class="ttdeci">DAQFile &amp; Initialise()</div><div class="ttdoc">Initialise the file reading the TIME block.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8cc_source.html#l00627">readWD.cc:627</a></div></div>
+<div class="ttc" id="aclassDAQFile_html_a825bff86707cd65dcf2e625c25d85f96"><div class="ttname"><a href="classDAQFile.html#a825bff86707cd65dcf2e625c25d85f96">DAQFile::Open</a></div><div class="ttdeci">DAQFile &amp; Open(const std::string &amp;)</div><div class="ttdoc">Method to open a file given the file path and name.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8cc_source.html#l00730">readWD.cc:730</a></div></div>
+<div class="ttc" id="aclassDAQFile_html_a8c817a643655e94d41b1cc7487a61d8d"><div class="ttname"><a href="classDAQFile.html#a8c817a643655e94d41b1cc7487a61d8d">DAQFile::Close</a></div><div class="ttdeci">DAQFile &amp; Close()</div><div class="ttdoc">Method to close the file.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8cc_source.html#l00710">readWD.cc:710</a></div></div>
 <div class="ttc" id="aclassWDBEvent_html"><div class="ttname"><a href="classWDBEvent.html">WDBEvent</a></div><div class="ttdef"><b>Definition:</b> <a href="readWD_8hh_source.html#l00144">readWD.hh:145</a></div></div>
 <div class="ttc" id="areadWD_8hh_html_a0606d74796559e9e9b17d890a305d35a"><div class="ttname"><a href="readWD_8hh.html#a0606d74796559e9e9b17d890a305d35a">SAMPLES_PER_WAVEFORM</a></div><div class="ttdeci">#define SAMPLES_PER_WAVEFORM</div><div class="ttdoc">The number of samples made by the waveforms, both DRS and WDB.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8hh_source.html#l00025">readWD.hh:25</a></div></div>
 </div><!-- fragment --></div><!-- contents -->

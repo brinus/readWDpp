@@ -122,11 +122,10 @@ $(function() {
 <div class="line">    <span class="keywordtype">float</span> iw_start = 400;</div>
 <div class="line">    <span class="keywordtype">float</span> iw_stop = 600;</div>
 <div class="line"> </div>
-<div class="line">    file.<a id="a2" name="a2"></a><a class="code hl_function" href="classDAQFile.html#adf184c72d64312f62e4a1056a375bd69">Initialise</a>();</div>
 <div class="line">    <span class="keywordflow">while</span> (file &gt;&gt; event)</div>
 <div class="line">    {</div>
-<div class="line">        <span class="keyword">event</span>.GetChannel(0, 0).SetIntWindow(iw_start, iw_stop);</div>
-<div class="line">        <span class="keyword">auto</span> charge = <span class="keyword">event</span>.GetChannel(0, 0).GetCharge();</div>
+<div class="line">        <span class="keyword">event</span>.<a id="a2" name="a2"></a><a class="code hl_function" href="classDAQEvent.html#ab1176184ce5206715972cb5fb965a8b9">GetChannel</a>(0, 0).<a id="a3" name="a3"></a><a class="code hl_function" href="classDAQEvent.html#acd1b3e8045de9fc782300bd80e808e59">SetIntWindow</a>(iw_start, iw_stop);</div>
+<div class="line">        <span class="keyword">auto</span> charge = <span class="keyword">event</span>.<a class="code hl_function" href="classDAQEvent.html#ab1176184ce5206715972cb5fb965a8b9">GetChannel</a>(0, 0).<a id="a4" name="a4"></a><a class="code hl_function" href="classDAQEvent.html#a8d5626128e1c0aaa4844c9f2db941bc5">GetCharge</a>();</div>
 <div class="line">        <span class="keyword">auto</span> amplitude = <span class="keyword">event</span>.GetChannel(0, 0).GetAmplitude();</div>
 <div class="line">        <span class="keywordflow">if</span> (i == evt or i == 9999)</div>
 <div class="line">        {</div>
@@ -198,8 +197,10 @@ $(function() {
 <div class="line">    app.Run();</div>
 <div class="line">    <span class="keywordflow">return</span> 0;</div>
 <div class="line">}</div>
+<div class="ttc" id="aclassDAQEvent_html_a8d5626128e1c0aaa4844c9f2db941bc5"><div class="ttname"><a href="classDAQEvent.html#a8d5626128e1c0aaa4844c9f2db941bc5">DAQEvent::GetCharge</a></div><div class="ttdeci">float GetCharge()</div><div class="ttdoc">Method to evaluate charge in the integration region.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8cc_source.html#l00250">readWD.cc:250</a></div></div>
+<div class="ttc" id="aclassDAQEvent_html_ab1176184ce5206715972cb5fb965a8b9"><div class="ttname"><a href="classDAQEvent.html#ab1176184ce5206715972cb5fb965a8b9">DAQEvent::GetChannel</a></div><div class="ttdeci">DAQEvent &amp; GetChannel(const int &amp;, const int &amp;)</div><div class="ttdoc">Select the channel to analyze.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8cc_source.html#l00107">readWD.cc:107</a></div></div>
+<div class="ttc" id="aclassDAQEvent_html_acd1b3e8045de9fc782300bd80e808e59"><div class="ttname"><a href="classDAQEvent.html#acd1b3e8045de9fc782300bd80e808e59">DAQEvent::SetIntWindow</a></div><div class="ttdeci">DAQEvent &amp; SetIntWindow(int, int)</div><div class="ttdoc">Set the integration window passing two indices that go from 0 to SAMPLES_PER_WAVEFORM.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8cc_source.html#l00195">readWD.cc:195</a></div></div>
 <div class="ttc" id="aclassDAQFile_html"><div class="ttname"><a href="classDAQFile.html">DAQFile</a></div><div class="ttdoc">Class to manage the file and the outputing of data in a DAQEvent instance.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8hh_source.html#l00152">readWD.hh:153</a></div></div>
-<div class="ttc" id="aclassDAQFile_html_adf184c72d64312f62e4a1056a375bd69"><div class="ttname"><a href="classDAQFile.html#adf184c72d64312f62e4a1056a375bd69">DAQFile::Initialise</a></div><div class="ttdeci">DAQFile &amp; Initialise()</div><div class="ttdoc">Initialise the file reading the TIME block.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8cc_source.html#l00627">readWD.cc:627</a></div></div>
 <div class="ttc" id="aclassDRSEvent_html"><div class="ttname"><a href="classDRSEvent.html">DRSEvent</a></div><div class="ttdef"><b>Definition:</b> <a href="readWD_8hh_source.html#l00136">readWD.hh:137</a></div></div>
 </div><!-- fragment --> </div><!-- contents -->
 <!-- start footer part -->

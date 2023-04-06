@@ -83,7 +83,7 @@ $(function() {
 <div class="textblock"><p>Documentation about the binary file.</p>
 <h2><a class="anchor" id="autotoc_md0"></a>
 Introduction</h2>
-<p>In this page the user can understand how the binary files are written, and so how the <a class="el" href="classDAQFile.html#a402fdd50afd00045414f77539a1fba8a">DAQFile::operator&gt;&gt;</a> works. The main difference between the two types of file is given in the event header: the former binary has a single trigger cell per board, the latter has a trigger cell for each channel. This is due to the fact that the WDB has inside two DRS chip, so to distinguish between the two chip, in the binary the trigger cell is saved for each channel.</p>
+<p>In this page the user can understand how the binary files are written, and so how the <a class="el" href="classDAQFile.html#ac2fdea8b72f71226b07cd1060aaa7586">DAQFile::operator&gt;&gt;</a> works. The main difference between the two types of file is given in the event header: the former binary has a single trigger cell per board, the latter has a trigger cell for each channel. This is due to the fact that the WDB has inside two DRS chip, so to distinguish between the two chip, in the binary the trigger cell is saved for each channel.</p>
 <p>The file can be separated in two parts:</p><ol type="1">
 <li><code>TIME</code> part: here there are stored all the time bin width for all boards and channels. This is made by a <em>sample and hold</em> circuit contained in the board.</li>
 <li><code>EHDR</code> part: there are as many events as selected in the software interface of the specific board, before the binary is saved. In each event there are stored informations about the trigger time, the trigger cell (to reconstruct the time array) and the voltages.</li>

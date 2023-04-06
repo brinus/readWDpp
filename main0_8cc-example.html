@@ -80,7 +80,7 @@ $(function() {
   <div class="headertitle"><div class="title">main0.cc</div></div>
 </div><!--header-->
 <div class="contents">
-<p>The method <a class="el" href="classDAQFile.html#a402fdd50afd00045414f77539a1fba8a">DAQFile::operator&gt;&gt;</a> is used to fill at each event the instance of <a class="el" href="classDAQEvent.html">DAQEvent</a>. In the <code>while</code> the object <code>event</code> is updated everytime with the new event read from the file. The the proper channel is chosen with <a class="el" href="classDAQEvent.html#ab1176184ce5206715972cb5fb965a8b9">DAQEvent::GetChannel()</a> and in cascade is used <a class="el" href="classDAQEvent.html#a1f094a3b66812c85101669d298ae4d05">DAQEvent::GetPedestal()</a> that returns an <code>std::pair&lt;float, float&gt;</code>, the two values are the mean and the standard deviation of the pedestal, these values are used to fill two distinct histograms using ROOT.</p>
+<p>The method <a class="el" href="classDAQFile.html#ac2fdea8b72f71226b07cd1060aaa7586">DAQFile::operator&gt;&gt;</a> is used to fill at each event the instance of <a class="el" href="classDAQEvent.html">DAQEvent</a>. In the <code>while</code> the object <code>event</code> is updated everytime with the new event read from the file. The the proper channel is chosen with <a class="el" href="classDAQEvent.html#ab1176184ce5206715972cb5fb965a8b9">DAQEvent::GetChannel()</a> and in cascade is used <a class="el" href="classDAQEvent.html#a1f094a3b66812c85101669d298ae4d05">DAQEvent::GetPedestal()</a> that returns an <code>std::pair&lt;float, float&gt;</code>, the two values are the mean and the standard deviation of the pedestal, these values are used to fill two distinct histograms using ROOT.</p>
 <div class="fragment"><div class="line"> </div>
 <div class="line"><span class="preprocessor">#include &quot;../readWD.hh&quot;</span></div>
 <div class="line"> </div>
@@ -100,7 +100,6 @@ $(function() {
 <div class="line">    h1-&gt;SetLineColor(kRed);</div>
 <div class="line">    h2-&gt;SetLineColor(kGreen);</div>
 <div class="line"> </div>
-<div class="line">    file.<a id="a2" name="a2"></a><a class="code hl_function" href="classDAQFile.html#adf184c72d64312f62e4a1056a375bd69">Initialise</a>();</div>
 <div class="line">    <span class="keywordflow">while</span> (file &gt;&gt; event)</div>
 <div class="line">    {</div>
 <div class="line">        <span class="keyword">auto</span> pedestal = <span class="keyword">event</span>.GetChannel(0, 0).GetPedestal();</div>
@@ -120,7 +119,6 @@ $(function() {
 <div class="line">    <span class="keywordflow">return</span> 0;</div>
 <div class="line">}</div>
 <div class="ttc" id="aclassDAQFile_html"><div class="ttname"><a href="classDAQFile.html">DAQFile</a></div><div class="ttdoc">Class to manage the file and the outputing of data in a DAQEvent instance.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8hh_source.html#l00152">readWD.hh:153</a></div></div>
-<div class="ttc" id="aclassDAQFile_html_adf184c72d64312f62e4a1056a375bd69"><div class="ttname"><a href="classDAQFile.html#adf184c72d64312f62e4a1056a375bd69">DAQFile::Initialise</a></div><div class="ttdeci">DAQFile &amp; Initialise()</div><div class="ttdoc">Initialise the file reading the TIME block.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8cc_source.html#l00627">readWD.cc:627</a></div></div>
 <div class="ttc" id="aclassDRSEvent_html"><div class="ttname"><a href="classDRSEvent.html">DRSEvent</a></div><div class="ttdef"><b>Definition:</b> <a href="readWD_8hh_source.html#l00136">readWD.hh:137</a></div></div>
 </div><!-- fragment --> </div><!-- contents -->
 <!-- start footer part -->

@@ -120,82 +120,81 @@ $(function() {
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keywordtype">float</span> iw_start = 400;</div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keywordtype">float</span> iw_stop = 600;</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    file.Initialise();</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keywordflow">while</span> (file &gt;&gt; event)</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    {</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        <span class="keyword">event</span>.<a class="code hl_function" href="classDAQEvent.html#ab1176184ce5206715972cb5fb965a8b9">GetChannel</a>(0, 0).<a class="code hl_function" href="classDAQEvent.html#acd1b3e8045de9fc782300bd80e808e59">SetIntWindow</a>(iw_start, iw_stop);</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <span class="keyword">auto</span> charge = <span class="keyword">event</span>.<a class="code hl_function" href="classDAQEvent.html#ab1176184ce5206715972cb5fb965a8b9">GetChannel</a>(0, 0).<a class="code hl_function" href="classDAQEvent.html#a8d5626128e1c0aaa4844c9f2db941bc5">GetCharge</a>();</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <span class="keyword">auto</span> amplitude = <span class="keyword">event</span>.GetChannel(0, 0).GetAmplitude();</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <span class="keywordflow">if</span> (i == evt or i == 9999)</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        {</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>            cout &lt;&lt; <span class="stringliteral">&quot;Charge: &quot;</span> &lt;&lt;  charge &lt;&lt; endl;</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>            <span class="keyword">auto</span> times = <span class="keyword">event</span>.GetChannel(0, 0).GetTimes();</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>            <span class="keyword">auto</span> volts = <span class="keyword">event</span>.GetChannel(0, 0).GetVolts();</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>            <span class="keyword">auto</span> ped = <span class="keyword">event</span>.GetChannel(0, 0).GetPedestal();</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>            <span class="keyword">auto</span> iw = <span class="keyword">event</span>.GetChannel(0, 0).GetIntegrationBounds();</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>            <span class="keyword">auto</span> indexMin = <span class="keyword">event</span>.GetChannel(0, 0).GetPeakIndices();</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>            cout &lt;&lt; <span class="stringliteral">&quot;Integration index: &quot;</span> &lt;&lt; iw.first &lt;&lt; <span class="stringliteral">&quot; &quot;</span> &lt;&lt; iw.second &lt;&lt; endl;</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>            cout &lt;&lt; <span class="stringliteral">&quot;Pedestal: &quot;</span> &lt;&lt; ped.first &lt;&lt; <span class="stringliteral">&quot; +/- &quot;</span> &lt;&lt; ped.second &lt;&lt; endl;</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>            <span class="keyword">auto</span> mg = <span class="keyword">new</span> TMultiGraph();</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>            <span class="keywordtype">string</span> title = <span class="stringliteral">&quot;{event}=&quot;</span> + to_string(evt) + <span class="stringliteral">&quot;, {iw}=(&quot;</span> + to_string(iw.first) + <span class="stringliteral">&quot;,&quot;</span> + to_string(iw.second) + <span class="stringliteral">&quot;), {ped}=&quot;</span> + to_string(ped.first) + <span class="stringliteral">&quot;+/-&quot;</span> + to_string(ped.second);</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>            mg-&gt;SetTitle(title.c_str());</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>            <span class="keyword">auto</span> g1 = <span class="keyword">new</span> TGraph(times.size(), times.data(), volts.data());</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>            <span class="keyword">auto</span> g2 = <span class="keyword">new</span> TGraph(0);</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>            g2-&gt;AddPoint(times[indexMin[0]], volts[indexMin[0]]);</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>            g2-&gt;SetMarkerSize(0.8);</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>            g2-&gt;SetMarkerColor(kRed);</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>            g2-&gt;SetMarkerStyle(kFullTriangleDown);</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>            pad1-&gt;cd();</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>            mg-&gt;Add(g1, <span class="stringliteral">&quot;L&quot;</span>);</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>            mg-&gt;Add(g2, <span class="stringliteral">&quot;P&quot;</span>);</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>            mg-&gt;Draw(<span class="stringliteral">&quot;A&quot;</span>);</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>            c1-&gt;Update();</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>            TLine *ped_m = <span class="keyword">new</span> TLine(gPad-&gt;GetUxmin(), ped.first - 5 * ped.second, gPad-&gt;GetUxmax(), ped.first - 5 * ped.second);</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>            TLine *ped_M = <span class="keyword">new</span> TLine(gPad-&gt;GetUxmin(), ped.first + 5 * ped.second, gPad-&gt;GetUxmax(), ped.first + 5 * ped.second);</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>            TLine *iw_m = <span class="keyword">new</span> TLine(times[iw.first], gPad-&gt;GetUymin(), times[iw.first], gPad-&gt;GetUymax());</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>            TLine *iw_M = <span class="keyword">new</span> TLine(times[iw.second], gPad-&gt;GetUymin(), times[iw.second], gPad-&gt;GetUymax());</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>            ped_m-&gt;SetLineColor(kRed);</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>            ped_M-&gt;SetLineColor(kRed);</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>            iw_m-&gt;SetLineColor(kGreen);</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>            iw_M-&gt;SetLineColor(kGreen);</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>            iw_m-&gt;Draw(<span class="stringliteral">&quot;SAME&quot;</span>);</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>            iw_M-&gt;Draw(<span class="stringliteral">&quot;SAME&quot;</span>);</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>            ped_m-&gt;Draw(<span class="stringliteral">&quot;SAME&quot;</span>);</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>            ped_M-&gt;Draw(<span class="stringliteral">&quot;SAME&quot;</span>);</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>            c1-&gt;Update();</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        }</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        ++i;</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        h1-&gt;Fill(charge);</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        h2-&gt;Fill(amplitude);</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    }</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    pad2-&gt;cd();</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    h1-&gt;Draw();</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    pad3-&gt;cd();</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    h2-&gt;Draw();</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    c1-&gt;Update();</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    <span class="keywordflow">return</span>;</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>}</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span> </div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span><span class="keywordtype">int</span> main(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> **argv)</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>{</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    TApplication app(<span class="stringliteral">&quot;ROOT Application&quot;</span>, &amp;argc, argv);</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    main1();</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    app.Run();</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>}</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keywordflow">while</span> (file &gt;&gt; event)</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    {</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        <span class="keyword">event</span>.<a class="code hl_function" href="classDAQEvent.html#ab1176184ce5206715972cb5fb965a8b9">GetChannel</a>(0, 0).<a class="code hl_function" href="classDAQEvent.html#acd1b3e8045de9fc782300bd80e808e59">SetIntWindow</a>(iw_start, iw_stop);</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        <span class="keyword">auto</span> charge = <span class="keyword">event</span>.<a class="code hl_function" href="classDAQEvent.html#ab1176184ce5206715972cb5fb965a8b9">GetChannel</a>(0, 0).<a class="code hl_function" href="classDAQEvent.html#a8d5626128e1c0aaa4844c9f2db941bc5">GetCharge</a>();</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <span class="keyword">auto</span> amplitude = <span class="keyword">event</span>.GetChannel(0, 0).GetAmplitude();</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <span class="keywordflow">if</span> (i == evt or i == 9999)</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        {</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>            cout &lt;&lt; <span class="stringliteral">&quot;Charge: &quot;</span> &lt;&lt;  charge &lt;&lt; endl;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>            <span class="keyword">auto</span> times = <span class="keyword">event</span>.GetChannel(0, 0).GetTimes();</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>            <span class="keyword">auto</span> volts = <span class="keyword">event</span>.GetChannel(0, 0).GetVolts();</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>            <span class="keyword">auto</span> ped = <span class="keyword">event</span>.GetChannel(0, 0).GetPedestal();</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>            <span class="keyword">auto</span> iw = <span class="keyword">event</span>.GetChannel(0, 0).GetIntegrationBounds();</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>            <span class="keyword">auto</span> indexMin = <span class="keyword">event</span>.GetChannel(0, 0).GetPeakIndices();</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>            cout &lt;&lt; <span class="stringliteral">&quot;Integration index: &quot;</span> &lt;&lt; iw.first &lt;&lt; <span class="stringliteral">&quot; &quot;</span> &lt;&lt; iw.second &lt;&lt; endl;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>            cout &lt;&lt; <span class="stringliteral">&quot;Pedestal: &quot;</span> &lt;&lt; ped.first &lt;&lt; <span class="stringliteral">&quot; +/- &quot;</span> &lt;&lt; ped.second &lt;&lt; endl;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>            <span class="keyword">auto</span> mg = <span class="keyword">new</span> TMultiGraph();</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>            <span class="keywordtype">string</span> title = <span class="stringliteral">&quot;{event}=&quot;</span> + to_string(evt) + <span class="stringliteral">&quot;, {iw}=(&quot;</span> + to_string(iw.first) + <span class="stringliteral">&quot;,&quot;</span> + to_string(iw.second) + <span class="stringliteral">&quot;), {ped}=&quot;</span> + to_string(ped.first) + <span class="stringliteral">&quot;+/-&quot;</span> + to_string(ped.second);</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>            mg-&gt;SetTitle(title.c_str());</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>            <span class="keyword">auto</span> g1 = <span class="keyword">new</span> TGraph(times.size(), times.data(), volts.data());</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>            <span class="keyword">auto</span> g2 = <span class="keyword">new</span> TGraph(0);</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>            g2-&gt;AddPoint(times[indexMin[0]], volts[indexMin[0]]);</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>            g2-&gt;SetMarkerSize(0.8);</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>            g2-&gt;SetMarkerColor(kRed);</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>            g2-&gt;SetMarkerStyle(kFullTriangleDown);</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>            pad1-&gt;cd();</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>            mg-&gt;Add(g1, <span class="stringliteral">&quot;L&quot;</span>);</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>            mg-&gt;Add(g2, <span class="stringliteral">&quot;P&quot;</span>);</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>            mg-&gt;Draw(<span class="stringliteral">&quot;A&quot;</span>);</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>            c1-&gt;Update();</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>            TLine *ped_m = <span class="keyword">new</span> TLine(gPad-&gt;GetUxmin(), ped.first - 5 * ped.second, gPad-&gt;GetUxmax(), ped.first - 5 * ped.second);</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>            TLine *ped_M = <span class="keyword">new</span> TLine(gPad-&gt;GetUxmin(), ped.first + 5 * ped.second, gPad-&gt;GetUxmax(), ped.first + 5 * ped.second);</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>            TLine *iw_m = <span class="keyword">new</span> TLine(times[iw.first], gPad-&gt;GetUymin(), times[iw.first], gPad-&gt;GetUymax());</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>            TLine *iw_M = <span class="keyword">new</span> TLine(times[iw.second], gPad-&gt;GetUymin(), times[iw.second], gPad-&gt;GetUymax());</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>            ped_m-&gt;SetLineColor(kRed);</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>            ped_M-&gt;SetLineColor(kRed);</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>            iw_m-&gt;SetLineColor(kGreen);</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>            iw_M-&gt;SetLineColor(kGreen);</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>            iw_m-&gt;Draw(<span class="stringliteral">&quot;SAME&quot;</span>);</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>            iw_M-&gt;Draw(<span class="stringliteral">&quot;SAME&quot;</span>);</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>            ped_m-&gt;Draw(<span class="stringliteral">&quot;SAME&quot;</span>);</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>            ped_M-&gt;Draw(<span class="stringliteral">&quot;SAME&quot;</span>);</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>            c1-&gt;Update();</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        }</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        ++i;</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        h1-&gt;Fill(charge);</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        h2-&gt;Fill(amplitude);</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    }</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    pad2-&gt;cd();</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    h1-&gt;Draw();</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    pad3-&gt;cd();</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    h2-&gt;Draw();</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    c1-&gt;Update();</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>}</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span><span class="keywordtype">int</span> main(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> **argv)</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>{</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    TApplication app(<span class="stringliteral">&quot;ROOT Application&quot;</span>, &amp;argc, argv);</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    main1();</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    app.Run();</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>}</div>
 <div class="ttc" id="aclassDAQEvent_html_a8d5626128e1c0aaa4844c9f2db941bc5"><div class="ttname"><a href="classDAQEvent.html#a8d5626128e1c0aaa4844c9f2db941bc5">DAQEvent::GetCharge</a></div><div class="ttdeci">float GetCharge()</div><div class="ttdoc">Method to evaluate charge in the integration region.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8cc_source.html#l00250">readWD.cc:250</a></div></div>
 <div class="ttc" id="aclassDAQEvent_html_ab1176184ce5206715972cb5fb965a8b9"><div class="ttname"><a href="classDAQEvent.html#ab1176184ce5206715972cb5fb965a8b9">DAQEvent::GetChannel</a></div><div class="ttdeci">DAQEvent &amp; GetChannel(const int &amp;, const int &amp;)</div><div class="ttdoc">Select the channel to analyze.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8cc_source.html#l00107">readWD.cc:107</a></div></div>
 <div class="ttc" id="aclassDAQEvent_html_acd1b3e8045de9fc782300bd80e808e59"><div class="ttname"><a href="classDAQEvent.html#acd1b3e8045de9fc782300bd80e808e59">DAQEvent::SetIntWindow</a></div><div class="ttdeci">DAQEvent &amp; SetIntWindow(int, int)</div><div class="ttdoc">Set the integration window passing two indices that go from 0 to SAMPLES_PER_WAVEFORM.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8cc_source.html#l00195">readWD.cc:195</a></div></div>

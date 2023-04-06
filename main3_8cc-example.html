@@ -105,22 +105,20 @@ $(function() {
 <div class="line">    <span class="keyword">auto</span> legend = <span class="keyword">new</span> TLegend();</div>
 <div class="line"> </div>
 <div class="line">    file.<a id="a2" name="a2"></a><a class="code hl_function" href="classDAQFile.html#a825bff86707cd65dcf2e625c25d85f96">Open</a>(<span class="stringliteral">&quot;data/split1-2at4GSPS&quot;</span>);</div>
-<div class="line">    file.<a id="a3" name="a3"></a><a class="code hl_function" href="classDAQFile.html#adf184c72d64312f62e4a1056a375bd69">Initialise</a>();</div>
 <div class="line"> </div>
 <div class="line">    <span class="keywordflow">while</span> (file &gt;&gt; event)</div>
 <div class="line">    {</div>
 <div class="line">        <span class="keyword">auto</span> &amp;times0 = <span class="keyword">event</span>.GetChannel(0, 0).GetTimes();</div>
 <div class="line">        <span class="keyword">auto</span> &amp;times1 = <span class="keyword">event</span>.GetChannel(0, 1).GetTimes();</div>
 <div class="line"> </div>
-<div class="line">        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; <a id="a4" name="a4"></a><a class="code hl_define" href="readWD_8hh.html#a0606d74796559e9e9b17d890a305d35a">SAMPLES_PER_WAVEFORM</a>; ++j)</div>
+<div class="line">        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; <a id="a3" name="a3"></a><a class="code hl_define" href="readWD_8hh.html#a0606d74796559e9e9b17d890a305d35a">SAMPLES_PER_WAVEFORM</a>; ++j)</div>
 <div class="line">        {</div>
 <div class="line">            h0-&gt;Fill(times0[j] - times1[j]);</div>
 <div class="line">        }</div>
 <div class="line">    }</div>
 <div class="line"> </div>
-<div class="line">    file.<a id="a5" name="a5"></a><a class="code hl_function" href="classDAQFile.html#a8c817a643655e94d41b1cc7487a61d8d">Close</a>();</div>
+<div class="line">    file.<a id="a4" name="a4"></a><a class="code hl_function" href="classDAQFile.html#a8c817a643655e94d41b1cc7487a61d8d">Close</a>();</div>
 <div class="line">    file.<a class="code hl_function" href="classDAQFile.html#a825bff86707cd65dcf2e625c25d85f96">Open</a>(<span class="stringliteral">&quot;data/split1-8at4GSPS&quot;</span>);</div>
-<div class="line">    file.<a class="code hl_function" href="classDAQFile.html#adf184c72d64312f62e4a1056a375bd69">Initialise</a>();</div>
 <div class="line"> </div>
 <div class="line">    <span class="keywordflow">while</span> (file &gt;&gt; event)</div>
 <div class="line">    {</div>
@@ -162,9 +160,8 @@ $(function() {
 <div class="line">    <span class="keywordflow">return</span> 0;</div>
 <div class="line">}</div>
 <div class="ttc" id="aclassDAQFile_html"><div class="ttname"><a href="classDAQFile.html">DAQFile</a></div><div class="ttdoc">Class to manage the file and the outputing of data in a DAQEvent instance.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8hh_source.html#l00152">readWD.hh:153</a></div></div>
-<div class="ttc" id="aclassDAQFile_html_a825bff86707cd65dcf2e625c25d85f96"><div class="ttname"><a href="classDAQFile.html#a825bff86707cd65dcf2e625c25d85f96">DAQFile::Open</a></div><div class="ttdeci">DAQFile &amp; Open(const std::string &amp;)</div><div class="ttdoc">Method to open a file given the file path and name.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8cc_source.html#l00727">readWD.cc:727</a></div></div>
-<div class="ttc" id="aclassDAQFile_html_a8c817a643655e94d41b1cc7487a61d8d"><div class="ttname"><a href="classDAQFile.html#a8c817a643655e94d41b1cc7487a61d8d">DAQFile::Close</a></div><div class="ttdeci">DAQFile &amp; Close()</div><div class="ttdoc">Method to close the file.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8cc_source.html#l00707">readWD.cc:707</a></div></div>
-<div class="ttc" id="aclassDAQFile_html_adf184c72d64312f62e4a1056a375bd69"><div class="ttname"><a href="classDAQFile.html#adf184c72d64312f62e4a1056a375bd69">DAQFile::Initialise</a></div><div class="ttdeci">DAQFile &amp; Initialise()</div><div class="ttdoc">Initialise the file reading the TIME block.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8cc_source.html#l00627">readWD.cc:627</a></div></div>
+<div class="ttc" id="aclassDAQFile_html_a825bff86707cd65dcf2e625c25d85f96"><div class="ttname"><a href="classDAQFile.html#a825bff86707cd65dcf2e625c25d85f96">DAQFile::Open</a></div><div class="ttdeci">DAQFile &amp; Open(const std::string &amp;)</div><div class="ttdoc">Method to open a file given the file path and name.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8cc_source.html#l00730">readWD.cc:730</a></div></div>
+<div class="ttc" id="aclassDAQFile_html_a8c817a643655e94d41b1cc7487a61d8d"><div class="ttname"><a href="classDAQFile.html#a8c817a643655e94d41b1cc7487a61d8d">DAQFile::Close</a></div><div class="ttdeci">DAQFile &amp; Close()</div><div class="ttdoc">Method to close the file.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8cc_source.html#l00710">readWD.cc:710</a></div></div>
 <div class="ttc" id="aclassWDBEvent_html"><div class="ttname"><a href="classWDBEvent.html">WDBEvent</a></div><div class="ttdef"><b>Definition:</b> <a href="readWD_8hh_source.html#l00144">readWD.hh:145</a></div></div>
 <div class="ttc" id="areadWD_8hh_html_a0606d74796559e9e9b17d890a305d35a"><div class="ttname"><a href="readWD_8hh.html#a0606d74796559e9e9b17d890a305d35a">SAMPLES_PER_WAVEFORM</a></div><div class="ttdeci">#define SAMPLES_PER_WAVEFORM</div><div class="ttdoc">The number of samples made by the waveforms, both DRS and WDB.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8hh_source.html#l00025">readWD.hh:25</a></div></div>
 </div><!-- fragment --> </div><!-- contents -->

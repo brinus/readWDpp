@@ -46,7 +46,6 @@ void main1()
     float iw_start = 400;
     float iw_stop = 600;
 
-    file.Initialise();
     while (file >> event)
     {
         event.GetChannel(0, 0).SetIntWindow(iw_start, iw_stop);

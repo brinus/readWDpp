@@ -604,6 +604,8 @@ DAQEvent &DAQEvent::FindPeaks()
  */
 DAQFile::DAQFile()
 {
+    std::cout << "Created DAQFile, open a file using DAQFile::Open()" << endl;
+    is_lab_ = 0;
 }
 
 /*!
@@ -617,6 +619,7 @@ DAQFile::DAQFile(const string &fname)
     in_.open(fname, std::ios::in | std::ios::binary);
     std::cout << "Created DAQFile, opened file " << fname << std::endl;
     is_lab_ = 0;
+    (*this).Initialise();
 }
 
 /*!
@@ -732,6 +735,7 @@ DAQFile &DAQFile::Open(const string &fname)
         in_.open(fname, std::ios::in | std::ios::binary);
         std::cout << std::endl
                   << "Created DAQFile, opened file " << fname << std::endl;
+        (*this).Initialise();
         return *this;
     }
     else

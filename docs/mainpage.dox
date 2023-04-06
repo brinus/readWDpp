@@ -27,7 +27,6 @@ void mainExample0()
     DAQFile file("path/to/file.dat");
     DRSEvent event;
 
-    file.Initialise();
     while (file >> event)
     {
         float charge = event.GetChannel(0, 0).GetCharge();
@@ -68,7 +67,7 @@ The library implements two main classes DAQFile and DAQEvent, these two are the 
 
 ### DAQFile
 
-It is recomended at the beginning to create an istance of DAQFile, using the default constructor or passing it the path to the file to be opened. Then it must be used the method
+It is recomended at the beginning to create an istance of DAQFile, using the default constructor or passing it the path to the file to be opened. The library will automatically call the method
 @ref DAQFile::Initialise(), which will read the ```TIME``` header and the array of times. After that, the class is thought to be used as an input stream. Redirecting the DAQFile into 
 a DAQEvent instance, one single event is read: voltages and and integrated times are passed into the DAQEvent instance. It is possible to do this operation untill the end of the
 file is reached.
@@ -88,11 +87,10 @@ DAQFile file;
 DRSEvent event;
 @endcode
 
-Now you can open a file giving the relative path, and initialise the file.
+Now you can open a file giving the relative path.
 
 @code{.cpp}
 file.Open("path/to/file.dat");
-file.Initialise();
 @endcode
 
 To read each event is possible to use a while loop. Inside the while loop the user can access any channel by using the method @ref DAQEvent::GetChannel(). After that

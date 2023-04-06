@@ -158,18 +158,20 @@ public:
     DAQFile(const std::string &);
     ~DAQFile() { in_.close(); }
 
-    DAQFile &Initialise();
     DAQFile &Close();
     DAQFile &Open(const std::string &);
 
-    bool operator>>(TAG &);
-    bool operator>>(EventHeader &);
     bool operator>>(DRSEvent &);
     bool operator>>(WDBEvent &);
 
     const MAP &GetTimeMap() { return times_; };
 
 private:
+
+    DAQFile &Initialise();
+
+    bool operator>>(TAG &);
+    bool operator>>(EventHeader &);
     operator bool();
     void Read(TAG &);
     void Read(EventHeader &);

@@ -15,7 +15,6 @@ void main2(void)
     auto mg = new TMultiGraph();
     auto c1 = new TCanvas("c1", "c1", 1);
 
-    file.Initialise();
     while (file >> event and i < 99)
     {
         if (i == 98)

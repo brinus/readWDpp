@@ -34,7 +34,6 @@ void main1()
     auto legend = new TLegend();
 
     file.Open("data/split1-2at4GSPS");
-    file.Initialise();
 
     while (file >> event)
     {
@@ -49,7 +48,6 @@ void main1()
 
     file.Close();
     file.Open("data/split1-8at4GSPS");
-    file.Initialise();
 
     while (file >> event)
     {

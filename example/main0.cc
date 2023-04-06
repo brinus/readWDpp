@@ -27,7 +27,6 @@ void main0()
     h1->SetLineColor(kRed);
     h2->SetLineColor(kGreen);
 
-    file.Initialise();
     while (file >> event)
     {
         auto pedestal = event.GetChannel(0, 0).GetPedestal();

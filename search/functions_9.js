@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['tag_0',['TAG',['../structTAG.html#abca61d4a36c6491f3f702cd087dd7648',1,'TAG']]],
-  ['timecalibration_1',['TimeCalibration',['../classDAQEvent.html#a1df88166e2ee2c22662c870d3a6463b4',1,'DAQEvent']]]
+  ['setintwindow_0',['SetIntWindow',['../classDAQEvent.html#acd1b3e8045de9fc782300bd80e808e59',1,'DAQEvent::SetIntWindow(int, int)'],['../classDAQEvent.html#ab8255f5f9bb63ea2abb114fdda5174a5',1,'DAQEvent::SetIntWindow(float, float)']]],
+  ['setpeakthr_1',['SetPeakThr',['../classDAQEvent.html#a698fb367ce23e6731f7f8613ed646a52',1,'DAQEvent']]],
+  ['setpedinterval_2',['SetPedInterval',['../classDAQEvent.html#ac5d33cf8009906f10396948b9934227c',1,'DAQEvent']]]
 ];

@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['setintwindow_0',['SetIntWindow',['../classDAQEvent.html#acd1b3e8045de9fc782300bd80e808e59',1,'DAQEvent::SetIntWindow(int, int)'],['../classDAQEvent.html#ab8255f5f9bb63ea2abb114fdda5174a5',1,'DAQEvent::SetIntWindow(float, float)']]],
-  ['setpeakthr_1',['SetPeakThr',['../classDAQEvent.html#a698fb367ce23e6731f7f8613ed646a52',1,'DAQEvent']]],
-  ['setpedinterval_2',['SetPedInterval',['../classDAQEvent.html#ac5d33cf8009906f10396948b9934227c',1,'DAQEvent']]]
+  ['read_0',['Read',['../classDAQFile.html#aa9f5a14429b16c49a886b4796d594dec',1,'DAQFile::Read(TAG &amp;)'],['../classDAQFile.html#aa5669987d02fd94eb1d767c8fb2d3420',1,'DAQFile::Read(EventHeader &amp;)']]]
 ];

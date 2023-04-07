@@ -147,7 +147,8 @@ DAQEvent &DAQEvent::SetPedInterval(int a, int b)
 {
     if (a > SAMPLES_PER_WAVEFORM or b > SAMPLES_PER_WAVEFORM)
     {
-        cerr << "!! Error: in DAQEvent::SetPedInterval, bound(s) must be lower of " << SAMPLES_PER_WAVEFORM << endl;
+        cerr << "!! Error: in DAQEvent::SetPedInterval(), bound(s) must be lower of " << SAMPLES_PER_WAVEFORM << endl;
+        cerr << "Bounds passed: a = " << a << ", b = " << b << endl;
         exit(0);
     }
     if (a < b)
@@ -178,7 +179,8 @@ DAQEvent &DAQEvent::SetPeakThr(float thr)
 {
     if ((thr < -0.5 or thr > 0.5) and thr != 1.)
     {
-        cerr << "!! Error: invalid threshold level passed to function" << endl;
+        cerr << "!! Error: invalid threshold level passed to function, it must be in the interval (-0.5, +0.5)V" << endl;
+        cerr << "Threshold level passed: thr = " << thr << endl;
         exit(0);
     }
     peak_threshold_ = thr;

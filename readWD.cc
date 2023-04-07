@@ -596,6 +596,195 @@ DAQEvent &DAQEvent::FindPeaks()
 
 /*
   ┌─────────────────────────────────────────────────────────────────────────┐
+  │ CLASSES : DAQConfig                                                     │
+  └─────────────────────────────────────────────────────────────────────────┘
+ */
+
+DAQConfig::DAQConfig()
+{
+    is_makeconfig_ = false;
+}
+
+/*!
+ @brief Initialise the configuration class with the default values for any board and any channel. 
+ 
+ @param file 
+ */
+void DAQConfig::MakeConfig(DAQFile &file)
+{
+    if (file.initialization_ == false)
+    {
+        cerr << "!! Error : File was not initialised, use DAQFile::Open()" << endl;
+        exit(0);
+    }
+
+    is_makeconfig_ = true;
+    for (auto &[bKey, bVal] : file.times_)
+    {
+        for (auto &[cKey, cVal] : bVal)
+        {
+            intWindow_[bKey][cKey] = {0, SAMPLES_PER_WAVEFORM - 1};
+            pedInterval_[bKey][cKey] = {0, 100};
+            peakThr_[bKey][cKey] = +0.5;
+        }
+    }
+}
+
+void DAQConfig::SetIntWindow(pair<int, int> &intWindow, int b, int c)
+{
+    if (is_makeconfig_ == false)
+    {
+        cerr << "!! Error : Configuration class not initialised, use DAQEvent::MakeConfig()" << endl;
+        exit(0);
+    }
+
+    if (intWindow.first < 0 || intWindow.first > intWindow.second || intWindow.second > SAMPLES_PER_WAVEFORM - 1)
+    {
+        cerr << "!! Error : Integration window has invalid value" << endl
+             << " Values must be in interval (0, " << SAMPLES_PER_WAVEFORM << "), passed values are ( "<< intWindow.first << ", "<< intWindow.second << ")" << endl;
+        exit(0); 
+    } 
+
+    if (intWindow_.find(b) != intWindow_.end())
+    {
+        if (intWindow_[b].find(c) != intWindow_[b].end())
+        {
+            intWindow_[b][c] = intWindow;
+            return;
+        }
+    }
+    cerr << "!! Error : Couldn't find board-channel of ID (" << b << ", " << c << ")" << endl;;
+    exit(0);
+}
+
+void DAQConfig::SetIntWindow(pair<int, int> &intWindow)
+{
+    if (is_makeconfig_ == false)
+    {
+        cerr << "!! Error : Configuration class not initialised, use DAQEvent::MakeConfig()" << endl;
+        exit(0);
+    }
+
+    if (intWindow.first < 0 || intWindow.first > intWindow.second || intWindow.second > SAMPLES_PER_WAVEFORM - 1)
+    {
+        cerr << "!! Error : Integration window has invalid value" << endl
+             << " Values must be in interval (0, " << SAMPLES_PER_WAVEFORM << "), passed values are ( "<< intWindow.first << ", "<< intWindow.second << ")" << endl;
+        exit(0); 
+    } 
+
+    for (auto &[bKey, bVal] : intWindow_)
+    {
+        for (auto &[cKey, cVal] : bVal)
+        {
+            cVal = intWindow;
+        }
+    }
+}
+
+void DAQConfig::SetPedInterval(pair<int, int> &pedInterval, int b, int c)
+{
+    if (is_makeconfig_ == false)
+    {
+        cerr << "!! Error : Configuration class not initialised, use DAQEvent::MakeConfig()" << endl;
+        exit(0);
+    }
+
+    if (pedInterval.first < 0 || pedInterval.first > pedInterval.second || pedInterval.second > SAMPLES_PER_WAVEFORM - 1)
+    {
+        cerr << "!! Error : Pedestal interval has invalid value" << endl
+             << " Values must be in interval (0, " << SAMPLES_PER_WAVEFORM << "), passed values are ( "<< pedInterval.first << ", "<< pedInterval.second << ")" << endl;
+        exit(0); 
+    } 
+
+    if (pedInterval_.find(b) != pedInterval_.end())
+    {
+        if (pedInterval_[b].find(c) != pedInterval_[b].end())
+        {
+            pedInterval_[b][c] = pedInterval;
+            return;
+        }
+    }
+    cerr << "!! Error : Couldn't find board-channel of ID (" << b  << ", " << c << ")" << endl;
+    exit(0);
+}
+
+void DAQConfig::SetPedInterval(pair<int, int> &pedInterval)
+{
+    if (is_makeconfig_ == false)
+    {
+        cerr << "!! Error : Configuration class not initialised, use DAQEvent::MakeConfig()" << endl;
+        exit(0);
+    }
+
+    if (pedInterval.first < 0 || pedInterval.first > pedInterval.second || pedInterval.second > SAMPLES_PER_WAVEFORM - 1)
+    {
+        cerr << "!! Error : Pedestal interval has invalid value" << endl
+             << " Values must be in interval (0, " << SAMPLES_PER_WAVEFORM << "), passed values are ( "<< pedInterval.first << ", "<< pedInterval.second << ")";
+        exit(0); 
+    } 
+
+    for (auto &[bKey, bVal] : pedInterval_)
+    {
+        for (auto &[cKey, cVal] : bVal)
+        {
+            cVal = pedInterval;
+        }
+    }
+}
+
+void DAQConfig::SetPeakThr(float thr, int b, int c)
+{
+    if (is_makeconfig_ == false)
+    {
+        cerr << "!! Error : Configuration class not initialised, use DAQEvent::MakeConfig()" << endl;
+        exit(0);
+    }
+
+    if (thr < -0.5 || thr > +0.5)
+    {
+        cerr << "!! Error : Peak threshold has invalid value" << endl
+             << " Values must be in interval (-0.5, +0.5), passed values is " << thr << endl;
+        exit(0); 
+    } 
+
+    if (peakThr_.find(b) != peakThr_.end())
+    {
+        if (peakThr_[b].find(c) != peakThr_[b].end())
+        {
+            peakThr_[b][c] = thr;
+            return;
+        }
+    }
+    cerr << "!! Error : Couldn't find board-channel of ID (" << b  << ", " << c << ")" << endl;
+    exit(0);
+}
+
+void DAQConfig::SetPeakThr(float thr)
+{
+    if (is_makeconfig_ == false)
+    {
+        cerr << "!! Error : Configuration class not initialised, use DAQEvent::MakeConfig()" << endl;
+        exit(0);
+    }
+
+    if (thr < -0.5 || thr > +0.5)
+    {
+        cerr << "!! Error : Peak threshold has invalid value" << endl
+             << " Values must be in interval (-0.5, +0.5), passed values is " << thr << endl;
+        exit(0); 
+    }
+
+    for (auto &[bKey, bVal] : peakThr_)
+    {
+        for (auto &[cKey, cVal] : bVal)
+        {
+            cVal = thr;
+        }
+    }
+}
+
+/*
+  ┌─────────────────────────────────────────────────────────────────────────┐
   │ CLASSES : DAQFile                                                       │
   └─────────────────────────────────────────────────────────────────────────┘
  */

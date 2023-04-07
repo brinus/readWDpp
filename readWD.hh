@@ -66,6 +66,34 @@ struct EventHeader
     unsigned short rangeCenter; ///< The rangeCenter (in Volts).
 };
 
+class DAQConfig;
+class DAQEvent;
+class DAQFile;
+
+class DAQConfig
+{
+private:
+    DAQConfig();
+
+    void MakeConfig(DAQFile &);
+
+    std::map<int, std::map<int, std::pair<int, int>>> intWindow_;
+    std::map<int, std::map<int, std::pair<int, int>>> pedInterval_;
+    std::map<int, std::map<int, float>> peakThr_;
+
+    void SetIntWindow(std::pair<int, int> &, int, int);
+    void SetIntWindow(std::pair<int, int> &);
+    void SetPedInterval(std::pair<int, int> &, int, int);
+    void SetPedInterval(std::pair<int, int> &);
+    void SetPeakThr(float thr, int, int);
+    void SetPeakThr(float thr);
+
+    bool is_makeconfig_;
+
+    friend class DAQEvent;
+    friend class DAQFile;
+};
+
 /*!
  @brief Main class to store voltage and time values.
 
@@ -84,6 +112,8 @@ public:
     DAQEvent &SetPeakThr(float);
     DAQEvent &SetIntWindow(int, int);
     DAQEvent &SetIntWindow(float, float);
+
+    void MakeConfig(DAQFile &file){config_.MakeConfig(file);};
 
     float GetCharge();
     float GetAmplitude();
@@ -110,6 +140,7 @@ private:
     MAP volts_; ///< Structure to hold voltage values of all boards and channels.
 
     EventHeader eh_;
+    DAQConfig config_;
 
     std::pair<float, float> ped_;      ///< Pair to hold pedestal *mean* and pedestal *std.dev.*.
     std::pair<float, float> peak_;     ///< Pair to hold value of voltage and time at the peak.
@@ -186,6 +217,8 @@ private:
     bool initialization_;  ///< Flag to store if @ref DAQFile::Initialise() was already called
     MAP times_;            ///< Struct to hold \f$ \Delta t\f$ read from the ```TIME```part of the file
     bool is_lab_;          ///< Flag to check if the board is from LAB or not;
+
+    friend class DAQConfig;
 };
 
 /*

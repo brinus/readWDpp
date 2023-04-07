@@ -630,6 +630,21 @@ void DAQConfig::MakeConfig(DAQFile &file)
     }
 }
 
+void DAQConfig::ShowConfig()
+{
+    cout << "----- CONFIGURATION SETTINGS -----" << endl;
+    for (auto &[bKey, bVal] : peakThr_)
+    {
+        for (auto &[cKey, cVal] : bVal)
+        {
+            cout << " - Board/Channel ID : " << bKey << "/" << cKey << endl
+                 << "       - Integration window : (" << intWindow_[bKey][cKey].first << ", " << intWindow_[bKey][cKey].second << ")" << endl
+                 << "       - Pedestal interval : (" << pedInterval_[bKey][cKey].first << ", " << pedInterval_[bKey][cKey].second << ")" << endl
+                 << "       - Peak threshold : " << cVal << " V" << endl;
+        }
+    }
+}
+
 void DAQConfig::SetIntWindow(pair<int, int> &intWindow, int b, int c)
 {
     if (is_makeconfig_ == false)
@@ -797,6 +812,7 @@ DAQFile::DAQFile()
 {
     std::cout << "Created DAQFile, open a file using DAQFile::Open()" << endl;
     is_lab_ = 0;
+    initialization_ = false;
 }
 
 /*!
@@ -872,7 +888,7 @@ DAQFile &DAQFile::Initialise()
     }
 
     o_ = 'B';
-    initialization_ = 0;
+    initialization_ = true;
     int i = 0, j = 0;
     while (file >> bTag)
     {
@@ -927,6 +943,7 @@ DAQFile &DAQFile::Open(const string &fname)
         std::cout << std::endl
                   << "Created DAQFile, opened file " << fname << std::endl;
         (*this).Initialise();
+        initialization_ = true;
         return *this;
     }
     else

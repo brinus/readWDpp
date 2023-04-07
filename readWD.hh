@@ -76,6 +76,7 @@ private:
     DAQConfig();
 
     void MakeConfig(DAQFile &);
+    void ShowConfig();
 
     std::map<int, std::map<int, std::pair<int, int>>> intWindow_;
     std::map<int, std::map<int, std::pair<int, int>>> pedInterval_;
@@ -114,6 +115,7 @@ public:
     DAQEvent &SetIntWindow(float, float);
 
     void MakeConfig(DAQFile &file){config_.MakeConfig(file);};
+    void ShowConfig(){config_.ShowConfig();};
 
     float GetCharge();
     float GetAmplitude();

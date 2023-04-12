@@ -85,7 +85,7 @@ $(function() {
 <li>The charge histogram.</li>
 <li>The amplitude histogram</li>
 </ol>
-<p>In details, the first pad contains the selected waveform, the pedestal band (red lines), the integration window (green lines) and the peak (red triangle). The integration window in this example is setted by the user with the method <a class="el" href="classDAQEvent.html#acd1b3e8045de9fc782300bd80e808e59">DAQEvent::SetIntWindow()</a>.</p>
+<p>In details, the first pad contains the selected waveform, the pedestal band (red lines), the integration window (green lines) and the peak (red triangle). The integration window in this example is setted by the user with the method <a class="el" href="classDAQEvent.html#aae14678619562b01b8469eb415b53eb4">DAQEvent::SetIntWindow()</a>.</p>
 <div class="fragment"><div class="line"> </div>
 <div class="line"><span class="preprocessor">#include &quot;../readWD.hh&quot;</span></div>
 <div class="line"> </div>
@@ -124,8 +124,8 @@ $(function() {
 <div class="line"> </div>
 <div class="line">    <span class="keywordflow">while</span> (file &gt;&gt; event)</div>
 <div class="line">    {</div>
-<div class="line">        <span class="keyword">event</span>.<a id="a2" name="a2"></a><a class="code hl_function" href="classDAQEvent.html#ab1176184ce5206715972cb5fb965a8b9">GetChannel</a>(0, 0).<a id="a3" name="a3"></a><a class="code hl_function" href="classDAQEvent.html#acd1b3e8045de9fc782300bd80e808e59">SetIntWindow</a>(iw_start, iw_stop);</div>
-<div class="line">        <span class="keyword">auto</span> charge = <span class="keyword">event</span>.<a class="code hl_function" href="classDAQEvent.html#ab1176184ce5206715972cb5fb965a8b9">GetChannel</a>(0, 0).<a id="a4" name="a4"></a><a class="code hl_function" href="classDAQEvent.html#a8d5626128e1c0aaa4844c9f2db941bc5">GetCharge</a>();</div>
+<div class="line">        <span class="keyword">event</span>.<a id="a2" name="a2"></a><a class="code hl_function" href="classDAQEvent.html#ab1176184ce5206715972cb5fb965a8b9">GetChannel</a>(0, 0).<a id="a3" name="a3"></a><a class="code hl_function" href="classDAQEvent.html#aae14678619562b01b8469eb415b53eb4">SetIntWindow</a>(iw_start, iw_stop);</div>
+<div class="line">        <span class="keyword">auto</span> charge = <span class="keyword">event</span>.GetChannel(0, 0).GetCharge();</div>
 <div class="line">        <span class="keyword">auto</span> amplitude = <span class="keyword">event</span>.GetChannel(0, 0).GetAmplitude();</div>
 <div class="line">        <span class="keywordflow">if</span> (i == evt or i == 9999)</div>
 <div class="line">        {</div>
@@ -197,9 +197,8 @@ $(function() {
 <div class="line">    app.Run();</div>
 <div class="line">    <span class="keywordflow">return</span> 0;</div>
 <div class="line">}</div>
-<div class="ttc" id="aclassDAQEvent_html_a8d5626128e1c0aaa4844c9f2db941bc5"><div class="ttname"><a href="classDAQEvent.html#a8d5626128e1c0aaa4844c9f2db941bc5">DAQEvent::GetCharge</a></div><div class="ttdeci">float GetCharge()</div><div class="ttdoc">Method to evaluate charge in the integration region.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8cc_source.html#l00252">readWD.cc:252</a></div></div>
+<div class="ttc" id="aclassDAQEvent_html_aae14678619562b01b8469eb415b53eb4"><div class="ttname"><a href="classDAQEvent.html#aae14678619562b01b8469eb415b53eb4">DAQEvent::SetIntWindow</a></div><div class="ttdeci">void SetIntWindow(int, int)</div><div class="ttdoc">Set the integration window passing two indices that go from 0 to SAMPLES_PER_WAVEFORM.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8cc_source.html#l00196">readWD.cc:196</a></div></div>
 <div class="ttc" id="aclassDAQEvent_html_ab1176184ce5206715972cb5fb965a8b9"><div class="ttname"><a href="classDAQEvent.html#ab1176184ce5206715972cb5fb965a8b9">DAQEvent::GetChannel</a></div><div class="ttdeci">DAQEvent &amp; GetChannel(const int &amp;, const int &amp;)</div><div class="ttdoc">Select the channel to analyze.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8cc_source.html#l00107">readWD.cc:107</a></div></div>
-<div class="ttc" id="aclassDAQEvent_html_acd1b3e8045de9fc782300bd80e808e59"><div class="ttname"><a href="classDAQEvent.html#acd1b3e8045de9fc782300bd80e808e59">DAQEvent::SetIntWindow</a></div><div class="ttdeci">DAQEvent &amp; SetIntWindow(int, int)</div><div class="ttdoc">Set the integration window passing two indices that go from 0 to SAMPLES_PER_WAVEFORM.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8cc_source.html#l00197">readWD.cc:197</a></div></div>
 <div class="ttc" id="aclassDAQFile_html"><div class="ttname"><a href="classDAQFile.html">DAQFile</a></div><div class="ttdoc">Class to manage the file and the outputing of data in a DAQEvent instance.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8hh_source.html#l00185">readWD.hh:186</a></div></div>
 <div class="ttc" id="aclassDRSEvent_html"><div class="ttname"><a href="classDRSEvent.html">DRSEvent</a></div><div class="ttdef"><b>Definition:</b> <a href="readWD_8hh_source.html#l00169">readWD.hh:170</a></div></div>
 </div><!-- fragment --> </div><!-- contents -->

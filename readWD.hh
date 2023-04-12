@@ -82,10 +82,10 @@ private:
     std::map<int, std::map<int, std::pair<int, int>>> pedInterval_;
     std::map<int, std::map<int, float>> peakThr_;
 
-    void SetIntWindow(std::pair<int, int> &, int, int);
-    void SetIntWindow(std::pair<int, int> &);
-    void SetPedInterval(std::pair<int, int> &, int, int);
-    void SetPedInterval(std::pair<int, int> &);
+    void SetIntWindow(std::pair<int, int>, int, int);
+    void SetIntWindow(std::pair<int, int>);
+    void SetPedInterval(std::pair<int, int>, int, int);
+    void SetPedInterval(std::pair<int, int>);
     void SetPeakThr(float thr, int, int);
     void SetPeakThr(float thr);
 
@@ -106,13 +106,11 @@ class DAQEvent
     using MAP = std::map<int, std::map<int, std::vector<float>>>; ///< Alias for data structure.
 
 public:
-    DAQEvent();
-
     DAQEvent &GetChannel(const int &, const int &);
-    DAQEvent &SetPedInterval(int, int);
-    DAQEvent &SetPeakThr(float);
-    DAQEvent &SetIntWindow(int, int);
-    DAQEvent &SetIntWindow(float, float);
+    void SetPedInterval(int, int);
+    void SetPeakThr(float);
+    void SetIntWindow(int, int);
+    void SetIntWindow(float, float);
 
     void MakeConfig(DAQFile &file){config_.MakeConfig(file);};
     void ShowConfig(){config_.ShowConfig();};
@@ -123,7 +121,6 @@ public:
     float GetTimeCF(float);
     float GetRiseTime();
     const std::pair<float, float> &GetPedestal();
-    const std::pair<int, int> &GetIntegrationBounds();
     const std::vector<float> &GetVolts();
     const std::vector<float> &GetTimes();
     const std::vector<int> &GetPeakIndices();
@@ -131,6 +128,9 @@ public:
 
     const MAP &GetVoltMap() { return volts_; };
     const MAP &GetTimeMap() { return times_; };
+
+protected:
+    DAQEvent();
 
 private:
     DAQEvent &TimeCalibration(const unsigned short &, const std::vector<float> &, int, int);

@@ -129,6 +129,13 @@ DAQEvent &DAQEvent::GetChannel(const int &board, const int &channel)
         cerr << "!! Error: invalid channel, max channel ID number for this board is " << volts_[board].size() - 1 << endl;
         exit(0);
     }
+
+    else if (is_init_ == false && config_.is_makeconfig_ == true)
+    {
+        is_getch_ = true;
+        ch_ = {board, channel};
+        return *this;
+    }
     cerr << "!! Error: invalid board, max board ID number is " << volts_.size() - 1 << endl;
     exit(0);
 }
@@ -143,28 +150,18 @@ DAQEvent &DAQEvent::GetChannel(const int &board, const int &channel)
  @param b The second boundary index value.
  @return DAQEvent& to make cascade methods available.
  */
-DAQEvent &DAQEvent::SetPedInterval(int a, int b)
+void DAQEvent::SetPedInterval(int a, int b)
 {
-    if (a > SAMPLES_PER_WAVEFORM or b > SAMPLES_PER_WAVEFORM)
+    if (is_getch_)
     {
-        cerr << "!! Error: in DAQEvent::SetPedInterval(), bound(s) must be lower of " << SAMPLES_PER_WAVEFORM << endl;
-        cerr << "Bounds passed: a = " << a << ", b = " << b << endl;
-        exit(0);
+        config_.SetPedInterval(pair<int, int>{a, b}, ch_.first, ch_.second);
     }
-    if (a < b)
+    else 
     {
-        ped_interval_ = {a, b};
+        config_.SetPedInterval(pair<int, int>{a, b});
     }
-    else if (b < a)
-    {
-        ped_interval_ = {b, a};
-    }
-    else
-    {
-        cerr << "!! Error: invalid pedestal interval declared, values must be positive integers less than 1024" << endl;
-        exit(0);
-    }
-    return *this;
+    is_getch_ = false;
+    return;
 }
 
 /*!
@@ -175,16 +172,18 @@ DAQEvent &DAQEvent::SetPedInterval(int a, int b)
  @param thr The threshold level in Volts in a range (-0.5, +0.5)V
  @return DAQEvent&
  */
-DAQEvent &DAQEvent::SetPeakThr(float thr)
+void DAQEvent::SetPeakThr(float thr)
 {
-    if ((thr < -0.5 or thr > 0.5) and thr != 1.)
+    if (is_getch_)
     {
-        cerr << "!! Error: invalid threshold level passed to function, it must be in the interval (-0.5, +0.5)V" << endl;
-        cerr << "Threshold level passed: thr = " << thr << endl;
-        exit(0);
+        config_.SetPeakThr(thr, ch_.first, ch_.second);
     }
-    peak_threshold_ = thr;
-    return *this;
+    else 
+    {
+        config_.SetPeakThr(thr);
+    }
+    is_getch_ = false;
+    return;
 }
 
 /*!
@@ -194,21 +193,19 @@ DAQEvent &DAQEvent::SetPeakThr(float thr)
  @param b The right bound
  @return DAQEvent&
  */
-DAQEvent &DAQEvent::SetIntWindow(int a, int b)
+void DAQEvent::SetIntWindow(int a, int b)
 {
-    auto good_a = a < b and a >= 0;
-    auto good_b = b < SAMPLES_PER_WAVEFORM;
-    if (good_a and good_b)
+    if (is_getch_)
     {
-        iw_ = {a, b};
-        user_iw_ = true;
+        config_.SetIntWindow({a, b}, ch_.first, ch_.second);
     }
-    else
+    else 
     {
-        cerr << "!! Error: invalid values passed as integration window" << endl;
-        exit(0);
+        config_.SetIntWindow({a, b});
     }
-    return *this;
+    user_iw_ = true;
+    is_getch_ = false;
+    return;
 }
 
 /*!
@@ -220,7 +217,7 @@ DAQEvent &DAQEvent::SetIntWindow(int a, int b)
  @param b The right bound
  @return DAQEvent&
  */
-DAQEvent &DAQEvent::SetIntWindow(float a, float b)
+void DAQEvent::SetIntWindow(float a, float b)
 {
     if (!is_getch_)
     {
@@ -238,7 +235,7 @@ DAQEvent &DAQEvent::SetIntWindow(float a, float b)
     iw_.first = distance(times.begin(), lower_bound(times.begin(), times.end(), a));
     iw_.second = distance(times.begin(), lower_bound(times.begin() + iw_.first, times.end(), b));
     user_iw_ = true;
-    return *this;
+    return;
 }
 
 /*!
@@ -251,13 +248,18 @@ DAQEvent &DAQEvent::SetIntWindow(float a, float b)
  */
 float DAQEvent::GetCharge()
 {
+    if (!is_init_)
+    {
+        cerr << "!! Error : no event read yet" << endl;
+        exit(0);
+    }
+
     (*this).EvalPedestal();
     (*this).FindPeaks();
     (*this).EvalIntegrationBounds();
 
     const auto &volts = volts_[ch_.first][ch_.second];
     const auto &times = times_[ch_.first][ch_.second];
-    int distance = iw_.second - iw_.first;
 
     is_getch_ = false;
     float charge = 0;
@@ -268,7 +270,6 @@ float DAQEvent::GetCharge()
     }
 
     return abs(charge);
-    return abs(accumulate(volts.begin() + iw_.first, volts.begin() + iw_.second, -distance * ped_.first));
 }
 
 /*!
@@ -278,6 +279,12 @@ float DAQEvent::GetCharge()
  */
 float DAQEvent::GetAmplitude()
 {
+    if (!is_init_)
+    {
+        cerr << "!! Error : no event read yet" << endl;
+        exit(0);
+    }
+
     (*this).EvalPedestal();
     (*this).FindPeaks();
 
@@ -294,6 +301,12 @@ float DAQEvent::GetAmplitude()
  */
 float DAQEvent::GetTime(float thr)
 {
+    if (!is_init_)
+    {
+        cerr << "!! Error : no event read yet" << endl;
+        exit(0);
+    }
+
     auto &volts = volts_[ch_.first][ch_.second];
     auto &times = times_[ch_.first][ch_.second];
     int i = 0;
@@ -305,13 +318,13 @@ float DAQEvent::GetTime(float thr)
 
     if (i == SAMPLES_PER_WAVEFORM)
     {
-        cout << "Time not found given threshold " << thr << ". Returning 0" << endl;
+        cout << "Time not found given threshold " << thr << "V. Returning 0" << endl;
         return 0;
     }
 
     auto time = times[i] + (thr - volts[i]) * (times[i + 1] - times[i]) / (volts[i + 1] - volts[i]);
 
-    // is_getch_ = false;
+    is_getch_ = false;
 
     return time;
 }
@@ -324,6 +337,12 @@ float DAQEvent::GetTime(float thr)
  */
 float DAQEvent::GetTimeCF(float CF)
 {
+    if (!is_init_)
+    {
+        cerr << "!! Error : no event read yet" << endl;
+        exit(0);
+    }
+
     if (CF <= 0 or CF > 1)
     {
         cerr << "!! Error: CF value must be in range (0, 1)" << endl;
@@ -345,7 +364,13 @@ float DAQEvent::GetTimeCF(float CF)
  @return float
  */
 float DAQEvent::GetRiseTime()
-{
+{    
+    if (!is_init_)
+    {
+        cerr << "!! Error : no event read yet" << endl;
+        exit(0);
+    }
+
     return (*this).GetTimeCF(0.9) - (*this).GetTimeCF(0.1);
 }
 
@@ -355,7 +380,13 @@ float DAQEvent::GetRiseTime()
  @return const pair<float, float>&
  */
 const pair<float, float> &DAQEvent::GetPedestal()
-{
+{    
+    if (!is_init_)
+    {
+        cerr << "!! Error : no event read yet" << endl;
+        exit(0);
+    }
+
     if (!is_getch_)
     {
         cerr << "!! Error: select a channel with DAQEvent::GetChannel()" << endl;
@@ -368,20 +399,6 @@ const pair<float, float> &DAQEvent::GetPedestal()
 }
 
 /*!
- @brief Getter method read-only for the attribute @ref DAQEvent::iw_.
-
- @return const pair<int, int>&
- */
-const pair<int, int> &DAQEvent::GetIntegrationBounds()
-{
-    (*this).EvalPedestal();
-    (*this).FindPeaks();
-    (*this).EvalIntegrationBounds();
-    is_getch_ = false;
-    return iw_;
-}
-
-/*!
  @brief Getter method read-only for the waveform's voltages selected.
 
  @details The method checks if @ref DAQEvent::GetChannel() has been called. If it is the case, it returns
@@ -390,7 +407,13 @@ const pair<int, int> &DAQEvent::GetIntegrationBounds()
  @return const vector<float>&
  */
 const vector<float> &DAQEvent::GetVolts()
-{
+{    
+    if (!is_init_)
+    {
+        cerr << "!! Error : no event read yet" << endl;
+        exit(0);
+    }
+
     if (!is_getch_)
     {
         cerr << "!! Error: select a channel with DAQEvent::GetChannel()" << endl;
@@ -410,7 +433,13 @@ const vector<float> &DAQEvent::GetVolts()
  @return const vector<float>&
  */
 const vector<float> &DAQEvent::GetTimes()
-{
+{    
+    if (!is_init_)
+    {
+        cerr << "!! Error : no event read yet" << endl;
+        exit(0);
+    }
+
     if (!is_getch_)
     {
         cerr << "!! Error: select a channel with DAQEvent::GetChannel()" << endl;
@@ -428,6 +457,11 @@ const vector<float> &DAQEvent::GetTimes()
  */
 const vector<int> &DAQEvent::GetPeakIndices()
 {
+    if (!is_init_)
+    {
+        cerr << "!! Error : no event read yet" << endl;
+        exit(0);
+    }
     (*this).EvalPedestal();
     (*this).FindPeaks();
 
@@ -472,6 +506,7 @@ DAQEvent &DAQEvent::EvalPedestal()
         exit(0);
     }
 
+    ped_interval_ = config_.pedInterval_[ch_.first][ch_.second];
     int ped_interval_dist = ped_interval_.second - ped_interval_.first;
     const vector<float> &volts = volts_[ch_.first][ch_.second];
     ped_ = {0., 0.};
@@ -521,6 +556,7 @@ DAQEvent &DAQEvent::EvalIntegrationBounds()
         }
     }
 
+    config_.intWindow_[ch_.first][ch_.second] = {iw_.first, iw_.second};
     return *this;
 }
 
@@ -543,6 +579,7 @@ DAQEvent &DAQEvent::FindPeaks()
 
     if (user_iw_) // IW set by the user
     {
+        iw_ = config_.intWindow_[ch_.first][ch_.second];
         auto index_min = distance(volts.begin(), min_element(volts.begin() + iw_.first, volts.begin() + iw_.second));
         indexMin_.push_back(index_min);
     }
@@ -645,7 +682,7 @@ void DAQConfig::ShowConfig()
     }
 }
 
-void DAQConfig::SetIntWindow(pair<int, int> &intWindow, int b, int c)
+void DAQConfig::SetIntWindow(pair<int, int> intWindow, int b, int c)
 {
     if (is_makeconfig_ == false)
     {
@@ -672,7 +709,7 @@ void DAQConfig::SetIntWindow(pair<int, int> &intWindow, int b, int c)
     exit(0);
 }
 
-void DAQConfig::SetIntWindow(pair<int, int> &intWindow)
+void DAQConfig::SetIntWindow(pair<int, int> intWindow)
 {
     if (is_makeconfig_ == false)
     {
@@ -696,7 +733,7 @@ void DAQConfig::SetIntWindow(pair<int, int> &intWindow)
     }
 }
 
-void DAQConfig::SetPedInterval(pair<int, int> &pedInterval, int b, int c)
+void DAQConfig::SetPedInterval(pair<int, int> pedInterval, int b, int c)
 {
     if (is_makeconfig_ == false)
     {
@@ -723,7 +760,7 @@ void DAQConfig::SetPedInterval(pair<int, int> &pedInterval, int b, int c)
     exit(0);
 }
 
-void DAQConfig::SetPedInterval(pair<int, int> &pedInterval)
+void DAQConfig::SetPedInterval(pair<int, int> pedInterval)
 {
     if (is_makeconfig_ == false)
     {
@@ -1013,6 +1050,8 @@ bool DAQFile::operator>>(DRSEvent &event) // DAQFile >> DRSEvent
         cout << "Event serial number: " << event.eh_.serialNumber << endl;
     }
 
+    event.is_init_ = true;
+
     while (file >> bTag)
     {
         file >> tag; // Trigger cell
@@ -1061,6 +1100,8 @@ bool DAQFile::operator>>(WDBEvent &event) // DAQFile >> WDBEvent
     {
         cout << "Event serial number: " << event.eh_.serialNumber << endl;
     }
+
+    event.is_init_ = true;
 
     while (file >> bTag)
     {

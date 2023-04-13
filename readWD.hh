@@ -70,6 +70,13 @@ class DAQConfig;
 class DAQEvent;
 class DAQFile;
 
+/*!
+ @brief Main class to hold various settings for the channels.
+
+ This class offers a more customizable setup for the file to be read. For each event, for each board and channel, it is possible to set a different value of trigger threshold, integration
+ window or pedestal interval.
+
+ */
 class DAQConfig
 {
 private:
@@ -78,18 +85,18 @@ private:
     void MakeConfig(DAQFile &);
     void ShowConfig();
 
-    std::map<int, std::map<int, std::pair<int, int>>> intWindow_;
-    std::map<int, std::map<int, std::pair<int, int>>> pedInterval_;
-    std::map<int, std::map<int, float>> peakThr_;
+    std::map<int, std::map<int, std::pair<int, int>>> intWindow_;   ///< Data member to hold integration windows intervals of various channels.
+    std::map<int, std::map<int, std::pair<int, int>>> pedInterval_; ///< Data member to hold pedestal intervals of various channels.
+    std::map<int, std::map<int, float>> peakThr_;                   ///< Data member to hold peak threshold values of various channels.
 
     void SetIntWindow(std::pair<int, int>, int, int);
     void SetIntWindow(std::pair<int, int>);
     void SetPedInterval(std::pair<int, int>, int, int);
     void SetPedInterval(std::pair<int, int>);
-    void SetPeakThr(float thr, int, int);
-    void SetPeakThr(float thr);
+    void SetPeakThr(float, int, int);
+    void SetPeakThr(float);
 
-    bool is_makeconfig_;
+    bool is_makeconfig_; ///< Flag to check if the method @ref DAQConfig::MakeConfig() has been called at least once.
 
     friend class DAQEvent;
     friend class DAQFile;
@@ -112,8 +119,8 @@ public:
     void SetIntWindow(int, int);
     void SetIntWindow(float, float);
 
-    void MakeConfig(DAQFile &file){config_.MakeConfig(file);};
-    void ShowConfig(){config_.ShowConfig();};
+    void MakeConfig(DAQFile &file) { config_.MakeConfig(file); };
+    void ShowConfig() { config_.ShowConfig(); };
 
     float GetCharge();
     float GetAmplitude();
@@ -143,7 +150,7 @@ private:
     MAP volts_; ///< Structure to hold voltage values of all boards and channels.
 
     EventHeader eh_;
-    DAQConfig config_;
+    DAQConfig config_; ///< Class to hold settings about pedestal and integration window intervals.
 
     std::pair<float, float> ped_;      ///< Pair to hold pedestal *mean* and pedestal *std.dev.*.
     std::pair<float, float> peak_;     ///< Pair to hold value of voltage and time at the peak.
@@ -164,7 +171,7 @@ private:
 };
 
 /*!
- @brief
+ @brief Specialization of DAQEvent to a DRS board.
 
  */
 class DRSEvent : public DAQEvent
@@ -172,7 +179,7 @@ class DRSEvent : public DAQEvent
 };
 
 /*!
- @brief
+ @brief Specialization of DAQEvent to a WaveDREAM board.
 
  */
 class WDBEvent : public DAQEvent
@@ -201,7 +208,6 @@ public:
     const MAP &GetTimeMap() { return times_; };
 
 private:
-
     DAQFile &Initialise();
 
     bool operator>>(TAG &);

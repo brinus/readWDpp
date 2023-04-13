@@ -7,7 +7,7 @@ var indexSectionsWithContent =
   4: "cdfhimnoprstuvy",
   5: "m",
   6: "s",
-  7: "rt"
+  7: "hrt"
 };
 
 var indexSectionNames =

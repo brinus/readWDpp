@@ -80,10 +80,10 @@ $(function() {
   <div class="headertitle"><div class="title">readWDpp </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h2><a class="anchor" id="autotoc_md3"></a>
+<div class="textblock"><h2><a class="anchor" id="autotoc_md6"></a>
 Introduction</h2>
 <p>The <em>readWDpp</em> project is a library which aims to read binary files from a DRS Evaluation Board or WaveDREAM Board. To do this, the library implements many usefull classes that can be used with their methods to read the output files from the boards.</p>
-<h2><a class="anchor" id="autotoc_md4"></a>
+<h2><a class="anchor" id="autotoc_md7"></a>
 Usage</h2>
 <p>The main usage is to initialize a <a class="el" href="classDAQFile.html">DAQFile</a> and <a class="el" href="classDAQEvent.html">DAQEvent</a>, read all the file and at each event extract the value we are interested in.</p>
 <div class="fragment"><div class="line"><span class="comment">// mainExample0.cc</span></div>
@@ -108,8 +108,8 @@ Usage</h2>
 <div class="line">    h1-&gt;Draw();</div>
 <div class="line">    <span class="keywordflow">return</span>;</div>
 <div class="line">}</div>
-<div class="ttc" id="aclassDAQEvent_html_a8d5626128e1c0aaa4844c9f2db941bc5"><div class="ttname"><a href="classDAQEvent.html#a8d5626128e1c0aaa4844c9f2db941bc5">DAQEvent::GetCharge</a></div><div class="ttdeci">float GetCharge()</div><div class="ttdoc">Method to evaluate charge in the integration region.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8cc_source.html#l00259">readWD.cc:259</a></div></div>
-<div class="ttc" id="aclassDAQEvent_html_ab1176184ce5206715972cb5fb965a8b9"><div class="ttname"><a href="classDAQEvent.html#ab1176184ce5206715972cb5fb965a8b9">DAQEvent::GetChannel</a></div><div class="ttdeci">DAQEvent &amp; GetChannel(const int &amp;, const int &amp;)</div><div class="ttdoc">Select the channel to analyze.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8cc_source.html#l00107">readWD.cc:107</a></div></div>
+<div class="ttc" id="aclassDAQEvent_html_a8d5626128e1c0aaa4844c9f2db941bc5"><div class="ttname"><a href="classDAQEvent.html#a8d5626128e1c0aaa4844c9f2db941bc5">DAQEvent::GetCharge</a></div><div class="ttdeci">float GetCharge()</div><div class="ttdoc">Method to evaluate charge in the integration region.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8cc_source.html#l00258">readWD.cc:258</a></div></div>
+<div class="ttc" id="aclassDAQEvent_html_ab1176184ce5206715972cb5fb965a8b9"><div class="ttname"><a href="classDAQEvent.html#ab1176184ce5206715972cb5fb965a8b9">DAQEvent::GetChannel</a></div><div class="ttdeci">DAQEvent &amp; GetChannel(const int &amp;, const int &amp;)</div><div class="ttdoc">Select the channel to analyze.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8cc_source.html#l00106">readWD.cc:106</a></div></div>
 <div class="ttc" id="aclassDAQFile_html"><div class="ttname"><a href="classDAQFile.html">DAQFile</a></div><div class="ttdoc">Class to manage the file and the outputing of data in a DAQEvent instance.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8hh_source.html#l00202">readWD.hh:203</a></div></div>
 <div class="ttc" id="aclassDRSEvent_html"><div class="ttname"><a href="classDRSEvent.html">DRSEvent</a></div><div class="ttdoc">Specialization of DAQEvent to a DRS board.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8hh_source.html#l00186">readWD.hh:187</a></div></div>
 <div class="ttc" id="areadWD_8hh_html"><div class="ttname"><a href="readWD_8hh.html">readWD.hh</a></div><div class="ttdoc">Declaration of classes and methods.</div></div>
@@ -130,30 +130,30 @@ Usage</h2>
 <div class="line">Info in &lt;TCanvas::MakeDefCanvas&gt;:  created default TCanvas with name c1</div>
 <div class="line">root [1] </div>
 </div><!-- fragment --><p>The user can read the Examples page to see other applications of the library.</p>
-<h2><a class="anchor" id="autotoc_md5"></a>
+<h2><a class="anchor" id="autotoc_md8"></a>
 The main classes</h2>
 <p>The library implements two main classes <a class="el" href="classDAQFile.html" title="Class to manage the file and the outputing of data in a DAQEvent instance.">DAQFile</a> and <a class="el" href="classDAQEvent.html" title="Main class to store voltage and time values.">DAQEvent</a>, these two are the classes that must be used to read the file.</p>
-<h3><a class="anchor" id="autotoc_md6"></a>
+<h3><a class="anchor" id="autotoc_md9"></a>
 DAQFile</h3>
 <p>It is recomended at the beginning to create an istance of <a class="el" href="classDAQFile.html" title="Class to manage the file and the outputing of data in a DAQEvent instance.">DAQFile</a>, using the default constructor or passing it the path to the file to be opened. The library will automatically call the method <a class="el" href="classDAQFile.html#adf184c72d64312f62e4a1056a375bd69">DAQFile::Initialise()</a>, which will read the <code>TIME</code> header and the array of times. After that, the class is thought to be used as an input stream. Redirecting the <a class="el" href="classDAQFile.html" title="Class to manage the file and the outputing of data in a DAQEvent instance.">DAQFile</a> into a <a class="el" href="classDAQEvent.html" title="Main class to store voltage and time values.">DAQEvent</a> instance, one single event is read: voltages and and integrated times are passed into the <a class="el" href="classDAQEvent.html" title="Main class to store voltage and time values.">DAQEvent</a> instance. It is possible to do this operation untill the end of the file is reached.</p>
-<h3><a class="anchor" id="autotoc_md7"></a>
+<h3><a class="anchor" id="autotoc_md10"></a>
 DAQEvent</h3>
 <p>The main goal of this class is to implement many usefull methods that the user can call to analyse the data contained in the file. There are two children classes: <a class="el" href="classWDBEvent.html">WDBEvent</a> and <a class="el" href="classDRSEvent.html">DRSEvent</a>. The user must know previously if the file he is going to read comes from a DRS or WDB. This happends because of the different binary structure coming from DRS and WDB, read the page <a class="el" href="binary.html">The Binary Output</a> for more informations.</p>
-<h2><a class="anchor" id="autotoc_md8"></a>
+<h2><a class="anchor" id="autotoc_md11"></a>
 How it works</h2>
 <p>The first pass is to create two objects: a <a class="el" href="classDAQFile.html" title="Class to manage the file and the outputing of data in a DAQEvent instance.">DAQFile</a> and a <a class="el" href="classDAQEvent.html" title="Main class to store voltage and time values.">DAQEvent</a>'s child class.</p>
 <div class="fragment"><div class="line"><a class="code hl_class" href="classDAQFile.html">DAQFile</a> file;</div>
 <div class="line"><a class="code hl_class" href="classDRSEvent.html">DRSEvent</a> event;</div>
 </div><!-- fragment --><p>Now you can open a file giving the relative path.</p>
 <div class="fragment"><div class="line">file.<a class="code hl_function" href="classDAQFile.html#a825bff86707cd65dcf2e625c25d85f96">Open</a>(<span class="stringliteral">&quot;path/to/file.dat&quot;</span>);</div>
-<div class="ttc" id="aclassDAQFile_html_a825bff86707cd65dcf2e625c25d85f96"><div class="ttname"><a href="classDAQFile.html#a825bff86707cd65dcf2e625c25d85f96">DAQFile::Open</a></div><div class="ttdeci">DAQFile &amp; Open(const std::string &amp;)</div><div class="ttdoc">Method to open a file given the file path and name.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8cc_source.html#l01067">readWD.cc:1067</a></div></div>
+<div class="ttc" id="aclassDAQFile_html_a825bff86707cd65dcf2e625c25d85f96"><div class="ttname"><a href="classDAQFile.html#a825bff86707cd65dcf2e625c25d85f96">DAQFile::Open</a></div><div class="ttdeci">DAQFile &amp; Open(const std::string &amp;)</div><div class="ttdoc">Method to open a file given the file path and name.</div><div class="ttdef"><b>Definition:</b> <a href="readWD_8cc_source.html#l01066">readWD.cc:1066</a></div></div>
 </div><!-- fragment --><p>To read each event is possible to use a while loop. Inside the while loop the user can access any channel by using the method <a class="el" href="classDAQEvent.html#ab1176184ce5206715972cb5fb965a8b9">DAQEvent::GetChannel()</a>. After that it is possible to use any method to get the information wanted.</p>
 <div class="fragment"><div class="line"><span class="keywordflow">while</span> (file &gt;&gt; event)</div>
 <div class="line">{</div>
 <div class="line">    <span class="keywordtype">float</span> charge = <span class="keyword">event</span>.GetChannel(0, 0).GetCharge();</div>
 <div class="line">    <span class="comment">// ... </span></div>
 <div class="line">}</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md9"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md12"></a>
 How the times are stored</h2>
 <p>In the <code>TIME</code> header there are stored the time bin width, these are copied in the <a class="el" href="classDAQFile.html#a9725911cab2d6d9522cb5289833eea9b">DAQFile::times_</a> map. Once the instruction <code>file &gt;&gt; event</code> is executed, two nested <code>while</code> scan any board header and channel header, at every channel header found the corresponding delta-times vector is shifted accordingly to the trigger cell found in the event header and integrated, then it is copied in the <a class="el" href="classDAQEvent.html#aed4f7042be0939c874ea26377eb95e4e">DAQEvent::times_</a> map. To understand more about the time alignemnt see <a class="el" href="classDAQEvent.html#a1df88166e2ee2c22662c870d3a6463b4">DAQEvent::TimeCalibration()</a>. </p>
 </div></div><!-- PageDoc -->

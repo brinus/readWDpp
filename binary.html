@@ -242,6 +242,13 @@ WaveDREAM Board</h2>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyCenter" colspan="6">...   </td></tr>
 </table>
+<h2><a class="anchor" id="autotoc_md3"></a>
+LAB-DRS</h2>
+<p>With <em>LAB-DRS</em> we mean the DRS that are used in the Fundamental Interactions Lab course at University Of Pisa. The binary structure of this board is a little bit different from the usual DRS board's binary. The differences to be considered are two:</p><ol type="1">
+<li>The absence of file header <code>DRSx</code> at the beginning of the file.</li>
+<li>The absence of time scaler inside the event block.</li>
+</ol>
+<p>For these two reasons, the <a class="el" href="classDAQFile.html#adf184c72d64312f62e4a1056a375bd69">DAQFile::Initialise()</a> and <a class="el" href="classDAQFile.html#ac2fdea8b72f71226b07cd1060aaa7586">DAQFile::operator&gt;&gt;</a> presents some checks to control if the DRS board is of this type. Anyway the type of event that the user must initialise is of type <a class="el" href="classDRSEvent.html">DRSEvent</a>. </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 <!-- start footer part -->

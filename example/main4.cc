@@ -7,6 +7,8 @@ void main4()
 
     file.Open("data/testWDB.dat");
 
-    event.MakeConfig(file);
-    event.ShowConfig();
+    file >> event;
+
+    auto charge = event.GetChannel(0, 0).GetAmplitude();
+    cout << charge << endl;
 }

@@ -51,7 +51,7 @@ void main1()
         event.GetChannel(0, 0).SetIntWindow(iw_start, iw_stop);
         auto charge = event.GetChannel(0, 0).GetCharge();
         auto amplitude = event.GetChannel(0, 0).GetAmplitude();
-        if (i == evt or i == 9999)
+        if (i == evt)
         {
             cout << "Charge: " <<  charge << endl;
 

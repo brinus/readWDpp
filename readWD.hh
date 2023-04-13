@@ -88,6 +88,7 @@ private:
     std::map<int, std::map<int, std::pair<int, int>>> intWindow_;   ///< Data member to hold integration windows intervals of various channels.
     std::map<int, std::map<int, std::pair<int, int>>> pedInterval_; ///< Data member to hold pedestal intervals of various channels.
     std::map<int, std::map<int, float>> peakThr_;                   ///< Data member to hold peak threshold values of various channels.
+    std::map<int, std::map<int, bool>> user_iw_;                    ///< Data member to hold which integration windows were set by the user.
 
     void SetIntWindow(std::pair<int, int>, int, int);
     void SetIntWindow(std::pair<int, int>);
@@ -121,13 +122,13 @@ public:
 
     /*!
      @brief Method to simply call @ref DAQConfig::MakeConfig().
-     
+
      @param file The file to be read.
      */
     void MakeConfig(DAQFile &file) { config_.MakeConfig(file); };
     /*!
      @brief Simple method to call @ref DAQConfig::ShowConfig().
-     
+
      */
     void ShowConfig() { config_.ShowConfig(); };
 

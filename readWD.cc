@@ -697,6 +697,7 @@ void DAQConfig::MakeConfig(DAQFile &file)
             intWindow_[bKey][cKey] = {0, SAMPLES_PER_WAVEFORM - 1};
             pedInterval_[bKey][cKey] = {0, 100};
             peakThr_[bKey][cKey] = +0.5;
+            user_iw_[bKey][cKey] = false;
         }
     }
 }
@@ -749,6 +750,7 @@ void DAQConfig::SetIntWindow(pair<int, int> intWindow, int b, int c)
         if (intWindow_[b].find(c) != intWindow_[b].end())
         {
             intWindow_[b][c] = intWindow;
+            user_iw_[b][c] = true;
             return;
         }
     }
@@ -783,6 +785,7 @@ void DAQConfig::SetIntWindow(pair<int, int> intWindow)
         for (auto &[cKey, cVal] : bVal)
         {
             cVal = intWindow;
+            user_iw_[bKey][cKey] = true;
         }
     }
 }

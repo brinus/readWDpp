@@ -70,12 +70,7 @@ ostream &operator<<(ostream &o, const EventHeader &eh) // cout << EventHeader
  @details The constructor of the class has to initialize the correct values of some check-flags and of some variables
  that will be later evaluated.
 
- The default value for @ref DAQEvent::ped_interval_ is `{0, 100}` so that if the method
- @ref DAQEvent::SetPedInterval() is not called, the pedestal will be evaluated on the first 100 bins.
-
- The default value for @ref DAQEvent::iw_ is `{0, SAMPLES_PER_WAVEFORM - 1}`. When a method like @ref DAQEvent::GetCharge() is called,
- it calls also DAQEvent::EvalIntegrationBounds() and the new integration window is evaluated. Otherwise, the integration window can be setted
- by the user calling the method @ref DAQEvent::SetIntWindow().
+ Even if integration windows or pededstal intervals are set as default, these are then managed by the class @ref DAQConfig.
 
  */
 DAQEvent::DAQEvent()

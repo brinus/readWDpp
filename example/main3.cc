@@ -10,8 +10,8 @@
  This script uses the methods @ref DAQEvent::GetChannel and @ref DAQEvent::GetTimes() to get the times array of the selected channels at every event reading. 
  Using a simple for loop we get each cell difference and we then fill an histogram.
 
- The results show that there is an order of magnitude in temporal resolution between channels on the same chip (red dotted line, *std.dev.* \f$\sim 10^{-12}\textup{s}\f$) and channel 
- on different chips (blue solid line, *std.dev.* \f$\sim 10^{-11}\textup{s}\f$). This effect can anyway be corrected using the information contained on channels 16 and 17. 
+ The results show that there is an order of magnitude in temporal resolution between channels on the same chip (red dotted line, *std.dev.* \f$\sim 10^{-12}\f$s) and channel 
+ on different chips (blue solid line, *std.dev.* \f$\sim 10^{-11}\f$s). This effect can anyway be corrected using the information contained on channels 16 and 17. 
  */
 
 #include "../readWD.hh"

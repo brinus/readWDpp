@@ -225,6 +225,12 @@ void DAQEvent::SetIntWindow(float a, float b)
         exit(0);
     }
 
+    if (!is_init_)
+    {
+        cerr << "!! Error: no event read yet" << endl;
+        exit(0);
+    }
+
     auto &times = times_[ch_.first][ch_.second];
     if (a < times[0] or a > b or b > times[SAMPLES_PER_WAVEFORM - 1])
     {
@@ -232,8 +238,10 @@ void DAQEvent::SetIntWindow(float a, float b)
         exit(0);
     }
 
-    iw_.first = distance(times.begin(), lower_bound(times.begin(), times.end(), a));
-    iw_.second = distance(times.begin(), lower_bound(times.begin() + iw_.first, times.end(), b));
+    config_.intWindow_[ch_.first][ch_.second].first = distance(times.begin(), lower_bound(times.begin(), times.end(), a));
+
+    auto &iw_first = config_.intWindow_[ch_.first][ch_.second].first;
+    config_.intWindow_[ch_.first][ch_.second].second = distance(times.begin(), lower_bound(times.begin() + iw_first, times.end(), b));
     user_iw_ = true;
     return;
 }
@@ -250,7 +258,7 @@ float DAQEvent::GetCharge()
 {
     if (!is_init_)
     {
-        cerr << "!! Error : no event read yet" << endl;
+        cerr << "!! Error: no event read yet" << endl;
         exit(0);
     }
 
@@ -281,7 +289,7 @@ float DAQEvent::GetAmplitude()
 {
     if (!is_init_)
     {
-        cerr << "!! Error : no event read yet" << endl;
+        cerr << "!! Error: no event read yet" << endl;
         exit(0);
     }
 
@@ -303,7 +311,7 @@ float DAQEvent::GetTime(float thr)
 {
     if (!is_init_)
     {
-        cerr << "!! Error : no event read yet" << endl;
+        cerr << "!! Error: no event read yet" << endl;
         exit(0);
     }
 
@@ -339,7 +347,7 @@ float DAQEvent::GetTimeCF(float CF)
 {
     if (!is_init_)
     {
-        cerr << "!! Error : no event read yet" << endl;
+        cerr << "!! Error: no event read yet" << endl;
         exit(0);
     }
 
@@ -367,7 +375,7 @@ float DAQEvent::GetRiseTime()
 {    
     if (!is_init_)
     {
-        cerr << "!! Error : no event read yet" << endl;
+        cerr << "!! Error: no event read yet" << endl;
         exit(0);
     }
 
@@ -383,7 +391,7 @@ const pair<float, float> &DAQEvent::GetPedestal()
 {    
     if (!is_init_)
     {
-        cerr << "!! Error : no event read yet" << endl;
+        cerr << "!! Error: no event read yet" << endl;
         exit(0);
     }
 
@@ -410,7 +418,7 @@ const vector<float> &DAQEvent::GetVolts()
 {    
     if (!is_init_)
     {
-        cerr << "!! Error : no event read yet" << endl;
+        cerr << "!! Error: no event read yet" << endl;
         exit(0);
     }
 
@@ -436,7 +444,7 @@ const vector<float> &DAQEvent::GetTimes()
 {    
     if (!is_init_)
     {
-        cerr << "!! Error : no event read yet" << endl;
+        cerr << "!! Error: no event read yet" << endl;
         exit(0);
     }
 
@@ -459,7 +467,7 @@ const vector<int> &DAQEvent::GetPeakIndices()
 {
     if (!is_init_)
     {
-        cerr << "!! Error : no event read yet" << endl;
+        cerr << "!! Error: no event read yet" << endl;
         exit(0);
     }
     (*this).EvalPedestal();
@@ -468,6 +476,24 @@ const vector<int> &DAQEvent::GetPeakIndices()
     is_getch_ = false;
 
     return indexMin_;
+}
+
+/*!
+ @brief 
+ 
+ @return const pair<int, int>& 
+ */
+const pair<int, int> &DAQEvent::GetIntegrationBounds()
+{
+    if (!is_init_)
+    {
+        cerr << "!! Error: no event read yet" << endl;
+        exit(0);
+    }
+
+    is_getch_ = false;
+
+    return config_.intWindow_[ch_.first][ch_.second];
 }
 
 /*!
@@ -1038,6 +1064,13 @@ bool DAQFile::operator>>(DRSEvent &event) // DAQFile >> DRSEvent
         return 0;
     }
 
+    if (!event.config_.is_makeconfig_)
+    {
+        cout << "Autocall to: DAQEvent::MakeConfig()...";
+        event.MakeConfig(*this);
+        cout << " Done!" << endl;
+    }
+
     DAQFile &file = *this;
     TAG bTag, cTag, tag;
     vector<float> volts(SAMPLES_PER_WAVEFORM);
@@ -1087,6 +1120,13 @@ bool DAQFile::operator>>(WDBEvent &event) // DAQFile >> WDBEvent
     if (!in_.good())
     {
         return 0;
+    }
+
+    if (!event.config_.is_makeconfig_)
+    {
+        cout << "Autocall to: DAQEvent::MakeConfig()...";
+        event.MakeConfig(*this);
+        cout << " Done!" << endl;
     }
 
     DAQFile &file = *this;

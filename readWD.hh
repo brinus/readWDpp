@@ -124,6 +124,7 @@ public:
     const std::vector<float> &GetVolts();
     const std::vector<float> &GetTimes();
     const std::vector<int> &GetPeakIndices();
+    const std::pair<int, int> &GetIntegrationBounds();
     const EventHeader &GetEH() { return eh_; };
 
     const MAP &GetVoltMap() { return volts_; };

@@ -1,0 +1,56 @@
+/*!
+@page daqcondig How to configurate the DAQEvent class
+@brief how to use the @ref DAQConfig class.
+
+## Introduction
+
+The class @ref DAQConfig gives to the user the possibility to customize three values available, differently for each board and channel:
+    1. The *integration window*, this constrols where the waveform has to be integrated and where to look for peaks.
+    2. The *pedestal interval*, this controls where the pedestal is evaluated.
+    3. The *peak threshold*, this controls the value in Volts requested by some methods (of @ref DAQEvent) to search for a peak.
+
+The various setters are available via the use of @ref DAQEvent, this class contains a @ref DAQConfig data member called `config_`.
+
+## How to use the setters
+
+There are two possibilities:
+    1. Call the setter before the events are read (the initialisation part). This set the various parameters to a costant values for the whole script.
+    2. Call the setter at every event's `while` loop. This can be done if the user wants to update the parameters at every `while` cycle.
+
+In the first case the user must use, before calling any setter, the method @ref DAQEvent::MakeConfig():
+@code{.cpp}
+DAQFile file("path/to/data.dat");
+DRSEvent event;
+
+event.MakeConfig(file);
+event.SetIntWindow(400, 600);
+event.GetChannel(0, 1).SetPedInterval(100, 200);
+
+while (file >> event)
+{
+    ...
+}
+@endcode
+Given that we want to call some setter before the statement `file >> event`, we write `event.MakeConfig(file)`, the method @ref DAQEvent::MakeConfig() calls the same method of the `config_` data member, the file passed as input is used to gather the size of the board and channel map.
+During the call to the first setter no board or channel were given, thus the method @ref DAQEvent::SetIntWindow() will call the setter on all the boards and channel found in the file. With the second setter @ref DAQEvent::SetPedInterval() we are changing the pedestal interval on board-channel 0-1.
+
+In the second case we want to call the setter during the reading of the event:
+@code{.cpp}
+DAQFile file("path/to/data.dat");
+DRSEvent event;
+
+int i = 0, a, b;
+int n_intervals = 10;
+int l_interval = 100;
+
+while (file >> event) // Autocall to DAQEvent::MakeConfig() during the first cycle
+{
+    a = (i % n_intervals) / n_intervals * (SAMPLES_PER_WAVEFORM - l_interval - 1);
+    b = a + l_interval;
+    event.GetChannel(0, 0).SetIntWindow(a, b);
+    ++i;
+    ...
+}
+@endcode
+In this example the integration window is updated at every cycle for board/channel 0-1.
+*/

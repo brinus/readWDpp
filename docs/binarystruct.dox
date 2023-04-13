@@ -96,4 +96,12 @@ trigger time, the trigger cell (to reconstruct the time array) and the voltages.
 | 3089 |          'E'          |  'H'   |        'D'        |             'R'              | Next event header                                                                    |
 | ...  ||||||
 
+
+## LAB-DRS
+
+With *LAB-DRS* we mean the DRS that are used in the Fundamental Interactions Lab course at University Of Pisa. The binary structure of this board is a little bit different from the usual DRS board's binary. The differences to be considered are two:
+    1. The absence of file header `DRSx` at the beginning of the file.
+    2. The absence of time scaler inside the event block.
+
+For these two reasons, the @ref DAQFile::Initialise() and @ref DAQFile::operator>> presents some checks to control if the DRS board is of this type. Anyway the type of event that the user must initialise is of type @ref DRSEvent.
 */

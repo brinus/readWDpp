@@ -95,8 +95,7 @@ DAQEvent::DAQEvent()
  @brief Select the channel to analyze.
 
  @details To select a channel, the user must consider only the channels that are turned on on the board. This means that the right order of the channel is
- not given by the channel ID number: the channel 6 on a WDB is not always the sixth channel, but it depends by the channels that are turned on. In any case,
- during the call to @ref DAQEvent::Initialise() a list of the active channel is displayed on terminal to double check.
+ not given by the channel ID number: the channel 6 on a WDB is not always the sixth channel, but it depends by the channels that are turned on. In any case, during the call to @ref DAQEvent::Initialise() a list of the active channel is displayed on terminal to double check.
 
  After the call to this method, the values of DAQEvent::ch_ are updated.
 
@@ -144,7 +143,7 @@ DAQEvent &DAQEvent::GetChannel(const int &board, const int &channel)
  @brief Function to set the interval where to perform pedestal evaluation.
 
  @details The function checks automatically which value in input is smaller to correctly order the pair passed. A first control is made to check
- if the inputs are in the correct boundary that is from 0 to @ref SAMPLES_PER_WAVEFORM. All these tasks are managed by @DAQCOnfig.
+ if the inputs are in the correct boundary that is from 0 to @ref SAMPLES_PER_WAVEFORM. All these tasks are managed by @ref DAQConfig.
 
  @param a The first boundary index value.
  @param b The second boundary index value.
@@ -167,7 +166,7 @@ void DAQEvent::SetPedInterval(int a, int b)
 /*!
  @brief Set the threshold in volt by the user.
 
- @details This threshold level is used by the code when the minima of the waveform are requested. All these tasks are managed by @DAQCOnfig.
+ @details This threshold level is used by the code when the minima of the waveform are requested. All these tasks are managed by @ref DAQConfig.
 
  @param thr The threshold level in Volts in a range (-0.5, +0.5)V
  @return DAQEvent&
@@ -189,7 +188,7 @@ void DAQEvent::SetPeakThr(float thr)
 /*!
  @brief Set the integration window passing two indices that go from 0 to @ref SAMPLES_PER_WAVEFORM.
 
- @details All these tasks are managed by @DAQCOnfig.
+ @details All these tasks are managed by @ref DAQConfig.
 
  @param a The left bound
  @param b The right bound
@@ -213,7 +212,7 @@ void DAQEvent::SetIntWindow(int a, int b)
 /*!
  @brief Set the integration window passing time values in seconds.
 
- @details This method with this signature must be used after the call of DAQEvent::GetChannel(). All these tasks are managed by @DAQCOnfig.
+ @details This method with this signature must be used after the call of DAQEvent::GetChannel(). All these tasks are managed by @ref DAQConfig.
 
  @param a The left bound
  @param b The right bound
@@ -1121,7 +1120,7 @@ bool DAQFile::operator>>(EventHeader &eh) // DAQFile >> EventHeader
  @brief Read into a @ref DRSEvent.
 
  @details This method reads exactly one event from the file to de DRSEvent class. A first check is made to check if the @ref DAQConfig class has been initialised,
- otherwise a call to @ref DAQEvent::MakeConfig() is made. In the nested while two things are done, the former is to ignore the time scaler if the DRS board is of type DRS-LAB,
+ otherwise a call to @ref DAQEvent::MakeConfig() is made. In the nested while two things are done, the former is to ignore the time scaler if the DRS board is of type LAB-DRS (see @ref binary),
  the latter is to read and convert volts and to perform a time calibration. These data are stored in the @ref DAQEvent::times_ and @ref DAQEvent::volts_ maps.
 
  @param event

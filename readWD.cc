@@ -149,7 +149,7 @@ void DAQEvent::SetPedInterval(int a, int b)
     {
         config_.SetPedInterval(pair<int, int>{a, b}, ch_.first, ch_.second);
     }
-    else 
+    else
     {
         config_.SetPedInterval(pair<int, int>{a, b});
     }
@@ -171,7 +171,7 @@ void DAQEvent::SetPeakThr(float thr)
     {
         config_.SetPeakThr(thr, ch_.first, ch_.second);
     }
-    else 
+    else
     {
         config_.SetPeakThr(thr);
     }
@@ -194,7 +194,7 @@ void DAQEvent::SetIntWindow(int a, int b)
     {
         config_.SetIntWindow({a, b}, ch_.first, ch_.second);
     }
-    else 
+    else
     {
         config_.SetIntWindow({a, b});
     }
@@ -365,7 +365,7 @@ float DAQEvent::GetTimeCF(float CF)
  @return float
  */
 float DAQEvent::GetRiseTime()
-{    
+{
     if (!is_init_)
     {
         cerr << "!! Error: no event read yet" << endl;
@@ -381,7 +381,7 @@ float DAQEvent::GetRiseTime()
  @return const pair<float, float>&
  */
 const pair<float, float> &DAQEvent::GetPedestal()
-{    
+{
     if (!is_init_)
     {
         cerr << "!! Error: no event read yet" << endl;
@@ -408,7 +408,7 @@ const pair<float, float> &DAQEvent::GetPedestal()
  @return const vector<float>&
  */
 const vector<float> &DAQEvent::GetVolts()
-{    
+{
     if (!is_init_)
     {
         cerr << "!! Error: no event read yet" << endl;
@@ -434,7 +434,7 @@ const vector<float> &DAQEvent::GetVolts()
  @return const vector<float>&
  */
 const vector<float> &DAQEvent::GetTimes()
-{    
+{
     if (!is_init_)
     {
         cerr << "!! Error: no event read yet" << endl;
@@ -472,9 +472,9 @@ const vector<int> &DAQEvent::GetPeakIndices()
 }
 
 /*!
- @brief 
- 
- @return const pair<int, int>& 
+ @brief
+
+ @return const pair<int, int>&
  */
 const pair<int, int> &DAQEvent::GetIntegrationBounds()
 {
@@ -596,21 +596,31 @@ DAQEvent &DAQEvent::FindPeaks()
     auto &times = times_[ch_.first][ch_.second];
     indexMin_ = {};
 
-    if (config_.user_iw_[ch_.first][ch_.second]) // IW set by the user
+    iw_ = config_.intWindow_[ch_.first][ch_.second];
+    peak_threshold_ = config_.peakThr_[ch_.first][ch_.second];
+
+    if (config_.user_iw_[ch_.first][ch_.second]) // Integration window set by the user
     {
-        iw_ = config_.intWindow_[ch_.first][ch_.second];
         auto index_min = distance(volts.begin(), min_element(volts.begin() + iw_.first, volts.begin() + iw_.second));
         indexMin_.push_back(index_min);
     }
-    else if (peak_threshold_ == 1.) // No threshold level set by the user
+    else // No user integration window set
     {
-        auto index_min = distance(volts.begin(), min_element(volts.begin(), volts.end()));
-        for (int i = 1; i < SAMPLES_PER_WAVEFORM - 1; ++i)
+        auto index_min = distance(volts.begin() + 2, min_element(volts.begin() + 2, volts.end() - 2)) + 2;
+        for (int i = 2; i < SAMPLES_PER_WAVEFORM - 2; ++i)
         {
-            auto signal = volts[i] - ped_.first < -5 * ped_.second;
+            auto signal = abs(volts[i] - ped_.first) > 5 * ped_.second;
             auto min_left = abs(volts[i]) > abs(volts[i - 1]) + ped_.second;
             auto min_right = abs(volts[i]) > abs(volts[i + 1]) + ped_.second;
-            auto at_least = volts[i] < volts[index_min] * 0.5;
+            if (config_.peakThr_[ch_.first][ch_.second] == 0.5) // Default threshold level
+            {
+                auto at_least = abs(volts[i] - ped_.first) > abs(volts[index_min] - ped_.first) * 0.5;
+            }
+            else // Custom threshold level
+            {
+                auto at_least = volts[i] < peak_threshold_;
+            }
+
             if (signal and min_left and min_right and at_least)
             {
                 indexMin_.push_back(i);
@@ -624,28 +634,14 @@ DAQEvent &DAQEvent::FindPeaks()
             indexMin_.insert(pos, index_min);
         }
     }
-    else // Threshold level set by the user
-    {
-        for (int i = 1; i < SAMPLES_PER_WAVEFORM - 1; ++i)
-        {
-            auto signal = volts[i] - ped_.first < -5 * ped_.second;
-            auto min_left = abs(volts[i]) > abs(volts[i - 1]) + ped_.second;
-            auto min_right = abs(volts[i]) > abs(volts[i + 1]) + ped_.second;
-            auto at_least = volts[i] < peak_threshold_;
-            if (signal and (min_left or min_right) and at_least)
-            {
-                indexMin_.push_back(i);
-            }
-        }
-    }
 
-    if (indexMin_.size() == 0)
+    if (indexMin_.size() == 0) // Assure that at least global minimum is inserted in indexMin_
     {
-        auto index_min = distance(volts.begin(), min_element(volts.begin(), volts.end()));
+        auto index_min = distance(volts.begin() + 2, min_element(volts.begin() + 2, volts.end() - 2)) + 2;
         indexMin_.push_back(index_min);
     }
 
-    peak_ = {volts[indexMin_[0]], times[indexMin_[0]]};
+    peak_ = {volts[indexMin_[0]], times[indexMin_[0]]}; // First local minimum taken as peak
 
     return *this;
 }
@@ -659,9 +655,9 @@ DAQEvent &DAQEvent::FindPeaks()
 /*!
  @brief Construct a new DAQConfig::DAQConfig object.
 
- @details This class is a data member of @ref DAQEvent, when an istance of that class is constructed, also this constructor is called. The value of @ref DAQConfig::is_makeconfig_ is 
+ @details This class is a data member of @ref DAQEvent, when an istance of that class is constructed, also this constructor is called. The value of @ref DAQConfig::is_makeconfig_ is
  set to false.
- 
+
  */
 DAQConfig::DAQConfig()
 {
@@ -669,13 +665,13 @@ DAQConfig::DAQConfig()
 }
 
 /*!
- @brief Initialise the configuration class with the default values for any board and any channel. 
+ @brief Initialise the configuration class with the default values for any board and any channel.
 
  @details The data members inside this class are initialised. The default values are the following:
     - integration window: `[0, SAMPLES_PER_WAVEFORM - 1]`
     - pedestal interval: `[0, 100]`
     - peak threshold: `+0.5V`
- 
+
  @param file The file to be read. It is requested to know how many boards and channels there are.
  */
 void DAQConfig::MakeConfig(DAQFile &file)
@@ -701,7 +697,7 @@ void DAQConfig::MakeConfig(DAQFile &file)
 
 /*!
  @brief Simple method to print on stream the current settings of the class.
- 
+
  */
 void DAQConfig::ShowConfig()
 {
@@ -722,7 +718,7 @@ void DAQConfig::ShowConfig()
  @brief Method to set the integration window given the integration window and the board/channel IDs.
 
  @details This method changes only the integration window of the requested board/channel ID.
- 
+
  @param intWindow The integration window.
  @param b The board.
  @param c The channel.
@@ -738,9 +734,9 @@ void DAQConfig::SetIntWindow(pair<int, int> intWindow, int b, int c)
     if (intWindow.first < 0 || intWindow.first > intWindow.second || intWindow.second > SAMPLES_PER_WAVEFORM - 1)
     {
         cerr << "!! Error : Integration window has invalid value" << endl
-             << " Values must be in interval (0, " << SAMPLES_PER_WAVEFORM << "), passed values are ( "<< intWindow.first << ", "<< intWindow.second << ")" << endl;
-        exit(0); 
-    } 
+             << " Values must be in interval (0, " << SAMPLES_PER_WAVEFORM << "), passed values are ( " << intWindow.first << ", " << intWindow.second << ")" << endl;
+        exit(0);
+    }
 
     if (intWindow_.find(b) != intWindow_.end())
     {
@@ -751,7 +747,8 @@ void DAQConfig::SetIntWindow(pair<int, int> intWindow, int b, int c)
             return;
         }
     }
-    cerr << "!! Error : Couldn't find board-channel of ID (" << b << ", " << c << ")" << endl;;
+    cerr << "!! Error : Couldn't find board-channel of ID (" << b << ", " << c << ")" << endl;
+    ;
     exit(0);
 }
 
@@ -759,7 +756,7 @@ void DAQConfig::SetIntWindow(pair<int, int> intWindow, int b, int c)
  @brief Method to set the integration window given only the integration window.
 
  @details This method changes the integration window for all boards and channel.
- 
+
  @param intWindow The integration window.
  */
 void DAQConfig::SetIntWindow(pair<int, int> intWindow)
@@ -773,9 +770,9 @@ void DAQConfig::SetIntWindow(pair<int, int> intWindow)
     if (intWindow.first < 0 || intWindow.first > intWindow.second || intWindow.second > SAMPLES_PER_WAVEFORM - 1)
     {
         cerr << "!! Error : Integration window has invalid value" << endl
-             << " Values must be in interval (0, " << SAMPLES_PER_WAVEFORM << "), passed values are ( "<< intWindow.first << ", "<< intWindow.second << ")" << endl;
-        exit(0); 
-    } 
+             << " Values must be in interval (0, " << SAMPLES_PER_WAVEFORM << "), passed values are ( " << intWindow.first << ", " << intWindow.second << ")" << endl;
+        exit(0);
+    }
 
     for (auto &[bKey, bVal] : intWindow_)
     {
@@ -791,7 +788,7 @@ void DAQConfig::SetIntWindow(pair<int, int> intWindow)
  @brief Method to set the pedestal interval given the pedestal interval and the board/channel IDs.
 
  @details This method changes only the pedestal interval of the requested board/channel ID.
- 
+
  @param pedInterval The pedestal interval.
  @param b The board.
  @param c The channel.
@@ -807,9 +804,9 @@ void DAQConfig::SetPedInterval(pair<int, int> pedInterval, int b, int c)
     if (pedInterval.first < 0 || pedInterval.first > pedInterval.second || pedInterval.second > SAMPLES_PER_WAVEFORM - 1)
     {
         cerr << "!! Error : Pedestal interval has invalid value" << endl
-             << " Values must be in interval (0, " << SAMPLES_PER_WAVEFORM << "), passed values are ( "<< pedInterval.first << ", "<< pedInterval.second << ")" << endl;
-        exit(0); 
-    } 
+             << " Values must be in interval (0, " << SAMPLES_PER_WAVEFORM << "), passed values are ( " << pedInterval.first << ", " << pedInterval.second << ")" << endl;
+        exit(0);
+    }
 
     if (pedInterval_.find(b) != pedInterval_.end())
     {
@@ -819,7 +816,7 @@ void DAQConfig::SetPedInterval(pair<int, int> pedInterval, int b, int c)
             return;
         }
     }
-    cerr << "!! Error : Couldn't find board-channel of ID (" << b  << ", " << c << ")" << endl;
+    cerr << "!! Error : Couldn't find board-channel of ID (" << b << ", " << c << ")" << endl;
     exit(0);
 }
 
@@ -827,7 +824,7 @@ void DAQConfig::SetPedInterval(pair<int, int> pedInterval, int b, int c)
  @brief Method to set the pedestal interval given the pedestal interval.
 
  @details This method changes the pedestal interval for all boards and channels.
- 
+
  @param pedInterval The pedestal interval.
  */
 void DAQConfig::SetPedInterval(pair<int, int> pedInterval)
@@ -841,9 +838,9 @@ void DAQConfig::SetPedInterval(pair<int, int> pedInterval)
     if (pedInterval.first < 0 || pedInterval.first > pedInterval.second || pedInterval.second > SAMPLES_PER_WAVEFORM - 1)
     {
         cerr << "!! Error : Pedestal interval has invalid value" << endl
-             << " Values must be in interval (0, " << SAMPLES_PER_WAVEFORM << "), passed values are ( "<< pedInterval.first << ", "<< pedInterval.second << ")";
-        exit(0); 
-    } 
+             << " Values must be in interval (0, " << SAMPLES_PER_WAVEFORM << "), passed values are ( " << pedInterval.first << ", " << pedInterval.second << ")";
+        exit(0);
+    }
 
     for (auto &[bKey, bVal] : pedInterval_)
     {
@@ -858,7 +855,7 @@ void DAQConfig::SetPedInterval(pair<int, int> pedInterval)
  @brief Method to set the peak threshold given the peak threshold in Volts and the board/channel IDs.
 
  @details This method changes only the peak threshold of the requested board/channel ID.
- 
+
  @param thr The peak threshold in Volts.
  @param b The board.
  @param c The channel.
@@ -875,8 +872,8 @@ void DAQConfig::SetPeakThr(float thr, int b, int c)
     {
         cerr << "!! Error : Peak threshold has invalid value" << endl
              << " Values must be in interval (-0.5, +0.5), passed values is " << thr << endl;
-        exit(0); 
-    } 
+        exit(0);
+    }
 
     if (peakThr_.find(b) != peakThr_.end())
     {
@@ -886,7 +883,7 @@ void DAQConfig::SetPeakThr(float thr, int b, int c)
             return;
         }
     }
-    cerr << "!! Error : Couldn't find board-channel of ID (" << b  << ", " << c << ")" << endl;
+    cerr << "!! Error : Couldn't find board-channel of ID (" << b << ", " << c << ")" << endl;
     exit(0);
 }
 
@@ -894,8 +891,8 @@ void DAQConfig::SetPeakThr(float thr, int b, int c)
  @brief Method to set peak threshold given the peak threshold in Volts.
 
  @details This method changes the peak threshold for all boards and channels.
- 
- @param thr 
+
+ @param thr
  */
 void DAQConfig::SetPeakThr(float thr)
 {
@@ -909,7 +906,7 @@ void DAQConfig::SetPeakThr(float thr)
     {
         cerr << "!! Error : Peak threshold has invalid value" << endl
              << " Values must be in interval (-0.5, +0.5), passed values is " << thr << endl;
-        exit(0); 
+        exit(0);
     }
 
     for (auto &[bKey, bVal] : peakThr_)
@@ -1177,7 +1174,7 @@ bool DAQFile::operator>>(DRSEvent &event) // DAQFile >> DRSEvent
  @brief Read into a @ref WDBEvent.
 
  @details This method reads exactly one event from the file to de WDBEvent class. A first check is made to check if the @ref DAQConfig class has been initialised,
- otherwise a call to @ref DAQEvent::MakeConfig() is made. In the nested while volts are read and converted, then a time calibration is performed. 
+ otherwise a call to @ref DAQEvent::MakeConfig() is made. In the nested while volts are read and converted, then a time calibration is performed.
  These data are stored in the  @ref DAQEvent::times_ and @ref DAQEvent::volts_ maps.
 
  @param event

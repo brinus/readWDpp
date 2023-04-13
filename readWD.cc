@@ -80,7 +80,6 @@ DAQEvent::DAQEvent()
     is_iw_ = false;
     is_ped_ = false;
     is_peak_ = false;
-    user_iw_ = false;
     ped_interval_ = {0, 100};
     iw_ = {0, SAMPLES_PER_WAVEFORM - 1};
     peak_threshold_ = 1.;
@@ -199,7 +198,6 @@ void DAQEvent::SetIntWindow(int a, int b)
     {
         config_.SetIntWindow({a, b});
     }
-    user_iw_ = true;
     is_getch_ = false;
     return;
 }
@@ -238,7 +236,6 @@ void DAQEvent::SetIntWindow(float a, float b)
 
     auto &iw_first = config_.intWindow_[ch_.first][ch_.second].first;
     config_.intWindow_[ch_.first][ch_.second].second = distance(times.begin(), lower_bound(times.begin() + iw_first, times.end(), b));
-    user_iw_ = true;
     return;
 }
 
@@ -555,7 +552,7 @@ DAQEvent &DAQEvent::EvalIntegrationBounds()
         exit(0);
     }
 
-    if (user_iw_)
+    if (config_.user_iw_[ch_.first][ch_.second])
     {
         return *this;
     }
@@ -599,7 +596,7 @@ DAQEvent &DAQEvent::FindPeaks()
     auto &times = times_[ch_.first][ch_.second];
     indexMin_ = {};
 
-    if (user_iw_) // IW set by the user
+    if (config_.user_iw_[ch_.first][ch_.second]) // IW set by the user
     {
         iw_ = config_.intWindow_[ch_.first][ch_.second];
         auto index_min = distance(volts.begin(), min_element(volts.begin() + iw_.first, volts.begin() + iw_.second));

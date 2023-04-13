@@ -174,7 +174,6 @@ private:
     bool is_iw_;           ///< Flag to check if integration window has been evaluated once
     bool is_ped_;          ///< Flag to check if pedestal has been evaluated once
     bool is_peak_;         ///< Flag to check if peaks have been found once
-    bool user_iw_;         ///< Flag to check if the integration window was passed by the user
     float peak_threshold_; ///< Value to store the threshold in volts passed by the user
 
     friend class DAQFile;

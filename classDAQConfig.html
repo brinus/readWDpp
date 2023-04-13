@@ -132,6 +132,9 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a001f90fb319660a9bb8d04224e0e600d"><td class="memItemLeft" align="right" valign="top">std::map&lt; int, std::map&lt; int, float &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQConfig.html#a001f90fb319660a9bb8d04224e0e600d">peakThr_</a></td></tr>
 <tr class="memdesc:a001f90fb319660a9bb8d04224e0e600d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data member to hold peak threshold values of various channels.  <br /></td></tr>
 <tr class="separator:a001f90fb319660a9bb8d04224e0e600d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76fadc352178afc05a2128eb5c130088"><td class="memItemLeft" align="right" valign="top">std::map&lt; int, std::map&lt; int, bool &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQConfig.html#a76fadc352178afc05a2128eb5c130088">user_iw_</a></td></tr>
+<tr class="memdesc:a76fadc352178afc05a2128eb5c130088"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data member to hold which integration windows were set by the user.  <br /></td></tr>
+<tr class="separator:a76fadc352178afc05a2128eb5c130088"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a39c52c8add58ec3e4c72de54202b6a1d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDAQConfig.html#a39c52c8add58ec3e4c72de54202b6a1d">is_makeconfig_</a></td></tr>
 <tr class="memdesc:a39c52c8add58ec3e4c72de54202b6a1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag to check if the method <a class="el" href="classDAQConfig.html#a3289d94b018978b9e6fa71dfcfb06d99">DAQConfig::MakeConfig()</a> has been called at least once.  <br /></td></tr>
 <tr class="separator:a39c52c8add58ec3e4c72de54202b6a1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -175,7 +178,7 @@ Friends</h2></td></tr>
 <p>Construct a new <a class="el" href="classDAQConfig.html#af79da61cfe5d4b8b7863d20f13fee1ea" title="Construct a new DAQConfig::DAQConfig object.">DAQConfig::DAQConfig</a> object. </p>
 <p>This class is a data member of <a class="el" href="classDAQEvent.html">DAQEvent</a>, when an istance of that class is constructed, also this constructor is called. The value of <a class="el" href="classDAQConfig.html#a39c52c8add58ec3e4c72de54202b6a1d">DAQConfig::is_makeconfig_</a> is set to false. </p>
 
-<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00669">669</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00666">666</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
 
 </div>
 </div>
@@ -217,7 +220,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00684">684</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00681">681</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
 
 </div>
 </div>
@@ -338,7 +341,7 @@ Friends</h2></td></tr>
 
 <p>Simple method to print on stream the current settings of the class. </p>
 
-<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00708">708</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00706">706</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
 
 </div>
 </div>
@@ -363,7 +366,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00101">101</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00102">102</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
 
 </div>
 </div>
@@ -387,7 +390,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00102">102</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00103">103</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
 
 </div>
 </div>
@@ -440,7 +443,7 @@ Friends</h2></td></tr>
 
 <p>Flag to check if the method <a class="el" href="classDAQConfig.html#a3289d94b018978b9e6fa71dfcfb06d99">DAQConfig::MakeConfig()</a> has been called at least once. </p>
 
-<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00099">99</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00100">100</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
 
 </div>
 </div>
@@ -493,6 +496,32 @@ Friends</h2></td></tr>
 <p>Data member to hold pedestal intervals of various channels. </p>
 
 <p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00089">89</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
+
+</div>
+</div>
+<a id="a76fadc352178afc05a2128eb5c130088" name="a76fadc352178afc05a2128eb5c130088"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a76fadc352178afc05a2128eb5c130088">&#9670;&#160;</a></span>user_iw_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::map&lt;int, std::map&lt;int, bool&gt; &gt; DAQConfig::user_iw_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Data member to hold which integration windows were set by the user. </p>
+
+<p class="definition">Definition at line <a class="el" href="readWD_8hh_source.html#l00091">91</a> of file <a class="el" href="readWD_8hh_source.html">readWD.hh</a>.</p>
 
 </div>
 </div>

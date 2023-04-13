@@ -144,7 +144,7 @@ DAQEvent &DAQEvent::GetChannel(const int &board, const int &channel)
  @brief Function to set the interval where to perform pedestal evaluation.
 
  @details The function checks automatically which value in input is smaller to correctly order the pair passed. A first control is made to check
- if the inputs are in the correct boundary that is from 0 to @ref SAMPLES_PER_WAVEFORM.
+ if the inputs are in the correct boundary that is from 0 to @ref SAMPLES_PER_WAVEFORM. All these tasks are managed by @DAQCOnfig.
 
  @param a The first boundary index value.
  @param b The second boundary index value.
@@ -167,7 +167,7 @@ void DAQEvent::SetPedInterval(int a, int b)
 /*!
  @brief Set the threshold in volt by the user.
 
- @details This threshold level is used by the code when the minima of the waveform are requested.
+ @details This threshold level is used by the code when the minima of the waveform are requested. All these tasks are managed by @DAQCOnfig.
 
  @param thr The threshold level in Volts in a range (-0.5, +0.5)V
  @return DAQEvent&
@@ -188,6 +188,8 @@ void DAQEvent::SetPeakThr(float thr)
 
 /*!
  @brief Set the integration window passing two indices that go from 0 to @ref SAMPLES_PER_WAVEFORM.
+
+ @details All these tasks are managed by @DAQCOnfig.
 
  @param a The left bound
  @param b The right bound
@@ -211,7 +213,7 @@ void DAQEvent::SetIntWindow(int a, int b)
 /*!
  @brief Set the integration window passing time values in seconds.
 
- @details This method with this signature must be used after the call of DAQEvent::GetChannel().
+ @details This method with this signature must be used after the call of DAQEvent::GetChannel(). All these tasks are managed by @DAQCOnfig.
 
  @param a The left bound
  @param b The right bound
@@ -939,7 +941,7 @@ DAQFile::DAQFile()
 {
     std::cout << "Created DAQFile, open a file using DAQFile::Open()" << endl;
     is_lab_ = 0;
-    initialization_ = false;
+    initialization_ = 0;
 }
 
 /*!
@@ -952,6 +954,7 @@ DAQFile::DAQFile(const string &fname)
     filename_ = fname;
     in_.open(fname, std::ios::in | std::ios::binary);
     std::cout << "Created DAQFile, opened file " << fname << std::endl;
+    initialization_ = 0;
     is_lab_ = 0;
     (*this).Initialise();
 }

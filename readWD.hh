@@ -119,7 +119,16 @@ public:
     void SetIntWindow(int, int);
     void SetIntWindow(float, float);
 
+    /*!
+     @brief Method to simply call @ref DAQConfig::MakeConfig().
+     
+     @param file The file to be read.
+     */
     void MakeConfig(DAQFile &file) { config_.MakeConfig(file); };
+    /*!
+     @brief Simple method to call @ref DAQConfig::ShowConfig().
+     
+     */
     void ShowConfig() { config_.ShowConfig(); };
 
     float GetCharge();

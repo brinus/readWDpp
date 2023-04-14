@@ -296,10 +296,12 @@ float DAQEvent::GetAmplitude()
 }
 
 /*!
- @brief Find the time at which the waveform goes under a given threshold level
+ @brief Find the time at which the waveform goes under a given threshold level.
+
+ @details This method finds the first index at which the waveform goes below the given threshold value. Once the index is found, the method interpolates the point at this index with the next point to return the time given by the intersection between the interpolation line and the horizontal line given by the threshold value passed by the user. This method assumes that the waveform's peak is negative.
 
  @param thr The threshold level passed by the user. It must be in a range from -0.5 to 0.5 V.
- @return The time requested
+ @return The time requested.
  */
 float DAQEvent::GetTime(float thr)
 {
@@ -309,11 +311,17 @@ float DAQEvent::GetTime(float thr)
         exit(0);
     }
 
+    if (!is_getch_)
+    {
+        cerr << "!! Error: select a channel using DAQEvent::GetChannel()" << endl;
+        exit(0);
+    }
+
     auto &volts = volts_[ch_.first][ch_.second];
     auto &times = times_[ch_.first][ch_.second];
-    int i = 0;
+    int i = 2;
 
-    while (volts[i] > thr)
+    while (volts[i] > thr && i < SAMPLES_PER_WAVEFORM)
     {
         ++i;
     }
@@ -609,7 +617,7 @@ DAQEvent &DAQEvent::FindPeaks()
     else // No user integration window set
     {
         index_min = distance(volts.begin() + 2, min_element(volts.begin() + 2, volts.end() - 2)) + 2;
-        bool signal, min_left, min_rigth, at_lest;
+        bool signal, min_left, min_right, at_least;
         for (int i = 2; i < SAMPLES_PER_WAVEFORM - 2; ++i)
         {
             signal = abs(volts[i] - ped_.first) > 5 * ped_.second;

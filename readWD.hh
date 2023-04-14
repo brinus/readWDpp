@@ -132,6 +132,7 @@ public:
      */
     void ShowConfig() { config_.ShowConfig(); };
 
+    bool IsSaturated();
     float GetCharge();
     float GetAmplitude();
     float GetTime(float);

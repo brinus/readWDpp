@@ -240,6 +240,32 @@ void DAQEvent::SetIntWindow(float a, float b)
 }
 
 /*!
+ @brief Check if in the selected channel there is (or not) saturation.
+
+ @details The saturation is defined as any value greater than +0.499V or lower than -0.499V. One single point is enough to return true.
+ 
+ @return true
+ @return false 
+ */
+bool DAQEvent::IsSaturated()
+{
+    if (!is_init_)
+    {
+        cerr << "!! Error: no event read yet" << endl;
+        exit(0);
+    }
+
+    if (!is_getch_)
+    {
+        cerr << "!! Error: select a channel using DAQEvent::GetChannel()" << endl;
+        exit(0);
+    }
+
+    auto &volts = volts_[ch_.first][ch_.second];
+    return any_of(volts.begin() + 2, volts.end() - 2, [](float val){ return (val < -0.499) || (val > +0.499) ;});
+}
+
+/*!
  @brief Method to evaluate charge in the integration region.
 
  @details The methods calls in order @ref DAQEvent::EvalPedestal() and @ref DAQEvent::EvalIntegrationBounds(). The pedestal

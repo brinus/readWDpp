@@ -612,13 +612,14 @@ DAQEvent &DAQEvent::FindPeaks()
             auto signal = abs(volts[i] - ped_.first) > 5 * ped_.second;
             auto min_left = abs(volts[i]) > abs(volts[i - 1]) + ped_.second;
             auto min_right = abs(volts[i]) > abs(volts[i + 1]) + ped_.second;
+            bool at_least;
             if (config_.peakThr_[ch_.first][ch_.second] == 0.5) // Default threshold level
             {
-                auto at_least = abs(volts[i] - ped_.first) > abs(volts[index_min] - ped_.first) * 0.5;
+                at_least = abs(volts[i] - ped_.first) > abs(volts[index_min] - ped_.first) * 0.5;
             }
             else // Custom threshold level
             {
-                auto at_least = volts[i] < peak_threshold_;
+                at_least = volts[i] < peak_threshold_;
             }
 
             if (signal and min_left and min_right and at_least)

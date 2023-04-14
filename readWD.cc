@@ -929,6 +929,9 @@ void DAQConfig::SetPeakThr(float thr)
     }
 }
 
+const string DRSEvent::type_ = "DRS";
+const string WDBEvent::type_ = "WDB";
+
 /*
   ┌─────────────────────────────────────────────────────────────────────────┐
   │ CLASSES : DAQFile                                                       │
@@ -994,10 +997,12 @@ DAQFile &DAQFile::Initialise()
         if (bTag.tag[3] == '8')
         {
             cout << " --> WaveDREAM Board" << endl;
+            type_ = "WDB";
         }
         else
         {
             cout << " --> DRS Evaluation Board" << endl;
+            type_ = "DRS";
         }
         file >> bTag; // TIME
     }
@@ -1005,6 +1010,7 @@ DAQFile &DAQFile::Initialise()
     {
         cout << "LAB-DRS" << endl;
         is_lab_ = 1;
+        type_ = "DRS";
     }
     else
     {
@@ -1137,6 +1143,14 @@ bool DAQFile::operator>>(DRSEvent &event) // DAQFile >> DRSEvent
         return 0;
     }
 
+    if (type_ != event.type_)
+    {
+        cerr << "!! Error: Invalid type of class used" << endl
+             << "Type expected: " << type_ << endl
+             << "Event given: " << event.type_ << endl;
+        exit(0);
+    }
+
     if (!event.config_.is_makeconfig_)
     {
         cout << "Autocall to: DAQEvent::MakeConfig()...";
@@ -1197,6 +1211,14 @@ bool DAQFile::operator>>(WDBEvent &event) // DAQFile >> WDBEvent
     if (!in_.good())
     {
         return 0;
+    }
+
+    if (type_ != event.type_)
+    {
+        cerr << "!! Error: Invalid type of class used" << endl
+             << "Type expected: " << type_ << endl
+             << "Event given: " << event.type_ << endl;
+        exit(0);
     }
 
     if (!event.config_.is_makeconfig_)

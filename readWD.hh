@@ -185,6 +185,8 @@ private:
  */
 class DRSEvent : public DAQEvent
 {
+public:
+    static const std::string type_;
 };
 
 /*!
@@ -193,6 +195,8 @@ class DRSEvent : public DAQEvent
  */
 class WDBEvent : public DAQEvent
 {
+public:
+    static const std::string type_;
 };
 
 /*!
@@ -234,7 +238,8 @@ private:
     char n_;               ///< The initial letter of the newest tag read
     bool initialization_;  ///< Flag to store if @ref DAQFile::Initialise() was already called
     MAP times_;            ///< Struct to hold \f$ \Delta t\f$ read from the ```TIME```part of the file
-    bool is_lab_;          ///< Flag to check if the board is from LAB or not;
+    bool is_lab_;          ///< Flag to check if the board is from LAB or not
+    std::string type_;    ///< Flag to store the type of the board
 
     friend class DAQConfig;
 };

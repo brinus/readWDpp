@@ -12,5 +12,6 @@ var searchData=
   ['is_5fmakeconfig_5f_9',['is_makeconfig_',['../classDAQConfig.html#a39c52c8add58ec3e4c72de54202b6a1d',1,'DAQConfig']]],
   ['is_5fpeak_5f_10',['is_peak_',['../classDAQEvent.html#aea883f5ba05b1659236b1833d910630c',1,'DAQEvent']]],
   ['is_5fped_5f_11',['is_ped_',['../classDAQEvent.html#a58907caf1b74b43e1f149ece458c7583',1,'DAQEvent']]],
-  ['iw_5f_12',['iw_',['../classDAQEvent.html#a1fc98902d13b6b09a272d384bd3b7fbb',1,'DAQEvent']]]
+  ['issaturated_12',['IsSaturated',['../classDAQEvent.html#a9d71c4db28a9a0389a71d7db49b8a2a3',1,'DAQEvent']]],
+  ['iw_5f_13',['iw_',['../classDAQEvent.html#a1fc98902d13b6b09a272d384bd3b7fbb',1,'DAQEvent']]]
 ];

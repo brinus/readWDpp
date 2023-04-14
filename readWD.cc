@@ -263,6 +263,7 @@ float DAQEvent::GetCharge()
     const auto &times = times_[ch_.first][ch_.second];
 
     is_getch_ = false;
+    iw_ = config_.intWindow_[ch_.first][ch_.second];
     float charge = 0;
 
     for (int i = iw_.first; i < iw_.second; ++i)
@@ -592,6 +593,7 @@ DAQEvent &DAQEvent::FindPeaks()
         exit(0);
     }
 
+    long index_min;
     auto &volts = volts_[ch_.first][ch_.second];
     auto &times = times_[ch_.first][ch_.second];
     indexMin_ = {};
@@ -601,18 +603,18 @@ DAQEvent &DAQEvent::FindPeaks()
 
     if (config_.user_iw_[ch_.first][ch_.second]) // Integration window set by the user
     {
-        auto index_min = distance(volts.begin(), min_element(volts.begin() + iw_.first, volts.begin() + iw_.second));
+        index_min = distance(volts.begin(), min_element(volts.begin() + iw_.first, volts.begin() + iw_.second));
         indexMin_.push_back(index_min);
     }
     else // No user integration window set
     {
-        auto index_min = distance(volts.begin() + 2, min_element(volts.begin() + 2, volts.end() - 2)) + 2;
+        index_min = distance(volts.begin() + 2, min_element(volts.begin() + 2, volts.end() - 2)) + 2;
+        bool signal, min_left, min_rigth, at_lest;
         for (int i = 2; i < SAMPLES_PER_WAVEFORM - 2; ++i)
         {
-            auto signal = abs(volts[i] - ped_.first) > 5 * ped_.second;
-            auto min_left = abs(volts[i]) > abs(volts[i - 1]) + ped_.second;
-            auto min_right = abs(volts[i]) > abs(volts[i + 1]) + ped_.second;
-            bool at_least;
+            signal = abs(volts[i] - ped_.first) > 5 * ped_.second;
+            min_left = abs(volts[i]) > abs(volts[i - 1]) + ped_.second;
+            min_right = abs(volts[i]) > abs(volts[i + 1]) + ped_.second;
             if (config_.peakThr_[ch_.first][ch_.second] == 0.5) // Default threshold level
             {
                 at_least = abs(volts[i] - ped_.first) > abs(volts[index_min] - ped_.first) * 0.5;
@@ -638,7 +640,7 @@ DAQEvent &DAQEvent::FindPeaks()
 
     if (indexMin_.size() == 0) // Assure that at least global minimum is inserted in indexMin_
     {
-        auto index_min = distance(volts.begin() + 2, min_element(volts.begin() + 2, volts.end() - 2)) + 2;
+        index_min = distance(volts.begin() + 2, min_element(volts.begin() + 2, volts.end() - 2)) + 2;
         indexMin_.push_back(index_min);
     }
 

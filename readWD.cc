@@ -324,10 +324,12 @@ float DAQEvent::GetAmplitude()
 /*!
  @brief Find the time at which the waveform goes under a given threshold level.
 
- @details This method finds the first index at which the waveform goes below the given threshold value. Once the index is found, the method interpolates the point at this index with the next point to return the time given by the intersection between the interpolation line and the horizontal line given by the threshold value passed by the user. This method assumes that the waveform's peak is negative.
+ @details This method finds the first index at which the waveform crosses the given threshold value. Once the index is found, the method interpolates the point at this index with the next point to return the time given by the intersection between the interpolation line and the horizontal line given by the threshold value passed by the user. The method can have two different behaviours:
+    1. \f$ \mu_{pedestal} > thr\f$: the method finds the first value in time at which the waveform goes below the threshold.
+    2. \f$ \mu_{pedestal} \leq thr\f$: the method finds the first value in time at which the waveform goes above the threshold.
 
  @param thr The threshold level passed by the user. It must be in a range from -0.5 to 0.5 V.
- @return The time requested.
+ @return The time requested. 0 if no times were found.
  */
 float DAQEvent::GetTime(float thr)
 {
@@ -343,18 +345,29 @@ float DAQEvent::GetTime(float thr)
         exit(0);
     }
 
+    (*this).EvalPedestal();
+
     auto &volts = volts_[ch_.first][ch_.second];
     auto &times = times_[ch_.first][ch_.second];
     int i = 2;
 
-    while (volts[i] > thr && i < SAMPLES_PER_WAVEFORM)
+    if (thr < ped_.first)
     {
-        ++i;
+        while (volts[i] > thr && i < SAMPLES_PER_WAVEFORM)
+        {
+            ++i;
+        }
+    }
+    else
+    {
+        while (volts[i] < thr && i < SAMPLES_PER_WAVEFORM)
+        {
+            ++i;
+        }
     }
 
     if (i == SAMPLES_PER_WAVEFORM)
     {
-        cout << "Time not found given threshold " << thr << "V. Returning 0" << endl;
         return 0;
     }
 

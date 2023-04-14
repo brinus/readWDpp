@@ -335,7 +335,7 @@ Friends</h2></td></tr>
 <p>Method to evaluate the integration window of the currently selected waveform. </p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classDAQEvent.html" title="Main class to store voltage and time values.">DAQEvent</a>&amp; </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00548">548</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00556">556</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
 
 </div>
 </div>
@@ -365,7 +365,7 @@ Friends</h2></td></tr>
 <p>Method to evaluate the pedestal of the currently selected waveform. </p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classDAQEvent.html" title="Main class to store voltage and time values.">DAQEvent</a>&amp; </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00521">521</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00529">529</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
 
 </div>
 </div>
@@ -395,7 +395,7 @@ Friends</h2></td></tr>
 <p>Method to find peaks in the integration window. </p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classDAQEvent.html" title="Main class to store voltage and time values.">DAQEvent</a>&amp; </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00588">588</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00596">596</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
 
 </div>
 </div>
@@ -531,7 +531,7 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>const pair&lt;int, int&gt;&amp; </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00480">480</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00488">488</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
 
 </div>
 </div>
@@ -551,7 +551,7 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>const vector&lt;int&gt;&amp; </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00460">460</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00468">468</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
 
 </div>
 </div>
@@ -573,7 +573,7 @@ Friends</h2></td></tr>
 <p>Getter method read-only for the attribute <a class="el" href="classDAQEvent.html#a1208e4bf5a1bc13476abb4487e09d9e0">DAQEvent::ped_</a>. </p>
 <dl class="section return"><dt>Returns</dt><dd>const pair&lt;float, float&gt;&amp; </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00384">384</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00392">392</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
 
 </div>
 </div>
@@ -595,7 +595,7 @@ Friends</h2></td></tr>
 <p>Evaluate the risetime of the waveform. </p>
 <dl class="section return"><dt>Returns</dt><dd>float </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00368">368</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00376">376</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
 
 </div>
 </div>
@@ -616,15 +616,16 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Find the time at which the waveform goes under a given threshold level. </p>
+<p>This method finds the first index at which the waveform goes below the given threshold value. Once the index is found, the method interpolates the point at this index with the next point to return the time given by the intersection between the interpolation line and the horizontal line given by the threshold value passed by the user. This method assumes that the waveform's peak is negative.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">thr</td><td>The threshold level passed by the user. It must be in a range from -0.5 to 0.5 V. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The time requested </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The time requested. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00304">304</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00306">306</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
 
 </div>
 </div>
@@ -653,7 +654,7 @@ Friends</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The time requested </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00340">340</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00348">348</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
 
 </div>
 </div>
@@ -703,7 +704,7 @@ Friends</h2></td></tr>
 <p>The method checks if <a class="el" href="classDAQEvent.html#ab1176184ce5206715972cb5fb965a8b9">DAQEvent::GetChannel()</a> has been called. If it is the case, it returns the waveform's times of the selected board/channel.</p>
 <dl class="section return"><dt>Returns</dt><dd>const vector&lt;float&gt;&amp; </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00437">437</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00445">445</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
 
 </div>
 </div>
@@ -753,7 +754,7 @@ Friends</h2></td></tr>
 <p>The method checks if <a class="el" href="classDAQEvent.html#ab1176184ce5206715972cb5fb965a8b9">DAQEvent::GetChannel()</a> has been called. If it is the case, it returns the waveform's voltages of the selected board/channel.</p>
 <dl class="section return"><dt>Returns</dt><dd>const vector&lt;float&gt;&amp; </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00411">411</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00419">419</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
 
 </div>
 </div>
@@ -1039,7 +1040,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00506">506</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="readWD_8cc_source.html#l00514">514</a> of file <a class="el" href="readWD_8cc_source.html">readWD.cc</a>.</p>
 
 </div>
 </div>

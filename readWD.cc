@@ -83,6 +83,8 @@ DAQEvent::DAQEvent()
     ped_interval_ = {0, 100};
     iw_ = {0, SAMPLES_PER_WAVEFORM - 1};
     peak_threshold_ = 1.;
+    routine_ = {false, false, false};
+    ch_old_ = {-1, -1};
 }
 
 /*!
@@ -117,6 +119,7 @@ DAQEvent &DAQEvent::GetChannel(const int &board, const int &channel)
         {
             is_getch_ = true;
             ch_ = {board, channel};
+            routine_ = {false, false, false};
             return *this;
         }
         cerr << "!! Error: invalid channel, max channel ID number for this board is " << volts_[board].size() - 1 << endl;
@@ -400,7 +403,6 @@ float DAQEvent::GetTimeCF(float CF)
 
     (*this).EvalPedestal();
     (*this).FindPeaks();
-    (*this).EvalIntegrationBounds();
 
     float thr = ped_.first + (peak_.first - ped_.first) * CF;
 
@@ -532,6 +534,13 @@ const pair<int, int> &DAQEvent::GetIntegrationBounds()
         exit(0);
     }
 
+    if (!config_.user_iw_[ch_.first][ch_.second])
+    {
+        (*this).EvalPedestal();
+        (*this).FindPeaks();
+        (*this).EvalIntegrationBounds();
+    }
+
     is_getch_ = false;
 
     return config_.intWindow_[ch_.first][ch_.second];
@@ -573,6 +582,20 @@ DAQEvent &DAQEvent::EvalPedestal()
         exit(0);
     }
 
+    auto same_ch = (ch_old_.first == ch_.first) && (ch_old_.second == ch_.second);
+    auto same_evt = (evtserial_old_ == eh_.serialNumber);
+
+    if (routine_[0] && same_ch && same_evt)
+    {
+        return *this;
+    }
+    else
+    {
+        routine_[0] = true;
+        ch_old_ = ch_;
+        evtserial_old_ = eh_.serialNumber;
+    }
+
     ped_interval_ = config_.pedInterval_[ch_.first][ch_.second];
     int ped_interval_dist = ped_interval_.second - ped_interval_.first;
     const vector<float> &volts = volts_[ch_.first][ch_.second];
@@ -603,6 +626,20 @@ DAQEvent &DAQEvent::EvalIntegrationBounds()
     if (config_.user_iw_[ch_.first][ch_.second])
     {
         return *this;
+    }
+
+    auto same_ch = (ch_old_.first == ch_.first) && (ch_old_.second == ch_.second);
+    auto same_evt = (evtserial_old_ == eh_.serialNumber);
+
+    if (routine_[2] && same_ch && same_evt)
+    {
+        return *this;
+    }
+    else
+    {
+        routine_[2] = true;
+        ch_old_ = ch_;
+        evtserial_old_ = eh_.serialNumber;
     }
 
     iw_ = {indexMin_[0], indexMin_[0]};
@@ -638,6 +675,20 @@ DAQEvent &DAQEvent::FindPeaks()
     {
         cerr << "!! Error: select a channel using DAQEvent::GetChannel()" << endl;
         exit(0);
+    }
+
+    auto same_ch = (ch_old_.first == ch_.first) && (ch_old_.second == ch_.second);
+    auto same_evt = (evtserial_old_ == eh_.serialNumber);
+
+    if (routine_[1] && same_ch && same_evt)
+    {
+        return *this;
+    }
+    else
+    {
+        routine_[1] = true;
+        ch_old_ = ch_;
+        evtserial_old_ = eh_.serialNumber;
     }
 
     long index_min;
@@ -695,6 +746,18 @@ DAQEvent &DAQEvent::FindPeaks()
 
     return *this;
 }
+
+DRSEvent::DRSEvent()
+{
+    evtserial_old_ = 1;
+}
+const string DRSEvent::type_ = "DRS";
+
+WDBEvent::WDBEvent()
+{
+    evtserial_old_ = 0;
+}
+const string WDBEvent::type_ = "WDB";
 
 /*
   ┌─────────────────────────────────────────────────────────────────────────┐
@@ -968,8 +1031,6 @@ void DAQConfig::SetPeakThr(float thr)
     }
 }
 
-const string DRSEvent::type_ = "DRS";
-const string WDBEvent::type_ = "WDB";
 
 /*
   ┌─────────────────────────────────────────────────────────────────────────┐
@@ -1210,6 +1271,7 @@ bool DAQFile::operator>>(DRSEvent &event) // DAQFile >> DRSEvent
     }
 
     event.is_init_ = true;
+    event.routine_ = {false, false, false};
 
     while (file >> bTag)
     {
@@ -1280,6 +1342,7 @@ bool DAQFile::operator>>(WDBEvent &event) // DAQFile >> WDBEvent
     }
 
     event.is_init_ = true;
+    event.routine_ = {false, false, false};
 
     while (file >> bTag)
     {

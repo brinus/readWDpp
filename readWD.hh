@@ -151,7 +151,6 @@ public:
 protected:
     DAQEvent();
 
-private:
     DAQEvent &TimeCalibration(const unsigned short &, const std::vector<float> &, int, int);
     DAQEvent &EvalPedestal();
     DAQEvent &EvalIntegrationBounds();
@@ -177,6 +176,11 @@ private:
     bool is_peak_;         ///< Flag to check if peaks have been found once
     float peak_threshold_; ///< Value to store the threshold in volts passed by the user
 
+    unsigned int evtserial_old_; ///< Value to store last event read
+    std::pair<int, int> ch_old_; ///< Pair to store last channel on which routines were made
+    std::vector<bool> routine_;  ///< Vector containing flags to check if routines were already performed. The routines are: @ref DAQEvent::EvalPedestal(), 
+                                 ///< @ref DAQEvent::FindPeaks() and @ref DAQEvent::EvalIntegrationBounds()
+
     friend class DAQFile;
 };
 
@@ -187,6 +191,7 @@ private:
 class DRSEvent : public DAQEvent
 {
 public:
+    DRSEvent();
     static const std::string type_;
 };
 
@@ -197,6 +202,7 @@ public:
 class WDBEvent : public DAQEvent
 {
 public:
+    WDBEvent();
     static const std::string type_;
 };
 
@@ -240,7 +246,7 @@ private:
     bool initialization_;  ///< Flag to store if @ref DAQFile::Initialise() was already called
     MAP times_;            ///< Struct to hold \f$ \Delta t\f$ read from the ```TIME```part of the file
     bool is_lab_;          ///< Flag to check if the board is from LAB or not
-    std::string type_;    ///< Flag to store the type of the board
+    std::string type_;     ///< Flag to store the type of the board
 
     friend class DAQConfig;
 };

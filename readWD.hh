@@ -178,7 +178,7 @@ protected:
 
     unsigned int evtserial_old_; ///< Value to store last event read
     std::pair<int, int> ch_old_; ///< Pair to store last channel on which routines were made
-    std::vector<bool> routine_;  ///< Vector containing flags to check if routines were already performed. The routines are: @ref DAQEvent::EvalPedestal(), 
+    std::vector<bool> routine_;  ///< Vector containing flags to check if routines were already performed. The routines are: @ref DAQEvent::EvalPedestal(),
                                  ///< @ref DAQEvent::FindPeaks() and @ref DAQEvent::EvalIntegrationBounds()
 
     friend class DAQFile;

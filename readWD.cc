@@ -83,6 +83,8 @@ DAQEvent::DAQEvent()
     ped_interval_ = {0, 100};
     iw_ = {0, SAMPLES_PER_WAVEFORM - 1};
     peak_threshold_ = 1.;
+    routine_ = {false, false, false};
+    ch_old_ = {-1, -1};
 }
 
 /*!
@@ -117,6 +119,7 @@ DAQEvent &DAQEvent::GetChannel(const int &board, const int &channel)
         {
             is_getch_ = true;
             ch_ = {board, channel};
+            routine_ = {false, false, false};
             return *this;
         }
         cerr << "!! Error: invalid channel, max channel ID number for this board is " << volts_[board].size() - 1 << endl;
@@ -349,18 +352,18 @@ float DAQEvent::GetTime(float thr)
 
     auto &volts = volts_[ch_.first][ch_.second];
     auto &times = times_[ch_.first][ch_.second];
-    int i = 2;
+    int i = 10;
 
     if (thr < ped_.first)
     {
-        while (volts[i] > thr && i < SAMPLES_PER_WAVEFORM)
+        while (volts[i] > thr && i < SAMPLES_PER_WAVEFORM - 10)
         {
             ++i;
         }
     }
     else
     {
-        while (volts[i] < thr && i < SAMPLES_PER_WAVEFORM)
+        while (volts[i] < thr && i < SAMPLES_PER_WAVEFORM - 10)
         {
             ++i;
         }
@@ -400,7 +403,6 @@ float DAQEvent::GetTimeCF(float CF)
 
     (*this).EvalPedestal();
     (*this).FindPeaks();
-    (*this).EvalIntegrationBounds();
 
     float thr = ped_.first + (peak_.first - ped_.first) * CF;
 
@@ -532,6 +534,13 @@ const pair<int, int> &DAQEvent::GetIntegrationBounds()
         exit(0);
     }
 
+    if (!config_.user_iw_[ch_.first][ch_.second])
+    {
+        (*this).EvalPedestal();
+        (*this).FindPeaks();
+        (*this).EvalIntegrationBounds();
+    }
+
     is_getch_ = false;
 
     return config_.intWindow_[ch_.first][ch_.second];
@@ -573,6 +582,20 @@ DAQEvent &DAQEvent::EvalPedestal()
         exit(0);
     }
 
+    auto same_ch = (ch_old_.first == ch_.first) && (ch_old_.second == ch_.second);
+    auto same_evt = (evtserial_old_ == eh_.serialNumber);
+
+    if (routine_[0] && same_ch && same_evt)
+    {
+        return *this;
+    }
+    else
+    {
+        routine_[0] = true;
+        ch_old_ = ch_;
+        evtserial_old_ = eh_.serialNumber;
+    }
+
     ped_interval_ = config_.pedInterval_[ch_.first][ch_.second];
     int ped_interval_dist = ped_interval_.second - ped_interval_.first;
     const vector<float> &volts = volts_[ch_.first][ch_.second];
@@ -605,6 +628,20 @@ DAQEvent &DAQEvent::EvalIntegrationBounds()
         return *this;
     }
 
+    auto same_ch = (ch_old_.first == ch_.first) && (ch_old_.second == ch_.second);
+    auto same_evt = (evtserial_old_ == eh_.serialNumber);
+
+    if (routine_[2] && same_ch && same_evt)
+    {
+        return *this;
+    }
+    else
+    {
+        routine_[2] = true;
+        ch_old_ = ch_;
+        evtserial_old_ = eh_.serialNumber;
+    }
+
     iw_ = {indexMin_[0], indexMin_[0]};
 
     const vector<float> &volts = volts_[ch_.first][ch_.second];
@@ -612,12 +649,12 @@ DAQEvent &DAQEvent::EvalIntegrationBounds()
 
     if (peak_.first < lower_bound)
     {
-        while (volts[iw_.first] < lower_bound and iw_.first > 0)
+        while (volts[iw_.first] < lower_bound and iw_.first > 10)
         {
             --iw_.first;
         }
 
-        while (volts[iw_.second] < lower_bound and iw_.second < SAMPLES_PER_WAVEFORM - 1)
+        while (volts[iw_.second] < lower_bound and iw_.second < SAMPLES_PER_WAVEFORM - 10)
         {
             ++iw_.second;
         }
@@ -640,6 +677,20 @@ DAQEvent &DAQEvent::FindPeaks()
         exit(0);
     }
 
+    auto same_ch = (ch_old_.first == ch_.first) && (ch_old_.second == ch_.second);
+    auto same_evt = (evtserial_old_ == eh_.serialNumber);
+
+    if (routine_[1] && same_ch && same_evt)
+    {
+        return *this;
+    }
+    else
+    {
+        routine_[1] = true;
+        ch_old_ = ch_;
+        evtserial_old_ = eh_.serialNumber;
+    }
+
     long index_min;
     auto &volts = volts_[ch_.first][ch_.second];
     auto &times = times_[ch_.first][ch_.second];
@@ -655,9 +706,9 @@ DAQEvent &DAQEvent::FindPeaks()
     }
     else // No user integration window set
     {
-        index_min = distance(volts.begin() + 2, min_element(volts.begin() + 2, volts.end() - 2)) + 2;
+        index_min = distance(volts.begin() + 10, min_element(volts.begin() + 10, volts.end() - 10)) + 10;
         bool signal, min_left, min_right, at_least;
-        for (int i = 2; i < SAMPLES_PER_WAVEFORM - 2; ++i)
+        for (int i = 10; i < SAMPLES_PER_WAVEFORM - 10; ++i)
         {
             signal = abs(volts[i] - ped_.first) > 5 * ped_.second;
             min_left = abs(volts[i]) > abs(volts[i - 1]) + ped_.second;
@@ -687,7 +738,7 @@ DAQEvent &DAQEvent::FindPeaks()
 
     if (indexMin_.size() == 0) // Assure that at least global minimum is inserted in indexMin_
     {
-        index_min = distance(volts.begin() + 2, min_element(volts.begin() + 2, volts.end() - 2)) + 2;
+        index_min = distance(volts.begin() + 10, min_element(volts.begin() + 10, volts.end() - 10)) + 10;
         indexMin_.push_back(index_min);
     }
 
@@ -695,6 +746,30 @@ DAQEvent &DAQEvent::FindPeaks()
 
     return *this;
 }
+
+/*
+  ┌─────────────────────────────────────────────────────────────────────────┐
+  │ CLASSES : DRSEvent                                                      │
+  └─────────────────────────────────────────────────────────────────────────┘
+ */
+
+DRSEvent::DRSEvent()
+{
+    evtserial_old_ = 1;
+}
+const string DRSEvent::type_ = "DRS";
+
+/*
+  ┌─────────────────────────────────────────────────────────────────────────┐
+  │ CLASSES : WDBEvent                                                      │
+  └─────────────────────────────────────────────────────────────────────────┘
+ */
+
+WDBEvent::WDBEvent()
+{
+    evtserial_old_ = 0;
+}
+const string WDBEvent::type_ = "WDB";
 
 /*
   ┌─────────────────────────────────────────────────────────────────────────┐
@@ -968,8 +1043,6 @@ void DAQConfig::SetPeakThr(float thr)
     }
 }
 
-const string DRSEvent::type_ = "DRS";
-const string WDBEvent::type_ = "WDB";
 
 /*
   ┌─────────────────────────────────────────────────────────────────────────┐
@@ -1210,6 +1283,7 @@ bool DAQFile::operator>>(DRSEvent &event) // DAQFile >> DRSEvent
     }
 
     event.is_init_ = true;
+    event.routine_ = {false, false, false};
 
     while (file >> bTag)
     {
@@ -1280,6 +1354,7 @@ bool DAQFile::operator>>(WDBEvent &event) // DAQFile >> WDBEvent
     }
 
     event.is_init_ = true;
+    event.routine_ = {false, false, false};
 
     while (file >> bTag)
     {

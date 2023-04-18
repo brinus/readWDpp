@@ -352,18 +352,18 @@ float DAQEvent::GetTime(float thr)
 
     auto &volts = volts_[ch_.first][ch_.second];
     auto &times = times_[ch_.first][ch_.second];
-    int i = 2;
+    int i = 10;
 
     if (thr < ped_.first)
     {
-        while (volts[i] > thr && i < SAMPLES_PER_WAVEFORM)
+        while (volts[i] > thr && i < SAMPLES_PER_WAVEFORM - 10)
         {
             ++i;
         }
     }
     else
     {
-        while (volts[i] < thr && i < SAMPLES_PER_WAVEFORM)
+        while (volts[i] < thr && i < SAMPLES_PER_WAVEFORM - 10)
         {
             ++i;
         }
@@ -649,12 +649,12 @@ DAQEvent &DAQEvent::EvalIntegrationBounds()
 
     if (peak_.first < lower_bound)
     {
-        while (volts[iw_.first] < lower_bound and iw_.first > 0)
+        while (volts[iw_.first] < lower_bound and iw_.first > 10)
         {
             --iw_.first;
         }
 
-        while (volts[iw_.second] < lower_bound and iw_.second < SAMPLES_PER_WAVEFORM - 1)
+        while (volts[iw_.second] < lower_bound and iw_.second < SAMPLES_PER_WAVEFORM - 10)
         {
             ++iw_.second;
         }
@@ -706,9 +706,9 @@ DAQEvent &DAQEvent::FindPeaks()
     }
     else // No user integration window set
     {
-        index_min = distance(volts.begin() + 2, min_element(volts.begin() + 2, volts.end() - 2)) + 2;
+        index_min = distance(volts.begin() + 10, min_element(volts.begin() + 10, volts.end() - 10)) + 10;
         bool signal, min_left, min_right, at_least;
-        for (int i = 2; i < SAMPLES_PER_WAVEFORM - 2; ++i)
+        for (int i = 10; i < SAMPLES_PER_WAVEFORM - 10; ++i)
         {
             signal = abs(volts[i] - ped_.first) > 5 * ped_.second;
             min_left = abs(volts[i]) > abs(volts[i - 1]) + ped_.second;
@@ -738,7 +738,7 @@ DAQEvent &DAQEvent::FindPeaks()
 
     if (indexMin_.size() == 0) // Assure that at least global minimum is inserted in indexMin_
     {
-        index_min = distance(volts.begin() + 2, min_element(volts.begin() + 2, volts.end() - 2)) + 2;
+        index_min = distance(volts.begin() + 10, min_element(volts.begin() + 10, volts.end() - 10)) + 10;
         indexMin_.push_back(index_min);
     }
 

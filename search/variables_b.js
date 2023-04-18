@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['tag_0',['tag',['../structTAG.html#a073fcb689b59f52b23c3ea874ca473ef',1,'TAG::tag()'],['../structEventHeader.html#a579ec852bf31d93558596ff9f45f6ebd',1,'EventHeader::tag()']]],
-  ['times_5f_1',['times_',['../classDAQEvent.html#aed4f7042be0939c874ea26377eb95e4e',1,'DAQEvent::times_()'],['../classDAQFile.html#a9725911cab2d6d9522cb5289833eea9b',1,'DAQFile::times_()']]],
-  ['type_5f_2',['type_',['../classDAQFile.html#a1abd233280824677d01721b8cfc7231e',1,'DAQFile']]]
+  ['sec_0',['sec',['../structEventHeader.html#a54e689cf8c5e5aa0f749238c028ac106',1,'EventHeader']]],
+  ['serialnumber_1',['serialNumber',['../structEventHeader.html#a0ec383672d74e1048054ebda0704fcde',1,'EventHeader']]]
 ];

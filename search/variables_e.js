@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['year_0',['year',['../structEventHeader.html#affb55b7e2701a752ac13949639c03e3f',1,'EventHeader']]]
+  ['volts_5f_0',['volts_',['../classDAQEvent.html#a0b981b2e313c1337c8e4e69feaa84724',1,'DAQEvent']]]
 ];

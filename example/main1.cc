@@ -38,7 +38,7 @@ void main1()
     pad2->Draw();
     pad3->Draw();
 
-    DAQFile file("data/testDRS.dat");
+    DAQFile file("../data/testDRS.dat");
     DRSEvent event;
     
     int i = 0;

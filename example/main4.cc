@@ -5,7 +5,7 @@ void main4()
     DAQFile file;
     WDBEvent event;
 
-    file.Open("data/testWDB.dat");
+    file.Open("../data/testWDB.dat");
 
     file >> event;
 

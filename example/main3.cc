@@ -33,7 +33,7 @@ void main1()
     auto h1 = new TH1F("ch08", "ch08", 80, -0.7e-9, 0.7e-9);
     auto legend = new TLegend();
 
-    file.Open("data/split1-2at4GSPS");
+    file.Open("../data/split1-2at4GSPS");
 
     while (file >> event)
     {
@@ -47,7 +47,7 @@ void main1()
     }
 
     file.Close();
-    file.Open("data/split1-8at4GSPS");
+    file.Open("../data/split1-8at4GSPS");
 
     while (file >> event)
     {

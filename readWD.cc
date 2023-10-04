@@ -246,9 +246,9 @@ void DAQEvent::SetIntWindow(float a, float b)
  @brief Check if in the selected channel there is (or not) saturation.
 
  @details The saturation is defined as any value greater than +0.499V or lower than -0.499V. One single point is enough to return true.
- 
+
  @return true
- @return false 
+ @return false
  */
 bool DAQEvent::IsSaturated()
 {
@@ -265,7 +265,8 @@ bool DAQEvent::IsSaturated()
     }
 
     auto &volts = volts_[ch_.first][ch_.second];
-    return any_of(volts.begin() + 2, volts.end() - 2, [](float val){ return (val < -0.499) || (val > +0.499) ;});
+    return any_of(volts.begin() + 2, volts.end() - 2, [](float val)
+                  { return (val < -0.499) || (val > +0.499); });
 }
 
 /*!
@@ -1043,7 +1044,6 @@ void DAQConfig::SetPeakThr(float thr)
     }
 }
 
-
 /*
   ┌─────────────────────────────────────────────────────────────────────────┐
   │ CLASSES : DAQFile                                                       │
@@ -1091,9 +1091,8 @@ DAQFile &DAQFile::Initialise()
         return file;
     }
 
-    if (in_.tellg() != 0)
+    if (initialization_ == 1)
     {
-        cerr << "!! Error: file already initialized --> ???" << endl;
         return file;
     }
 
@@ -1138,7 +1137,6 @@ DAQFile &DAQFile::Initialise()
     }
 
     o_ = 'B';
-    initialization_ = true;
     int i = 0, j = 0;
     while (file >> bTag)
     {
@@ -1154,7 +1152,10 @@ DAQFile &DAQFile::Initialise()
         ++i;
         file.ResetTag();
     }
+
+    initialization_ = true;
     file.ResetTag();
+    first_evt_pos_ = in_.tellg();
 
     return file;
 }
@@ -1193,7 +1194,6 @@ DAQFile &DAQFile::Open(const string &fname)
         std::cout << std::endl
                   << "Created DAQFile, opened file " << fname << std::endl;
         (*this).Initialise();
-        initialization_ = true;
         return *this;
     }
     else
@@ -1201,6 +1201,68 @@ DAQFile &DAQFile::Open(const string &fname)
         std::cerr << "!! Error: File is already opened --> " << filename_ << std::endl;
         return *this;
     }
+}
+
+DAQFile &DAQFile::Reset()
+{
+    if (initialization_ == 0)
+    {
+        cerr << "Warning: file is not initialised. Nothing to reset..." << endl;
+        return *this;
+    }
+
+    in_.seekg(first_evt_pos_);
+    return *this;
+}
+
+DAQFile &DAQFile::GetEvent(int evt_id, DAQEvent &event)
+{
+    DAQFile &file = *this;
+    int next_evt_pos;
+    int evt_id_pos;
+    int evt_size;
+    int file_size;
+    TAG tag;
+    EventHeader eh;
+    file.Initialise();
+
+    // Evaluate event size
+    file.Read(tag); // Reading EHDR
+    file.Read(tag); // Reading new line to reset tag.tag
+    while (strcmp(tag.tag, "EHDR") != 0)
+    {
+        file.Read(tag);
+    }
+    file.ResetTag();
+    next_evt_pos = in_.tellg();
+    evt_size = next_evt_pos - first_evt_pos_;
+    cout << "Event size: " << evt_size << endl;
+
+    // Evaluate file size
+    in_.seekg(0, in_.end);
+    file_size = in_.tellg();
+
+    // Reset position
+    in_.seekg(first_evt_pos_);
+
+    // Check to stay into boundaries of file
+    if (file_size - (first_evt_pos_ + evt_id * evt_size) < evt_size)
+    {
+        cerr << "!! Error : Invalid position reached, out of bounds of file" << endl
+             << "Reset position to first event header..." << endl;
+    }
+    else
+    {
+        // Moving to requested event
+        cout << "Moving to event: " << evt_id << endl;
+        in_.seekg(first_evt_pos_ + evt_size * evt_id);
+        evt_id_pos = in_.tellg();
+        file.Read(eh);
+        cout << eh << endl;
+        in_.seekg(evt_id_pos);
+    }
+
+    return file;
 }
 
 /*!

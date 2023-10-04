@@ -9,7 +9,7 @@ void main4()
     DRSEvent event;
 
     file.Open("../data/testDRS.dat");
-    file.GetEvent(100, event);
+    file.GetEvent(100);
     file >> event;
     auto times = event.GetChannel(0, 0).GetTimes();
     auto volts = event.GetChannel(0, 0).GetVolts();

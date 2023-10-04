@@ -223,7 +223,7 @@ public:
     DAQFile &Open(const std::string &);
     DAQFile &Reset();
 
-    DAQFile &GetEvent(int, DAQEvent &);
+    DAQFile &GetEvent(int);
 
     bool operator>>(DRSEvent &);
     bool operator>>(WDBEvent &);

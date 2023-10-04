@@ -1203,6 +1203,13 @@ DAQFile &DAQFile::Open(const string &fname)
     }
 }
 
+/*!
+ @brief Method to reset the file.
+
+ @details This method checks for file initialisation, in case it is not a warning is printed on screen. Otherwise the file goes back to first event header.
+
+ @return DAQFile&
+ */
 DAQFile &DAQFile::Reset()
 {
     if (initialization_ == 0)
@@ -1215,7 +1222,16 @@ DAQFile &DAQFile::Reset()
     return *this;
 }
 
-DAQFile &DAQFile::GetEvent(int evt_id, DAQEvent &event)
+/*!
+ @brief Method to select what event must be read next.
+
+ @details If the user wants to look at one specific event, given the event serial nuber, this method will bring the file to the exact location of that event.
+ A print of the found event header is performed to double check. The method does some checks on file boundaries, event size and file integrity. Then `file >> event` must be called to read the selected event.
+ 
+ @param evt_id The event serial number. The method considers the different numbering system between DRS (events start from 1) and WDB (events start from 0).
+ @return DAQFile& 
+ */
+DAQFile &DAQFile::GetEvent(int evt_id)
 {
     DAQFile &file = *this;
     int next_evt_pos;

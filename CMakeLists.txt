@@ -19,15 +19,18 @@ add_executable(main0 example/main0.cc)
 add_executable(main1 example/main1.cc)
 add_executable(main2 example/main2.cc)
 add_executable(main3 example/main3.cc)
+add_executable(main4 example/main4.cc)
 
 # Collega gli eseguibili alla libreria statica e a CERN ROOT
 target_link_libraries(main0 LibReadWD ${ROOT_LIBRARIES})
 target_link_libraries(main1 LibReadWD ${ROOT_LIBRARIES})
 target_link_libraries(main2 LibReadWD ${ROOT_LIBRARIES})
 target_link_libraries(main3 LibReadWD ${ROOT_LIBRARIES})
+target_link_libraries(main4 LibReadWD ${ROOT_LIBRARIES})
 
 # Aggiungi le directory di inclusione di CERN ROOT
 target_include_directories(main0 PRIVATE ${ROOT_INCLUDE_DIRS})
 target_include_directories(main1 PRIVATE ${ROOT_INCLUDE_DIRS})
 target_include_directories(main2 PRIVATE ${ROOT_INCLUDE_DIRS})
 target_include_directories(main3 PRIVATE ${ROOT_INCLUDE_DIRS})
+target_include_directories(main4 PRIVATE ${ROOT_INCLUDE_DIRS})

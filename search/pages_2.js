@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['the_20binary_20output_0',['The Binary Output',['../binary.html',1,'']]]
+  ['daqevent_20class_0',['How to configurate the DAQEvent class',['../daqcondig.html',1,'']]]
 ];

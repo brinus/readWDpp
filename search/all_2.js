@@ -1,7 +1,10 @@
 var searchData=
 [
-  ['evalintegrationbounds_0',['EvalIntegrationBounds',['../classDAQEvent.html#a746eeb78c5abe1d27d7c2d97c5a2f0f1',1,'DAQEvent']]],
-  ['evalpedestal_1',['EvalPedestal',['../classDAQEvent.html#a16b0dd6deb44b2476889d03cf2ab6e2e',1,'DAQEvent']]],
-  ['eventheader_2',['EventHeader',['../structEventHeader.html',1,'']]],
-  ['evtserial_5fold_5f_3',['evtserial_old_',['../classDAQEvent.html#a4d7624f7f66054c57e49612d9a1263f4',1,'DAQEvent']]]
+  ['ch_5f_0',['ch_',['../classDAQEvent.html#a4273c29770d341a1c7683e0cc715c63e',1,'DAQEvent']]],
+  ['ch_5fold_5f_1',['ch_old_',['../classDAQEvent.html#a379d5342763630c2fcb0795e3ea4fa6c',1,'DAQEvent']]],
+  ['class_2',['How to configurate the DAQEvent class',['../daqcondig.html',1,'']]],
+  ['classes_3',['The main classes',['../index.html#autotoc_md8',1,'']]],
+  ['close_4',['Close',['../classDAQFile.html#a8c817a643655e94d41b1cc7487a61d8d',1,'DAQFile']]],
+  ['config_5f_5',['config_',['../classDAQEvent.html#a0b61f4e98d430932f006d1d7ef94c882',1,'DAQEvent']]],
+  ['configurate_20the_20daqevent_20class_6',['How to configurate the DAQEvent class',['../daqcondig.html',1,'']]]
 ];

@@ -1,10 +1,9 @@
 var searchData=
 [
-  ['samples_5fper_5fwaveform_0',['SAMPLES_PER_WAVEFORM',['../readWD_8hh.html#a0606d74796559e9e9b17d890a305d35a',1,'readWD.hh']]],
-  ['sec_1',['sec',['../structEventHeader.html#a54e689cf8c5e5aa0f749238c028ac106',1,'EventHeader']]],
-  ['serialnumber_2',['serialNumber',['../structEventHeader.html#a0ec383672d74e1048054ebda0704fcde',1,'EventHeader']]],
-  ['setintwindow_3',['SetIntWindow',['../classDAQEvent.html#aae14678619562b01b8469eb415b53eb4',1,'DAQEvent::SetIntWindow(int, int)'],['../classDAQEvent.html#aa207b913538e3883af8dd8f26abd0c0a',1,'DAQEvent::SetIntWindow(float, float)']]],
-  ['setpeakthr_4',['SetPeakThr',['../classDAQConfig.html#a8a9fe1b70631736eb656dbbe77066c1e',1,'DAQConfig::SetPeakThr(float, int, int)'],['../classDAQConfig.html#a4ee807546409f4b4d15dad93263a0c67',1,'DAQConfig::SetPeakThr(float)'],['../classDAQEvent.html#a027d6a5b99eccf0d01cda8613aa4d46f',1,'DAQEvent::SetPeakThr(float)']]],
-  ['setpedinterval_5',['SetPedInterval',['../classDAQEvent.html#a0ba141370d89ff2e417adea861f23895',1,'DAQEvent']]],
-  ['showconfig_6',['ShowConfig',['../classDAQConfig.html#a558ff0f8f53c52554ff5d5bc79e6e5bd',1,'DAQConfig::ShowConfig()'],['../classDAQEvent.html#aca1a6e666ac7f8d3ad13409dbb3734a8',1,'DAQEvent::ShowConfig()']]]
+  ['o_5f_0',['o_',['../classDAQFile.html#a2fca141b6ff949db0e97bbd08acf9180',1,'DAQFile']]],
+  ['open_1',['Open',['../classDAQFile.html#a825bff86707cd65dcf2e625c25d85f96',1,'DAQFile']]],
+  ['operator_20bool_2',['operator bool',['../classDAQFile.html#a987c87299b6732a67a7c80bbbef59f93',1,'DAQFile']]],
+  ['operator_3c_3c_3',['operator&lt;&lt;',['../readWD_8cc.html#a7b01892b544437567d559133c5d09c67',1,'operator&lt;&lt;(ostream &amp;o, const TAG &amp;tag):&#160;readWD.cc'],['../readWD_8cc.html#a61bd55f61ec3079242e3576725129379',1,'operator&lt;&lt;(ostream &amp;o, const EventHeader &amp;eh):&#160;readWD.cc']]],
+  ['operator_3e_3e_4',['operator&gt;&gt;',['../classDAQFile.html#ac2fdea8b72f71226b07cd1060aaa7586',1,'DAQFile::operator&gt;&gt;(DRSEvent &amp;)'],['../classDAQFile.html#a553de18754148649638f5ebd2fd2ff8f',1,'DAQFile::operator&gt;&gt;(WDBEvent &amp;)'],['../classDAQFile.html#a402fdd50afd00045414f77539a1fba8a',1,'DAQFile::operator&gt;&gt;(TAG &amp;)'],['../classDAQFile.html#a32b8493c4a26cbd0de71559be66a6ec1',1,'DAQFile::operator&gt;&gt;(EventHeader &amp;)']]],
+  ['output_5',['The Binary Output',['../binary.html',1,'']]]
 ];

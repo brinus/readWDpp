@@ -221,6 +221,9 @@ public:
 
     DAQFile &Close();
     DAQFile &Open(const std::string &);
+    DAQFile &Reset();
+
+    DAQFile &GetEvent(int);
 
     bool operator>>(DRSEvent &);
     bool operator>>(WDBEvent &);
@@ -247,6 +250,7 @@ private:
     MAP times_;            ///< Struct to hold \f$ \Delta t\f$ read from the ```TIME```part of the file
     bool is_lab_;          ///< Flag to check if the board is from LAB or not
     std::string type_;     ///< Flag to store the type of the board
+    int first_evt_pos_;    ///< Position of first event header
 
     friend class DAQConfig;
 };

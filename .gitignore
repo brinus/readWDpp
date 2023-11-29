@@ -36,6 +36,7 @@
 readWD
 html
 ignored_tests
+build
 
 # Tests
 main0

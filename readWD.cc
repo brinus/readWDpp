@@ -326,6 +326,57 @@ float DAQEvent::GetAmplitude()
 }
 
 /*!
+ @brief Find the volt at requested time on selected channel.
+
+ @param time
+ @return float
+ */
+float DAQEvent::GetVolt(float time)
+{
+    if (!is_init_)
+    {
+        cerr << "!! Error: no event read yet" << endl;
+        exit(0);
+    }
+
+    if (!is_getch_)
+    {
+        cerr << "!! Error: select a channel using DAQEvent::GetChannel()" << endl;
+        exit(0);
+    }
+
+    (*this).EvalPedestal();
+
+    auto &volts = volts_[ch_.first][ch_.second];
+    auto &times = times_[ch_.first][ch_.second];
+    int i = 10;
+
+    if (time > times[SAMPLES_PER_WAVEFORM - 1])
+    {
+        cerr << "!! Error: requested time exceedes the maximum time in this waveform" << endl;
+        exit(0);
+    }
+
+    if (time < times[0])
+    {
+        cerr << "!! Error: requested time exceedes the minimum time in this waveform" << endl;
+        exit(0);
+    }
+
+    while (times[i] < time && i < SAMPLES_PER_WAVEFORM - 10)
+    {
+        i++;
+    }
+
+    auto volt = volts[i] + (time - times[i]) * (volts[i] - volts[i - 1]) / (times[i] - times[i - 1]);
+
+    is_getch_ = false;
+
+    return volt;
+
+}
+
+/*!
  @brief Find the time at which the waveform goes under a given threshold level.
 
  @details This method finds the first index at which the waveform crosses the given threshold value. Once the index is found, the method interpolates the point at this index with the next point to return the time given by the intersection between the interpolation line and the horizontal line given by the threshold value passed by the user. The method can have two different behaviours:
@@ -1227,9 +1278,9 @@ DAQFile &DAQFile::Reset()
 
  @details If the user wants to look at one specific event, given the event serial nuber, this method will bring the file to the exact location of that event.
  A print of the found event header is performed to double check. The method does some checks on file boundaries, event size and file integrity. Then `file >> event` must be called to read the selected event.
- 
+
  @param evt_id The event serial number. The method considers the different numbering system between DRS (events start from 1) and WDB (events start from 0).
- @return DAQFile& 
+ @return DAQFile&
  */
 DAQFile &DAQFile::GetEvent(int evt_id)
 {

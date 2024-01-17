@@ -135,6 +135,7 @@ public:
     bool IsSaturated();
     float GetCharge();
     float GetAmplitude();
+    float GetVolt(float);
     float GetTime(float);
     float GetTimeCF(float);
     float GetRiseTime();

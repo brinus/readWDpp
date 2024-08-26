@@ -298,7 +298,7 @@ float DAQEvent::GetCharge()
 
     for (int i = iw_.first; i < iw_.second; ++i)
     {
-        charge += (volts[i + 1] + volts[i] - 2 * ped_.first) / (2 * (times[i + 1] - times[i]));
+        charge += (volts[i + 1] + volts[i] - 2 * ped_.first) * (times[i + 1] - times[i]) / 2;
     }
 
     return abs(charge);

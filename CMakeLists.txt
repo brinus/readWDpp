@@ -8,29 +8,26 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # CERN ROOT
 find_package(ROOT REQUIRED)
 
+# Include directories
+include_directories(include)
+
 # Main files for static library
-add_library(LibReadWD STATIC
-    readWD.hh
-    readWD.cc
-)
+file(GLOB_RECURSE SRC_FILES src/*.cc)
 
-# Examples' main
-add_executable(main0 example/main0.cc)
-add_executable(main1 example/main1.cc)
-add_executable(main2 example/main2.cc)
-add_executable(main3 example/main3.cc)
-add_executable(main4 example/main4.cc)
+# Debug message to check if files are found
+message(STATUS "Source files: ${SRC_FILES}")
 
-# Collega gli eseguibili alla libreria statica e a CERN ROOT
-target_link_libraries(main0 LibReadWD ${ROOT_LIBRARIES})
-target_link_libraries(main1 LibReadWD ${ROOT_LIBRARIES})
-target_link_libraries(main2 LibReadWD ${ROOT_LIBRARIES})
-target_link_libraries(main3 LibReadWD ${ROOT_LIBRARIES})
-target_link_libraries(main4 LibReadWD ${ROOT_LIBRARIES})
+# Output directory for the library
+set(LIBRARY_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/lib)
 
-# Aggiungi le directory di inclusione di CERN ROOT
-target_include_directories(main0 PRIVATE ${ROOT_INCLUDE_DIRS})
-target_include_directories(main1 PRIVATE ${ROOT_INCLUDE_DIRS})
-target_include_directories(main2 PRIVATE ${ROOT_INCLUDE_DIRS})
-target_include_directories(main3 PRIVATE ${ROOT_INCLUDE_DIRS})
-target_include_directories(main4 PRIVATE ${ROOT_INCLUDE_DIRS})
+# Create the static library
+add_library(ReadWD STATIC ${SRC_FILES})
+
+# Link against ROOT libraries
+target_link_libraries(ReadWD ${ROOT_LIBRARIES})
+
+# Main executable
+add_executable(main5 example/main5.cc)
+
+# Link the executable with the ReadWD library and ROOT libraries
+target_link_libraries(main5 ReadWD ${ROOT_LIBRARIES})

@@ -12,24 +12,17 @@
 #ifndef DAQFILE_H
 #define DAQFILE_H
 
-#include <iostream>
-#include <map>
-#include <string>
-#include <array>
-#include <fstream>
+#include "DAQCommon.hh"
 #include "DAQEvent.hh"
 
 class DAQFile
 {
-    using MAP = std::map<int, std::map<int, std::array<float, 1024>>>; ///< Alias for data structure.
-
 public:
-    DAQFile();
     DAQFile(const std::string &);
     ~DAQFile();
 
-    DAQFile &Close();
     DAQFile &Open(const std::string &);
+    DAQFile &Close();
     DAQFile &Reset();
 
 private:
@@ -40,18 +33,20 @@ private:
         LAB  ///< LAB board.
     }; ///< Enum for board type.
 
-    std::ifstream in_;        ///< Input file stream.
-    std::string filename_;    ///< File name.
-    unsigned int firstPos_;   ///< First event position of the file.
-    bool init_;               ///< Flag to check if the file has been initialised.
-    BoardType type_;          ///< Board type.
-    MAP times_; ///< Array of times.
+    std::ifstream in_;      ///< Input file stream.
+    std::string filename_;  ///< File name.
+    unsigned int firstPos_; ///< First event position of the file.
+    bool init_;             ///< Flag to check if the file has been initialised.
 
-    template<typename T>
-    DAQFile &Read(T t);
+    BoardType type_; ///< Board type.
+    MAP times_;      ///< Array of times.
+
+    DAQFile();
+
+    DAQFile &ReadWord();
 
     DAQFile &Initialise();
-    DAQEvent *CreateEvent(BoardType type);
+    DAQEvent *CreateEvent(BoardType);
 };
 
 #endif

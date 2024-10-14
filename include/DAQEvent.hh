@@ -12,9 +12,9 @@
 #ifndef DAQEVENT_H
 #define DAQEVENT_H
 
-class DAQEvent {
-    using MAP = std::map<int, std::map<int, std::vector<float>>>; ///< Alias for data structure.
-};
+#include "DAQCommon.hh"
+
+class DAQEvent {};
 
 class DRSEvent : public DAQEvent {};
 class WDBEvent : public DAQEvent {};

@@ -27,7 +27,7 @@ add_library(ReadWD STATIC ${SRC_FILES})
 target_link_libraries(ReadWD ${ROOT_LIBRARIES})
 
 # Main executable
-add_executable(main5 example/main5.cc)
+add_executable(DAQFile_test00 example/DAQFile_test00.cc)
 
 # Link the executable with the ReadWD library and ROOT libraries
-target_link_libraries(main5 ReadWD ${ROOT_LIBRARIES})
+target_link_libraries(DAQFile_test00 ReadWD ${ROOT_LIBRARIES})

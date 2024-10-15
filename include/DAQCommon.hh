@@ -24,4 +24,40 @@
 
 using MAP = std::map<int, std::map<int, std::vector<float>>>; ///< Alias for data structure.
 
+enum FileTag
+{
+    F_HEADER,
+    T_HEADER,
+    B_HEADER,
+    C_HEADER,
+    E_HEADER,
+}; ///< Enum for tags.
+
+enum BoardType
+{
+    DRS, ///< DRS board.
+    WDB, ///< WDB board.
+    LAB  ///< LAB board.
+}; ///< Enum for board type.
+
+/*!
+ @brief Informations about the event contained in the file.
+
+ Everytime an @ref EventHeader is read, the infos about the event are read in order just as specified in the
+ DRS Evaluation Board manual.
+ */
+struct EventHeader
+{
+    char tag[4];                ///< The tag of the event header.
+    unsigned int serialNumber;  ///< The serial number of the event: starting from 1 for DRS and 0 for WDB.
+    unsigned short year;        ///< The year.
+    unsigned short month;       ///< The month.
+    unsigned short day;         ///< The day.
+    unsigned short hour;        ///< The hour.
+    unsigned short min;         ///< The minute.
+    unsigned short sec;         ///< The second.
+    unsigned short ms;          ///< The millisecond.
+    unsigned short rangeCenter; ///< The rangeCenter (in Volts).
+};
+
 #endif // COMMONDEFINITIONS_H

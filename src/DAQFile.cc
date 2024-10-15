@@ -6,25 +6,34 @@
 */
 
 #include "DAQFile.hh"
+#include "DAQException.hh"
 
 /*!
- @brief Construct a new DAQFile::DAQFile object
+ @brief Construct a new DAQFile object
  */
-DAQFile::DAQFile() : init_(false) {}
+DAQFile::DAQFile() {}
 
 /*!
  @brief Construct a new DAQFile object
  @param filename The name of the file to open
  */
 DAQFile::DAQFile(const std::string &filename)
-    : filename_(filename), init_(false), in_(filename, std::ios::binary)
+    : filename_(filename),
+      init_(false),
+      in_(filename, std::ios::binary)
 {
-    std::cout << "File " << filename << " opened" << std::endl;
-
-    if (!in_.is_open())
-        throw std::runtime_error("Failed to open file: " + filename);
-
-    (*this).Initialise();
+    try
+    {
+        if (!in_.is_open())
+            throw std::runtime_error("Failed to open file: " + filename);
+        std::cout << "File opened: " << filename << std::endl;
+        init_ = Initialise();
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << e.what() << std::endl;
+        return;
+    }
 }
 
 /*!
@@ -38,98 +47,67 @@ DAQFile::~DAQFile()
     }
 }
 
-DAQFile &DAQFile::ReadWord()
+/*!
+ @brief Initialise the file
+ @return true if the file has been initialised, false otherwise
+ */
+bool DAQFile::Initialise()
 {
-    if (!in_.good())
-    {
-        std::cerr << "!! ERROR: Unable to read file " << filename_ << std::endl;
-    }
-
+    std::cout << "Initialising file..." << std::endl;
+    std::string word(4, '\0');
     DAQFile &file = *this;
-    char w[4];
 
-    if (!init_)
+    try // Read the FILE HEADER
     {
-        in_.read(w, 4); // Reading FILE HEADER
-        if (w[0] == 'D' && w[1] == 'R' && w[2] == 'S')
+        in_.read(reinterpret_cast<char *>(&word[0]), 4);
+        if (word == "DRS8")
         {
-            if (w[3] == '8')
-            {
-                std::cout << "WaveDREAM Board" << std::endl;
-                type_ = WDB;
-            }
-            else
-            {
-                std::cout << "DRS Evaluation Board" << std::endl;
-                type_ = DRS;
-            }
-            in_.read(w, 4); // Reading TIME HEADER
+            type_ = WDB;
+            std::cout << "WaveDREAM Board found" << std::endl;
+            in_.read(reinterpret_cast<char *>(&word[0]), 4);
         }
-        else if (strcmp(w, "TIME") == 0) // For LAB-DRS first line is TIME HEADER
+        else if (word.substr(0, 3) == "DRS")
         {
-            std::cout << "LAB-DRS Evaluation Board" << std::endl;
+            type_ = DRS;
+            std::cout << "DRS Evaluation Board found" << std::endl;
+            in_.read(reinterpret_cast<char *>(&word[0]), 4);
+        }
+        else if (word == "TIME")
+        {
             type_ = LAB;
+            std::cout << "LAB-DRS Evaluation Board found" << std::endl;
         }
         else
         {
-            std::cerr << "!! ERROR: Invalid file header" << std::endl
-                      << "Expected \"DRS\", found " << w << std::endl;
-            std::cerr << "Initialisation failed" << std::endl;
-            return file;
+            throw DAQException(word, FileTag::F_HEADER);
         }
+    }
+    catch (const DAQException &e)
+    {
+        std::cerr << e.what() << std::endl;
+        return false;
+    }
 
-        if (strcmp(w, "TIME") != 0)
+    try // Read the TIME HEADER
+    {
+        if (word != "TIME")
         {
-            std::cerr << "!! ERROR: Invalid time header" << std::endl
-                      << "Expected \"TIME\", found " << w << std::endl;
-            std::cerr << "Initialisation failed" << std::endl;
-            return file;
+            throw DAQException(word, FileTag::T_HEADER);
         }
     }
-
-    return file;
-}
-
-DAQEvent *DAQFile::CreateEvent(BoardType type)
-{
-    switch (type)
+    catch(const DAQException &e)
     {
-    case DRS:
-        return new DRSEvent();
-    case WDB:
-        return new WDBEvent();
-    case LAB:
-        return new LABEvent();
-    default:
-        return nullptr;
-    }
-}
-
-/*!
- @brief Initialise the file reading the **TIME** block.
-
- @return DAQFile&
- */
-DAQFile &DAQFile::Initialise()
-{
-    DAQFile &file = *this;
-    char word[4];
-
-    if (in_.is_open() == false)
-    {
-        std::cerr << "!! ERROR: File not open " << std::endl
-                  << "Use DAQFile::Open()" << std::endl;
-        return file;
+        std::cerr << e.what() << std::endl;
+        return false;
     }
 
-    if (init_ == true)
+    int i = 0;    
+    for (auto line : file)
     {
-        std::cout << "File already initialised" << std::endl;
-        return file;
+        if (i == 100) break;
+        std::cout << i << ": " << line << std::endl;
+        ++i;
     }
 
-    file.ReadWord();
-    init_ = true;
-
-    return file;
+    return true;
 }

@@ -21,21 +21,49 @@ public:
     DAQFile(const std::string &);
     ~DAQFile();
 
-    DAQFile &Open(const std::string &);
-    DAQFile &Close();
-    DAQFile &Reset();
+    // Define an iterator class
+    class Iterator {
+    public:
+        Iterator(std::ifstream* stream) : stream_(stream) {
+            ++(*this); // Read the first line
+        }
+
+        std::string operator*() const {
+            return current_line_;
+        }
+
+        Iterator& operator++() {
+            char buffer[4];
+            if (stream_ && stream_->read(buffer, 4)) {
+                current_line_ = std::string(buffer, 4);
+            } else {
+                // End of file or error
+                stream_ = nullptr;
+            }
+            return *this;
+        }
+
+        bool operator!=(const Iterator& other) const {
+            return stream_ != other.stream_;
+        }
+
+    private:
+        std::ifstream* stream_;
+        std::string current_line_;
+    };
+
+    Iterator begin() {
+        return Iterator(&in_);
+    }
+
+    Iterator end() {
+        return Iterator(nullptr);
+    }
 
 private:
-    enum BoardType
-    {
-        DRS, ///< DRS board.
-        WDB, ///< WDB board.
-        LAB  ///< LAB board.
-    }; ///< Enum for board type.
 
     std::ifstream in_;      ///< Input file stream.
     std::string filename_;  ///< File name.
-    unsigned int firstPos_; ///< First event position of the file.
     bool init_;             ///< Flag to check if the file has been initialised.
 
     BoardType type_; ///< Board type.
@@ -43,10 +71,7 @@ private:
 
     DAQFile();
 
-    DAQFile &ReadWord();
-
-    DAQFile &Initialise();
-    DAQEvent *CreateEvent(BoardType);
+    bool Initialise();
 };
 
 #endif

@@ -4,5 +4,4 @@
 int main()
 {
     DAQFile file("../data/testDRS.dat");
-    return 0;
 }

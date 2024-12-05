@@ -2,6 +2,7 @@
 #include "DAQFile.h"
 
 int main() {
-	DAQFile file("../data/testDRS.data");
+	std::string fileName = std::string(DATA_DIR) + "/testDRS.dat";
+	DAQFile file(fileName);
 	return 0;
 }

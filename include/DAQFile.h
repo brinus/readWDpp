@@ -15,6 +15,7 @@ public:
 
 private:
 	std::ifstream _in;
+	std::string _fileName;
 };
 
 #endif // DAQFILE_H

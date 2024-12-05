@@ -1,9 +1,27 @@
-set(HEADER_LIST "${ReadWD_SOURCE_DIR}/include/DAQFile.h")
+# src/CMakeLists.txt
 
-add_library(readWD DAQFile.cpp ${HEADER_LIST})
+set(SOURCES
+	DAQFile.cpp
+)
 
-target_include_directories(readWD PUBLIC ../include)
+set(HEADERS_PUBLIC
+	"${CMAKE_SOURCE_DIR}/include/DAQFile.h"
+)
 
-source_group(TREE "${PROJECT_SOURCE_DIR}/include"
-			 PREFIX "Header Files"
-			 FILES ${HEADER_LIST})
+add_library(${PROJECT_NAME} ${SOURCES} ${HEADERS_PUBLIC})
+
+target_include_directories(${PROJECT_NAME}
+	PUBLIC "${CMAKE_SOURCE_DIR}/include"
+	PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}"
+)
+
+source_group(
+	TREE "${CMAKE_SOURCE_DIR}/include"
+	PREFIX "Public Headers"
+	FILES ${HEADERS_PUBLIC}
+)
+source_group(
+	TREE "${CMAKE_SOURCE_DIR}/src"
+	PREFIX "Sources"
+	FILES ${SOURCES}
+)

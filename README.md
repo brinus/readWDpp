@@ -5,19 +5,13 @@
 # readWDpp
 Library to read binary files from WaveDreamBoard (Paul Scherrer Institut).
 
-The library implements some classes to handle file(s) coming from DRS and/or WDB. The final aim is to provide some methods to gather informations such as charge and amplitude about the events in the file(s). 
+The library implements some classes to handle file(s) coming from DRS and/or WDB. The final aim is to provide usefull methods to gather informations such as charge and amplitude about the events in the file(s). 
 
 Read the [documentation](https://brinus.github.io/readWDpp/) for more infos.
 
-To run the examples and compile the static library you can use the `CMakeLists.txt` file
+To run the examples and compile the library you can use the `CMakeLists.txt` file
 ```
-$ mkdir build
-$ cd build
-```
-Run `cmake`
-```
-$ cmake ..
-...
-$ make
+readWDpp/ $ cmake -S . -B build
+readWDpp/ $ cmake --build build
 ```
 This will generate for you all the executables of the examples.

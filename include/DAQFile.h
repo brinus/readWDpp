@@ -4,10 +4,14 @@
 #include <iostream>
 #include <fstream>
 
+#include "../src/DAQCommon.h"
+
 class DAQFile {
 public:
 	DAQFile(const std::string& filename);
 	~DAQFile();
+
+	static const int& GetWaveformLenght() { return WAVEFORMSAMPLE; };
 
 private:
 	std::ifstream _in;

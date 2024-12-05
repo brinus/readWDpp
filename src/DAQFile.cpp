@@ -1,4 +1,5 @@
 #include "DAQFile.h"
+#include "DAQCommon.h"
 
 DAQFile::DAQFile(const std::string& filename) :
 	_in(std::ifstream(filename, std::ios::in | std::ios::binary))

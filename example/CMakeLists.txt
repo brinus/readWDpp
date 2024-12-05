@@ -1,0 +1,2 @@
+add_executable(exDAQFile_00 exDAQFile_00.cpp)
+target_link_libraries(exDAQFile_00 PRIVATE readWD)

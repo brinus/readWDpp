@@ -31,15 +31,5 @@
 *.out
 *.app
 
-.vscode
-.DS_Store
-readWD
-html
-ignored_tests
-build
-
-# Tests
-main0
-main1
-main2
-main3
+.vs/
+out/

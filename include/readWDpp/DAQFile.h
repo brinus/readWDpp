@@ -4,33 +4,28 @@
 #include <iostream>
 #include <fstream>
 #include <memory>
+#include <string>
 
-#include "../src/private/DAQCommon.h"
+enum class BoardType_t : unsigned short;
 
 class DAQFile
 {
 public:
 	DAQFile(const std::string &filename);
 	~DAQFile();
-
-	static const int &GetWaveformLenght() { return WAVEFORMSAMPLE; };
+	DAQFile(const DAQFile &) = delete;
+	DAQFile &operator=(const DAQFile &) = delete;
 
 private:
-	void Initialize();
+	bool Initialize();
 
-	class DAQReader
-	{
-	public:
-		explicit DAQReader() = default;
-		~DAQReader() = default;
-
-		template <typename T>
-		void Read(T *data);
-	};
-
+	class DAQReader;
 	std::unique_ptr<DAQReader> _reader; ///< Unique pointer to DAQReader object
-	std::ifstream _in;					///< Input file stream
-	std::string _fileName;				///< File name
+
+	std::ifstream _in;		///< Input file stream
+	std::string _fileName;	///< File name
+	BoardType_t _boardType; ///< Board type
+	bool _init;				///< Initialization flag
 };
 
 #endif // DAQFILE_H

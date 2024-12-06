@@ -1,6 +1,6 @@
 # example/CMakeLists.txt
 
-file(GLOB EXAMPLES "*.cpp")
+file(GLOB EXAMPLES "${CMAKE_SOURCE_DIR}/example/*.cpp")
 
 foreach(EXAMPLE ${EXAMPLES})
 	get_filename_component(EXAMPLE_NAME ${EXAMPLE} NAME_WE)
@@ -10,4 +10,14 @@ foreach(EXAMPLE ${EXAMPLES})
 	target_include_directories(${EXAMPLE_NAME} PRIVATE "${CMAKE_SOURCE_DIR}/include/readWDpp")
 	target_compile_definitions(${EXAMPLE_NAME} PRIVATE DATA_DIR="${CMAKE_SOURCE_DIR}/data")
 
+	install(TARGETS ${EXAMPLE_NAME}
+		RUNTIME DESTINATION examples
+	)
+
 endforeach()
+
+source_group(
+	TREE "${CMAKE_SOURCE_DIR}/example"
+	PREFIX "Examples"
+	FILES ${EXAMPLES}
+)

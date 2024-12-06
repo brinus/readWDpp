@@ -1,5 +1,5 @@
 #include <iostream>
-#include "DAQFile.h"
+#include "readWDpp/DAQFile.h"
 
 int main() {
 	std::string fileName = std::string(DATA_DIR) + "/testDRS.dat";

@@ -32,5 +32,6 @@
 *.app
 
 .vs/
+.vscode/
 out/
 build/

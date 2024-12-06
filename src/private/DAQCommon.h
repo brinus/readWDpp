@@ -3,7 +3,8 @@
 
 inline const int WAVEFORMSAMPLE = 1024;
 
-enum class BoardType_t : int {
+enum class BoardType_t : int
+{
 	WDB,
 	DRS,
 	LAB

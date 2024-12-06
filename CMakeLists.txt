@@ -9,8 +9,5 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_<LANG>_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-include_directories(include/readWDpp)
-include_directories(src/private)
-
 add_subdirectory(src)
 add_subdirectory(example)

@@ -1,12 +1,16 @@
 #ifndef DAQ_READER_H
 #define DAQ_READER_H
 
+#include <fstream>
+#include <string>
+
 #include "DAQFile.h"
+#include "DAQCommon.h"
 
 class DAQFile::DAQReader
 {
 public:
-    DAQReader(DAQFile *const file);
+    DAQReader(const std::string &filename);
     ~DAQReader() = default;
 
     bool Read_F_HEADER();
@@ -19,9 +23,14 @@ public:
 
 private:
 
-    DAQFile *const _parent; ///< Pointer to DAQFile object
-    unsigned int _board;    ///< Board type
-    unsigned int _channel;  ///< Channel number
+    bool Initialize();
+
+    std::ifstream   _in;        ///< Input file stream
+    std::string     _fileName;  ///< File name
+    bool            _init;      ///< Initialization flag
+    unsigned int    _board;     ///< Board type
+    unsigned int    _channel;   ///< Channel number
+    BoardType_t     _boardType; ///< Board type
 };
 
 #endif // DAQ_READER_H

@@ -6,9 +6,15 @@ project(ReadWD VERSION 1.0
 			   LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_<LANG>_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}/out")
+
+source_group(
+    TREE "${CMAKE_SOURCE_DIR}/include/private"
+    PREFIX "Private Headers"
+    FILES ${HEADERS_PRIVATE}
+)
 
 add_subdirectory(src)
 add_subdirectory(example)

@@ -8,8 +8,10 @@ DAQFile::DAQReader::DAQReader(const std::string &filename)
     : _in(filename, std::ios::in | std::ios::binary),
       _fileName(filename),
       _init(false),
-      _board(0),
-      _channel(0)
+      _board(-1),
+      _channel(-1),
+      _boardMap(),
+      _eventHeader()
 {
     try
     {
@@ -36,25 +38,16 @@ bool DAQFile::DAQReader::Initialize()
         Read_F_HEADER();
         Read_T_HEADER();
 
-        unsigned int iBoard = 0;
-        unsigned int jChannel = 0;
         while (Read_B_HEADER())
-        {
             while (Read_C_HEADER())
-            {
-                //_reader->Read_T_ARRAY();
-                _in.seekg(4096, std::ios::cur);
-                jChannel++;
-            }
-            iBoard++;
-            jChannel = 0;
-        }
+                Read_T_ARRAY();
     }
     catch (const std::exception &e)
     {
         std::cerr << e.what() << '\n';
         return false;
     }
+
     return _in.good();
 }
 
@@ -124,7 +117,7 @@ bool DAQFile::DAQReader::Read_B_HEADER()
     if (!_init && std::string(board, 2) == "B#")
     {
         _board++;
-        if (_board == 1)
+        if (_board == 0)
             std::cout << "Board list: " << std::string(board, 2) << id;
         else
             std::cout << "            " << std::string(board, 2) << id;
@@ -155,7 +148,7 @@ bool DAQFile::DAQReader::Read_C_HEADER()
     {
         _in.seekg(-4, std::ios::cur);
         if (!_init)
-            std::cout << " (" << _channel << " channels)\n";
+            std::cout << " (" << _channel + 1 << " channels)\n";
         return false;
     }
     else
@@ -166,7 +159,45 @@ bool DAQFile::DAQReader::Read_C_HEADER()
     return _in.good();
 }
 
+bool DAQFile::DAQReader::Read_E_HEADER()
+{
+    _in.read(reinterpret_cast<char *>(&_eventHeader), sizeof(EventHeader_t));
+    return _in.good();
+}
+
 bool DAQFile::DAQReader::Read_T_ARRAY()
 {
+    _boardMap[_board][_channel] = std::make_pair(TimeArray_t(), VoltArray_t());
+    TimeArray_t &time = _boardMap[_board][_channel].first;
+    _in.read(reinterpret_cast<char *>(time.GetTimeArray()), sizeof(TimeArray_t));
     return _in.good();
+}
+
+bool DAQFile::DAQReader::Read_V_ARRAY()
+{
+    VoltArray_t &volt = _boardMap[_board][_channel].second;
+    _in.read(reinterpret_cast<char *>(volt.GetVoltArray()), sizeof(VoltArray_t));
+    return _in.good();
+}
+
+void DAQFile::DAQReader::ReadEvent() 
+{
+    try
+    {
+        Read_E_HEADER();
+        while (Read_B_HEADER())
+        {
+            _in.seekg(4, std::ios::cur);
+            while (Read_C_HEADER())
+            {
+                _in.seekg(4, std::ios::cur);
+                Read_V_ARRAY();
+            }
+
+        }
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << e.what() << '\n';
+    }
 }

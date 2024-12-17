@@ -8,3 +8,8 @@ DAQFile::DAQFile(const std::string &filename) : _reader(std::make_unique<DAQRead
 DAQFile::~DAQFile()
 {   
 };
+
+void DAQFile::ReadEvent()
+{
+    _reader->ReadEvent();
+};

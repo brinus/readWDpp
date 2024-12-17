@@ -6,10 +6,6 @@
 
 inline const int WAVEFORMSAMPLE = 1024; ///< Number of samples in a waveform
 
-
-typedef std::map<int, Channel_t> Board_t;
-typedef std::pair<TimeArray_t, VoltArray_t> Channel_t;
-
 class TimeArray_t
 {
 	public:
@@ -18,6 +14,8 @@ class TimeArray_t
 
 		float operator[](const int &index) const { return _timeArray[index]; };
 		float &operator[](const int &index) { return _timeArray[index]; };
+
+		std::array<float, WAVEFORMSAMPLE> * GetTimeArray() { return &_timeArray; };
 
 		void Calibrate(const unsigned int& tCell);
 
@@ -28,17 +26,23 @@ class TimeArray_t
 class VoltArray_t
 {
 	public:
-		VoltageArray_t();
-		VoltageArray_t(const float &voltage);
+		VoltArray_t() = default;
+		VoltArray_t(const float &voltage);
 
-		unsigned int operator[](const int &index) const { return _voltageArray[index]; };
-		unsigned int &operator[](const int &index) { return _voltageArray[index]; };
+		unsigned int operator[](const int &index) const { return _voltArray[index]; };
+		unsigned int &operator[](const int &index) { return _voltArray[index]; };
+
+		std::array<unsigned int, WAVEFORMSAMPLE> * GetVoltArray() { return &_voltArray; };
 
 		void Calibrate(const unsigned int& range);
 
 	private:
-		std::array<unsigned int, WAVEFORMSAMPLE> _voltageArray;
+		std::array<unsigned int, WAVEFORMSAMPLE> _voltArray;
 };
+
+typedef std::pair<TimeArray_t, VoltArray_t> Channel_t;
+
+typedef std::map<int, Channel_t> Board_t;
 
 /*!
  * @brief Enum class for Board Type
@@ -70,6 +74,20 @@ enum class BlockType_t : int
 	E_HEADER, ///< Event Header
 	T_ARRAY,  ///< Time Array
 	V_ARRAY	  ///< Voltage Array
+};
+
+struct EventHeader_t
+{
+    char tag[4];                
+    unsigned int serialNumber;  
+    unsigned short year;        
+    unsigned short month;       
+    unsigned short day;         
+    unsigned short hour;        
+    unsigned short min;         
+    unsigned short sec;         
+    unsigned short ms;          
+    unsigned short rangeCenter; 
 };
 
 #endif // DAQCOMMON_H

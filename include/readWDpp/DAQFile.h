@@ -12,6 +12,8 @@ public:
     DAQFile(const DAQFile &) = delete;
     DAQFile &operator=(const DAQFile &) = delete;
 
+    inline void ReadEvent();
+
 private:
     class DAQReader;
     std::unique_ptr<DAQReader> _reader; ///< Pointer to implementation

@@ -1,7 +1,8 @@
 #pragma once
 
-namespace readWDpp {
-    class event {
-
+namespace readWDpp
+{
+    class event
+    {
     };
 }

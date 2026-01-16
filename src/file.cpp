@@ -1,12 +1,2 @@
-#include "file.hpp"
-#include "file_impl.hpp"
+#include "readWDpp/file.hpp"
 
-namespace readWDpp
-{
-    file::file(const std::string &filename)
-        : _pimpl(std::make_unique<file::impl>(filename))
-    {
-    }
-
-    file::~file() = default;
-}
